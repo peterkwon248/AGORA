@@ -92,6 +92,27 @@ class ConversationEngineTest {
     }
 
     @Test
+    fun `침묵한 사람은 새 발언이 나오기 전까지 다시 부르지 않는다`() = runTest {
+        // PC 시험(qwen2.5:7b)에서 쇼펜하우어가 연달아 두 번 침묵 차례를 받던 버그
+        val p = Recording(DemoInferenceProvider(mapOf("nietzsche" to listOf("첫 마디요."), "schopenhauer" to listOf("[PASS]"))))
+        val events = ConversationEngine(registry, p).run("r", RoomKind.GROUP, "ko",
+            TurnInput(RoomKind.GROUP, two, relevance = mapOf("nietzsche" to 1.0), policy = RoomPolicy(autonomy = Autonomy.ACTIVE)),
+            userSays, 1, { 1 }).toList()
+        assertEquals(1, events.count { it is FlowEvent.Silent }, "침묵은 한 번이면 흐름이 끝나야 한다: $events")
+        assertEquals(2, p.requests.size)
+    }
+
+    @Test
+    fun `괄호 없는 PASS도 침묵이고 문장 속 pass는 침묵이 아니다`() = runTest {
+        for ((reply, silent) in listOf("PASS" to true, "(pass)." to true, "I'll pass on the cake, thanks." to false)) {
+            val p = DemoInferenceProvider(mapOf("nietzsche" to listOf("첫 마디요."), "schopenhauer" to listOf(reply)))
+            val events = ConversationEngine(registry, p).run("r", RoomKind.GROUP, "ko",
+                TurnInput(RoomKind.GROUP, two, relevance = mapOf("nietzsche" to 1.0)), userSays, 1, { 1 }).toList()
+            assertEquals(silent, events.any { it is FlowEvent.Silent && it.speakerId == "schopenhauer" }, "'$reply'")
+        }
+    }
+
+    @Test
     fun `모델이 붙인 이름표는 떼고 저장한다`() = runTest {
         val p = DemoInferenceProvider(mapOf(null to listOf("니체: 짧게 말하겠소.")))
         val c = ConversationEngine(registry, p).run("r", RoomKind.DM, "ko", TurnInput(RoomKind.DM, listOf(Member("nietzsche"))), userSays, 1, { 1 })

@@ -51,6 +51,10 @@ class ConversationEngine(
         val plan = SpeakerSelector.plan(input.copy(debateAffinity = input.debateAffinity.ifEmpty { affinityOf(input.members) }))
         val log = transcript.toMutableList()
         val spoken = mutableListOf<String>()
+        /** 이번 흐름에서 차례를 받은 사람(침묵 포함) */
+        val attempted = mutableListOf<String>()
+        /** 직전 발언 이후 침묵한 사람 — 새 발언이 나오면 비운다 */
+        val silentSinceLast = mutableSetOf<String>()
         val members = input.members.toMutableList()
         var debateTurnsLeft = plan.maxDebateTurns
         var autoUsed = 0
@@ -80,9 +84,10 @@ class ConversationEngine(
             if (currentRevision() != startRevision) { emit(FlowEvent.Superseded); return false }
             val raw = outcome.text
             val text = raw?.let(::clean)
+            attempted += speakerId
             when {
                 raw == null || text == null -> { emit(FlowEvent.Failed(speakerId, outcome.terminal)); return false }
-                raw.contains(PASS_TOKEN) || text.isEmpty() -> emit(FlowEvent.Silent(speakerId))
+                isPass(raw) || text.isEmpty() -> emit(FlowEvent.Silent(speakerId))
                 else -> {
                     emit(FlowEvent.Committed(speakerId, text, respondTo, autonomous, gid))
                     log += TranscriptLine(speakerId, text)
@@ -98,10 +103,14 @@ class ConversationEngine(
 
         var budget = plan.autonomyBudget
         while (budget > 0) {
-            val next = SpeakerSelector.nextAutonomous(members, spoken, last, budget, input.relevance) ?: break
+            // 직전 발언 뒤에 이미 침묵한 사람은 다시 부르지 않는다. 모두 침묵했으면 대화가 잠잠해진 것.
+            val eligible = members.filter { it.philosopherId !in silentSinceLast }
+            val next = SpeakerSelector.nextAutonomous(eligible, attempted, last, budget, input.relevance) ?: break
             budget--
             autoUsed++
+            val before = last
             if (!turn(next, respondTo = last, autonomous = true)) return@flow
+            if (last == before) silentSinceLast += next else silentSinceLast.clear()
         }
 
         // 임시 손님: 이번 흐름에서 말했으면 퇴장
@@ -113,6 +122,10 @@ class ConversationEngine(
     private fun affinityOf(members: List<Member>): Map<String, Int> = members.associate { m ->
         m.philosopherId to when (registry.get(m.philosopherId)?.persona?.debateAffinity) { Level.HIGH -> 2; Level.MEDIUM -> 1; else -> 0 }
     }
+
+    /** `[PASS]`, `PASS`, `(PASS)`, `PASS.` 처럼 침묵 신호만 있는 답. 문장 속 단어 'pass'는 침묵이 아니다. */
+    private fun isPass(raw: String): Boolean =
+        raw.contains(PASS_TOKEN) || raw.trim().matches(Regex("^[\\[(]?\\s*PASS\\s*[\\])]?[.!]?$", RegexOption.IGNORE_CASE))
 
     /** 모델이 붙이는 이름표·따옴표를 떼어 낸다. 내용은 바꾸지 않는다. */
     private fun clean(raw: String): String {
