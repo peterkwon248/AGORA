@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 자동 생성: tools/design-port/str2xml.mjs — 직접 고치지 말 것. 원본은 legacy-design-reference/.../01_data.js -->
+<resources>
+    <string name="d_aboutReports" formatted="false">Reports you’ve sent</string>
+    <string name="d_aboutSim" formatted="false">About the AI simulations</string>
+    <string name="d_aboutSimSub" formatted="false">AGORA’s philosophers are AI based on historical thinkers’ ideas—not their actual words or thoughts.</string>
+    <string name="d_aboutSources" formatted="false">Sources &amp; licenses</string>
+    <string name="d_aboutSourcesSub" formatted="false">Where quotes, translations and portraits come from</string>
+    <string name="d_accAll" formatted="false">All my philosophers</string>
+    <string name="d_accAllShort" formatted="false">All philosophers</string>
+    <string name="d_accAllSub" formatted="false">Every philosopher AI in your AGORA can read it.</string>
+    <string name="d_accPrivate" formatted="false">Only me</string>
+    <string name="d_accPrivateSub" formatted="false">No philosopher reads it—never used for comments, notes or memory.</string>
+    <string name="d_accSaved" formatted="false">Updated who can read this</string>
+    <string name="d_accSavedCancel" formatted="false">Updated · cancelled scheduled comments ({n})</string>
+    <string name="d_accSavedPlan" formatted="false">Updated · an automatic comment is scheduled</string>
+    <string name="d_accSelected" formatted="false">Selected philosophers</string>
+    <string name="d_accSelectedSub" formatted="false">Only those you pick can read and comment.</string>
+    <string name="d_accessFoot" formatted="false">This never makes anything public—AGORA has no public posting—and you can change it anytime.</string>
+    <string name="d_accessTitle" formatted="false">Reading &amp; comments</string>
+    <string name="d_actCopy" formatted="false">Copy</string>
+    <string name="d_actDelete" formatted="false">Delete</string>
+    <string name="d_actDm" formatted="false">Continue with {n} privately</string>
+    <string name="d_actDmSub" formatted="false">Only this message comes along</string>
+    <string name="d_actNote" formatted="false">Ask a philosopher to write on this</string>
+    <string name="d_actNoteFrom" formatted="false">Make a note from here</string>
+    <string name="d_actNoteFromSub" formatted="false">Turns this message onward into a conversation note</string>
+    <string name="d_actReply" formatted="false">Reply</string>
+    <string name="d_actReport" formatted="false">Report</string>
+    <string name="d_actReportSub" formatted="false">AI-made content</string>
+    <string name="d_addPhil" formatted="false">Add a philosopher</string>
+    <string name="d_addRef" formatted="false">Add a reflection</string>
+    <string name="d_agreeOn" formatted="false">Agree and turn on</string>
+    <string name="d_aiLang" formatted="false">Reply language</string>
+    <string name="d_aiNote" formatted="false">AI-written note</string>
+    <string name="d_aiSim" formatted="false">AI simulation</string>
+    <string name="d_aiSummary" formatted="false">AI summary</string>
+    <string name="d_allChats" formatted="false">Conversations</string>
+    <string name="d_allFilter" formatted="false">All</string>
+    <string name="d_allowOthers" formatted="false">Let other philosophers weigh in</string>
+    <string name="d_allowOthersSub" formatted="false">Only philosophers who can read this note may comment</string>
+    <string name="d_appLang" formatted="false">App language</string>
+    <string name="d_appLangSub" formatted="false">Changing it never rewrites your notes or past messages.</string>
+    <string name="d_appLock" formatted="false">App lock</string>
+    <string name="d_approved" formatted="false">Marked as reviewed</string>
+    <string name="d_archive" formatted="false">Archive room</string>
+    <string name="d_archived" formatted="false">Archived rooms</string>
+    <string name="d_archivedCount" formatted="false">{n} rooms</string>
+    <string name="d_archivedToast" formatted="false">Archived</string>
+    <string name="d_askComment" formatted="false">Ask for a comment</string>
+    <string name="d_askNote" formatted="false">Ask for a note</string>
+    <string name="d_askNoteHere" formatted="false">Ask for a note on this chat</string>
+    <string name="d_author" formatted="false">Author</string>
+    <string name="d_autoC" formatted="false">Automatic comments</string>
+    <string name="d_autoCChanged" formatted="false">Default automatic comments: {m}</string>
+    <string name="d_autoCFoot" formatted="false">On-device AI writes comments ahead of time while you use the app and posts them later—re-checking the note and your permission right before, and never during quiet hours.</string>
+    <string name="d_autoCInherit" formatted="false">Following the default ({m})</string>
+    <string name="d_autoCOwn" formatted="false">Set for this note only</string>
+    <string name="d_autoCPrivate" formatted="false">Notes only you can see never get automatic comments.</string>
+    <string name="d_autoCReset" formatted="false">Use default</string>
+    <string name="d_autoCSheetSub" formatted="false">Only on notes you let them read. You can set each note separately.</string>
+    <string name="d_autoCSub" formatted="false">Only on notes you let them read</string>
+    <string name="d_autoCTitle" formatted="false">Automatic note comments</string>
+    <string name="d_autoHold" formatted="false">Waiting while you type</string>
+    <string name="d_autoOffDone" formatted="false">Automatic comments off for this note</string>
+    <string name="d_autoOffNote" formatted="false">Turn off automatic comments for this note</string>
+    <string name="d_autoPaused" formatted="false">Paused</string>
+    <string name="d_autoQuiet" formatted="false">Things went quiet</string>
+    <string name="d_autoSaved" formatted="false">Draft saved · {t}</string>
+    <string name="d_autoSaving" formatted="false">Saving…</string>
+    <string name="d_autoTag" formatted="false">auto</string>
+    <string name="d_autoTalking" formatted="false">Talking among themselves · {n} left</string>
+    <string name="d_autonomy" formatted="false">Talking among themselves</string>
+    <string name="d_back" formatted="false">Back</string>
+    <string name="d_beta" formatted="false">Beta</string>
+    <string name="d_bodyPh" formatted="false">Write about today, or whatever is on your mind</string>
+    <string name="d_btnJournal" formatted="false">Save as note</string>
+    <string name="d_btnMore" formatted="false">Let them go on</string>
+    <string name="d_btnPause" formatted="false">Pause</string>
+    <string name="d_btnResume" formatted="false">Resume</string>
+    <string name="d_byMe" formatted="false">Written by me</string>
+    <string name="d_canRead" formatted="false">What this philosopher can read</string>
+    <string name="d_cancel" formatted="false">Cancel</string>
+    <string name="d_cancelReply" formatted="false">Cancel reply</string>
+    <string name="d_chatBtn" formatted="false">Chat</string>
+    <string-array name="d_checks">
+        <item>The note still exists</item>
+        <item>Your permission still stands</item>
+        <item>It hasn’t already been said</item>
+        <item>It still fits the edited note</item>
+        <item>Your comment and notification settings are unchanged</item>
+    </string-array>
+    <string name="d_checksDone" formatted="false">Checked right before posting</string>
+    <string name="d_checksT" formatted="false">Checked again right before posting</string>
+    <string name="d_close" formatted="false">Close</string>
+    <string name="d_cloudItem1" formatted="false">Recent messages in this room</string>
+    <string name="d_cloudItem2" formatted="false">Notes you’ve allowed</string>
+    <string name="d_cloudItem3" formatted="false">Memories you’ve confirmed</string>
+    <string name="d_cloudNever" formatted="false">Never sent: other rooms, private chats you haven’t shared, and notes only you can see.</string>
+    <string name="d_cloudOn" formatted="false">Switched to Plus cloud</string>
+    <string name="d_cloudSub" formatted="false">Plus cloud AI receives only what you pick below. Everything else stays on this device.</string>
+    <string name="d_cloudTitle" formatted="false">What goes to the cloud</string>
+    <string name="d_commentN" formatted="false">{n}</string>
+    <string name="d_commentNotif" formatted="false">Comment notifications for this note</string>
+    <string name="d_commentNotifSub" formatted="false">Comments still arrive, just without a notification</string>
+    <string name="d_comments" formatted="false">Comments</string>
+    <string name="d_commentsLocked" formatted="false">Only you can see this note. Philosophers can comment once you let them read it.</string>
+    <string name="d_composeEdit" formatted="false">Edit note</string>
+    <string name="d_composeFoot" formatted="false">{a} · you can change this per note</string>
+    <string name="d_composeFootPlan" formatted="false">Scheduled comments get re-checked against your edit</string>
+    <string name="d_composeIdle" formatted="false">Drafts save to this note only</string>
+    <string name="d_composeNew" formatted="false">New note</string>
+    <string name="d_confirmed" formatted="false">Confirmed—it can be used now.</string>
+    <string name="d_continueDm" formatted="false">Continue privately</string>
+    <string name="d_copied" formatted="false">Copied</string>
+    <string name="d_coreIdeas" formatted="false">Core ideas</string>
+    <string name="d_countMonth" formatted="false">{n} this month</string>
+    <string name="d_createRoom" formatted="false">Create room</string>
+    <string name="d_creditsLine" formatted="false">This month: [credits left] · on-device AI takes over when they run out</string>
+    <string name="d_dateAria" formatted="false">Change the date shown</string>
+    <string name="d_dayAria" formatted="false">{d}, {n} notes</string>
+    <string name="d_dayCount" formatted="false">{n} notes</string>
+    <string name="d_dayCount1" formatted="false">1 note</string>
+    <string name="d_debateFreq" formatted="false">How often they disagree</string>
+    <string name="d_debateInt" formatted="false">How hard they argue</string>
+    <string name="d_defaultAccess" formatted="false">Default reader for new notes</string>
+    <string name="d_defaultAccessSub" formatted="false">You can change it per note</string>
+    <string name="d_defaultRoomName" formatted="false">{n}</string>
+    <string name="d_delAllDone" formatted="false">The demo didn’t erase anything. The real app removes it all from this device.</string>
+    <string name="d_delAllOk" formatted="false">Erase</string>
+    <string name="d_delAllT" formatted="false">Erase everything?</string>
+    <string name="d_delAllX" formatted="false">Chats, notes, memory and the search index will be removed from this device. This can’t be undone.</string>
+    <string name="d_delEntryT" formatted="false">Delete this note?</string>
+    <string name="d_delEntryX" formatted="false">Your reflection and comments go too, and memories from it stop being used.</string>
+    <string name="d_delNoteT" formatted="false">Delete this note?</string>
+    <string name="d_delNoteX" formatted="false">Its comments go too.</string>
+    <string name="d_delOk" formatted="false">Delete</string>
+    <string name="d_delRoomT" formatted="false">Delete this room?</string>
+    <string name="d_delRoomX" formatted="false">The chat and this room’s memories are removed. Notes you made stay.</string>
+    <string name="d_delete" formatted="false">Delete</string>
+    <string name="d_deleteAll" formatted="false">Erase everything</string>
+    <string name="d_deleteAllSub" formatted="false">Chats, notes, memory and the search index</string>
+    <string name="d_deleteEntry" formatted="false">Delete note</string>
+    <string name="d_deleteNote" formatted="false">Delete note</string>
+    <string name="d_deleteRoom" formatted="false">Delete room</string>
+    <string name="d_diagSub" formatted="false">Never includes what you write</string>
+    <string name="d_discardOk" formatted="false">Discard</string>
+    <string name="d_discardT" formatted="false">Discard your changes?</string>
+    <string name="d_discardX" formatted="false">The saved version stays as it is.</string>
+    <string name="d_disclose" formatted="false">Written by AI from {n}’s ideas—not something {n2} actually wrote.</string>
+    <string name="d_dlDone" formatted="false">Ready. You can now talk without internet.</string>
+    <string name="d_dlLabel" formatted="false">Downloading</string>
+    <string name="d_dmSub" formatted="false">AI simulation · {e}</string>
+    <string name="d_done" formatted="false">Done</string>
+    <string name="d_download" formatted="false">Download</string>
+    <string-array name="d_dows">
+        <item>S</item>
+        <item>M</item>
+        <item>T</item>
+        <item>W</item>
+        <item>T</item>
+        <item>F</item>
+        <item>S</item>
+    </string-array>
+    <string name="d_draftAdded" formatted="false">Conversation note created</string>
+    <string name="d_draftKept" formatted="false">Saved as a draft</string>
+    <string name="d_draftNote" formatted="false">Your words and theirs are kept apart. Tap a number to see the original message. Summarizing again makes a new note—this one and your reflection stay as they are.</string>
+    <string name="d_draftSavedTag" formatted="false">Draft</string>
+    <string name="d_draftTag" formatted="false">AI summary · unreviewed</string>
+    <string name="d_edit" formatted="false">Edit</string>
+    <string name="d_editDirty" formatted="false">Unsaved changes · tap Done to save a new version</string>
+    <string name="d_editIdle" formatted="false">Tap Done to save a new version</string>
+    <string name="d_editSum" formatted="false">Edit</string>
+    <string name="d_editedNote" formatted="false">You edited this summary. Check the source with “See the conversation”.</string>
+    <string name="d_editedTag" formatted="false">Edited by you</string>
+    <string name="d_emptyDiscarded" formatted="false">It was empty, so no note was made</string>
+    <string name="d_emptySub" formatted="false">No big topic needed. Start with something from today.</string>
+    <string name="d_emptyTitle" formatted="false">You’re here with {n}</string>
+    <string name="d_engCloudTag" formatted="false">Plus cloud</string>
+    <string name="d_engHelpCloud" formatted="false">Replies via Plus cloud, sending only what you agreed to.</string>
+    <string name="d_engHelpLocal" formatted="false">Replies are made on this device, even offline.</string>
+    <string name="d_engLocalTag" formatted="false">on-device AI</string>
+    <string name="d_engineLocal" formatted="false">On-device AI · Free</string>
+    <string name="d_engineLocalShort" formatted="false">On-device</string>
+    <string name="d_enginePlus" formatted="false">Plus cloud AI</string>
+    <string name="d_enginePlusShort" formatted="false">Plus cloud</string>
+    <string name="d_entryCreated" formatted="false">New note created</string>
+    <string name="d_entryDeleted" formatted="false">Note deleted</string>
+    <string name="d_entryNewTitle" formatted="false">New note</string>
+    <string name="d_exportAll" formatted="false">Export everything</string>
+    <string name="d_exportAllSub" formatted="false">As Markdown and JSON</string>
+    <string name="d_exportChat" formatted="false">Export chat</string>
+    <string name="d_exportEntry" formatted="false">Export</string>
+    <string name="d_exported" formatted="false">Export file ready (demo)</string>
+    <string name="d_filterDay" formatted="false">Showing {d} · show all</string>
+    <string name="d_freeCol" formatted="false">Free · On-device AI</string>
+    <string name="d_fromComment" formatted="false">From a comment on my note</string>
+    <string name="d_fromNote" formatted="false">From a comment on a philosopher’s note</string>
+    <string name="d_fromRoom" formatted="false">From {n}</string>
+    <string name="d_fromRooms" formatted="false">From {n}</string>
+    <string name="d_guess" formatted="false">guess</string>
+    <string name="d_guest" formatted="false">guest</string>
+    <string name="d_guestTag" formatted="false">guest</string>
+    <string name="d_hidden" formatted="false">Hidden (demo)</string>
+    <string name="d_hideLabel" formatted="false">Hide {n} from the list</string>
+    <string name="d_hideLock" formatted="false">Hide text on the lock screen</string>
+    <string name="d_hideLockSub" formatted="false">Notifications show only who wrote</string>
+    <string name="d_howTalk" formatted="false">How they talk</string>
+    <string name="d_inUse" formatted="false">In use</string>
+    <string name="d_incompatible" formatted="false">Not supported</string>
+    <string name="d_infoAriaG" formatted="false">Open room info</string>
+    <string name="d_infoLabelD" formatted="false">Profile &amp; settings</string>
+    <string name="d_infoLabelG" formatted="false">Room info &amp; settings</string>
+    <string name="d_initGlobalOff" formatted="false">Reaching out is off in Settings</string>
+    <string name="d_initLabel" formatted="false">{n} reaching out</string>
+    <string name="d_initOffSub" formatted="false">Off</string>
+    <string name="d_initOnSub" formatted="false">Occasionally messages you, based on what you allowed</string>
+    <string name="d_initSub" formatted="false">Up to {m} a day · quiet hours {q}</string>
+    <string name="d_initTitle" formatted="false">{n} reaching out first</string>
+    <string name="d_initiative" formatted="false">Philosophers can reach out first</string>
+    <string name="d_initiativeSub" formatted="false">Now and then, based on notes you’ve let them read</string>
+    <string name="d_intNote" formatted="false">Intensity is depth of reasoning, not rudeness. No insults, ever—and no manufactured disagreement.</string>
+    <string name="d_interrupted" formatted="false">Switched to your new message</string>
+    <string name="d_invite" formatted="false">Invite</string>
+    <string name="d_inviteFixed" formatted="false">Add to the room</string>
+    <string name="d_inviteFixedSub" formatted="false">Stays in this room from now on</string>
+    <string name="d_inviteSub" formatted="false">How should they join?</string>
+    <string name="d_inviteTemp" formatted="false">Just for this question</string>
+    <string name="d_inviteTempSub" formatted="false">Answers, then quietly steps out</string>
+    <string name="d_inviteToRoom" formatted="false">Invite to a room</string>
+    <string name="d_joinedFixed" formatted="false">{n} joined the room</string>
+    <string name="d_joinedTemp" formatted="false">{n} joined for this question</string>
+    <string name="d_journalEmpty" formatted="false">No notes that day. AGORA never invents a note for a day without conversation.</string>
+    <string name="d_keepEditing" formatted="false">Keep editing</string>
+    <string name="d_keepWriting" formatted="false">Keep writing</string>
+    <string name="d_kindConv" formatted="false">Conversation note</string>
+    <string name="d_kindEmpty" formatted="false">No notes match.</string>
+    <string name="d_kindEntry" formatted="false">My note</string>
+    <string name="d_kindGuess" formatted="false">AI guess</string>
+    <string name="d_kindJournal" formatted="false">From my notes</string>
+    <string name="d_kindNote" formatted="false">Philosopher’s note</string>
+    <string name="d_kindRoom" formatted="false">Chat</string>
+    <string name="d_kindSaid" formatted="false">You said</string>
+    <string name="d_kindUser" formatted="false">Written by me</string>
+    <string name="d_later" formatted="false">Later</string>
+    <string name="d_leftTemp" formatted="false">{n} answered and stepped out</string>
+    <string name="d_letRead" formatted="false">Let them read</string>
+    <string name="d_listPlan" formatted="false">{n} · comment around {w}</string>
+    <string name="d_liveText" formatted="false">Talking among themselves</string>
+    <string name="d_localOn" formatted="false">Switched to on-device AI</string>
+    <string name="d_localProfile" formatted="false">Profile on this device</string>
+    <string name="d_localProfileSub" formatted="false">No account · everything is stored on this device</string>
+    <string name="d_localSub" formatted="false">[Default model] · installed · works offline</string>
+    <string name="d_looksRight" formatted="false">Looks right</string>
+    <string name="d_mBaseDesc" formatted="false">The default model, tuned for Korean &amp; English chat and note summaries.</string>
+    <string name="d_mBig" formatted="false">[Large model]</string>
+    <string name="d_mBigDesc" formatted="false">Not enough memory on this device. Works on tablets or desktop.</string>
+    <string name="d_mBigSub" formatted="false">[Model size] · needs 12 GB+ memory</string>
+    <string name="d_mLight" formatted="false">[Light model]</string>
+    <string name="d_mLightDesc" formatted="false">Shorter, faster replies; a little less character.</string>
+    <string name="d_mLightSub" formatted="false">[Model size] · for older devices</string>
+    <string name="d_makeDraft" formatted="false">Make a conversation note</string>
+    <string name="d_makeJournal" formatted="false">Turn into a note</string>
+    <string name="d_manualTag" formatted="false">Written by me</string>
+    <string name="d_maxLabel" formatted="false">Up to {n} a day</string>
+    <string name="d_maxPerDay" formatted="false">At most, per day</string>
+    <string name="d_meShort" formatted="false">Me</string>
+    <string name="d_memDeleted" formatted="false">Memory deleted</string>
+    <string name="d_memEmpty" formatted="false">Nothing matches.</string>
+    <string name="d_memNote" formatted="false">AI guesses aren’t used as facts until you confirm them. Deleted memories are purged from search too.</string>
+    <string name="d_memSub" formatted="false">{n} items · {g} AI guesses to review</string>
+    <string name="d_membersLabel" formatted="false">Philosophers here · {n}</string>
+    <string name="d_memory" formatted="false">Memory</string>
+    <string name="d_mentionBtn" formatted="false">Mention a philosopher</string>
+    <string name="d_mentionIn" formatted="false">In this room</string>
+    <string name="d_mentionNone" formatted="false">No match. Try a Korean or English name.</string>
+    <string name="d_mentionOut" formatted="false">Invite in</string>
+    <string name="d_mentionTitle" formatted="false">Who do you want to call?</string>
+    <string name="d_modelBase" formatted="false">[Default model]</string>
+    <string name="d_modelBaseSub" formatted="false">[Model size] · Korean &amp; English</string>
+    <string name="d_modelNote" formatted="false">Model names and sizes are set after on-device testing. Downloads are verified by signature and hash.</string>
+    <string name="d_modelSwitched" formatted="false">Switched models</string>
+    <string name="d_modelsTitle" formatted="false">On-device models</string>
+    <string name="d_monthLabel" formatted="false">October 2026</string>
+    <string name="d_more" formatted="false">More</string>
+    <string name="d_more3" formatted="false">+{n}</string>
+    <string name="d_myJournal" formatted="false">My notes</string>
+    <string-array name="d_nameSugs">
+        <item>Everyday philosophy</item>
+        <item>Late-night talk</item>
+        <item>The commute</item>
+        <item>Music talk</item>
+    </string-array>
+    <string name="d_navLabel" formatted="false">Main</string>
+    <string name="d_needPlus" formatted="false">Turn on Plus to choose cloud AI</string>
+    <string name="d_newChat" formatted="false">New chat</string>
+    <string name="d_newGroup" formatted="false">New group chat</string>
+    <string name="d_newGroupSub" formatted="false">Pick philosophers and start a room</string>
+    <string name="d_newRoomDesc" formatted="false">A room you made</string>
+    <string name="d_next" formatted="false">Next</string>
+    <string name="d_noMems" formatted="false">Nothing remembered yet.</string>
+    <string name="d_noReports" formatted="false">No reports yet.</string>
+    <string name="d_notTrue" formatted="false">Not true</string>
+    <string name="d_noteArrived" formatted="false">{n}’s note is here</string>
+    <string name="d_noteAuto" formatted="false">Philosophers’ notes on their own</string>
+    <string name="d_noteAutoSub" formatted="false">How philosophers turn a conversation into a note of their own.</string>
+    <string name="d_noteDeleted" formatted="false">Note deleted</string>
+    <string name="d_noteMeta" formatted="false">{d} · {o}</string>
+    <string name="d_noteNew" formatted="false">New note</string>
+    <string name="d_notePh" formatted="false">Comment to {n}</string>
+    <string name="d_noteSaved" formatted="false">Note saved</string>
+    <string name="d_noteWriting" formatted="false">{n} is writing a note</string>
+    <string name="d_notesEmpty" formatted="false">No notes yet. Ask for one after a conversation.</string>
+    <string name="d_noticeD" formatted="false">This {n} is an AI simulation based on their ideas. Private chats aren’t shared with other philosophers.</string>
+    <string name="d_noticeG" formatted="false">The philosophers are AI simulations based on historical thinkers. What’s said here is remembered only in this room.</string>
+    <string name="d_notifications" formatted="false">Notifications</string>
+    <string name="d_nrSub1" formatted="false">Pick at least one. Every room can have its own lineup.</string>
+    <string name="d_nrTitle1" formatted="false">Who’s in the room</string>
+    <string name="d_nrTitle2" formatted="false">Set up the room</string>
+    <string name="d_ob2Device" formatted="false">This device</string>
+    <string name="d_ob2DeviceVal" formatted="false">8 GB memory · default model supported</string>
+    <string name="d_ob2Note" formatted="false">The model downloads separately from the app and resumes if interrupted.</string>
+    <string name="d_ob2Storage" formatted="false">Storage</string>
+    <string name="d_ob2StorageVal" formatted="false">23 GB free · needs [model size]</string>
+    <string name="d_ob2Sub" formatted="false">Free conversations run on this device. Download once and talk offline.</string>
+    <string name="d_ob2Title" formatted="false">Set up on-device AI</string>
+    <string name="d_ob3Sub" formatted="false">You can change all of this later in Settings.</string>
+    <string name="d_ob3Title" formatted="false">One choice at a time</string>
+    <string name="d_obDisclose" formatted="false">AGORA’s philosophers are AI simulations based on historical thinkers’ ideas—not things they actually said.</string>
+    <string name="d_obDoneToast" formatted="false">All set. Say hello.</string>
+    <string name="d_obFinish" formatted="false">Start AGORA</string>
+    <string name="d_obLang" formatted="false">Language</string>
+    <string name="d_obStart" formatted="false">Get started</string>
+    <string name="d_obSub" formatted="false">A song from your commute, a small worry at night—philosophers listen, and talk it over among themselves.</string>
+    <string name="d_obTitle" formatted="false">A messenger for talking with philosophers</string>
+    <string name="d_offlineBanner" formatted="false">You’re offline · on-device AI keeps the conversation going</string>
+    <string name="d_offlineCloud" formatted="false">Offline—switched to on-device AI</string>
+    <string name="d_offlineLocal" formatted="false">Offline · replying with on-device AI</string>
+    <string name="d_openNotifSettings" formatted="false">Open notification settings</string>
+    <string name="d_optional" formatted="false">Optional</string>
+    <string name="d_originDm" formatted="false">From your chat with {n}</string>
+    <string name="d_originRoom" formatted="false">From {n}</string>
+    <string name="d_pauseDl" formatted="false">Pause</string>
+    <string name="d_pausedDl" formatted="false">Paused</string>
+    <string name="d_pausedLive" formatted="false">Paused</string>
+    <string name="d_pausedTag" formatted="false">Paused</string>
+    <string name="d_peopleNote" formatted="false">All are AI simulations based on historical thinkers’ ideas.</string>
+    <string name="d_permCloud" formatted="false">Cloud AI is used only after separate consent in Plus.</string>
+    <string name="d_permDiag" formatted="false">Send crash reports</string>
+    <string name="d_permJournal" formatted="false">Who can read each note is set per note. The default is only you.</string>
+    <string name="d_permNotif" formatted="false">Notifications when they reach out</string>
+    <string name="d_permNotifSub" formatted="false">Get notified when a philosopher writes first</string>
+    <string name="d_phDm" formatted="false">Message {n}</string>
+    <string name="d_phGroup" formatted="false">Message</string>
+    <string name="d_philNotes" formatted="false">Philosophers’ notes</string>
+    <string name="d_pickComment" formatted="false">Who should comment?</string>
+    <string name="d_pickCommentEmpty" formatted="false">Let someone read it first.</string>
+    <string name="d_pickCommentSub" formatted="false">Only philosophers who can read this note</string>
+    <string name="d_pickDateHint" formatted="false">Only the date shown changes. The note and its comments stay connected.</string>
+    <string name="d_pickMember" formatted="false">Who should join?</string>
+    <string name="d_pickMemberEmpty" formatted="false">Everyone is already here.</string>
+    <string name="d_pickMemberSub" formatted="false">Philosophers not in this room</string>
+    <string name="d_pickNote" formatted="false">Who should write the note?</string>
+    <string name="d_pickNoteAll" formatted="false">Pick who writes the note</string>
+    <string name="d_pickNoteSub" formatted="false">Only those who could read {n}</string>
+    <string name="d_pickRoom" formatted="false">Which room?</string>
+    <string name="d_pickRoomEmpty" formatted="false">No room to invite to. Start a new group chat.</string>
+    <string name="d_pickRoomSub" formatted="false">Rooms without {n}</string>
+    <string name="d_picked" formatted="false">{n} selected</string>
+    <string name="d_pickedNone" formatted="false">No one selected yet</string>
+    <string name="d_pinned" formatted="false">Pinned</string>
+    <string name="d_planArrived" formatted="false">{n}’s comment is here</string>
+    <string name="d_planCancel" formatted="false">Cancel</string>
+    <string name="d_planCancelled" formatted="false">Scheduled comment cancelled</string>
+    <string name="d_planCancelledN" formatted="false">Cancelled scheduled comments ({n})</string>
+    <string name="d_planChecking" formatted="false">Re-checking against your edit…</string>
+    <string name="d_planDup" formatted="false">{n} already commented, so the scheduled one was dropped</string>
+    <string name="d_planInSheet" formatted="false">{n} scheduled · cancelled if you switch to “Only me” or turn comments off</string>
+    <string name="d_planLine" formatted="false">{n} may comment around {w}</string>
+    <string name="d_planNow" formatted="false">Get it now</string>
+    <string name="d_planPosting" formatted="false">Checking before posting…</string>
+    <string name="d_planRechecked" formatted="false">Re-checked against your edit · still scheduled</string>
+    <string name="d_planStale" formatted="false">The note changed, so the scheduled comment wasn’t posted</string>
+    <string name="d_planSub" formatted="false">Written ahead on this device at {t} · re-checked before posting</string>
+    <string name="d_planSubRe" formatted="false">Rewritten for your edit at {t} · re-checked before posting</string>
+    <string name="d_planWhy" formatted="false">Why scheduled?</string>
+    <string name="d_plusActive" formatted="false">Plus is on (demo)</string>
+    <string name="d_plusCancel" formatted="false">Turn off Plus</string>
+    <string name="d_plusCol" formatted="false">Plus · cloud AI when you choose it</string>
+    <string name="d_plusCta" formatted="false">Try Plus (demo)</string>
+    <string-array name="d_plusFree">
+        <item>Every room, chat, note and comment</item>
+        <item>Talk offline</item>
+        <item>Everything stays on this device</item>
+    </string-array>
+    <string-array name="d_plusNotes">
+        <item>Turning on Plus never uploads your notes. You choose what to send.</item>
+        <item>Cancel anytime—your notes and reflections stay.</item>
+        <item>If credits run out or servers fail, on-device AI takes over. Replies may be less deep.</item>
+    </string-array>
+    <string name="d_plusOffToast" formatted="false">Plus is off. On-device AI takes over.</string>
+    <string name="d_plusOnToast" formatted="false">Plus is on (demo)</string>
+    <string-array name="d_plusPlus">
+        <item>A larger model for long context and deeper arguments</item>
+        <item>Thinks with older records too</item>
+        <item>[credits] a month · on-device AI after that</item>
+    </string-array>
+    <string name="d_plusSub" formatted="false">Every core feature is free. Plus is an option for when you want to go deeper.</string>
+    <string name="d_plusSubOff" formatted="false">Optional, for deeper talks · off</string>
+    <string name="d_plusSubOn" formatted="false">On · used only where you choose</string>
+    <string name="d_plusTitle" formatted="false">For when you want to go deeper</string>
+    <string name="d_previewLabel" formatted="false">Preview · What if effort brings no results?</string>
+    <string name="d_previewOff" formatted="false">Preview · different views, no rebuttals</string>
+    <string name="d_priceLine" formatted="false">[price] per month · cancel anytime</string>
+    <string name="d_privateSys" formatted="false">This stays in this room—never used in other rooms or private chats.</string>
+    <string name="d_profileOf" formatted="false">{n}’s profile</string>
+    <string name="d_quickChange" formatted="false">Let’s talk about something else</string>
+    <string name="d_quickSoft" formatted="false">Gentler, please</string>
+    <string name="d_quietHours" formatted="false">Quiet hours</string>
+    <string name="d_quietOff" formatted="false">Off</string>
+    <string name="d_quietSub" formatted="false">No reaching out during this time</string>
+    <string name="d_rangeLabel" formatted="false">{r} · from {n} messages</string>
+    <string name="d_reachOut" formatted="false">Reaching out first</string>
+    <string name="d_reachedOut" formatted="false">Reached out</string>
+    <string name="d_readDm" formatted="false">Chat with {n}</string>
+    <string name="d_readDmSub" formatted="false">Your private chat with this philosopher</string>
+    <string name="d_readJournal" formatted="false">{n} notes you allowed</string>
+    <string name="d_readJournalNone" formatted="false">No notes shared</string>
+    <string name="d_readJournalSub" formatted="false">Revoke and they stop reading at once</string>
+    <string name="d_readRooms" formatted="false">Rooms you share</string>
+    <string name="d_readRoomsNone" formatted="false">No shared rooms</string>
+    <string name="d_readRoomsSub" formatted="false">{n} · only inside each room</string>
+    <string-array name="d_reasons">
+        <item>Misattributed or false quote</item>
+        <item>Offensive or hateful</item>
+        <item>Harmful content</item>
+        <item>Something I said elsewhere showed up</item>
+        <item>Something else</item>
+    </string-array>
+    <string name="d_recommended" formatted="false">Recommended</string>
+    <string name="d_refMeta" formatted="false">Written by me · saved {t}</string>
+    <string name="d_refPh" formatted="false">What comes to mind, reading it back?</string>
+    <string name="d_refTitle" formatted="false">My reflection</string>
+    <string name="d_reflectionNote" formatted="false">AI never edits or rewrites your reflection.</string>
+    <string name="d_regen" formatted="false">Regenerate</string>
+    <string name="d_regenDraft" formatted="false">Summarize as a new note</string>
+    <string name="d_regenFrom" formatted="false">A new note summarizing the same conversation again.</string>
+    <string name="d_regenNew" formatted="false">Summarized again as a new note · the original stays</string>
+    <string name="d_rejected" formatted="false">Deleted. It won’t be guessed again.</string>
+    <string name="d_remembers" formatted="false">What they remember</string>
+    <string name="d_remove" formatted="false">Remove</string>
+    <string name="d_removeAria" formatted="false">Remove {n}</string>
+    <string name="d_removedSys" formatted="false">{n} left the room</string>
+    <string name="d_reply" formatted="false">Reply</string>
+    <string name="d_replyLang" formatted="false">Reply language</string>
+    <string name="d_replyPh" formatted="false">Write a reply</string>
+    <string name="d_replyTo" formatted="false">Replying to {n}</string>
+    <string name="d_report" formatted="false">Report</string>
+    <string name="d_reportRoom" formatted="false">Report this chat</string>
+    <string name="d_reportRow" formatted="false">{d} · {r}</string>
+    <string name="d_reportSent" formatted="false">Report sent. We’ll review it.</string>
+    <string name="d_reportSub" formatted="false">Tell us if AI-made content is inappropriate. We’ll review it.</string>
+    <string name="d_reportTitle" formatted="false">Report this AI message</string>
+    <string name="d_reportsN" formatted="false">{n} sent</string>
+    <string name="d_reportsNone" formatted="false">None</string>
+    <string name="d_reportsTitle" formatted="false">Reports you’ve sent</string>
+    <string name="d_required" formatted="false">Required</string>
+    <string name="d_restartOb" formatted="false">Replay onboarding</string>
+    <string name="d_resumeDl" formatted="false">Resume</string>
+    <string name="d_revAi" formatted="false">The AI’s first summary</string>
+    <string name="d_revCount" formatted="false">Edited {n}× · {t}</string>
+    <string name="d_revFirst" formatted="false">First version</string>
+    <string name="d_revMid" formatted="false">Version {n}</string>
+    <string name="d_revMine" formatted="false">My edited summary</string>
+    <string name="d_revNow" formatted="false">Current version</string>
+    <string name="d_revSaved" formatted="false">Saved as a new version</string>
+    <string name="d_reviewedTag" formatted="false">Reviewed</string>
+    <string name="d_revs" formatted="false">Edit history</string>
+    <string name="d_revsSub" formatted="false">Each edit is kept as a version. It’s still one note.</string>
+    <string name="d_right" formatted="false">That’s right</string>
+    <string name="d_roomCreated" formatted="false">Room created with {n}</string>
+    <string name="d_roomDeleted" formatted="false">Room deleted</string>
+    <string name="d_roomInfo" formatted="false">Room info</string>
+    <string name="d_roomMemText" formatted="false">Nothing said here is used in other rooms or private chats. Even the same philosopher remembers it only here.</string>
+    <string name="d_roomName" formatted="false">Room name</string>
+    <string name="d_roomNamePh" formatted="false">e.g. Everyday philosophy</string>
+    <string name="d_roomsWith" formatted="false">with {n}</string>
+    <string name="d_save" formatted="false">Save</string>
+    <string name="d_saved" formatted="false">Saved on this device</string>
+    <string name="d_savedPlan" formatted="false">Saved · an automatic comment is scheduled</string>
+    <string name="d_scopeLabel" formatted="false">Used only in {s}</string>
+    <string name="d_search" formatted="false">Search</string>
+    <string name="d_searchHint" formatted="false">Searches only on this device</string>
+    <string name="d_searchNone" formatted="false">No results</string>
+    <string name="d_searchPh" formatted="false">Search chats and notes</string>
+    <string name="d_searchTitle" formatted="false">Search</string>
+    <string name="d_secAbout" formatted="false">About</string>
+    <string name="d_secData" formatted="false">Data</string>
+    <string name="d_secEngine" formatted="false">AI engine</string>
+    <string name="d_secLang" formatted="false">Language</string>
+    <string name="d_secMemory" formatted="false">Memory &amp; notes</string>
+    <string name="d_secNotif" formatted="false">Notifications &amp; reaching out</string>
+    <string name="d_secTheme" formatted="false">Theme</string>
+    <string name="d_seeNotes" formatted="false">Notes</string>
+    <string name="d_seeOriginal" formatted="false">See the conversation</string>
+    <string name="d_seePrev" formatted="false">See the original note</string>
+    <string name="d_seeRoomMemory" formatted="false">Memories from this room</string>
+    <string name="d_send" formatted="false">Send</string>
+    <string name="d_softenSys" formatted="false">Turned the debate down for this chat</string>
+    <string name="d_sourceQuote" formatted="false">Source · our translation</string>
+    <string name="d_sourceTitle" formatted="false">Where this came from</string>
+    <string name="d_sources" formatted="false">Sources</string>
+    <string name="d_startDm" formatted="false">Start a private chat</string>
+    <string name="d_stepN" formatted="false">{n} / 3</string>
+    <string name="d_stopGen" formatted="false">Stop reply</string>
+    <string name="d_stopUse" formatted="false">Stop using</string>
+    <string name="d_stoppedText" formatted="false">Stopped {n}’s reply</string>
+    <string name="d_storageThis" formatted="false">Free space on this device</string>
+    <string name="d_storageVal" formatted="false">23 GB / 61 GB</string>
+    <string name="d_submitReport" formatted="false">Send report</string>
+    <string name="d_sumEditNote" formatted="false">Your edit stays in this note. The AI’s first summary is in the edit history.</string>
+    <string name="d_sumSaved" formatted="false">Summary updated</string>
+    <string name="d_tabChats" formatted="false">Chats</string>
+    <string name="d_tabPeople" formatted="false">Philosophers</string>
+    <string name="d_tabRecords" formatted="false">Notes</string>
+    <string name="d_tabSettings" formatted="false">Settings</string>
+    <string name="d_talkInRoom" formatted="false">Talk about it in a room</string>
+    <string name="d_thisRoomOnly" formatted="false">This room only</string>
+    <string name="d_timesN" formatted="false">{n}×</string>
+    <string name="d_titlePh" formatted="false">Title</string>
+    <string name="d_tomorrow" formatted="false">tomorrow {t}</string>
+    <string name="d_typeFixed" formatted="false">Member</string>
+    <string name="d_typeTemp" formatted="false">Guest · this question only</string>
+    <string name="d_typing" formatted="false">{n} is writing</string>
+    <string name="d_unarchive" formatted="false">Unarchive</string>
+    <string name="d_unarchivedToast" formatted="false">Back in your chats</string>
+    <string name="d_unread" formatted="false">unread</string>
+    <string name="d_untitled" formatted="false">Untitled</string>
+    <string name="d_useAgain" formatted="false">Use again</string>
+    <string name="d_useThis" formatted="false">Use this model</string>
+    <string name="d_verifying" formatted="false">Verifying the file</string>
+    <string name="d_vibe" formatted="false">How the room talks</string>
+    <string name="d_vibeSub" formatted="false">Change it anytime in room info.</string>
+    <string name="d_view" formatted="false">View</string>
+    <string name="d_whoReads" formatted="false">Who can read</string>
+    <string name="d_whyAutoT" formatted="false">How did this comment arrive?</string>
+    <string name="d_whyAutoX" formatted="false">You let {n} read this note, so on-device AI wrote this ahead at {p} and posted it at {t}.</string>
+    <string name="d_whyNote" formatted="false">It arrives around that time—your phone may delay it.</string>
+    <string name="d_whyPlanFoot" formatted="false">Never during quiet hours ({q}). Your phone may delay it.</string>
+    <string name="d_whyPlanT" formatted="false">Why is a comment scheduled?</string>
+    <string name="d_whyPlanX" formatted="false">You let {n} read this note and automatic comments are “{m},” so on-device AI wrote one ahead of time at {t}.</string>
+    <string name="d_whySrcLabel" formatted="false">Source · your reflection, Oct 12</string>
+    <string name="d_whyText" formatted="false">You let Camus read your reflection from Oct 12. This follows up on it. On-device AI wrote it ahead of time and checked, right before sending, that your permission still stood.</string>
+    <string name="d_whyTitle" formatted="false">Why did this arrive?</string>
+    <string name="d_wifiOnly" formatted="false">Download on Wi-Fi only</string>
+    <string name="d_writeJournal" formatted="false">New note</string>
+    <string name="d_writingComment" formatted="false">{n} is writing a comment</string>
+    <string name="d_writingReply" formatted="false">{n} is replying</string>
+    <string name="d_yesterday" formatted="false">Yesterday</string>
+    <string name="d_you" formatted="false">You</string>
+</resources>

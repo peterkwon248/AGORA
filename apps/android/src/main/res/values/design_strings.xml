@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 자동 생성: tools/design-port/str2xml.mjs — 직접 고치지 말 것. 원본은 legacy-design-reference/.../01_data.js -->
+<resources>
+    <string name="d_aboutReports" formatted="false">신고 내역</string>
+    <string name="d_aboutSim" formatted="false">AI 시뮬레이션 안내</string>
+    <string name="d_aboutSimSub" formatted="false">AGORA의 철학자는 역사 속 인물의 사상을 바탕으로 한 AI예요. 실제 인물의 말이나 생각이 아니에요.</string>
+    <string name="d_aboutSources" formatted="false">원전과 라이선스</string>
+    <string name="d_aboutSourcesSub" formatted="false">원전 인용, 번역, 초상의 출처</string>
+    <string name="d_accAll" formatted="false">내 철학자 모두</string>
+    <string name="d_accAllShort" formatted="false">모든 철학자</string>
+    <string name="d_accAllSub" formatted="false">AGORA 안의 철학자 AI 모두 읽을 수 있어요.</string>
+    <string name="d_accPrivate" formatted="false">나만</string>
+    <string name="d_accPrivateSub" formatted="false">철학자 AI도 읽지 않아요. 댓글·노트·기억에 쓰지 않아요.</string>
+    <string name="d_accSaved" formatted="false">읽기 범위를 바꿨어요</string>
+    <string name="d_accSavedCancel" formatted="false">읽기 범위를 바꿨어요 · 예약된 댓글 {n}개를 취소했어요</string>
+    <string name="d_accSavedPlan" formatted="false">읽기 범위를 바꿨어요 · 자동 댓글이 예약됐어요</string>
+    <string name="d_accSelected" formatted="false">고른 철학자만</string>
+    <string name="d_accSelectedSub" formatted="false">고른 철학자만 읽고 댓글을 남길 수 있어요.</string>
+    <string name="d_accessFoot" formatted="false">다른 사람에게 공개되는 게 아니에요. AGORA에는 공개 게시가 없고, 언제든 바꿀 수 있어요.</string>
+    <string name="d_accessTitle" formatted="false">읽기와 댓글</string>
+    <string name="d_actCopy" formatted="false">복사</string>
+    <string name="d_actDelete" formatted="false">삭제</string>
+    <string name="d_actDm" formatted="false">{n} 개인톡에서 이어가기</string>
+    <string name="d_actDmSub" formatted="false">이 메시지만 가져가요</string>
+    <string name="d_actNote" formatted="false">이 이야기로 사유 노트 부탁하기</string>
+    <string name="d_actNoteFrom" formatted="false">여기부터 노트로 정리</string>
+    <string name="d_actNoteFromSub" formatted="false">이 메시지부터 지금까지를 대화 노트로 만들어요</string>
+    <string name="d_actReply" formatted="false">답장</string>
+    <string name="d_actReport" formatted="false">신고</string>
+    <string name="d_actReportSub" formatted="false">AI가 만든 내용</string>
+    <string name="d_addPhil" formatted="false">철학자 추가</string>
+    <string name="d_addRef" formatted="false">감상평 더하기</string>
+    <string name="d_agreeOn" formatted="false">동의하고 켜기</string>
+    <string name="d_aiLang" formatted="false">AI 대화 언어</string>
+    <string name="d_aiNote" formatted="false">AI 사유 노트</string>
+    <string name="d_aiSim" formatted="false">AI 시뮬레이션</string>
+    <string name="d_aiSummary" formatted="false">AI 요약</string>
+    <string name="d_allChats" formatted="false">대화</string>
+    <string name="d_allFilter" formatted="false">전체</string>
+    <string name="d_allowOthers" formatted="false">다른 철학자의 논평 허용</string>
+    <string name="d_allowOthersSub" formatted="false">이 노트를 읽을 수 있는 철학자만 댓글을 달아요</string>
+    <string name="d_appLang" formatted="false">앱 언어</string>
+    <string name="d_appLangSub" formatted="false">바꿔도 이미 쓴 글과 대화 원문은 그대로예요.</string>
+    <string name="d_appLock" formatted="false">앱 잠금</string>
+    <string name="d_approved" formatted="false">확인했어요</string>
+    <string name="d_archive" formatted="false">방 보관</string>
+    <string name="d_archived" formatted="false">보관한 방</string>
+    <string name="d_archivedCount" formatted="false">{n}개</string>
+    <string name="d_archivedToast" formatted="false">보관했어요</string>
+    <string name="d_askComment" formatted="false">댓글 부탁하기</string>
+    <string name="d_askNote" formatted="false">사유 노트 부탁하기</string>
+    <string name="d_askNoteHere" formatted="false">이 대화로 사유 노트 부탁하기</string>
+    <string name="d_author" formatted="false">글쓴이</string>
+    <string name="d_autoC" formatted="false">자동 댓글</string>
+    <string name="d_autoCChanged" formatted="false">기본 자동 댓글을 ‘{m}’으로 바꿨어요</string>
+    <string name="d_autoCFoot" formatted="false">무료 기기 안 AI는 앱을 쓰는 동안 댓글을 미리 써 두었다가 정한 시각에 올려요. 올리기 직전에 노트와 허락을 다시 확인하고, 조용한 시간에는 올리지 않아요.</string>
+    <string name="d_autoCInherit" formatted="false">기본값 ‘{m}’을 따르는 중</string>
+    <string name="d_autoCOwn" formatted="false">이 노트만 따로 정했어요</string>
+    <string name="d_autoCPrivate" formatted="false">나만 보는 노트에는 자동 댓글이 달리지 않아요.</string>
+    <string name="d_autoCReset" formatted="false">기본값으로</string>
+    <string name="d_autoCSheetSub" formatted="false">읽기를 허락한 노트에만 달려요. 노트마다 따로 정할 수 있어요.</string>
+    <string name="d_autoCSub" formatted="false">읽기를 허락한 노트에만 달려요</string>
+    <string name="d_autoCTitle" formatted="false">노트 자동 댓글</string>
+    <string name="d_autoHold" formatted="false">입력하는 동안 기다리는 중</string>
+    <string name="d_autoOffDone" formatted="false">이 노트의 자동 댓글을 껐어요</string>
+    <string name="d_autoOffNote" formatted="false">이 노트 자동 댓글 끄기</string>
+    <string name="d_autoPaused" formatted="false">잠시 멈췄어요</string>
+    <string name="d_autoQuiet" formatted="false">대화가 잠잠해졌어요</string>
+    <string name="d_autoSaved" formatted="false">임시 저장됨 · {t}</string>
+    <string name="d_autoSaving" formatted="false">저장하는 중…</string>
+    <string name="d_autoTag" formatted="false">자동</string>
+    <string name="d_autoTalking" formatted="false">서로 이야기하는 중 · 남은 발언 {n}</string>
+    <string name="d_autonomy" formatted="false">철학자끼리 이어 말하기</string>
+    <string name="d_back" formatted="false">뒤로</string>
+    <string name="d_beta" formatted="false">베타</string>
+    <string name="d_bodyPh" formatted="false">오늘 있었던 일, 떠오른 생각을 적어 보세요</string>
+    <string name="d_btnJournal" formatted="false">노트로</string>
+    <string name="d_btnMore" formatted="false">조금 더 듣기</string>
+    <string name="d_btnPause" formatted="false">잠시 멈춤</string>
+    <string name="d_btnResume" formatted="false">이어가기</string>
+    <string name="d_byMe" formatted="false">내가 씀</string>
+    <string name="d_canRead" formatted="false">이 철학자가 읽을 수 있는 것</string>
+    <string name="d_cancel" formatted="false">취소</string>
+    <string name="d_cancelReply" formatted="false">답장 취소</string>
+    <string name="d_chatBtn" formatted="false">개인톡</string>
+    <string-array name="d_checks">
+        <item>노트가 그대로 있는지</item>
+        <item>읽기 허락이 남아 있는지</item>
+        <item>이미 나눈 이야기는 아닌지</item>
+        <item>고친 노트와 어긋나지 않는지</item>
+        <item>자동 댓글·알림 설정이 그대로인지</item>
+    </string-array>
+    <string name="d_checksDone" formatted="false">올리기 직전에 이렇게 확인했어요</string>
+    <string name="d_checksT" formatted="false">올리기 직전에 다시 확인해요</string>
+    <string name="d_close" formatted="false">닫기</string>
+    <string name="d_cloudItem1" formatted="false">지금 방의 최근 대화</string>
+    <string name="d_cloudItem2" formatted="false">읽기를 허락한 노트</string>
+    <string name="d_cloudItem3" formatted="false">확인한 기억</string>
+    <string name="d_cloudNever" formatted="false">보내지 않는 것: 다른 방, 공유하지 않은 개인톡, 나만 보는 노트와 감상평.</string>
+    <string name="d_cloudOn" formatted="false">Plus 클라우드로 바꿨어요</string>
+    <string name="d_cloudSub" formatted="false">Plus 클라우드 AI는 아래에서 고른 것만 받아요. 나머지는 계속 이 기기에 있어요.</string>
+    <string name="d_cloudTitle" formatted="false">클라우드로 보낼 것</string>
+    <string name="d_commentN" formatted="false">{n}개</string>
+    <string name="d_commentNotif" formatted="false">이 노트의 댓글 알림</string>
+    <string name="d_commentNotifSub" formatted="false">끄면 댓글은 달려도 알림은 오지 않아요</string>
+    <string name="d_comments" formatted="false">노트 댓글</string>
+    <string name="d_commentsLocked" formatted="false">이 노트는 나만 봐요. 읽기를 허락한 철학자만 댓글을 남길 수 있어요.</string>
+    <string name="d_composeEdit" formatted="false">노트 고치기</string>
+    <string name="d_composeFoot" formatted="false">{a} · 저장한 뒤 노트마다 바꿀 수 있어요</string>
+    <string name="d_composeFootPlan" formatted="false">예약된 댓글은 고친 내용으로 다시 확인해요</string>
+    <string name="d_composeIdle" formatted="false">쓰는 동안 이 노트에만 임시 저장돼요</string>
+    <string name="d_composeNew" formatted="false">새 노트</string>
+    <string name="d_confirmed" formatted="false">확인했어요. 이제 대화에 쓸 수 있어요.</string>
+    <string name="d_continueDm" formatted="false">개인톡에서 이어가기</string>
+    <string name="d_copied" formatted="false">복사했어요</string>
+    <string name="d_coreIdeas" formatted="false">생각의 결</string>
+    <string name="d_countMonth" formatted="false">이번 달 {n}개</string>
+    <string name="d_createRoom" formatted="false">방 만들기</string>
+    <string name="d_creditsLine" formatted="false">이번 달 크레딧 [잔여 크레딧] · 다 쓰면 기기 안 AI로 이어가요</string>
+    <string name="d_dateAria" formatted="false">표시 날짜 바꾸기</string>
+    <string name="d_dayAria" formatted="false">{d}, 노트 {n}개</string>
+    <string name="d_dayCount" formatted="false">{n}개</string>
+    <string name="d_dayCount1" formatted="false">1개</string>
+    <string name="d_debateFreq" formatted="false">논쟁 빈도</string>
+    <string name="d_debateInt" formatted="false">논쟁 강도</string>
+    <string name="d_defaultAccess" formatted="false">새 노트의 기본 읽기 범위</string>
+    <string name="d_defaultAccessSub" formatted="false">노트마다 따로 바꿀 수 있어요</string>
+    <string name="d_defaultRoomName" formatted="false">{n}의 방</string>
+    <string name="d_delAllDone" formatted="false">데모에서는 지우지 않았어요. 실제 앱에선 이 기기에서 모두 지워요.</string>
+    <string name="d_delAllOk" formatted="false">지우기</string>
+    <string name="d_delAllT" formatted="false">모든 기록을 지울까요?</string>
+    <string name="d_delAllX" formatted="false">대화·노트·기억·검색 색인이 이 기기에서 사라져요. 되돌릴 수 없어요.</string>
+    <string name="d_delEntryT" formatted="false">이 노트를 삭제할까요?</string>
+    <string name="d_delEntryX" formatted="false">감상평과 댓글도 함께 지워지고, 이 노트에서 나온 기억도 쓰지 않아요.</string>
+    <string name="d_delNoteT" formatted="false">이 사유 노트를 삭제할까요?</string>
+    <string name="d_delNoteX" formatted="false">댓글도 함께 지워져요.</string>
+    <string name="d_delOk" formatted="false">삭제</string>
+    <string name="d_delRoomT" formatted="false">이 방을 삭제할까요?</string>
+    <string name="d_delRoomX" formatted="false">대화 기록과 이 방에서 나온 기억이 지워져요. 이미 만든 노트는 남아요.</string>
+    <string name="d_delete" formatted="false">삭제</string>
+    <string name="d_deleteAll" formatted="false">모든 기록 지우기</string>
+    <string name="d_deleteAllSub" formatted="false">대화, 노트, 기억, 검색 색인까지 지워요</string>
+    <string name="d_deleteEntry" formatted="false">노트 삭제</string>
+    <string name="d_deleteNote" formatted="false">사유 노트 삭제</string>
+    <string name="d_deleteRoom" formatted="false">방 삭제</string>
+    <string name="d_diagSub" formatted="false">대화 내용은 보내지 않아요</string>
+    <string name="d_discardOk" formatted="false">버리기</string>
+    <string name="d_discardT" formatted="false">고친 내용을 버릴까요?</string>
+    <string name="d_discardX" formatted="false">저장해 둔 버전은 그대로 남아요.</string>
+    <string name="d_disclose" formatted="false">AI가 {n}의 사상을 바탕으로 쓴 글이에요. 실제 {n2} 남긴 글이 아니에요.</string>
+    <string name="d_dlDone" formatted="false">준비됐어요. 이제 인터넷 없이도 대화할 수 있어요.</string>
+    <string name="d_dlLabel" formatted="false">받는 중</string>
+    <string name="d_dmSub" formatted="false">AI 시뮬레이션 · {e}</string>
+    <string name="d_done" formatted="false">완료</string>
+    <string name="d_download" formatted="false">받기</string>
+    <string-array name="d_dows">
+        <item>일</item>
+        <item>월</item>
+        <item>화</item>
+        <item>수</item>
+        <item>목</item>
+        <item>금</item>
+        <item>토</item>
+    </string-array>
+    <string name="d_draftAdded" formatted="false">대화 노트를 만들었어요</string>
+    <string name="d_draftKept" formatted="false">임시 저장했어요</string>
+    <string name="d_draftNote" formatted="false">내 말과 철학자의 말을 나눠 적었어요. 번호를 누르면 원래 대화가 보여요. 다시 요약하면 새 노트가 생기고, 이 노트와 감상평은 그대로예요.</string>
+    <string name="d_draftSavedTag" formatted="false">임시 저장</string>
+    <string name="d_draftTag" formatted="false">AI 요약 · 확인 전</string>
+    <string name="d_edit" formatted="false">고치기</string>
+    <string name="d_editDirty" formatted="false">고친 내용이 있어요 · 완료를 누르면 새 버전으로 저장돼요</string>
+    <string name="d_editIdle" formatted="false">완료를 누르면 새 버전으로 저장돼요</string>
+    <string name="d_editSum" formatted="false">직접 고치기</string>
+    <string name="d_editedNote" formatted="false">내가 고친 요약이에요. 근거는 ‘원래 대화 보기’에서 확인할 수 있어요.</string>
+    <string name="d_editedTag" formatted="false">내가 고침</string>
+    <string name="d_emptyDiscarded" formatted="false">빈 노트라서 만들지 않았어요</string>
+    <string name="d_emptySub" formatted="false">거창한 주제가 아니어도 돼요. 오늘 있었던 일부터 꺼내 보세요.</string>
+    <string name="d_emptyTitle" formatted="false">{n} 함께하는 방이에요</string>
+    <string name="d_engCloudTag" formatted="false">Plus 클라우드</string>
+    <string name="d_engHelpCloud" formatted="false">Plus 클라우드로 답해요. 동의한 범위만 보내요.</string>
+    <string name="d_engHelpLocal" formatted="false">이 방의 답은 이 기기에서 만들어요. 인터넷 없이도 돼요.</string>
+    <string name="d_engLocalTag" formatted="false">기기 안 AI</string>
+    <string name="d_engineLocal" formatted="false">기기 안 AI · 무료</string>
+    <string name="d_engineLocalShort" formatted="false">기기 안 AI</string>
+    <string name="d_enginePlus" formatted="false">Plus 클라우드 AI</string>
+    <string name="d_enginePlusShort" formatted="false">Plus 클라우드</string>
+    <string name="d_entryCreated" formatted="false">새 노트를 만들었어요</string>
+    <string name="d_entryDeleted" formatted="false">노트를 삭제했어요</string>
+    <string name="d_entryNewTitle" formatted="false">새 노트</string>
+    <string name="d_exportAll" formatted="false">모든 기록 내보내기</string>
+    <string name="d_exportAllSub" formatted="false">Markdown과 JSON으로</string>
+    <string name="d_exportChat" formatted="false">대화 내보내기</string>
+    <string name="d_exportEntry" formatted="false">내보내기</string>
+    <string name="d_exported" formatted="false">내보낼 파일을 만들었어요 (데모)</string>
+    <string name="d_filterDay" formatted="false">{d} 노트만 보는 중 · 전체 보기</string>
+    <string name="d_freeCol" formatted="false">무료 · 기기 안 AI</string>
+    <string name="d_fromComment" formatted="false">나의 노트 댓글에서 가져온 말</string>
+    <string name="d_fromNote" formatted="false">사유 노트 댓글에서 가져온 말</string>
+    <string name="d_fromRoom" formatted="false">{n}에서 가져온 말</string>
+    <string name="d_fromRooms" formatted="false">{n}에서</string>
+    <string name="d_guess" formatted="false">추정</string>
+    <string name="d_guest" formatted="false">임시</string>
+    <string name="d_guestTag" formatted="false">임시</string>
+    <string name="d_hidden" formatted="false">숨겼어요 (데모)</string>
+    <string name="d_hideLabel" formatted="false">{n} 목록에서 숨기기</string>
+    <string name="d_hideLock" formatted="false">잠금 화면에서 내용 숨기기</string>
+    <string name="d_hideLockSub" formatted="false">알림에는 누가 보냈는지만 보여요</string>
+    <string name="d_howTalk" formatted="false">말하는 방식</string>
+    <string name="d_inUse" formatted="false">사용 중</string>
+    <string name="d_incompatible" formatted="false">맞지 않음</string>
+    <string name="d_infoAriaG" formatted="false">방 정보 열기</string>
+    <string name="d_infoLabelD" formatted="false">프로필·설정</string>
+    <string name="d_infoLabelG" formatted="false">방 정보·설정</string>
+    <string name="d_initGlobalOff" formatted="false">설정에서 먼저 연락이 꺼져 있어요</string>
+    <string name="d_initLabel" formatted="false">{n}의 먼저 연락</string>
+    <string name="d_initOffSub" formatted="false">꺼짐</string>
+    <string name="d_initOnSub" formatted="false">허락한 기록을 바탕으로 가끔 개인톡을 보내요</string>
+    <string name="d_initSub" formatted="false">하루 최대 {m}번 · 조용한 시간 {q}</string>
+    <string name="d_initTitle" formatted="false">{n}의 먼저 연락</string>
+    <string name="d_initiative" formatted="false">철학자가 먼저 연락하기</string>
+    <string name="d_initiativeSub" formatted="false">허락한 노트·감상평을 바탕으로 가끔 먼저 말을 걸어요</string>
+    <string name="d_intNote" formatted="false">강도는 말투가 아니라 근거의 깊이예요. 모욕이나 인신공격은 하지 않고, 생각이 갈리지 않으면 억지로 다투지 않아요.</string>
+    <string name="d_interrupted" formatted="false">새 메시지에 맞춰 흐름을 바꿨어요</string>
+    <string name="d_invite" formatted="false">초대</string>
+    <string name="d_inviteFixed" formatted="false">방 멤버로 추가</string>
+    <string name="d_inviteFixedSub" formatted="false">앞으로 이 방 대화에 함께해요</string>
+    <string name="d_inviteSub" formatted="false">어떻게 부를까요?</string>
+    <string name="d_inviteTemp" formatted="false">이번 질문에만 부르기</string>
+    <string name="d_inviteTempSub" formatted="false">답하고 나면 조용히 빠져요</string>
+    <string name="d_inviteToRoom" formatted="false">방에 초대</string>
+    <string name="d_joinedFixed" formatted="false">{n} 방에 들어왔어요</string>
+    <string name="d_joinedTemp" formatted="false">{n} 이번 질문에 답하러 왔어요</string>
+    <string name="d_journalEmpty" formatted="false">이날은 노트가 없어요. 대화가 없는 날의 노트를 지어내지 않아요.</string>
+    <string name="d_keepEditing" formatted="false">계속 고치기</string>
+    <string name="d_keepWriting" formatted="false">이어 쓰기</string>
+    <string name="d_kindConv" formatted="false">대화 노트</string>
+    <string name="d_kindEmpty" formatted="false">조건에 맞는 노트가 없어요.</string>
+    <string name="d_kindEntry" formatted="false">나의 노트</string>
+    <string name="d_kindGuess" formatted="false">AI 추정</string>
+    <string name="d_kindJournal" formatted="false">나의 노트에서</string>
+    <string name="d_kindNote" formatted="false">사유 노트</string>
+    <string name="d_kindRoom" formatted="false">대화</string>
+    <string name="d_kindSaid" formatted="false">내가 말함</string>
+    <string name="d_kindUser" formatted="false">직접 쓴 노트</string>
+    <string name="d_later" formatted="false">나중에</string>
+    <string name="d_leftTemp" formatted="false">{n} 답하고 방을 나갔어요</string>
+    <string name="d_letRead" formatted="false">읽기 허락하기</string>
+    <string name="d_listPlan" formatted="false">{n} 댓글 예정 · {w}</string>
+    <string name="d_liveText" formatted="false">서로 이야기하는 중</string>
+    <string name="d_localOn" formatted="false">기기 안 AI로 바꿨어요</string>
+    <string name="d_localProfile" formatted="false">이 기기의 프로필</string>
+    <string name="d_localProfileSub" formatted="false">계정 없이 쓰는 중 · 기록은 이 기기에 저장돼요</string>
+    <string name="d_localSub" formatted="false">[기본 모델] · 설치됨 · 오프라인 가능</string>
+    <string name="d_looksRight" formatted="false">맞아요</string>
+    <string name="d_mBaseDesc" formatted="false">한국어·영어 대화와 노트 정리에 맞춘 기본 모델이에요.</string>
+    <string name="d_mBig" formatted="false">[큰 모델]</string>
+    <string name="d_mBigDesc" formatted="false">이 기기에는 메모리가 부족해요. 태블릿이나 데스크톱에서 쓸 수 있어요.</string>
+    <string name="d_mBigSub" formatted="false">[모델 용량] · 메모리 12GB 이상</string>
+    <string name="d_mLight" formatted="false">[가벼운 모델]</string>
+    <string name="d_mLightDesc" formatted="false">답이 짧고 빨라요. 인물의 개성은 조금 덜 살아나요.</string>
+    <string name="d_mLightSub" formatted="false">[모델 용량] · 오래된 기기용</string>
+    <string name="d_makeDraft" formatted="false">대화 노트 만들기</string>
+    <string name="d_makeJournal" formatted="false">노트로 정리하기</string>
+    <string name="d_manualTag" formatted="false">직접 씀</string>
+    <string name="d_maxLabel" formatted="false">하루 {n}번까지</string>
+    <string name="d_maxPerDay" formatted="false">하루 최대</string>
+    <string name="d_meShort" formatted="false">나</string>
+    <string name="d_memDeleted" formatted="false">기억을 지웠어요</string>
+    <string name="d_memEmpty" formatted="false">이 조건에 맞는 기억이 없어요.</string>
+    <string name="d_memNote" formatted="false">AI 추정은 확인하기 전까지 사실처럼 쓰지 않아요. 지운 기억은 검색 색인에서도 지워요.</string>
+    <string name="d_memSub" formatted="false">{n}개 · 확인할 AI 추정 {g}개</string>
+    <string name="d_membersLabel" formatted="false">함께하는 철학자 {n}</string>
+    <string name="d_memory" formatted="false">기억</string>
+    <string name="d_mentionBtn" formatted="false">철학자 부르기</string>
+    <string name="d_mentionIn" formatted="false">이 방에 있어요</string>
+    <string name="d_mentionNone" formatted="false">맞는 이름이 없어요. 한글이나 영어로 찾아보세요.</string>
+    <string name="d_mentionOut" formatted="false">초대해서 부르기</string>
+    <string name="d_mentionTitle" formatted="false">누구를 부를까요?</string>
+    <string name="d_modelBase" formatted="false">[기본 모델]</string>
+    <string name="d_modelBaseSub" formatted="false">[모델 용량] · 한국어·영어 대화</string>
+    <string name="d_modelNote" formatted="false">모델 이름과 용량은 실기기 시험 뒤에 정해요. 받은 파일은 서명과 해시로 확인해요.</string>
+    <string name="d_modelSwitched" formatted="false">모델을 바꿨어요</string>
+    <string name="d_modelsTitle" formatted="false">기기 안 AI 모델</string>
+    <string name="d_monthLabel" formatted="false">2026년 10월</string>
+    <string name="d_more" formatted="false">더보기</string>
+    <string name="d_more3" formatted="false">외 {n}명</string>
+    <string name="d_myJournal" formatted="false">나의 노트</string>
+    <string-array name="d_nameSugs">
+        <item>일상의 철학</item>
+        <item>밤의 대화</item>
+        <item>출근길</item>
+        <item>음악 이야기</item>
+    </string-array>
+    <string name="d_navLabel" formatted="false">주요 메뉴</string>
+    <string name="d_needPlus" formatted="false">Plus를 켜면 클라우드 AI를 고를 수 있어요</string>
+    <string name="d_newChat" formatted="false">새 대화</string>
+    <string name="d_newGroup" formatted="false">새 단톡방 만들기</string>
+    <string name="d_newGroupSub" formatted="false">함께할 철학자를 골라 방을 만들어요</string>
+    <string name="d_newRoomDesc" formatted="false">내가 만든 방</string>
+    <string name="d_next" formatted="false">다음</string>
+    <string name="d_noMems" formatted="false">아직 기억하는 게 없어요.</string>
+    <string name="d_noReports" formatted="false">아직 보낸 신고가 없어요.</string>
+    <string name="d_notTrue" formatted="false">아니에요</string>
+    <string name="d_noteArrived" formatted="false">{n}의 사유 노트가 도착했어요</string>
+    <string name="d_noteAuto" formatted="false">사유 노트 자동 작성</string>
+    <string name="d_noteAutoSub" formatted="false">철학자가 대화를 계기로 자기 생각을 사유 노트로 남기는 방식이에요.</string>
+    <string name="d_noteDeleted" formatted="false">사유 노트를 삭제했어요</string>
+    <string name="d_noteMeta" formatted="false">{d} · {o}</string>
+    <string name="d_noteNew" formatted="false">새 노트</string>
+    <string name="d_notePh" formatted="false">{n}에게 댓글</string>
+    <string name="d_noteSaved" formatted="false">노트를 저장했어요</string>
+    <string name="d_noteWriting" formatted="false">{n} 사유 노트를 쓰고 있어요</string>
+    <string name="d_notesEmpty" formatted="false">아직 사유 노트가 없어요. 대화 뒤에 부탁해 보세요.</string>
+    <string name="d_noticeD" formatted="false">이 {n} 사상을 바탕으로 한 AI 시뮬레이션이에요. 개인톡은 다른 철학자와 공유되지 않아요.</string>
+    <string name="d_noticeG" formatted="false">철학자들은 역사 속 인물의 사상을 바탕으로 한 AI 시뮬레이션이에요. 이 방의 대화는 이 방 안에서만 기억해요.</string>
+    <string name="d_notifications" formatted="false">알림</string>
+    <string name="d_nrSub1" formatted="false">한 명 이상 고르세요. 방마다 구성을 다르게 둘 수 있어요.</string>
+    <string name="d_nrTitle1" formatted="false">함께할 철학자</string>
+    <string name="d_nrTitle2" formatted="false">방 만들기</string>
+    <string name="d_ob2Device" formatted="false">이 기기</string>
+    <string name="d_ob2DeviceVal" formatted="false">메모리 8GB · 기본 모델을 쓸 수 있어요</string>
+    <string name="d_ob2Note" formatted="false">모델 파일은 앱과 따로 받아요. 받는 중에 끊겨도 이어서 받을 수 있어요.</string>
+    <string name="d_ob2Storage" formatted="false">저장 공간</string>
+    <string name="d_ob2StorageVal" formatted="false">여유 23GB · 필요 [모델 용량]</string>
+    <string name="d_ob2Sub" formatted="false">무료 대화는 이 기기 안에서 돌아가요. 한 번 받아 두면 인터넷 없이도 이야기할 수 있어요.</string>
+    <string name="d_ob2Title" formatted="false">기기 안 AI 준비</string>
+    <string name="d_ob3Sub" formatted="false">모두 나중에 설정에서 바꿀 수 있어요.</string>
+    <string name="d_ob3Title" formatted="false">하나씩 고를 수 있어요</string>
+    <string name="d_obDisclose" formatted="false">AGORA의 철학자는 역사 속 인물의 사상을 바탕으로 한 AI 시뮬레이션이에요. 실제 인물이 한 말이 아니에요.</string>
+    <string name="d_obDoneToast" formatted="false">준비됐어요. 대화를 시작해 보세요.</string>
+    <string name="d_obFinish" formatted="false">AGORA 시작하기</string>
+    <string name="d_obLang" formatted="false">언어</string>
+    <string name="d_obStart" formatted="false">시작하기</string>
+    <string name="d_obSub" formatted="false">출근길에 들은 노래 이야기도, 밤의 작은 고민도 괜찮아요. 철학자들이 함께 듣고, 서로 이야기를 이어가요.</string>
+    <string name="d_obTitle" formatted="false">철학자들과 나누는 메신저</string>
+    <string name="d_offlineBanner" formatted="false">오프라인이에요 · 기기 안 AI로 계속 이야기할 수 있어요</string>
+    <string name="d_offlineCloud" formatted="false">오프라인이라 기기 안 AI로 바꿔 답해요</string>
+    <string name="d_offlineLocal" formatted="false">오프라인 · 기기 안 AI로 답해요</string>
+    <string name="d_openNotifSettings" formatted="false">알림 설정 열기</string>
+    <string name="d_optional" formatted="false">선택</string>
+    <string name="d_originDm" formatted="false">{n} 개인톡에서</string>
+    <string name="d_originRoom" formatted="false">{n}에서</string>
+    <string name="d_pauseDl" formatted="false">잠시 멈춤</string>
+    <string name="d_pausedDl" formatted="false">멈춤</string>
+    <string name="d_pausedLive" formatted="false">잠시 멈춤</string>
+    <string name="d_pausedTag" formatted="false">사용 중지</string>
+    <string name="d_peopleNote" formatted="false">모두 역사 속 인물의 사상을 바탕으로 한 AI 시뮬레이션이에요.</string>
+    <string name="d_permCloud" formatted="false">클라우드 AI는 Plus에서 따로 동의할 때만 써요.</string>
+    <string name="d_permDiag" formatted="false">오류 보고 보내기</string>
+    <string name="d_permJournal" formatted="false">노트를 읽을 수 있는 철학자는 노트마다 정해요. 기본은 ‘나만’이에요.</string>
+    <string name="d_permNotif" formatted="false">먼저 연락 알림</string>
+    <string name="d_permNotifSub" formatted="false">철학자가 먼저 건네는 말을 알림으로 받아요</string>
+    <string name="d_phDm" formatted="false">{n}에게</string>
+    <string name="d_phGroup" formatted="false">메시지 보내기</string>
+    <string name="d_philNotes" formatted="false">철학자의 사유 노트</string>
+    <string name="d_pickComment" formatted="false">누구에게 부탁할까요?</string>
+    <string name="d_pickCommentEmpty" formatted="false">먼저 읽기를 허락해 주세요.</string>
+    <string name="d_pickCommentSub" formatted="false">이 노트를 읽을 수 있는 철학자만 보여요</string>
+    <string name="d_pickDateHint" formatted="false">표시 날짜만 바뀌어요. 노트와 댓글은 그대로 이어져요.</string>
+    <string name="d_pickMember" formatted="false">누구를 초대할까요?</string>
+    <string name="d_pickMemberEmpty" formatted="false">모든 철학자가 이미 이 방에 있어요.</string>
+    <string name="d_pickMemberSub" formatted="false">이 방에 없는 철학자</string>
+    <string name="d_pickNote" formatted="false">누구에게 사유 노트를 부탁할까요?</string>
+    <string name="d_pickNoteAll" formatted="false">사유 노트를 쓸 철학자를 고르세요</string>
+    <string name="d_pickNoteSub" formatted="false">{n}의 대화를 읽을 수 있는 철학자만 보여요</string>
+    <string name="d_pickRoom" formatted="false">어느 방에 초대할까요?</string>
+    <string name="d_pickRoomEmpty" formatted="false">초대할 수 있는 방이 없어요. 새 단톡방을 만들어 보세요.</string>
+    <string name="d_pickRoomSub" formatted="false">{n} 아직 없는 방</string>
+    <string name="d_picked" formatted="false">{n}명 골랐어요</string>
+    <string name="d_pickedNone" formatted="false">아직 아무도 고르지 않았어요</string>
+    <string name="d_pinned" formatted="false">고정</string>
+    <string name="d_planArrived" formatted="false">{n}의 댓글이 도착했어요</string>
+    <string name="d_planCancel" formatted="false">예약 취소</string>
+    <string name="d_planCancelled" formatted="false">예약된 댓글을 취소했어요</string>
+    <string name="d_planCancelledN" formatted="false">예약된 댓글 {n}개를 취소했어요</string>
+    <string name="d_planChecking" formatted="false">고친 내용으로 다시 확인하는 중…</string>
+    <string name="d_planDup" formatted="false">{n} 이미 댓글을 남겨서 예약을 거뒀어요</string>
+    <string name="d_planInSheet" formatted="false">예약된 댓글 {n}개 · ‘나만’으로 바꾸거나 자동 댓글을 끄면 취소돼요</string>
+    <string name="d_planLine" formatted="false">{n} {w}쯤 댓글을 남길 수 있어요</string>
+    <string name="d_planNow" formatted="false">지금 받기</string>
+    <string name="d_planPosting" formatted="false">올리기 전에 확인하는 중…</string>
+    <string name="d_planRechecked" formatted="false">고친 내용으로 다시 확인했어요 · 예약은 그대로예요</string>
+    <string name="d_planStale" formatted="false">노트가 바뀌어 예약된 댓글을 올리지 않았어요</string>
+    <string name="d_planSub" formatted="false">기기 안 AI가 {t}에 미리 써 뒀어요 · 올리기 전에 다시 확인해요</string>
+    <string name="d_planSubRe" formatted="false">고친 내용으로 {t}에 다시 써 뒀어요 · 올리기 전에 다시 확인해요</string>
+    <string name="d_planWhy" formatted="false">왜 예약됐나요?</string>
+    <string name="d_plusActive" formatted="false">Plus 사용 중 (데모)</string>
+    <string name="d_plusCancel" formatted="false">Plus 끄기</string>
+    <string name="d_plusCol" formatted="false">Plus · 클라우드 AI를 고를 수 있어요</string>
+    <string name="d_plusCta" formatted="false">Plus 써 보기 (데모)</string>
+    <string-array name="d_plusFree">
+        <item>단톡방·개인톡·노트·댓글 모두</item>
+        <item>인터넷 없이도 대화</item>
+        <item>기록은 이 기기에 저장</item>
+    </string-array>
+    <string-array name="d_plusNotes">
+        <item>Plus를 켜도 노트가 자동으로 올라가지 않아요. 보낼 범위를 직접 골라요.</item>
+        <item>해지해도 직접 쓴 노트와 감상평은 그대로 남아요.</item>
+        <item>크레딧이 떨어지거나 서버가 멈추면 기기 안 AI로 이어가요. 답의 깊이는 달라질 수 있어요.</item>
+    </string-array>
+    <string name="d_plusOffToast" formatted="false">Plus를 껐어요. 기기 안 AI로 이어가요.</string>
+    <string name="d_plusOnToast" formatted="false">Plus를 켰어요 (데모)</string>
+    <string-array name="d_plusPlus">
+        <item>더 큰 모델로 긴 맥락과 깊은 논증</item>
+        <item>오래된 기록까지 이어서 생각하기</item>
+        <item>월 [크레딧] · 다 쓰면 기기 안 AI로 계속</item>
+    </string-array>
+    <string name="d_plusSub" formatted="false">무료로도 모든 핵심 기능을 써요. Plus는 더 깊은 대화가 필요할 때 고르는 선택이에요.</string>
+    <string name="d_plusSubOff" formatted="false">더 깊은 대화를 위한 선택 · 꺼짐</string>
+    <string name="d_plusSubOn" formatted="false">켜짐 · 고른 방에서만 써요</string>
+    <string name="d_plusTitle" formatted="false">더 깊은 대화가 필요할 때</string>
+    <string name="d_previewLabel" formatted="false">미리 보기 · 노력해도 결과가 없다면?</string>
+    <string name="d_previewOff" formatted="false">미리 보기 · 반박 없이 각자의 관점</string>
+    <string name="d_priceLine" formatted="false">[구독료] / 월 · 언제든 해지할 수 있어요</string>
+    <string name="d_privateSys" formatted="false">이 메시지는 이 방에서만 기억해요. 다른 방·개인톡에서는 쓰지 않아요.</string>
+    <string name="d_profileOf" formatted="false">{n} 프로필</string>
+    <string name="d_quickChange" formatted="false">다른 얘기 하자</string>
+    <string name="d_quickSoft" formatted="false">좀 더 부드럽게</string>
+    <string name="d_quietHours" formatted="false">조용한 시간</string>
+    <string name="d_quietOff" formatted="false">없음</string>
+    <string name="d_quietSub" formatted="false">이 시간엔 먼저 연락하지 않아요</string>
+    <string name="d_rangeLabel" formatted="false">{r} · 메시지 {n}개에서</string>
+    <string name="d_reachOut" formatted="false">먼저 연락</string>
+    <string name="d_reachedOut" formatted="false">먼저 건넨 말</string>
+    <string name="d_readDm" formatted="false">{n} 개인톡</string>
+    <string name="d_readDmSub" formatted="false">이 철학자와 나눈 개인톡</string>
+    <string name="d_readJournal" formatted="false">읽기를 허락한 노트 {n}개</string>
+    <string name="d_readJournalNone" formatted="false">허락한 노트가 없어요</string>
+    <string name="d_readJournalSub" formatted="false">허락을 거두면 바로 읽지 않아요</string>
+    <string name="d_readRooms" formatted="false">함께 있는 방</string>
+    <string name="d_readRoomsNone" formatted="false">함께 있는 방이 없어요</string>
+    <string name="d_readRoomsSub" formatted="false">{n} · 각 방 안에서만</string>
+    <string-array name="d_reasons">
+        <item>사실과 다른 인용이에요</item>
+        <item>불쾌하거나 혐오스러운 말이에요</item>
+        <item>위험한 내용이에요</item>
+        <item>다른 대화의 내 이야기가 나왔어요</item>
+        <item>기타</item>
+    </string-array>
+    <string name="d_recommended" formatted="false">권장</string>
+    <string name="d_refMeta" formatted="false">내가 씀 · {t} 저장</string>
+    <string name="d_refPh" formatted="false">다시 읽고 떠오른 생각을 적어 보세요</string>
+    <string name="d_refTitle" formatted="false">나의 감상평</string>
+    <string name="d_reflectionNote" formatted="false">감상평은 AI가 고치거나 다시 쓰지 않아요.</string>
+    <string name="d_regen" formatted="false">다시 쓰게 하기</string>
+    <string name="d_regenDraft" formatted="false">새 노트로 다시 요약</string>
+    <string name="d_regenFrom" formatted="false">같은 대화를 다시 요약한 새 노트예요.</string>
+    <string name="d_regenNew" formatted="false">새 노트로 다시 요약했어요 · 원래 노트는 그대로예요</string>
+    <string name="d_rejected" formatted="false">지웠어요. 다시 추정하지 않을게요.</string>
+    <string name="d_remembers" formatted="false">이 철학자가 기억하는 것</string>
+    <string name="d_remove" formatted="false">내보내기</string>
+    <string name="d_removeAria" formatted="false">{n} 빼기</string>
+    <string name="d_removedSys" formatted="false">{n} 방에서 나갔어요</string>
+    <string name="d_reply" formatted="false">답글</string>
+    <string name="d_replyLang" formatted="false">AI 답변 언어</string>
+    <string name="d_replyPh" formatted="false">답글 쓰기</string>
+    <string name="d_replyTo" formatted="false">{n}에게 답글</string>
+    <string name="d_report" formatted="false">신고</string>
+    <string name="d_reportRoom" formatted="false">대화 신고</string>
+    <string name="d_reportRow" formatted="false">{d} · {r}</string>
+    <string name="d_reportSent" formatted="false">신고를 보냈어요. 검토해서 반영할게요.</string>
+    <string name="d_reportSub" formatted="false">AI가 만든 내용이 부적절하면 알려 주세요. 검토해서 반영할게요.</string>
+    <string name="d_reportTitle" formatted="false">이 AI 메시지 신고</string>
+    <string name="d_reportsN" formatted="false">{n}건</string>
+    <string name="d_reportsNone" formatted="false">없음</string>
+    <string name="d_reportsTitle" formatted="false">신고 내역</string>
+    <string name="d_required" formatted="false">필수</string>
+    <string name="d_restartOb" formatted="false">첫 실행 화면 다시 보기</string>
+    <string name="d_resumeDl" formatted="false">이어 받기</string>
+    <string name="d_revAi" formatted="false">AI가 처음 쓴 요약</string>
+    <string name="d_revCount" formatted="false">고침 {n}번 · {t}</string>
+    <string name="d_revFirst" formatted="false">처음 쓴 버전</string>
+    <string name="d_revMid" formatted="false">{n}번째 버전</string>
+    <string name="d_revMine" formatted="false">내가 고친 요약</string>
+    <string name="d_revNow" formatted="false">지금 버전</string>
+    <string name="d_revSaved" formatted="false">새 버전으로 저장했어요</string>
+    <string name="d_reviewedTag" formatted="false">확인함</string>
+    <string name="d_revs" formatted="false">수정 기록</string>
+    <string name="d_revsSub" formatted="false">고칠 때마다 새 버전으로 남아요. 노트는 하나 그대로예요.</string>
+    <string name="d_right" formatted="false">맞아요</string>
+    <string name="d_roomCreated" formatted="false">{n} 방을 만들었어요</string>
+    <string name="d_roomDeleted" formatted="false">방을 삭제했어요</string>
+    <string name="d_roomInfo" formatted="false">방 정보</string>
+    <string name="d_roomMemText" formatted="false">이 방의 대화는 다른 방이나 개인톡에서 쓰지 않아요. 같은 철학자라도 여기서 들은 건 여기서만 기억해요.</string>
+    <string name="d_roomName" formatted="false">방 이름</string>
+    <string name="d_roomNamePh" formatted="false">예: 일상의 철학</string>
+    <string name="d_roomsWith" formatted="false">{n} 함께</string>
+    <string name="d_save" formatted="false">저장</string>
+    <string name="d_saved" formatted="false">이 기기에 저장했어요</string>
+    <string name="d_savedPlan" formatted="false">저장했어요 · 자동 댓글이 예약됐어요</string>
+    <string name="d_scopeLabel" formatted="false">{s}에서만 써요</string>
+    <string name="d_search" formatted="false">검색</string>
+    <string name="d_searchHint" formatted="false">이 기기 안에서만 찾아요</string>
+    <string name="d_searchNone" formatted="false">찾는 내용이 없어요</string>
+    <string name="d_searchPh" formatted="false">대화와 노트에서 찾기</string>
+    <string name="d_searchTitle" formatted="false">검색</string>
+    <string name="d_secAbout" formatted="false">안내</string>
+    <string name="d_secData" formatted="false">데이터</string>
+    <string name="d_secEngine" formatted="false">AI 엔진</string>
+    <string name="d_secLang" formatted="false">언어</string>
+    <string name="d_secMemory" formatted="false">기억과 노트</string>
+    <string name="d_secNotif" formatted="false">알림과 먼저 연락</string>
+    <string name="d_secTheme" formatted="false">테마</string>
+    <string name="d_seeNotes" formatted="false">노트</string>
+    <string name="d_seeOriginal" formatted="false">원래 대화 보기</string>
+    <string name="d_seePrev" formatted="false">원래 노트 보기</string>
+    <string name="d_seeRoomMemory" formatted="false">이 방에서 나온 기억 보기</string>
+    <string name="d_send" formatted="false">보내기</string>
+    <string name="d_softenSys" formatted="false">이 대화에선 논쟁을 부드럽게 낮췄어요</string>
+    <string name="d_sourceQuote" formatted="false">원전 · 자체 번역</string>
+    <string name="d_sourceTitle" formatted="false">이 문장의 근거</string>
+    <string name="d_sources" formatted="false">자료와 출처</string>
+    <string name="d_startDm" formatted="false">개인톡 시작</string>
+    <string name="d_stepN" formatted="false">{n} / 3</string>
+    <string name="d_stopGen" formatted="false">답 멈추기</string>
+    <string name="d_stopUse" formatted="false">사용 중지</string>
+    <string name="d_stoppedText" formatted="false">{n}의 답을 멈췄어요</string>
+    <string name="d_storageThis" formatted="false">이 기기 여유 공간</string>
+    <string name="d_storageVal" formatted="false">23GB / 61GB</string>
+    <string name="d_submitReport" formatted="false">신고 보내기</string>
+    <string name="d_sumEditNote" formatted="false">고친 요약은 이 노트에 남아요. AI가 처음 쓴 요약은 수정 기록에서 볼 수 있어요.</string>
+    <string name="d_sumSaved" formatted="false">요약을 고쳤어요</string>
+    <string name="d_tabChats" formatted="false">대화</string>
+    <string name="d_tabPeople" formatted="false">철학자</string>
+    <string name="d_tabRecords" formatted="false">노트</string>
+    <string name="d_tabSettings" formatted="false">설정</string>
+    <string name="d_talkInRoom" formatted="false">단톡방에서 이야기하기</string>
+    <string name="d_thisRoomOnly" formatted="false">이 방에서만</string>
+    <string name="d_timesN" formatted="false">{n}번</string>
+    <string name="d_titlePh" formatted="false">제목</string>
+    <string name="d_tomorrow" formatted="false">내일 {t}</string>
+    <string name="d_typeFixed" formatted="false">고정 멤버</string>
+    <string name="d_typeTemp" formatted="false">임시 · 이번 질문만</string>
+    <string name="d_typing" formatted="false">{n} 쓰는 중</string>
+    <string name="d_unarchive" formatted="false">보관 해제</string>
+    <string name="d_unarchivedToast" formatted="false">다시 꺼냈어요</string>
+    <string name="d_unread" formatted="false">안 읽음</string>
+    <string name="d_untitled" formatted="false">제목 없음</string>
+    <string name="d_useAgain" formatted="false">다시 쓰기</string>
+    <string name="d_useThis" formatted="false">이 모델 쓰기</string>
+    <string name="d_verifying" formatted="false">파일 확인 중</string>
+    <string name="d_vibe" formatted="false">대화 분위기</string>
+    <string name="d_vibeSub" formatted="false">언제든 방 정보에서 바꿀 수 있어요.</string>
+    <string name="d_view" formatted="false">보기</string>
+    <string name="d_whoReads" formatted="false">읽을 수 있는 철학자</string>
+    <string name="d_whyAutoT" formatted="false">이 댓글은 어떻게 왔나요?</string>
+    <string name="d_whyAutoX" formatted="false">{n}에게 이 노트를 읽도록 허락해서, 기기 안 AI가 {p}에 미리 써 두었다가 {t}에 올렸어요.</string>
+    <string name="d_whyNote" formatted="false">알림은 대략 그 시간쯤 와요. 휴대폰 상태에 따라 늦을 수 있어요.</string>
+    <string name="d_whyPlanFoot" formatted="false">조용한 시간({q})에는 올리지 않아요. 휴대폰 상태에 따라 늦게 올 수 있어요.</string>
+    <string name="d_whyPlanT" formatted="false">왜 댓글이 예약됐나요?</string>
+    <string name="d_whyPlanX" formatted="false">{n}에게 이 노트를 읽도록 허락했고 자동 댓글이 ‘{m}’이라서, 기기 안 AI가 {t}에 미리 써 두었어요.</string>
+    <string name="d_whySrcLabel" formatted="false">근거 · 10월 12일 나의 감상평</string>
+    <string name="d_whyText" formatted="false">10월 12일 노트의 감상평을 카뮈가 읽도록 허락했어요. 그 문장에 대한 후속 질문이에요. 기기 안 AI가 새벽에 미리 써 두었다가, 보내기 직전에 허락이 그대로인지 다시 확인했어요.</string>
+    <string name="d_whyTitle" formatted="false">왜 이 메시지가 왔나요?</string>
+    <string name="d_wifiOnly" formatted="false">Wi-Fi에서만 받기</string>
+    <string name="d_writeJournal" formatted="false">새 노트</string>
+    <string name="d_writingComment" formatted="false">{n} 댓글을 쓰는 중</string>
+    <string name="d_writingReply" formatted="false">{n} 답글을 쓰는 중</string>
+    <string name="d_yesterday" formatted="false">어제</string>
+    <string name="d_you" formatted="false">나</string>
+</resources>

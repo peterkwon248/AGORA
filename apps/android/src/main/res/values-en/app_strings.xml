@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_model_missing" formatted="false">On-device AI isn\'t ready yet. You can chat once the model is downloaded.</string>
+    <string name="app_generation_failed" formatted="false">{n} couldn\'t write a reply.</string>
+    <string name="app_sprint0_room" formatted="false">Nietzsche · Schopenhauer</string>
+</resources>

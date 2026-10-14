@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 시안에 없는 문구. 최소 추가 화면 승인 대상(03_requirements_gap_checklist.md D). 기존 시안 말투를 따른다. -->
+<resources>
+    <string name="app_model_missing" formatted="false">기기 안 AI가 아직 준비되지 않았어요. 모델을 받으면 대화할 수 있어요.</string>
+    <string name="app_generation_failed" formatted="false">{n} 답을 만들지 못했어요.</string>
+    <string name="app_sprint0_room" formatted="false">니체 · 쇼펜하우어</string>
+</resources>
