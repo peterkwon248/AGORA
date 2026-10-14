@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>AGORA · 설정</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/c99eb56464cc3b9e07e5f2852a3e872a">
+<script src="/_blob/0071663aba1095468d87fe100cdca90c"></script>
+<script src="/_blob/036d240d7ee640ddc546e02a093a1794"></script>
+<script src="/_blob/260e2a3fe013fcc3825b5116a0d1181c"></script>
+<script src="/_blob/37c876d89e8d11fad580d45f9cc58ed3"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800&amp;family=Gowun+Batang:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 412px; height: 915px; overflow: hidden">
+<dc-import name="Main" start="설정" language="{{language}}" theme="{{theme}}" hint-size="412px,915px"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"language": {"editor": "enum", "options": ["한국어", "English"], "default": "한국어", "section": "보기"}, "theme": {"editor": "enum", "options": ["시스템", "라이트", "다크"], "default": "시스템", "section": "보기"}, "$preview": {"width": 412, "height": 915}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { language: this.props.language ?? '한국어', theme: this.props.theme ?? '시스템' };
+  }
+}
+</script>
+</body>
+</html>

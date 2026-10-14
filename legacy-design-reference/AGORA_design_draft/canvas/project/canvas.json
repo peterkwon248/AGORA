@@ -1,0 +1,49 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-13T06:40:00Z"},
+  "title": "AGORA 디자인 초안",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 1500, "w": 412, "h": 915, "title": "홈 · 전체 앱", "is_interactive": true},
+    "Map.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 1040, "title": "화면 지도"},
+    "Grammar.dc.html": {"x": 1520, "y": 0, "w": 1440, "h": 1040, "title": "대화의 문법"},
+    "Plaza.dc.html": {"x": 492, "y": 1500, "w": 412, "h": 915, "title": "광장 · 일상 대화", "is_interactive": true},
+    "Mention.dc.html": {"x": 984, "y": 1500, "w": 412, "h": 915, "title": "@멘션 자동완성", "is_interactive": true},
+    "Invite.dc.html": {"x": 1476, "y": 1500, "w": 412, "h": 915, "title": "방 밖 철학자 부르기", "is_interactive": true},
+    "Together.dc.html": {"x": 1968, "y": 1500, "w": 412, "h": 915, "title": "철학자끼리 이어 말하기 · 일시정지", "is_interactive": true},
+    "Debate.dc.html": {"x": 2460, "y": 1500, "w": 412, "h": 915, "title": "가끔 생기는 논쟁 · 완화 칩", "is_interactive": true},
+    "Reach.dc.html": {"x": 2952, "y": 1500, "w": 412, "h": 915, "title": "먼저 건넨 말 · 왜 왔나요?", "is_interactive": true},
+    "NewRoom.dc.html": {"x": 0, "y": 2875, "w": 412, "h": 915, "title": "새 단톡방 · 철학자 고르기", "is_interactive": true},
+    "NewRoom-Vibe.dc.html": {"x": 492, "y": 2875, "w": 412, "h": 915, "title": "새 단톡방 · 대화 분위기", "is_interactive": true},
+    "RoomInfo.dc.html": {"x": 984, "y": 2875, "w": 412, "h": 915, "title": "방 정보 · 설정", "is_interactive": true},
+    "People.dc.html": {"x": 1476, "y": 2875, "w": 412, "h": 915, "title": "철학자", "is_interactive": true},
+    "Profile.dc.html": {"x": 1968, "y": 2875, "w": 412, "h": 915, "title": "철학자 프로필", "is_interactive": true},
+    "Settings.dc.html": {"x": 2460, "y": 2875, "w": 412, "h": 915, "title": "설정", "is_interactive": true},
+    "Models.dc.html": {"x": 2952, "y": 2875, "w": 412, "h": 915, "title": "기기 안 AI 모델", "is_interactive": true},
+    "Memory.dc.html": {"x": 3444, "y": 2875, "w": 412, "h": 915, "title": "기억 관리", "is_interactive": true},
+    "Journal.dc.html": {"x": 0, "y": 4250, "w": 412, "h": 915, "title": "나의 노트 · 날짜별 여러 노트", "is_interactive": true},
+    "Compose.dc.html": {"x": 492, "y": 4250, "w": 412, "h": 915, "title": "새 노트 · 제목과 본문", "is_interactive": true},
+    "Entry.dc.html": {"x": 984, "y": 4250, "w": 412, "h": 915, "title": "대화 노트 · AI 요약과 감상평", "is_interactive": true},
+    "Entry-Comments.dc.html": {"x": 1476, "y": 4250, "w": 412, "h": 915, "title": "노트 댓글 · 답글과 자동 댓글", "is_interactive": true},
+    "Entry-Plan.dc.html": {"x": 1968, "y": 4250, "w": 412, "h": 915, "title": "자동 댓글 예약 · 직접 쓴 노트", "is_interactive": true},
+    "Entry-Access.dc.html": {"x": 2460, "y": 4250, "w": 412, "h": 915, "title": "읽기와 댓글 · 노트마다 설정", "is_interactive": true},
+    "Notes.dc.html": {"x": 2952, "y": 4250, "w": 412, "h": 915, "title": "철학자의 사유 노트", "is_interactive": true},
+    "Note.dc.html": {"x": 3444, "y": 4250, "w": 412, "h": 915, "title": "사유 노트 · 댓글과 답글", "is_interactive": true},
+    "Welcome.dc.html": {"x": 0, "y": 5625, "w": 412, "h": 915, "title": "첫 실행", "is_interactive": true},
+    "Setup.dc.html": {"x": 492, "y": 5625, "w": 412, "h": 915, "title": "첫 실행 · 기기 안 AI 준비", "is_interactive": true},
+    "Plus.dc.html": {"x": 984, "y": 5625, "w": 412, "h": 915, "title": "Plus", "is_interactive": true},
+    "Consent.dc.html": {"x": 1476, "y": 5625, "w": 412, "h": 915, "title": "클라우드 동의", "is_interactive": true}
+  },
+  "order": [
+    "Main.dc.html", "Map.dc.html", "Grammar.dc.html", "Plaza.dc.html", "Mention.dc.html", "Invite.dc.html", "Together.dc.html", "Debate.dc.html", "Reach.dc.html", "NewRoom.dc.html", "NewRoom-Vibe.dc.html", "RoomInfo.dc.html", "People.dc.html", "Profile.dc.html", "Settings.dc.html", "Models.dc.html", "Memory.dc.html", "Journal.dc.html", "Compose.dc.html", "Entry.dc.html", "Entry-Comments.dc.html", "Entry-Plan.dc.html", "Entry-Access.dc.html", "Notes.dc.html", "Note.dc.html", "Welcome.dc.html", "Setup.dc.html", "Plus.dc.html", "Consent.dc.html"
+  ],
+  "notes": {
+    "t0": {"x": 0, "y": -300, "text": "AGORA 디자인 초안 · 어스름", "kind": "title1", "maxW": 2960},
+    "t1": {"x": 0, "y": 1200, "text": "대화 — 자유로운 단톡방이 중심", "kind": "title1", "maxW": 3364},
+    "t2": {"x": 0, "y": 2575, "text": "방 만들기 · 철학자 · 설정 · 기억", "kind": "title1", "maxW": 3856},
+    "t3": {"x": 0, "y": 3950, "text": "노트 — 나의 노트 · 대화 노트 · 자동 댓글 · 철학자의 사유 노트", "kind": "title1", "maxW": 3856},
+    "t4": {"x": 0, "y": 5325, "text": "시작 · 기기 안 AI · Plus", "kind": "title1", "maxW": 1888}
+  },
+  "designSystems": []
+}

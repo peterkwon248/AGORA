@@ -1,0 +1,4 @@
+86450253ed2f21b983f9d02bef11c9cddf6b0317ae76e69b2315e3924d7be063 *../docs/source/AGORA_Claude_Development_Handoff_README.md
+d56103954779005d2bc229ebdeadd2f69ba7f43bf8e99204e89ca2e76d126511 *../docs/source/AGORA_Integrated_Development_Directive_v1.0.md
+e9f97fb800f1e547048052a22afdf6541b3ad02d360d58d06d67da3b2e4dab5b *../docs/source/AGORA_Integrated_Master_Blueprint_v2.1.md
+9b119045fed529d8fa125b4987643db3e1756de13b2a2483256b18bc375d13c4 *AGORA_design_draft.zip

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>AGORA · 화면 지도</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/c99eb56464cc3b9e07e5f2852a3e872a">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800&amp;family=Gowun+Batang:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="ag ag-board" data-theme="{{theme}}" lang="ko" style="width: 1440px; height: 1040px; display: flex; flex-direction: column; gap: 26px; padding: 52px 60px; font-family: 'Gothic A1', 'Apple SD Gothic Neo', sans-serif;">
+  <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span class="ag-wm" style="padding-left: 0; font-size: 18px" aria-label="AGORA">AG<i aria-hidden="true"></i>RA</span>
+      <h1 style="font-size: 32px; line-height: 40px; font-weight: 800">화면 지도</h1>
+      <p class="ag-b" style="color: var(--ink-2); max-width: 760px">토론 대회가 아니라 메신저예요. 탭은 대화 · 노트 · 철학자 · 설정 넷이고, 노트는 대화 뒤를 따라와요. 칩은 통합 설계서 v2.1의 요구사항 번호예요.</p>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; max-width: 420px">
+      <span class="ag-tag primary" style="height: 26px; padding: 0 10px; font-size: 12px">P0 · 첫 공개 베타</span>
+      <span class="ag-tag lamp" style="height: 26px; padding: 0 10px; font-size: 12px">P1 · 베타 표시로 미리 보여 줌</span>
+    </div>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px">
+    <section class="ag-card" style="display: flex; flex-direction: column; gap: 12px; padding: 18px">
+      <p style="display: flex; align-items: center; gap: 10px"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></span><strong style="font-size: 17px; font-weight: 800">대화</strong></p>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">대화 목록</p><p class="ag-m" style="line-height: 18px">고정한 광장, 여러 단톡방, 개인톡, 먼저 건넨 말, 보관함, 검색</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">ROOM-001·003·006</span><span class="ag-tag">INIT</span><span class="ag-tag">NOTE-016</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">단톡방</p><p class="ag-m" style="line-height: 18px">자유 대화, 고른 몇 명만 답함, 철학자끼리 이어 말하기와 일시정지, 끼어들면 즉시 바뀜, 답장·신고, 여기부터 노트로</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">CHAT 7.1–7.5</span><span class="ag-tag">MEN-006</span><span class="ag-tag">23.3</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">@멘션과 초대</p><p class="ag-m" style="line-height: 18px">한글·영어 자동완성, 방 밖 인물은 이번만 또는 고정으로</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">MEN-001~008</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">개인톡</p><p class="ag-m" style="line-height: 18px">가져온 말만 출처 카드로, 먼저 연락엔 ‘왜 왔나요?’</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">DM-001~007</span><span class="ag-tag">INIT-006</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">새 단톡방 · 방 정보</p><p class="ag-m" style="line-height: 18px">구성원, 이어 말하기 수준, 논쟁 빈도·강도와 미리 보기, 알림, 답변 언어, 엔진, 보관·삭제</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">ROOM-002·004~009</span><span class="ag-tag lamp">DEBATE 8.1</span></p></div>
+    </section>
+
+    <section class="ag-card" style="display: flex; flex-direction: column; gap: 12px; padding: 18px">
+      <p style="display: flex; align-items: center; gap: 10px"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg></span><strong style="font-size: 17px; font-weight: 800">노트</strong></p>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">나의 노트</p><p class="ag-m" style="line-height: 18px">날짜별로 묶인 여러 노트, 직접 쓴 노트·대화 노트 구분과 필터, 새 노트</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">NOTE-001·007·016</span><span class="ag-tag">11.5</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">새 노트 · 대화 노트</p><p class="ag-m" style="line-height: 18px">제목·본문, 임시 저장, 고치면 새 버전. 대화 노트는 근거·추정 표시, 다시 요약하면 새 노트</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">NOTE-003~005</span><span class="ag-tag">NOTE-010·011</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">읽기와 댓글</p><p class="ag-m" style="line-height: 18px">노트마다 나만 / 고른 철학자 / 모두, 자동 댓글 끔·가끔·적극적, 댓글 부탁하기</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">NOTE-013</span><span class="ag-tag">NC-001·002·007</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">자동 댓글 예약</p><p class="ag-m" style="line-height: 18px">미리 써 두고 예약, 올리기 직전 재확인, 고치면 다시 확인, 비공개면 취소</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">NC-009</span><span class="ag-tag">INIT-006·007</span><span class="ag-tag">16.5</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">철학자의 사유 노트</p><p class="ag-m" style="line-height: 18px">하루 여러 편의 1인칭 AI 글, 출처 칩, 내 댓글에 글쓴이가 답함, 개인톡으로</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">PN-001~012</span><span class="ag-tag">COMMENT 14</span></p></div>
+    </section>
+
+    <section class="ag-card" style="display: flex; flex-direction: column; gap: 12px; padding: 18px">
+      <p style="display: flex; align-items: center; gap: 10px"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M16 14.2a5 5 0 0 1 5.5 5.8"></path></svg></span><strong style="font-size: 17px; font-weight: 800">철학자</strong></p>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">철학자 목록</p><p class="ag-m" style="line-height: 18px">초상, 생몰년, 한 줄 소개, 바로 개인톡, AI 시뮬레이션 고지</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">PERSONA 10.1</span><span class="ag-tag">ONB-007</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">프로필</p><p class="ag-m" style="line-height: 18px">생각의 결, 말하는 방식, 이 철학자가 읽을 수 있는 것, 인물별 먼저 연락, 기억, 자료와 사용권</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">10.2</span><span class="ag-tag">INIT-002</span><span class="ag-tag">15.2–15.3</span></p></div>
+      <div class="ag-card sunk" style="display: flex; gap: 10px; padding: 12px; align-items: center">
+        <img class="ag-av s36 ag-ring-s ag-h-ca" src="/_blob/26cb801028bbd01d77ec6321925f27cc" alt="">
+        <img class="ag-av s36 ag-ring-s ag-h-ni" src="/_blob/38e444d8ad99b88febcf2981ccca0205" alt="">
+        <img class="ag-av s36 ag-ring-s ag-h-sh" src="/_blob/1209ee3e442d5dc54d06d3daf573d431" alt="">
+        <img class="ag-av s36 ag-ring-s ag-h-ci" src="/_blob/be9b4846b35fa3224a7ba7a65ef6d870" alt="">
+        <img class="ag-av s36 ag-ring-s ag-h-so" src="/_blob/6e7ccd5b9bec65a03e21a8dd8a3c5983" alt="">
+        <img class="ag-av s36 ag-ring-s ag-h-au" src="/_blob/56800a3ce0b3d10cccdd3403e3fa6813" alt="">
+      </div>
+      <p class="ag-m" style="line-height: 18px">초상은 흑백, 테두리 색은 인물마다 달라요. 단톡방에서 이름 색과 같아서 누가 말하는지 한눈에 보여요.</p>
+    </section>
+
+    <section class="ag-card" style="display: flex; flex-direction: column; gap: 12px; padding: 18px">
+      <p style="display: flex; align-items: center; gap: 10px"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h7"></path><path d="M17 7h3"></path><circle cx="14" cy="7" r="3"></circle><path d="M4 17h3"></path><path d="M13 17h7"></path><circle cx="10" cy="17" r="3"></circle></svg></span><strong style="font-size: 17px; font-weight: 800">설정</strong></p>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">AI 엔진 · 모델</p><p class="ag-m" style="line-height: 18px">기기 안 AI 기본, 맞지 않는 모델은 이유와 함께 막음, Plus는 선택</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">ENT 17.1–17.2</span><span class="ag-tag">ONB-003</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">언어 · 테마</p><p class="ag-m" style="line-height: 18px">앱 언어와 AI 답변 언어를 따로, 시스템·라이트·다크</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">I18N 18.1</span><span class="ag-tag">THEME 18.2</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">알림 · 먼저 연락</p><p class="ag-m" style="line-height: 18px">켜고 끄기, 하루 최대, 조용한 시간, 잠금 화면 숨김, 노트 자동 댓글 기본값</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">INIT-001·004·009</span><span class="ag-tag">NC-007</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">기억 · 데이터</p><p class="ag-m" style="line-height: 18px">내가 말한 것과 AI 추정 구분, 사용 중지·삭제, 내보내기, 앱 잠금, 오류 보고 동의</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">MEM 15</span><span class="ag-tag">23.1</span><span class="ag-tag">ONB-006</span></p></div>
+    </section>
+
+    <section class="ag-card" style="display: flex; flex-direction: column; gap: 12px; padding: 18px">
+      <p style="display: flex; align-items: center; gap: 10px"><span class="ag-tile lamp"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"></rect><path d="M11 18h2"></path></svg></span><strong style="font-size: 17px; font-weight: 800">시작 · Plus</strong></p>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">첫 실행</p><p class="ag-m" style="line-height: 18px">계정 없이 시작, 언어 선택, AI 시뮬레이션 고지</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">ONB-001·005·007</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">기기 안 AI 준비</p><p class="ag-m" style="line-height: 18px">기기 확인, 용량 안내, Wi-Fi 동의, 멈춤·이어 받기, 파일 확인</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">ONB-002·003·004·008</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">권한 고르기</p><p class="ag-m" style="line-height: 18px">알림, 오류 보고, 노트 열람, 클라우드를 하나씩 따로</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">ONB-006</span></p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-li-t" style="font-size: 14px; font-weight: 700">Plus · 클라우드 동의</p><p class="ag-m" style="line-height: 18px">무료도 완성형, Plus는 깊이의 차이. 보낼 범위를 직접 고르고, 해지해도 노트는 그대로</p><p style="display: flex; gap: 4px; flex-wrap: wrap"><span class="ag-tag">17.2–17.3</span><span class="ag-tag">23.2</span></p></div>
+    </section>
+  </div>
+
+  <section style="display: flex; flex-direction: column; gap: 12px">
+    <h2 style="font-size: 18px; font-weight: 800">대표 흐름</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
+      <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px"><p class="ag-li-t" style="font-size: 14px; font-weight: 800">S1 · 일상 감상으로 시작</p><p class="ag-s">광장에 노래 이야기 → 1~3명만 답함 → 서로 이어 말하기 → 잠잠해지면 대화 노트로 남길지 물어봄</p></div>
+      <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px"><p class="ag-li-t" style="font-size: 14px; font-weight: 800">S2 · @멘션으로 끼워 넣기</p><p class="ag-s">@ 입력 → 방 밖 철학자 → 이번만 / 고정 → 그 사람이 먼저 답함 → 임시는 답하고 퇴장</p></div>
+      <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px"><p class="ag-li-t" style="font-size: 14px; font-weight: 800">S3 · 방마다 다른 대화</p><p class="ag-s">새 단톡방 → 구성원 → 분위기 → 방마다 따로 기억하고, 다른 방 이야기는 꺼내지 않음</p></div>
+      <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px"><p class="ag-li-t" style="font-size: 14px; font-weight: 800">S4 · 가끔 생기는 논쟁</p><p class="ag-s">실제 이견이 있을 때만 → 빈도·강도는 방 설정 → ‘좀 더 부드럽게’ 한 번에 바로 완화</p></div>
+      <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px"><p class="ag-li-t" style="font-size: 14px; font-weight: 800">S5 · 한 날짜에 여러 노트</p><p class="ag-s">아침에 직접 쓴 노트 → 점심의 대화 노트 → 밤의 질문 노트. 셋 다 따로 고치고, 읽기 범위·댓글도 따로</p></div>
+      <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px"><p class="ag-li-t" style="font-size: 14px; font-weight: 800">S6–S7 · 사유 노트와 몇 시간 뒤의 말</p><p class="ag-s">허락한 노트에 시오랑 댓글 → 카뮈의 사유 노트 → 미리 써 둔 댓글·개인톡 → ‘왜 왔나요?’ · 조용한 시간</p></div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme": {"editor": "enum", "options": ["라이트", "다크"], "default": "라이트"}, "$preview": {"width": 1440, "height": 1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { theme: this.props.theme === '다크' ? 'dark' : 'light' };
+  }
+}
+</script>
+</body>
+</html>

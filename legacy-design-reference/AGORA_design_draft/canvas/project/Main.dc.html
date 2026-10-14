@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>AGORA 앱</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/c99eb56464cc3b9e07e5f2852a3e872a">
+<script src="/_blob/0071663aba1095468d87fe100cdca90c"></script>
+<script src="/_blob/036d240d7ee640ddc546e02a093a1794"></script>
+<script src="/_blob/260e2a3fe013fcc3825b5116a0d1181c"></script>
+<script src="/_blob/37c876d89e8d11fad580d45f9cc58ed3"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800&amp;family=Gowun+Batang:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="ag" data-theme="{{theme}}" lang="{{lc}}" style="width: 412px; height: 915px; font-family: 'Gothic A1', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;">
+
+<sc-if value="{{is.ob}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top">
+      <sc-if value="{{ob.canBack}}"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{ob.back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button></sc-if>
+      <span style="flex: 1"></span>
+      <span class="ag-m ag-num" style="padding-right: 18px">{{ob.stepLabel}}</span>
+    </header>
+    <sc-if value="{{ob.s1}}">
+      <div class="ag-scroll" style="padding: 8px 24px 0; display: flex; flex-direction: column; gap: 28px">
+        <div style="display: flex; flex-direction: column; gap: 18px; padding-top: 56px">
+          <span class="ag-wm big" aria-label="AGORA">AG<i aria-hidden="true"></i>RA</span>
+          <h1 class="ag-display">{{t.obTitle}}</h1>
+          <p class="ag-b" style="color: var(--ink-2); font-size: 16px; line-height: 26px">{{t.obSub}}</p>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <p class="ag-k">{{t.obLang}}</p>
+          <div class="ag-seg" role="group" aria-label="{{t.obLang}}">
+            <button class="{{ob.koCls}}" aria-pressed="{{ob.isKo}}" onClick="{{ob.setKo}}">한국어</button>
+            <button class="{{ob.enCls}}" aria-pressed="{{ob.isEn}}" onClick="{{ob.setEn}}">English</button>
+          </div>
+        </div>
+        <div class="ag-card sunk" style="display: flex; gap: 12px; align-items: flex-start">
+          <svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--ink-2); margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          <p class="ag-s">{{t.obDisclose}}</p>
+        </div>
+      </div>
+      <div style="padding: 16px 24px 28px"><button class="ag-btn block" onClick="{{ob.next}}">{{t.obStart}}</button></div>
+    </sc-if>
+    <sc-if value="{{ob.s2}}">
+      <div class="ag-scroll" style="padding: 8px 24px 0; display: flex; flex-direction: column; gap: 18px">
+        <h1 class="ag-h1">{{t.ob2Title}}</h1>
+        <p class="ag-b" style="color: var(--ink-2)">{{t.ob2Sub}}</p>
+        <div class="ag-group" style="margin: 0">
+          <div class="ag-li"><span class="ag-li-b"><span class="ag-li-t">{{t.ob2Device}}</span><span class="ag-li-s">{{t.ob2DeviceVal}}</span></span><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--ok)"><path d="M20 6 9 17l-5-5"></path></svg></div>
+          <div class="ag-li sep"><span class="ag-li-b"><span class="ag-li-t">{{t.ob2Storage}}</span><span class="ag-li-s">{{t.ob2StorageVal}}</span></span><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--ok)"><path d="M20 6 9 17l-5-5"></path></svg></div>
+        </div>
+        <div class="ag-card" style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 12px">
+            <span class="ag-tile"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"></rect><path d="M11 18h2"></path></svg></span>
+            <div style="flex: 1; min-width: 0"><p class="ag-t">{{t.modelBase}}</p><p class="ag-m">{{t.modelBaseSub}}</p></div>
+            <span class="ag-tag primary">{{t.recommended}}</span>
+          </div>
+          <sc-if value="{{ob.dlIdle}}">
+            <button class="ag-li" style="padding: 0; min-height: 48px" role="switch" aria-checked="{{ob.wifi}}" onClick="{{ob.toggleWifi}}"><span class="ag-li-b"><span class="ag-li-t">{{t.wifiOnly}}</span></span><span class="{{ob.wifiCls}}"><i></i></span></button>
+            <button class="ag-btn block" onClick="{{ob.startDl}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>{{t.download}}</button>
+          </sc-if>
+          <sc-if value="{{ob.dlActive}}">
+            <div style="display: flex; flex-direction: column; gap: 8px" role="status">
+              <div class="ag-s" style="display: flex; justify-content: space-between"><span>{{ob.dlLabel}}</span><span class="ag-num">{{ob.dlPct}}</span></div>
+              <div class="ag-bar"><i style="width: {{ob.dlWidth}}"></i></div>
+            </div>
+            <button class="ag-btn ghost block" onClick="{{ob.togglePause}}" disabled="{{ob.verifying}}">{{ob.pauseLabel}}</button>
+          </sc-if>
+          <sc-if value="{{ob.dlDone}}">
+            <p class="ag-s" style="display: flex; gap: 8px; align-items: center; color: var(--ok); font-weight: 700"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>{{t.dlDone}}</p>
+          </sc-if>
+        </div>
+        <p class="ag-m">{{t.ob2Note}}</p>
+      </div>
+      <div style="padding: 16px 24px 28px"><button class="ag-btn block" disabled="{{ob.nextDisabled}}" onClick="{{ob.next}}">{{t.next}}</button></div>
+    </sc-if>
+    <sc-if value="{{ob.s3}}">
+      <div class="ag-scroll" style="padding: 8px 24px 0; display: flex; flex-direction: column; gap: 18px">
+        <h1 class="ag-h1">{{t.ob3Title}}</h1>
+        <p class="ag-b" style="color: var(--ink-2)">{{t.ob3Sub}}</p>
+        <div class="ag-group" style="margin: 0">
+          <button class="ag-li" role="switch" aria-checked="{{ob.notif}}" onClick="{{ob.toggleNotif}}"><span class="ag-li-b"><span class="ag-li-t">{{t.permNotif}}</span><span class="ag-li-s">{{t.permNotifSub}}</span></span><span class="{{ob.notifCls}}"><i></i></span></button>
+          <button class="ag-li sep" role="switch" aria-checked="{{ob.diag}}" onClick="{{ob.toggleDiag}}"><span class="ag-li-b"><span class="ag-li-t">{{t.permDiag}}</span><span class="ag-li-s">{{t.diagSub}}</span></span><span class="{{ob.diagCls}}"><i></i></span></button>
+        </div>
+        <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 12px">
+          <p class="ag-s" style="display: flex; gap: 10px"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 2px"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg><span>{{t.permJournal}}</span></p>
+          <p class="ag-s" style="display: flex; gap: 10px"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 2px"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.3 12.5 3.5 3.5 0 0 0 6.5 19z"></path></svg><span>{{t.permCloud}}</span></p>
+        </div>
+      </div>
+      <div style="padding: 16px 24px 28px"><button class="ag-btn block" onClick="{{ob.finish}}">{{t.obFinish}}</button></div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.home}}" hint-placeholder-val="{{true}}">
+  <div class="ag-screen">
+    <sc-if value="{{tab.chats}}" hint-placeholder-val="{{true}}">
+      <header class="ag-top">
+        <span class="ag-wm" aria-label="AGORA">AG<i aria-hidden="true"></i>RA</span>
+        <span style="flex: 1"></span>
+        <button class="ag-ib" aria-label="{{t.search}}" onClick="{{hm.search}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></button>
+        <button class="ag-ib" aria-label="{{t.newChat}}" onClick="{{hm.newChat}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg></button>
+      </header>
+      <sc-if value="{{offline}}"><div class="ag-banner"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2l20 20"></path><path d="M8.5 16.5a5 5 0 0 1 7 0"></path><path d="M5 12.5a10 10 0 0 1 5.2-2.8"></path><path d="M19 12.5a10 10 0 0 0-2.3-1.6"></path><path d="M12 20h.01"></path></svg><span>{{t.offlineBanner}}</span></div></sc-if>
+      <div class="ag-scroll" style="padding-bottom: 100px">
+        <sc-for list="{{hm.items}}" as="r" hint-placeholder-count="8">
+          <sc-if value="{{r.isHead}}"><h2 class="ag-sec">{{r.label}}</h2></sc-if>
+          <sc-if value="{{r.isArch}}"><button class="ag-li" onClick="{{r.toggle}}" style="padding-left: 18px"><span style="width: 52px; display: flex; justify-content: center; color: var(--ink-3)"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="5" rx="1"></rect><path d="M5 9v10h14V9"></path><path d="M10 13h4"></path></svg></span><span class="ag-li-b"><span class="ag-li-t">{{t.archived}}</span><span class="ag-li-s">{{r.label}}</span></span></button></sc-if>
+          <sc-if value="{{r.isRow}}">
+            <button class="ag-cr" onClick="{{r.open}}">
+              <sc-if value="{{r.isGroup}}"><span class="ag-cl" aria-hidden="true"><sc-for list="{{r.faces}}" as="f"><img class="ag-av s32" src="{{f.img}}" alt=""></sc-for></span></sc-if>
+              <sc-if value="{{r.isDm}}"><img class="ag-av s52 ag-ring ag-h-{{r.pid}}" src="{{r.img}}" alt=""></sc-if>
+              <span class="ag-cr-b">
+                <span class="ag-cr-top"><strong class="ag-cr-n">{{r.name}}</strong><sc-if value="{{r.isGroup}}"><span class="ag-cr-c">{{r.count}}</span></sc-if><sc-if value="{{r.reached}}"><span class="ag-tag lamp">{{t.reachedOut}}</span></sc-if><span class="ag-cr-time">{{r.time}}</span></span>
+                <span class="ag-cr-p">
+                  <sc-if value="{{r.live}}"><span class="ag-live"><span class="ag-lamp" aria-hidden="true"></span>{{r.liveText}}</span></sc-if>
+                  <sc-if value="{{r.notLive}}"><span class="ag-cr-pt ag-h-{{r.lastPid}}"><sc-if value="{{r.hasWho}}"><b>{{r.who}}</b> </sc-if>{{r.prev}}</span></sc-if>
+                  <sc-if value="{{r.hasUnread}}"><span class="ag-badge"><span class="ag-sr">{{t.unread}}</span>{{r.unread}}</span></sc-if>
+                </span>
+              </span>
+            </button>
+          </sc-if>
+        </sc-for>
+      </div>
+      <button class="ag-fab" onClick="{{hm.newChat}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>{{t.newChat}}</button>
+    </sc-if>
+
+    <sc-if value="{{tab.records}}" hint-placeholder-val="{{false}}">
+      <header class="ag-top"><h1 class="ag-top-t">{{t.tabRecords}}</h1><button class="ag-ib" aria-label="{{t.search}}" onClick="{{hm.search}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></button></header>
+      <div style="padding: 0 16px 6px"><div class="ag-seg" role="tablist" aria-label="{{t.tabRecords}}">
+        <button role="tab" aria-selected="{{rc.isJ}}" class="{{rc.jCls}}" onClick="{{rc.showJ}}">{{t.myJournal}}</button>
+        <button role="tab" aria-selected="{{rc.isN}}" class="{{rc.nCls}}" onClick="{{rc.showN}}">{{t.philNotes}}</button>
+      </div></div>
+      <sc-if value="{{rc.isJ}}">
+        <div class="ag-scroll" style="padding-bottom: 104px">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px 10px"><p class="ag-t">{{t.monthLabel}}</p><span class="ag-m">{{rc.countLabel}}</span></div>
+          <div class="ag-week">
+            <sc-for list="{{rc.week}}" as="d" hint-placeholder-count="7">
+              <button class="{{d.cls}}" onClick="{{d.pick}}" aria-label="{{d.aria}}" aria-pressed="{{d.on}}"><span>{{d.dow}}</span><b>{{d.num}}</b><i class="{{d.dotCls}}"></i></button>
+            </sc-for>
+          </div>
+          <div class="ag-hscroll" role="group" aria-label="{{t.myJournal}}" style="padding: 14px 16px 2px">
+            <sc-for list="{{rc.kinds}}" as="k"><button class="{{k.cls}}" aria-pressed="{{k.on}}" onClick="{{k.pick}}">{{k.label}}</button></sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px; padding: 4px 16px 16px">
+            <sc-if value="{{rc.filtered}}"><button class="ag-link" style="align-self: flex-start; min-height: 32px" onClick="{{rc.clearDay}}">{{rc.filterLabel}}</button></sc-if>
+            <sc-for list="{{rc.groups}}" as="g" hint-placeholder-count="2">
+              <div style="display: flex; align-items: baseline; gap: 8px; padding: 12px 4px 0"><h2 class="ag-k" style="font-size: 13px; color: var(--ink-2)">{{g.label}}</h2><span class="ag-m">{{g.count}}</span></div>
+              <sc-for list="{{g.entries}}" as="e" hint-placeholder-count="2">
+                <button class="ag-entry" onClick="{{e.open}}">
+                  <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                    <span class="ag-m" style="display: inline-flex; align-items: center; gap: 5px; color: var(--ink-2)"><sc-if value="{{e.isUserK}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg></sc-if><sc-if value="{{e.isConvK}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></sc-if>{{e.kindLabel}} · {{e.time}}</span>
+                    <sc-if value="{{e.isDraftUser}}"><span class="ag-tag lamp">{{t.draftSavedTag}}</span></sc-if>
+                    <sc-if value="{{e.isDraftAi}}"><span class="ag-tag lamp">{{t.draftTag}}</span></sc-if>
+                    <sc-if value="{{e.isEdited}}"><span class="ag-tag primary">{{t.editedTag}}</span></sc-if>
+                  </span>
+                  <span class="ag-entry-t">{{e.title}}</span>
+                  <span class="ag-entry-p">{{e.excerpt}}</span>
+                  <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+                    <span class="{{e.accessCls}}"><sc-if value="{{e.isPrivate}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></sc-if><sc-if value="{{e.isShared}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M16 14.2a5 5 0 0 1 5.5 5.8"></path></svg></sc-if>{{e.access}}</span>
+                    <sc-if value="{{e.hasPlan}}"><span class="ag-m" style="display: inline-flex; align-items: center; gap: 4px"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>{{e.planLabel}}</span></sc-if>
+                    <sc-if value="{{e.hasComments}}"><span class="ag-m" style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px"><span class="ag-stack"><sc-for list="{{e.faces}}" as="f"><img class="ag-av s20" src="{{f.img}}" alt=""></sc-for></span>{{e.comments}}</span></sc-if>
+                  </span>
+                </button>
+              </sc-for>
+            </sc-for>
+            <sc-if value="{{rc.empty}}"><p class="ag-s" style="padding: 28px 8px; text-align: center">{{rc.emptyText}}</p></sc-if>
+          </div>
+        </div>
+        <button class="ag-fab" onClick="{{rc.write}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>{{t.writeJournal}}</button>
+      </sc-if>
+      <sc-if value="{{rc.isN}}">
+        <div class="ag-scroll" style="padding-bottom: 104px">
+          <div class="ag-hscroll" style="padding: 8px 16px 12px">
+            <sc-for list="{{rc.filters}}" as="f"><button class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}"><sc-if value="{{f.hasImg}}"><img class="ag-av s24" src="{{f.img}}" alt=""></sc-if>{{f.label}}</button></sc-for>
+          </div>
+          <button class="ag-banner" style="width: calc(100% - 32px); text-align: left" onClick="{{rc.noteSettings}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 12.2a6 6 0 0 0-8.5-8.5L5 10.5V19h8.5z"></path><path d="M16 8 2 22"></path><path d="M17.5 15H9"></path></svg><span style="flex: 1">{{rc.autoLabel}}</span><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+          <div style="display: flex; flex-direction: column; gap: 12px; padding: 4px 16px 16px">
+            <sc-for list="{{rc.notes}}" as="n" hint-placeholder-count="3">
+              <button class="ag-entry ag-h-{{n.pid}}" onClick="{{n.open}}">
+                <span style="display: flex; align-items: center; gap: 10px">
+                  <img class="ag-av s36 ag-ring-s" src="{{n.img}}" alt="">
+                  <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span class="ag-hue" style="font-size: 15px; line-height: 20px; font-weight: 700">{{n.name}}</span><span class="ag-m">{{n.meta}}</span></span>
+                  <span class="ag-tag hue">{{t.aiNote}}</span>
+                </span>
+                <span class="ag-entry-t">{{n.title}}</span>
+                <span class="ag-entry-p">{{n.excerpt}}</span>
+                <sc-if value="{{n.hasComments}}"><span class="ag-m">{{n.comments}}</span></sc-if>
+              </button>
+            </sc-for>
+            <sc-if value="{{rc.notesEmpty}}"><p class="ag-s" style="padding: 28px 8px; text-align: center">{{t.notesEmpty}}</p></sc-if>
+          </div>
+        </div>
+        <button class="ag-fab" onClick="{{rc.askNote}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 12.2a6 6 0 0 0-8.5-8.5L5 10.5V19h8.5z"></path><path d="M16 8 2 22"></path><path d="M17.5 15H9"></path></svg>{{t.askNote}}</button>
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{tab.people}}" hint-placeholder-val="{{false}}">
+      <header class="ag-top"><h1 class="ag-top-t">{{t.tabPeople}}</h1></header>
+      <div class="ag-scroll" style="padding-bottom: 24px">
+        <p class="ag-banner"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg><span>{{t.peopleNote}}</span></p>
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 4px 16px">
+          <sc-for list="{{pp.list}}" as="p" hint-placeholder-count="6">
+            <div class="ag-card ag-h-{{p.id}}" style="display: flex; align-items: center; gap: 8px; padding: 12px 10px 12px 14px">
+              <button style="display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; text-align: left; min-height: 56px" onClick="{{p.open}}">
+                <img class="ag-av s52 ag-ring-s" src="{{p.img}}" alt="">
+                <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                  <span style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap"><strong class="ag-hue" style="font-size: 16px; line-height: 22px">{{p.name}}</strong><span class="ag-m">{{p.years}}</span></span>
+                  <span class="ag-s" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{p.one}}</span>
+                </span>
+              </button>
+              <button class="ag-ib" style="background: var(--sunken)" aria-label="{{p.chatAria}}" onClick="{{p.chat}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{tab.settings}}" hint-placeholder-val="{{false}}">
+      <header class="ag-top"><h1 class="ag-top-t">{{t.tabSettings}}</h1></header>
+      <div class="ag-scroll" style="padding-bottom: 28px">
+        <div class="ag-card" style="margin: 0 16px; display: flex; align-items: center; gap: 14px">
+          <span class="ag-me-av" style="width: 48px; height: 48px; font-size: 16px">{{t.meShort}}</span>
+          <div style="flex: 1; min-width: 0"><p class="ag-t">{{t.localProfile}}</p><p class="ag-m">{{t.localProfileSub}}</p></div>
+        </div>
+        <h2 class="ag-sec">{{t.secEngine}}</h2>
+        <div class="ag-group">
+          <button class="ag-li" onClick="{{st.openModels}}"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"></rect><path d="M11 18h2"></path></svg></span><span class="ag-li-b"><span class="ag-li-t">{{t.engineLocal}}</span><span class="ag-li-s">{{st.localSub}}</span></span><sc-if value="{{st.localOn}}"><span class="ag-tag primary">{{t.inUse}}</span></sc-if><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+          <button class="ag-li sep" onClick="{{st.openPlus}}"><span class="ag-tile lamp"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 19a4.5 4.5 0 1 0-1.4-8.8A6 6 0 0 0 4.3 12.5 3.5 3.5 0 0 0 6.5 19z"></path></svg></span><span class="ag-li-b"><span class="ag-li-t">{{t.enginePlus}}</span><span class="ag-li-s">{{st.plusSub}}</span></span><sc-if value="{{st.cloudOn}}"><span class="ag-tag lamp">{{t.inUse}}</span></sc-if><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+        </div>
+        <h2 class="ag-sec">{{t.secLang}}</h2>
+        <div class="ag-group" style="padding: 14px 16px; display: flex; flex-direction: column; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 8px"><p class="ag-li-t">{{t.appLang}}</p>
+            <div class="ag-seg"><button class="{{st.uiKoCls}}" aria-pressed="{{st.uiIsKo}}" onClick="{{st.uiKo}}">한국어</button><button class="{{st.uiEnCls}}" aria-pressed="{{st.uiIsEn}}" onClick="{{st.uiEn}}">English</button></div>
+            <p class="ag-m">{{t.appLangSub}}</p></div>
+          <div style="display: flex; flex-direction: column; gap: 8px"><p class="ag-li-t">{{t.aiLang}}</p>
+            <div class="ag-seg"><sc-for list="{{st.aiLangs}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div>
+            <p class="ag-m">{{st.aiLangHelp}}</p></div>
+        </div>
+        <h2 class="ag-sec">{{t.secTheme}}</h2>
+        <div style="padding: 0 16px"><div class="ag-seg"><sc-for list="{{st.themes}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div></div>
+        <h2 class="ag-sec">{{t.secNotif}}</h2>
+        <div class="ag-group">
+          <button class="ag-li" role="switch" aria-checked="{{st.initOn}}" onClick="{{st.toggleInit}}"><span class="ag-li-b"><span class="ag-li-t">{{t.initiative}}</span><span class="ag-li-s">{{t.initiativeSub}}</span></span><span class="{{st.initCls}}"><i></i></span></button>
+          <div class="ag-li sep"><span class="ag-li-b"><span class="ag-li-t">{{t.maxPerDay}}</span><span class="ag-li-s">{{st.maxLabel}}</span></span><div class="ag-steps" style="width: 156px"><sc-for list="{{st.maxOpts}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div></div>
+          <button class="ag-li sep" onClick="{{st.cycleQuiet}}"><span class="ag-li-b"><span class="ag-li-t">{{t.quietHours}}</span><span class="ag-li-s">{{t.quietSub}}</span></span><span class="ag-li-v ag-num">{{st.quietLabel}}</span></button>
+          <button class="ag-li sep" role="switch" aria-checked="{{st.hideLock}}" onClick="{{st.toggleHide}}"><span class="ag-li-b"><span class="ag-li-t">{{t.hideLock}}</span><span class="ag-li-s">{{t.hideLockSub}}</span></span><span class="{{st.hideCls}}"><i></i></span></button>
+        </div>
+        <h2 class="ag-sec">{{t.secMemory}}</h2>
+        <div class="ag-group">
+          <button class="ag-li" onClick="{{st.openMemory}}"><span class="ag-li-b"><span class="ag-li-t">{{t.memory}}</span><span class="ag-li-s">{{st.memSub}}</span></span><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+          <button class="ag-li sep" onClick="{{st.cycleAccess}}"><span class="ag-li-b"><span class="ag-li-t">{{t.defaultAccess}}</span><span class="ag-li-s">{{t.defaultAccessSub}}</span></span><span class="ag-li-v">{{st.accessLabel}}</span></button>
+          <button class="ag-li sep" onClick="{{st.openAutoC}}"><span class="ag-li-b"><span class="ag-li-t">{{t.autoCTitle}}</span><span class="ag-li-s">{{t.autoCSub}}</span></span><span class="ag-li-v">{{st.autoCLabel}}</span></button>
+          <button class="ag-li sep" onClick="{{st.openNoteSettings}}"><span class="ag-li-b"><span class="ag-li-t">{{t.noteAuto}}</span><span class="ag-li-s">{{st.noteAutoLabel}}</span></span><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+        </div>
+        <h2 class="ag-sec">{{t.secData}}</h2>
+        <div class="ag-group">
+          <button class="ag-li" onClick="{{st.exportAll}}"><span class="ag-li-b"><span class="ag-li-t">{{t.exportAll}}</span><span class="ag-li-s">{{t.exportAllSub}}</span></span><svg class="ag-ico sm ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg></button>
+          <button class="ag-li sep" role="switch" aria-checked="{{st.appLock}}" onClick="{{st.toggleLock}}"><span class="ag-li-b"><span class="ag-li-t">{{t.appLock}}</span></span><span class="{{st.lockCls}}"><i></i></span></button>
+          <button class="ag-li sep" role="switch" aria-checked="{{st.diag}}" onClick="{{st.toggleDiag}}"><span class="ag-li-b"><span class="ag-li-t">{{t.permDiag}}</span><span class="ag-li-s">{{t.diagSub}}</span></span><span class="{{st.diagCls}}"><i></i></span></button>
+          <button class="ag-li sep danger" onClick="{{st.deleteAll}}"><span class="ag-li-b"><span class="ag-li-t">{{t.deleteAll}}</span><span class="ag-li-s">{{t.deleteAllSub}}</span></span></button>
+        </div>
+        <h2 class="ag-sec">{{t.secAbout}}</h2>
+        <div class="ag-group">
+          <div class="ag-li"><span class="ag-li-b"><span class="ag-li-t">{{t.aboutSim}}</span><span class="ag-li-s">{{t.aboutSimSub}}</span></span></div>
+          <button class="ag-li sep" onClick="{{st.sources}}"><span class="ag-li-b"><span class="ag-li-t">{{t.aboutSources}}</span><span class="ag-li-s">{{t.aboutSourcesSub}}</span></span><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+          <button class="ag-li sep" onClick="{{st.reports}}"><span class="ag-li-b"><span class="ag-li-t">{{t.aboutReports}}</span><span class="ag-li-s">{{st.reportsSub}}</span></span><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+          <button class="ag-li sep" onClick="{{st.restart}}"><span class="ag-li-b"><span class="ag-li-t">{{t.restartOb}}</span></span><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+        </div>
+      </div>
+    </sc-if>
+
+    <nav class="ag-nav" aria-label="{{t.navLabel}}">
+      <button class="{{nav.chatsCls}}" aria-current="{{nav.chatsCur}}" onClick="{{nav.chats}}"><span class="ag-pill"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><sc-if value="{{nav.chatsDot}}"><em></em></sc-if></span>{{t.tabChats}}</button>
+      <button class="{{nav.recCls}}" aria-current="{{nav.recCur}}" onClick="{{nav.rec}}"><span class="ag-pill"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg><sc-if value="{{nav.recDot}}"><em></em></sc-if></span>{{t.tabRecords}}</button>
+      <button class="{{nav.peopleCls}}" aria-current="{{nav.peopleCur}}" onClick="{{nav.people}}"><span class="ag-pill"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M16 14.2a5 5 0 0 1 5.5 5.8"></path></svg></span>{{t.tabPeople}}</button>
+      <button class="{{nav.setCls}}" aria-current="{{nav.setCur}}" onClick="{{nav.set}}"><span class="ag-pill"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h7"></path><path d="M17 7h3"></path><circle cx="14" cy="7" r="3"></circle><path d="M4 17h3"></path><path d="M13 17h7"></path><circle cx="10" cy="17" r="3"></circle></svg></span>{{t.tabSettings}}</button>
+    </nav>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.room}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top" style="gap: 0">
+      <button class="ag-ib" aria-label="{{t.back}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button>
+      <button style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 48px; text-align: left" onClick="{{rm.openInfo}}" aria-label="{{rm.infoAria}}">
+        <sc-if value="{{rm.isDm}}"><img class="ag-av s36 ag-ring ag-h-{{rm.pid}}" src="{{rm.img}}" alt=""></sc-if>
+        <span style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+          <strong style="font-size: 16px; line-height: 22px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{rm.title}}</strong>
+          <span class="ag-m" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{rm.sub}}</span>
+        </span>
+      </button>
+      <sc-if value="{{rm.isGroup}}"><span class="ag-stack" style="padding-right: 2px" aria-hidden="true"><sc-for list="{{rm.faces}}" as="f"><img class="ag-av s24" src="{{f.img}}" alt=""></sc-for></span></sc-if>
+      <button class="ag-ib" aria-label="{{t.more}}" aria-expanded="{{rm.menuOpen}}" onClick="{{rm.toggleMenu}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.2" fill="currentColor"></circle><circle cx="12" cy="12" r="1.2" fill="currentColor"></circle><circle cx="12" cy="19" r="1.2" fill="currentColor"></circle></svg></button>
+    </header>
+    <sc-if value="{{rm.menuOpen}}">
+      <div class="ag-menu" role="menu">
+        <button role="menuitem" onClick="{{rm.openInfo}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>{{rm.infoLabel}}</button>
+        <button role="menuitem" onClick="{{rm.makeJournal}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg>{{t.makeJournal}}</button>
+        <button role="menuitem" onClick="{{rm.askNote}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 12.2a6 6 0 0 0-8.5-8.5L5 10.5V19h8.5z"></path><path d="M16 8 2 22"></path><path d="M17.5 15H9"></path></svg>{{t.askNoteHere}}</button>
+        <button role="menuitem" onClick="{{rm.exportChat}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 8 5-5 5 5"></path><path d="M5 14v6h14v-6"></path></svg>{{t.exportChat}}</button>
+      </div>
+    </sc-if>
+    <sc-if value="{{rm.showOffline}}"><div class="ag-banner"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 2l20 20"></path><path d="M8.5 16.5a5 5 0 0 1 7 0"></path><path d="M5 12.5a10 10 0 0 1 5.2-2.8"></path><path d="M19 12.5a10 10 0 0 0-2.3-1.6"></path><path d="M12 20h.01"></path></svg><span>{{rm.offlineText}}</span></div></sc-if>
+    <div class="ag-scroll" ref="{{rm.scrollRef}}">
+      <div class="ag-msgs">
+        <sc-for list="{{rm.items}}" as="m" hint-placeholder-count="6">
+          <sc-if value="{{m.isDay}}"><span class="ag-day">{{m.text}}</span></sc-if>
+          <sc-if value="{{m.isNotice}}"><p class="ag-notice"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 1px; flex: none"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path></svg><span>{{m.text}}</span></p></sc-if>
+          <sc-if value="{{m.isSys}}"><p class="ag-sysline">{{m.text}}</p></sc-if>
+          <sc-if value="{{m.isSrc}}"><div class="ag-src"><span class="ag-k">{{m.label}}</span><span class="ag-serif" style="font-size: 14px; line-height: 21px; color: var(--ink)">{{m.text}}</span></div></sc-if>
+          <sc-if value="{{m.isInit}}"><button class="ag-init" onClick="{{m.why}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"></path></svg>{{m.text}}</button></sc-if>
+          <sc-if value="{{m.isStopped}}"><div class="ag-stopped"><span>{{m.text}}</span><button onClick="{{m.regen}}">{{t.regen}}</button></div></sc-if>
+          <sc-if value="{{m.isCard}}">
+            <div class="ag-cardmsg">
+              <div style="display: flex; gap: 10px; align-items: flex-start"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--lamp-ink); margin-top: 1px"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg><p>{{m.text}}</p></div>
+              <div style="display: flex; gap: 8px"><button class="ag-btn sm" onClick="{{m.yes}}">{{t.makeDraft}}</button><button class="ag-btn sm ghost" onClick="{{m.no}}">{{t.later}}</button></div>
+            </div>
+          </sc-if>
+          <sc-if value="{{m.isPhil}}">
+            <div class="{{m.rowCls}}">
+              <div class="ag-avcol"><sc-if value="{{m.first}}"><button style="border-radius: 50%" aria-label="{{m.profileAria}}" onClick="{{m.profile}}"><img class="ag-av s36 ag-ring-s ag-h-{{m.pid}}" src="{{m.img}}" alt=""></button></sc-if></div>
+              <div class="ag-col ag-h-{{m.pid}}">
+                <sc-if value="{{m.first}}"><span class="ag-who"><span class="ag-hue">{{m.name}}</span><span class="ag-tag">AI</span><sc-if value="{{m.hasTo}}"><span class="ag-to">→ {{m.toName}}</span></sc-if></span></sc-if>
+                <button class="{{m.bubCls}}" onClick="{{m.menu}}"><sc-if value="{{m.hasQuote}}"><span class="ag-q ag-h-{{m.qPid}}"><b>{{m.qName}}</b><span>{{m.qText}}</span></span></sc-if><sc-for list="{{m.segs}}" as="s"><sc-if value="{{s.mn}}"><span class="ag-mn">{{s.t}}</span></sc-if><sc-if value="{{s.plain}}">{{s.t}}</sc-if></sc-for><sc-if value="{{m.streaming}}"><span class="ag-caret" aria-hidden="true"></span></sc-if></button>
+                <sc-if value="{{m.showMeta}}"><span class="ag-meta">{{m.meta}}</span></sc-if>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{m.isMe}}">
+            <div class="{{m.rowCls}}">
+              <div class="ag-col">
+                <button class="{{m.bubCls}}" onClick="{{m.menu}}"><sc-if value="{{m.hasQuote}}"><span class="ag-q ag-h-{{m.qPid}}"><b>{{m.qName}}</b><span>{{m.qText}}</span></span></sc-if><sc-for list="{{m.segs}}" as="s"><sc-if value="{{s.mn}}"><span class="ag-mn">{{s.t}}</span></sc-if><sc-if value="{{s.plain}}">{{s.t}}</sc-if></sc-for></button>
+                <sc-if value="{{m.showMeta}}"><span class="ag-meta"><sc-if value="{{m.priv}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></sc-if>{{m.meta}}</span></sc-if>
+              </div>
+            </div>
+          </sc-if>
+        </sc-for>
+        <sc-if value="{{rm.typing}}">
+          <div class="ag-row gap ag-h-{{rm.typingPid}}" aria-live="polite">
+            <div class="ag-avcol"><img class="ag-av s36 ag-ring-s" src="{{rm.typingImg}}" alt=""></div>
+            <span class="ag-typing"><span class="ag-dots" aria-hidden="true"><i></i><i></i><i></i></span>{{rm.typingText}}</span>
+          </div>
+        </sc-if>
+      </div>
+      <sc-if value="{{rm.empty}}">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 20px 28px 16px; text-align: center">
+          <span class="ag-stack"><sc-for list="{{rm.faces}}" as="f"><img class="ag-av s44" src="{{f.img}}" alt=""></sc-for></span>
+          <p class="ag-t">{{rm.emptyTitle}}</p>
+          <p class="ag-s">{{t.emptySub}}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center"><sc-for list="{{rm.starters}}" as="q"><button class="ag-chip" onClick="{{q.pick}}">{{q.label}}</button></sc-for></div>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{rm.showAuto}}"><div class="ag-auto" role="status"><sc-if value="{{rm.autoLive}}"><span class="ag-lamp" aria-hidden="true"></span></sc-if><span>{{rm.autoText}}</span><sc-if value="{{rm.autoHasBtn}}"><button onClick="{{rm.autoAct}}">{{rm.autoBtn}}</button></sc-if><sc-if value="{{rm.autoHasBtn2}}"><button onClick="{{rm.autoAct2}}">{{rm.autoBtn2}}</button></sc-if></div></sc-if>
+    <sc-if value="{{rm.showQuick}}"><div class="ag-quick"><sc-for list="{{rm.quick}}" as="q"><button class="ag-chip lamp" onClick="{{q.pick}}">{{q.label}}</button></sc-for></div></sc-if>
+    <sc-if value="{{rm.mentionOpen}}">
+      <div class="ag-pop" role="listbox" aria-label="{{t.mentionTitle}}">
+        <p class="ag-pop-h">{{t.mentionTitle}}</p>
+        <sc-if value="{{rm.mHasIn}}"><p class="ag-pop-h">{{t.mentionIn}}</p></sc-if>
+        <sc-for list="{{rm.mIn}}" as="p"><button class="ag-pop-r ag-h-{{p.id}}" role="option" aria-selected="{{false}}" onClick="{{p.pick}}"><img class="ag-av s36 ag-ring-s" src="{{p.img}}" alt=""><div><strong class="ag-hue">{{p.name}}</strong><span>{{p.sub}}</span></div><sc-if value="{{p.isTemp}}"><span class="ag-tag">{{t.guest}}</span></sc-if></button></sc-for>
+        <sc-if value="{{rm.mHasOut}}"><p class="ag-pop-h">{{t.mentionOut}}</p></sc-if>
+        <sc-for list="{{rm.mOut}}" as="p"><button class="ag-pop-r ag-h-{{p.id}}" role="option" aria-selected="{{false}}" onClick="{{p.pick}}"><img class="ag-av s36" src="{{p.img}}" alt=""><div><strong>{{p.name}}</strong><span>{{p.sub}}</span></div><span class="ag-tag primary">{{t.invite}}</span></button></sc-for>
+        <sc-if value="{{rm.mNone}}"><p class="ag-s" style="padding: 10px 16px 12px">{{t.mentionNone}}</p></sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{rm.hasReply}}"><div class="ag-reply ag-h-{{rm.replyPid}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--ink-3)"><path d="M9 14 4 9l5-5"></path><path d="M4 9h10a6 6 0 0 1 6 6v4"></path></svg><div><b>{{rm.replyName}}</b><span>{{rm.replyText}}</span></div><button class="ag-ib" style="width: 40px; height: 40px" aria-label="{{t.cancelReply}}" onClick="{{rm.cancelReply}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></div></sc-if>
+    <form class="ag-comp" onSubmit="{{rm.submit}}">
+      <sc-if value="{{rm.isGroup}}"><button type="button" class="ag-ib" aria-label="{{t.mentionBtn}}" onClick="{{rm.atBtn}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"></path></svg></button></sc-if>
+      <sc-if value="{{rm.isDm}}"><span style="width: 6px"></span></sc-if>
+      <input class="ag-in" ref="{{rm.inputRef}}" value="{{rm.draft}}" onChange="{{rm.onDraft}}" onKeyDown="{{rm.onKey}}" placeholder="{{rm.ph}}" aria-label="{{rm.ph}}" autocomplete="off">
+      <sc-if value="{{rm.canStop}}"><button type="button" class="ag-send stop" aria-label="{{t.stopGen}}" onClick="{{rm.stop}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor" stroke="none"></rect></svg></button></sc-if>
+      <sc-if value="{{rm.canSend}}"><button type="submit" class="{{rm.sendCls}}" aria-label="{{t.send}}" disabled="{{rm.sendDisabled}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path></svg></button></sc-if>
+    </form>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.nr1}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.close}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button><h1 class="ag-top-t">{{t.nrTitle1}}</h1><button class="ag-btn sm" style="margin-right: 8px" disabled="{{nr.nextDisabled}}" onClick="{{nr.next}}">{{t.next}}</button></header>
+    <div style="padding: 0 16px 8px; display: flex; flex-direction: column; gap: 12px">
+      <p class="ag-s" style="padding: 0 4px">{{t.nrSub1}}</p>
+      <sc-if value="{{nr.hasPicked}}"><div class="ag-hscroll"><sc-for list="{{nr.picked}}" as="p"><button class="ag-chip on ag-h-{{p.id}}" onClick="{{p.remove}}" aria-label="{{p.removeAria}}" style="padding-left: 10px"><img class="ag-av s24" src="{{p.img}}" alt="" style="margin-left: -4px">{{p.name}}<svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></sc-for></div></sc-if>
+    </div>
+    <div class="ag-scroll">
+      <sc-for list="{{nr.list}}" as="p">
+        <button class="ag-li ag-h-{{p.id}}" role="checkbox" aria-checked="{{p.on}}" onClick="{{p.toggle}}" style="min-height: 76px; padding: 10px 20px">
+          <img class="ag-av s44" src="{{p.img}}" alt="">
+          <span class="ag-li-b"><span class="ag-li-t"><span class="ag-hue" style="font-weight: 700">{{p.name}}</span><span class="ag-m"> · {{p.years}}</span></span><span class="ag-li-s">{{p.one}}</span></span>
+          <span class="{{p.checkCls}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span>
+        </button>
+      </sc-for>
+    </div>
+    <p class="ag-m" style="padding: 12px 20px 20px">{{nr.countLabel}}</p>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.nr2}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button><h1 class="ag-top-t">{{t.nrTitle2}}</h1></header>
+    <div class="ag-scroll" style="padding: 0 20px 24px; display: flex; flex-direction: column; gap: 22px">
+      <div style="display: flex; align-items: center; gap: 12px"><span class="ag-stack"><sc-for list="{{nr.faces}}" as="f"><img class="ag-av s36" src="{{f.img}}" alt=""></sc-for></span><span class="ag-s">{{nr.namesLabel}}</span></div>
+      <label style="display: flex; flex-direction: column; gap: 8px"><span class="ag-k">{{t.roomName}}</span><input class="ag-field" value="{{nr.name}}" onChange="{{nr.onName}}" placeholder="{{t.roomNamePh}}" autocomplete="off"></label>
+      <div class="ag-hscroll" style="margin-top: -10px"><sc-for list="{{nr.nameSugs}}" as="s"><button class="ag-chip" onClick="{{s.pick}}">{{s.label}}</button></sc-for></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-h2">{{t.vibe}}</p><p class="ag-s">{{t.vibeSub}}</p></div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <p class="ag-li-t">{{t.autonomy}}</p>
+        <div class="ag-seg"><sc-for list="{{nr.autoOpts}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div>
+        <p class="ag-m">{{nr.autoHelp}}</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <p class="ag-li-t" style="display: flex; align-items: center; gap: 8px">{{t.debateFreq}}<span class="ag-tag primary">{{t.beta}}</span></p>
+        <div class="ag-seg"><sc-for list="{{nr.freqOpts}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div>
+        <p class="ag-m">{{nr.freqHelp}}</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <p class="ag-li-t" style="display: flex; align-items: center; gap: 8px">{{t.debateInt}}<span class="ag-tag primary">{{t.beta}}</span></p>
+        <div class="ag-seg"><sc-for list="{{nr.intOpts}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}" disabled="{{o.disabled}}">{{o.label}}</button></sc-for></div>
+        <div class="ag-preview">
+          <p class="ag-k">{{nr.previewLabel}}</p>
+          <sc-for list="{{nr.preview}}" as="p">
+            <div class="ag-row ag-h-{{p.pid}}" style="gap: 8px"><img class="ag-av s28 ag-ring-s" src="{{p.img}}" alt=""><div class="ag-col" style="gap: 2px; max-width: 300px"><span class="ag-who ag-hue" style="font-size: 12px">{{p.name}}</span><span class="ag-bub first">{{p.t}}</span></div></div>
+          </sc-for>
+        </div>
+        <p class="ag-m">{{t.intNote}}</p>
+      </div>
+    </div>
+    <div style="padding: 12px 20px 20px"><button class="ag-btn block" onClick="{{nr.create}}">{{t.createRoom}}</button></div>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.info}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button><h1 class="ag-top-t">{{t.roomInfo}}</h1></header>
+    <div class="ag-scroll" style="padding-bottom: 28px">
+      <div class="ag-hero">
+        <span class="ag-stack"><sc-for list="{{ri.faces}}" as="f"><img class="ag-av s52" src="{{f.img}}" alt=""></sc-for></span>
+        <p class="ag-h2">{{ri.name}}</p>
+        <p class="ag-s">{{ri.desc}}</p>
+      </div>
+      <h2 class="ag-sec">{{ri.membersLabel}}</h2>
+      <div class="ag-group">
+        <sc-for list="{{ri.members}}" as="p">
+          <div class="{{p.liCls}}">
+            <img class="ag-av s36" src="{{p.img}}" alt="">
+            <span class="ag-li-b ag-h-{{p.id}}"><span class="ag-li-t ag-hue" style="font-weight: 700">{{p.name}}</span><span class="ag-li-s">{{p.type}}</span></span>
+            <button class="ag-btn sm ghost" onClick="{{p.remove}}" disabled="{{p.cantRemove}}">{{t.remove}}</button>
+          </div>
+        </sc-for>
+        <button class="ag-li sep" onClick="{{ri.addMember}}"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M19 8v6"></path><path d="M16 11h6"></path></svg></span><span class="ag-li-b"><span class="ag-li-t" style="color: var(--primary-ink); font-weight: 700">{{t.addPhil}}</span></span></button>
+      </div>
+      <h2 class="ag-sec">{{t.vibe}}</h2>
+      <div class="ag-group" style="padding: 14px 16px; display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; flex-direction: column; gap: 8px"><p class="ag-li-t">{{t.autonomy}}</p><div class="ag-seg"><sc-for list="{{ri.autoOpts}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div><p class="ag-m">{{ri.autoHelp}}</p></div>
+        <div style="display: flex; flex-direction: column; gap: 8px"><p class="ag-li-t" style="display: flex; align-items: center; gap: 8px">{{t.debateFreq}}<span class="ag-tag primary">{{t.beta}}</span></p><div class="ag-seg"><sc-for list="{{ri.freqOpts}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div><p class="ag-m">{{ri.freqHelp}}</p></div>
+        <div style="display: flex; flex-direction: column; gap: 8px"><p class="ag-li-t" style="display: flex; align-items: center; gap: 8px">{{t.debateInt}}<span class="ag-tag primary">{{t.beta}}</span></p><div class="ag-seg"><sc-for list="{{ri.intOpts}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}" disabled="{{o.disabled}}">{{o.label}}</button></sc-for></div><p class="ag-m">{{t.intNote}}</p></div>
+      </div>
+      <h2 class="ag-sec">{{t.notifications}}</h2>
+      <div style="padding: 0 16px"><div class="ag-seg"><sc-for list="{{ri.notifOpts}}" as="o"><button class="{{o.cls}}" aria-pressed="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div></div>
+      <h2 class="ag-sec">{{t.replyLang}}</h2>
+      <div class="ag-group"><sc-for list="{{ri.langOpts}}" as="o"><button class="{{o.liCls}}" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}"><span class="ag-li-b"><span class="ag-li-t">{{o.label}}</span></span><span class="ag-radio" style="{{o.ring}}"><sc-if value="{{o.on}}"><i style="width: 10px; height: 10px; border-radius: 50%; background: var(--primary)"></i></sc-if></span></button></sc-for></div>
+      <h2 class="ag-sec">{{t.secEngine}}</h2>
+      <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 8px"><div class="ag-seg"><button class="{{ri.engLocalCls}}" aria-pressed="{{ri.engIsLocal}}" onClick="{{ri.engLocal}}">{{t.engineLocalShort}}</button><button class="{{ri.engCloudCls}}" aria-pressed="{{ri.engIsCloud}}" onClick="{{ri.engCloud}}">{{t.enginePlusShort}}</button></div><p class="ag-m">{{ri.engHelp}}</p></div>
+      <h2 class="ag-sec">{{t.memory}}</h2>
+      <div class="ag-group">
+        <div class="ag-li"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path></svg></span><span class="ag-li-b"><span class="ag-li-s" style="color: var(--ink-2)">{{t.roomMemText}}</span></span></div>
+        <button class="ag-li sep" onClick="{{ri.openMemory}}"><span class="ag-li-b"><span class="ag-li-t">{{t.seeRoomMemory}}</span></span><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button>
+      </div>
+      <div class="ag-group" style="margin-top: 16px">
+        <button class="ag-li" onClick="{{ri.exportChat}}"><span class="ag-li-b"><span class="ag-li-t">{{t.exportChat}}</span></span></button>
+        <button class="ag-li sep" onClick="{{ri.archive}}"><span class="ag-li-b"><span class="ag-li-t">{{ri.archiveLabel}}</span></span></button>
+        <button class="ag-li sep" onClick="{{ri.report}}"><span class="ag-li-b"><span class="ag-li-t">{{t.reportRoom}}</span></span></button>
+        <button class="ag-li sep danger" onClick="{{ri.del}}"><span class="ag-li-b"><span class="ag-li-t">{{t.deleteRoom}}</span></span></button>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.journal}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button><h1 class="ag-top-t" style="font-size: 16px">{{jd.date}}</h1><button class="ag-ib" aria-label="{{t.more}}" aria-expanded="{{jd.menuOpen}}" onClick="{{jd.toggleMenu}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.2" fill="currentColor"></circle><circle cx="12" cy="12" r="1.2" fill="currentColor"></circle><circle cx="12" cy="19" r="1.2" fill="currentColor"></circle></svg></button></header>
+    <sc-if value="{{jd.menuOpen}}"><div class="ag-menu" role="menu"><sc-if value="{{jd.isUser}}"><button role="menuitem" onClick="{{jd.editNote}}">{{t.edit}}</button></sc-if><sc-if value="{{jd.hasDraft}}"><button role="menuitem" onClick="{{jd.regen}}">{{t.regenDraft}}</button></sc-if><sc-if value="{{jd.hasRevs}}"><button role="menuitem" onClick="{{jd.openRevs}}">{{t.revs}}</button></sc-if><button role="menuitem" onClick="{{jd.openAccess}}">{{t.accessTitle}}</button><button role="menuitem" onClick="{{jd.exportEntry}}">{{t.exportEntry}}</button><button role="menuitem" onClick="{{jd.del}}" style="color: var(--danger)">{{t.deleteEntry}}</button></div></sc-if>
+    <div class="ag-scroll" style="padding: 0 20px 32px">
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 4px">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap"><span class="{{jd.kindCls}}">{{jd.kindLabel}}</span><sc-if value="{{jd.hasRevs}}"><button class="ag-m" style="display: inline-flex; align-items: center; gap: 4px; min-height: 28px" onClick="{{jd.openRevs}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path><path d="M12 8v4l3 2"></path></svg>{{jd.revLabel}}</button></sc-if></div>
+          <h2 class="ag-serif" style="font-size: 24px; line-height: 34px; font-weight: 700">{{jd.title}}</h2>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+            <button class="{{jd.accessCls}}" onClick="{{jd.openAccess}}"><sc-if value="{{jd.isPrivate}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></sc-if><sc-if value="{{jd.isShared}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M16 14.2a5 5 0 0 1 5.5 5.8"></path></svg></sc-if>{{jd.access}}<svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+            <sc-if value="{{jd.hasSources}}"><span class="ag-m">{{jd.sources}}</span></sc-if>
+          </div>
+          <sc-if value="{{jd.isRegen}}"><p class="ag-m" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap">{{t.regenFrom}}<button class="ag-link" style="min-height: 28px; font-size: 12.5px" onClick="{{jd.openPrev}}">{{t.seePrev}}</button></p></sc-if>
+        </div>
+        <sc-if value="{{jd.isUser}}">
+          <section style="display: flex; flex-direction: column; gap: 6px">
+            <div class="ag-read"><sc-for list="{{jd.paras}}" as="p"><p style="white-space: pre-wrap">{{p.t}}</p></sc-for></div>
+            <button class="ag-link" style="align-self: flex-start" onClick="{{jd.editNote}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>{{t.edit}}</button>
+          </section>
+        </sc-if>
+        <sc-if value="{{jd.hasDraft}}">
+          <section class="ag-card" style="display: flex; flex-direction: column; gap: 14px; padding: 18px">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap"><span class="ag-k">{{t.aiSummary}}</span><sc-if value="{{jd.showDraftTag}}"><span class="ag-tag lamp">{{t.draftTag}}</span></sc-if><sc-if value="{{jd.showReviewedTag}}"><span class="ag-tag">{{t.reviewedTag}}</span></sc-if><sc-if value="{{jd.sumEdited}}"><span class="ag-tag primary">{{t.editedTag}}</span></sc-if></div>
+            <sc-if value="{{jd.showSents}}">
+              <p class="ag-read" style="font-size: 16px; line-height: 29px"><sc-for list="{{jd.sents}}" as="s"><span class="{{s.cls}}">{{s.t}}</span><sc-for list="{{s.refs}}" as="r"><button class="ag-ref" onClick="{{r.open}}" aria-label="{{r.aria}}">{{r.n}}</button></sc-for><sc-if value="{{s.guess}}"><span class="ag-tag" style="margin-left: 4px; vertical-align: 2px">{{t.guess}}</span></sc-if> </sc-for></p>
+              <p class="ag-m">{{t.draftNote}}</p>
+            </sc-if>
+            <sc-if value="{{jd.showEdited}}">
+              <p class="ag-read" style="font-size: 16px; line-height: 29px; white-space: pre-wrap">{{jd.sumText}}</p>
+              <p class="ag-m">{{t.editedNote}}</p>
+            </sc-if>
+            <sc-if value="{{jd.editingSum}}">
+              <textarea class="ag-field" value="{{jd.sumDraft}}" onChange="{{jd.onSum}}" aria-label="{{t.aiSummary}}" style="min-height: 180px"></textarea>
+              <div style="display: flex; gap: 8px; justify-content: flex-end"><button class="ag-btn sm ghost" onClick="{{jd.cancelSum}}">{{t.cancel}}</button><button class="ag-btn sm" onClick="{{jd.saveSum}}" disabled="{{jd.sumSaveDisabled}}">{{t.save}}</button></div>
+              <p class="ag-m">{{t.sumEditNote}}</p>
+            </sc-if>
+            <sc-if value="{{jd.showSumActions}}">
+              <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                <sc-if value="{{jd.canApprove}}"><button class="ag-btn sm tonal" onClick="{{jd.approve}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>{{t.looksRight}}</button></sc-if>
+                <button class="ag-btn sm ghost" onClick="{{jd.editSum}}">{{t.editSum}}</button>
+                <button class="ag-btn sm ghost" onClick="{{jd.regen}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>{{t.regenDraft}}</button>
+                <sc-if value="{{jd.hasRoom}}"><button class="ag-btn sm ghost" onClick="{{jd.openRoom}}">{{t.seeOriginal}}</button></sc-if>
+              </div>
+            </sc-if>
+          </section>
+        </sc-if>
+        <section style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: center; gap: 8px"><h3 class="ag-t">{{jd.refTitle}}</h3><span class="ag-tag primary">{{t.byMe}}</span></div>
+          <sc-if value="{{jd.editing}}">
+            <textarea class="ag-field" value="{{jd.refDraft}}" onChange="{{jd.onRef}}" placeholder="{{jd.refPh}}" aria-label="{{jd.refTitle}}"></textarea>
+            <div style="display: flex; gap: 8px; justify-content: flex-end"><sc-if value="{{jd.canCancelRef}}"><button class="ag-btn sm ghost" onClick="{{jd.cancelRef}}">{{t.cancel}}</button></sc-if><button class="ag-btn sm" onClick="{{jd.saveRef}}" disabled="{{jd.saveDisabled}}">{{t.save}}</button></div>
+            <p class="ag-m">{{t.reflectionNote}}</p>
+          </sc-if>
+          <sc-if value="{{jd.showRef}}">
+            <p class="ag-read" style="font-size: 16px; line-height: 28px; white-space: pre-wrap; font-family: 'Gothic A1', sans-serif">{{jd.ref}}</p>
+            <div style="display: flex; align-items: center; gap: 8px"><span class="ag-m">{{jd.refMeta}}</span><button class="ag-link" style="margin-left: auto" onClick="{{jd.editRef}}">{{t.edit}}</button></div>
+          </sc-if>
+          <sc-if value="{{jd.showAddRef}}"><button class="ag-btn sm ghost" style="align-self: flex-start" onClick="{{jd.addRef}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>{{t.addRef}}</button></sc-if>
+        </section>
+        <div class="ag-div" style="margin: 0"></div>
+        <section style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 8px"><h3 class="ag-t">{{t.comments}}</h3><span class="ag-m">{{jd.commentCount}}</span></div>
+          <sc-if value="{{jd.locked}}">
+            <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 12px"><p class="ag-s">{{t.commentsLocked}}</p><button class="ag-btn sm tonal" style="align-self: flex-start" onClick="{{jd.openAccess}}">{{t.letRead}}</button></div>
+          </sc-if>
+          <sc-for list="{{jd.plans}}" as="p">
+            <div class="ag-plan ag-h-{{p.pid}}">
+              <span class="ag-plan-av"><img class="ag-av s36 ag-ring-s" src="{{p.img}}" alt=""><i><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></i></span>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+                <p class="ag-li-t" style="font-size: 14px; line-height: 20px">{{p.line}}</p>
+                <p class="ag-m" style="line-height: 17px">{{p.sub}}</p>
+                <sc-if value="{{p.idle}}"><div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 8px"><button class="ag-btn sm tonal" onClick="{{p.now}}">{{t.planNow}}</button><button class="ag-btn sm ghost" onClick="{{p.cancel}}">{{t.planCancel}}</button><button class="ag-link" style="font-size: 13px; min-height: 40px; padding: 0 4px" onClick="{{p.why}}">{{t.planWhy}}</button></div></sc-if>
+                <sc-if value="{{p.busy}}"><span class="ag-typing" style="align-self: flex-start; margin-top: 6px; height: 34px" aria-live="polite"><span class="ag-dots" aria-hidden="true"><i></i><i></i><i></i></span>{{p.busyText}}</span></sc-if>
+              </div>
+            </div>
+          </sc-for>
+          <sc-for list="{{jd.comments}}" as="c">
+            <div class="{{c.cls}}">
+              <sc-if value="{{c.isPhil}}"><img class="ag-av s32 ag-ring-s ag-h-{{c.pid}}" src="{{c.img}}" alt=""></sc-if>
+              <sc-if value="{{c.isMe}}"><span class="ag-me-av" style="width: 32px; height: 32px">{{t.meShort}}</span></sc-if>
+              <div class="ag-cm-b ag-h-{{c.pid}}">
+                <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap"><strong class="ag-hue" style="font-size: 13px">{{c.name}}</strong><sc-if value="{{c.isPhil}}"><span class="ag-tag">AI</span></sc-if><sc-if value="{{c.isAuto}}"><button class="ag-tag" style="gap: 3px; height: 22px" onClick="{{c.why}}" aria-label="{{t.whyAutoT}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>{{t.autoTag}}</button></sc-if><span class="ag-m">{{c.time}}</span></span>
+                <p class="{{c.tCls}}">{{c.t}}</p>
+                <div class="ag-cm-a"><button onClick="{{c.reply}}">{{t.reply}}</button><sc-if value="{{c.isPhil}}"><button onClick="{{c.dm}}">{{t.continueDm}}</button></sc-if><button onClick="{{c.del}}">{{t.delete}}</button></div>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{jd.writing}}"><div class="ag-row ag-h-{{jd.writingPid}}" style="align-items: center" aria-live="polite"><img class="ag-av s32 ag-ring-s" src="{{jd.writingImg}}" alt=""><span class="ag-typing"><span class="ag-dots" aria-hidden="true"><i></i><i></i><i></i></span>{{jd.writingText}}</span></div></sc-if>
+          <sc-if value="{{jd.canAsk}}"><button class="ag-btn sm ghost" style="align-self: flex-start" onClick="{{jd.askComment}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>{{t.askComment}}</button></sc-if>
+        </section>
+      </div>
+    </div>
+    <sc-if value="{{jd.replying}}">
+      <form class="ag-comp" onSubmit="{{jd.sendReply}}" style="box-shadow: inset 0 1px 0 var(--line); padding-top: 8px; align-items: flex-end">
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><span class="ag-m" style="padding-left: 8px; display: flex; align-items: center; gap: 6px">{{jd.replyLabel}}<button type="button" class="ag-link" style="min-height: 28px; font-size: 12px" onClick="{{jd.cancelReply}}">{{t.cancel}}</button></span><input class="ag-in" ref="{{jd.replyRef}}" value="{{jd.replyDraft}}" onChange="{{jd.onReply}}" placeholder="{{t.replyPh}}" aria-label="{{t.replyPh}}" autocomplete="off"></div>
+        <button type="submit" class="{{jd.sendCls}}" aria-label="{{t.send}}" disabled="{{jd.sendDisabled}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path></svg></button>
+      </form>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.compose}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{cp.close}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button><h1 class="ag-top-t" style="font-size: 16px">{{cp.heading}}</h1><button class="ag-btn sm" style="margin-right: 8px; min-width: 68px" onClick="{{cp.done}}" disabled="{{cp.doneDisabled}}">{{t.done}}</button></header>
+    <div class="ag-scroll" style="padding: 0 20px 24px">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap">
+          <button class="ag-chip" style="min-height: 34px; padding: 0 12px" aria-label="{{t.dateAria}}" aria-expanded="{{cp.pickingDate}}" onClick="{{cp.toggleDate}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"></rect><path d="M3.5 10h17"></path><path d="M8 3v4"></path><path d="M16 3v4"></path></svg>{{cp.dateLabel}}</button>
+          <span class="ag-m" aria-live="polite">{{cp.status}}</span>
+        </div>
+        <sc-if value="{{cp.pickingDate}}">
+          <div class="ag-week" style="padding: 0"><sc-for list="{{cp.days}}" as="d"><button class="{{d.cls}}" onClick="{{d.pick}}" aria-label="{{d.aria}}" aria-pressed="{{d.on}}" disabled="{{d.future}}"><span>{{d.dow}}</span><b>{{d.num}}</b></button></sc-for></div>
+          <p class="ag-m">{{t.pickDateHint}}</p>
+        </sc-if>
+        <input class="ag-compose-t" ref="{{cp.titleRef}}" value="{{cp.title}}" onChange="{{cp.onTitle}}" placeholder="{{t.titlePh}}" aria-label="{{t.titlePh}}" autocomplete="off">
+        <textarea class="ag-compose-b" value="{{cp.body}}" onChange="{{cp.onBody}}" placeholder="{{t.bodyPh}}" aria-label="{{t.bodyPh}}"></textarea>
+      </div>
+    </div>
+    <p class="ag-compose-foot"><sc-if value="{{cp.isPrivate}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg></sc-if><sc-if value="{{cp.isShared}}"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M16 14.2a5 5 0 0 1 5.5 5.8"></path></svg></sc-if><span>{{cp.foot}}</span></p>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.note}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen ag-h-{{nd.pid}}">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button><span style="flex: 1"></span><button class="ag-ib" aria-label="{{t.more}}" aria-expanded="{{nd.menuOpen}}" onClick="{{nd.toggleMenu}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.2" fill="currentColor"></circle><circle cx="12" cy="12" r="1.2" fill="currentColor"></circle><circle cx="12" cy="19" r="1.2" fill="currentColor"></circle></svg></button></header>
+    <sc-if value="{{nd.menuOpen}}"><div class="ag-menu" role="menu"><button role="menuitem" onClick="{{nd.dm}}">{{t.continueDm}}</button><button role="menuitem" onClick="{{nd.toRoom}}">{{t.talkInRoom}}</button><button role="menuitem" onClick="{{nd.report}}">{{t.report}}</button><button role="menuitem" onClick="{{nd.del}}" style="color: var(--danger)">{{t.deleteNote}}</button></div></sc-if>
+    <div class="ag-scroll" style="padding: 0 22px 28px">
+      <div style="display: flex; flex-direction: column; gap: 18px">
+        <div style="display: flex; align-items: center; gap: 12px">
+          <button style="border-radius: 50%" aria-label="{{nd.profileAria}}" onClick="{{nd.profile}}"><img class="ag-av s44 ag-ring" src="{{nd.img}}" alt=""></button>
+          <div style="flex: 1; min-width: 0"><p class="ag-hue" style="font-size: 16px; line-height: 22px; font-weight: 700">{{nd.name}}</p><p class="ag-m">{{nd.date}}</p></div>
+          <span class="ag-tag hue">{{t.aiNote}}</span>
+        </div>
+        <h1 class="ag-serif" style="font-size: 25px; line-height: 36px; font-weight: 700">{{nd.title}}</h1>
+        <button class="ag-chip" style="align-self: flex-start" onClick="{{nd.openOrigin}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>{{nd.origin}}</button>
+        <div class="ag-read"><sc-for list="{{nd.paras}}" as="p"><p>{{p.t}}</p></sc-for></div>
+        <sc-if value="{{nd.hasQuote}}"><div class="ag-quote"><span class="ag-tag" style="align-self: flex-start">{{t.sourceQuote}}</span><p class="ag-serif" style="font-size: 16px; line-height: 26px">{{nd.quote}}</p><p class="ag-m">{{nd.quoteSrc}}</p></div></sc-if>
+        <p class="ag-card sunk ag-s" style="display: flex; gap: 10px"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; margin-top: 2px"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg><span>{{nd.disclose}}</span></p>
+        <div class="ag-div" style="margin: 0"></div>
+        <section style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; align-items: center; gap: 8px"><h3 class="ag-t">{{t.comments}}</h3><span class="ag-m">{{nd.commentCount}}</span></div>
+          <sc-for list="{{nd.comments}}" as="c">
+            <div class="{{c.cls}}">
+              <sc-if value="{{c.isPhil}}"><img class="ag-av s32 ag-ring-s ag-h-{{c.pid}}" src="{{c.img}}" alt=""></sc-if>
+              <sc-if value="{{c.isMe}}"><span class="ag-me-av" style="width: 32px; height: 32px">{{t.meShort}}</span></sc-if>
+              <div class="ag-cm-b ag-h-{{c.pid}}">
+                <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap"><strong class="ag-hue" style="font-size: 13px">{{c.name}}</strong><sc-if value="{{c.isAuthor}}"><span class="ag-tag hue">{{t.author}}</span></sc-if><sc-if value="{{c.isPhil}}"><span class="ag-tag">AI</span></sc-if><span class="ag-m">{{c.time}}</span></span>
+                <p class="{{c.tCls}}">{{c.t}}</p>
+                <div class="ag-cm-a"><sc-if value="{{c.isPhil}}"><button onClick="{{c.dm}}">{{t.continueDm}}</button></sc-if><button onClick="{{c.del}}">{{t.delete}}</button></div>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{nd.writing}}"><div class="ag-row" style="align-items: center" aria-live="polite"><img class="ag-av s32 ag-ring-s" src="{{nd.img}}" alt=""><span class="ag-typing"><span class="ag-dots" aria-hidden="true"><i></i><i></i><i></i></span>{{nd.writingText}}</span></div></sc-if>
+          <button class="ag-li" style="padding: 0; min-height: 52px" role="switch" aria-checked="{{nd.allowOthers}}" onClick="{{nd.toggleOthers}}"><span class="ag-li-b"><span class="ag-li-t" style="font-size: 14px">{{t.allowOthers}}</span><span class="ag-li-s">{{t.allowOthersSub}}</span></span><span class="{{nd.othersCls}}"><i></i></span></button>
+        </section>
+      </div>
+    </div>
+    <form class="ag-comp" onSubmit="{{nd.send}}" style="box-shadow: inset 0 1px 0 var(--line); padding-top: 10px">
+      <input class="ag-in" ref="{{nd.inputRef}}" value="{{nd.draft}}" onChange="{{nd.onDraft}}" placeholder="{{nd.ph}}" aria-label="{{nd.ph}}" autocomplete="off">
+      <button type="submit" class="{{nd.sendCls}}" aria-label="{{t.send}}" disabled="{{nd.sendDisabled}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path></svg></button>
+    </form>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.profile}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen ag-h-{{pf.id}}">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button></header>
+    <div class="ag-scroll" style="padding-bottom: 28px">
+      <div class="ag-hero">
+        <img class="ag-av s96 ag-ring" src="{{pf.img}}" alt="{{pf.portraitAlt}}">
+        <div style="display: flex; flex-direction: column; gap: 2px"><p class="ag-h1 ag-hue">{{pf.name}}</p><p class="ag-m">{{pf.alt}} · {{pf.years}}</p></div>
+        <span class="ag-tag hue">{{t.aiSim}}</span>
+        <p class="ag-s" style="max-width: 300px">{{pf.one}}</p>
+        <div style="display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; justify-content: center"><button class="ag-btn sm" onClick="{{pf.chat}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>{{t.chatBtn}}</button><button class="ag-btn sm tonal" onClick="{{pf.invite}}">{{t.inviteToRoom}}</button><button class="ag-btn sm ghost" onClick="{{pf.notes}}">{{t.seeNotes}}</button></div>
+      </div>
+      <h2 class="ag-sec">{{t.coreIdeas}}</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px"><sc-for list="{{pf.ideas}}" as="i"><span class="ag-chip">{{i.t}}</span></sc-for></div>
+      <h2 class="ag-sec">{{t.howTalk}}</h2>
+      <p class="ag-b ag-pad" style="color: var(--ink-2)">{{pf.style}}</p>
+      <h2 class="ag-sec">{{t.canRead}}</h2>
+      <div class="ag-group"><sc-for list="{{pf.reads}}" as="r"><div class="{{r.liCls}}"><span class="ag-li-b"><span class="ag-li-t">{{r.t}}</span><span class="ag-li-s">{{r.s}}</span></span></div></sc-for></div>
+      <h2 class="ag-sec">{{t.reachOut}}</h2>
+      <div class="ag-group"><button class="ag-li" role="switch" aria-checked="{{pf.initOn}}" onClick="{{pf.toggleInit}}"><span class="ag-li-b"><span class="ag-li-t">{{pf.initTitle}}</span><span class="ag-li-s">{{pf.initSub}}</span></span><span class="{{pf.initCls}}"><i></i></span></button></div>
+      <h2 class="ag-sec">{{t.remembers}}</h2>
+      <div class="ag-group">
+        <sc-for list="{{pf.mems}}" as="m"><div class="{{m.liCls}}"><span class="ag-li-b"><span style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap"><span class="{{m.tagCls}}">{{m.kind}}</span><span class="ag-m">{{m.src}}</span></span><span class="ag-li-t" style="font-weight: 500">{{m.t}}</span></span><button class="ag-ib" aria-label="{{m.delAria}}" onClick="{{m.del}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path></svg></button></div></sc-for>
+        <sc-if value="{{pf.noMems}}"><p class="ag-s" style="padding: 14px 16px">{{t.noMems}}</p></sc-if>
+      </div>
+      <h2 class="ag-sec">{{t.sources}}</h2>
+      <div class="ag-group"><sc-for list="{{pf.sources}}" as="s"><div class="{{s.liCls}}"><span class="ag-li-b"><span class="ag-li-t" style="font-weight: 500; font-size: 14px">{{s.t}}</span><span class="ag-li-s">{{s.s}}</span></span></div></sc-for></div>
+      <div class="ag-group" style="margin-top: 16px"><button class="ag-li danger" onClick="{{pf.hide}}"><span class="ag-li-b"><span class="ag-li-t">{{pf.hideLabel}}</span></span></button></div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.memory}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button><h1 class="ag-top-t">{{t.memory}}</h1></header>
+    <div class="ag-hscroll" style="padding: 0 16px 10px"><sc-for list="{{mm.filters}}" as="f"><button class="{{f.cls}}" aria-pressed="{{f.on}}" onClick="{{f.pick}}">{{f.label}}</button></sc-for></div>
+    <div class="ag-scroll" style="padding: 0 16px 24px">
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <p class="ag-banner" style="margin: 0"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path></svg><span>{{t.memNote}}</span></p>
+        <sc-for list="{{mm.items}}" as="m">
+          <div class="ag-card" style="display: flex; flex-direction: column; gap: 8px">
+            <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap"><span class="{{m.tagCls}}">{{m.kind}}</span><span class="ag-m">{{m.src}}</span><sc-if value="{{m.paused}}"><span class="ag-tag">{{t.pausedTag}}</span></sc-if></div>
+            <p class="ag-b" style="font-weight: 600">{{m.t}}</p>
+            <p class="ag-m">{{m.scope}}</p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 2px">
+              <sc-if value="{{m.isGuess}}"><button class="ag-btn sm tonal" onClick="{{m.confirm}}">{{t.right}}</button><button class="ag-btn sm ghost" onClick="{{m.reject}}">{{t.notTrue}}</button></sc-if>
+              <sc-if value="{{m.isSaid}}"><button class="ag-btn sm ghost" onClick="{{m.toggle}}">{{m.toggleLabel}}</button></sc-if>
+              <button class="ag-btn sm ghost" onClick="{{m.del}}">{{t.delete}}</button>
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{mm.empty}}"><p class="ag-s" style="text-align: center; padding: 24px">{{t.memEmpty}}</p></sc-if>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.models}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.back}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5"></path><path d="m12 19-7-7 7-7"></path></svg></button><h1 class="ag-top-t">{{t.modelsTitle}}</h1></header>
+    <div class="ag-scroll" style="padding: 0 16px 24px">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 8px"><div class="ag-s" style="display: flex; justify-content: space-between"><span>{{t.storageThis}}</span><span class="ag-num">{{t.storageVal}}</span></div><div class="ag-bar"><i style="width: 38%"></i></div></div>
+        <sc-for list="{{md.list}}" as="m">
+          <div class="ag-card" style="display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; align-items: flex-start; gap: 12px">
+              <span class="{{m.tileCls}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"></rect><path d="M11 18h2"></path></svg></span>
+              <div style="flex: 1; min-width: 0"><p class="ag-t">{{m.name}}</p><p class="ag-m">{{m.sub}}</p></div>
+              <sc-if value="{{m.inUse}}"><span class="ag-tag primary">{{t.inUse}}</span></sc-if>
+              <sc-if value="{{m.incompatible}}"><span class="ag-tag danger">{{t.incompatible}}</span></sc-if>
+            </div>
+            <p class="ag-s">{{m.desc}}</p>
+            <sc-if value="{{m.downloading}}"><div class="ag-bar"><i style="width: {{m.w}}"></i></div><p class="ag-m ag-num">{{m.dlLabel}}</p></sc-if>
+            <sc-if value="{{m.canGet}}"><button class="ag-btn sm tonal" style="align-self: flex-start" onClick="{{m.get}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg>{{t.download}}</button></sc-if>
+            <sc-if value="{{m.canUse}}"><button class="ag-btn sm ghost" style="align-self: flex-start" onClick="{{m.use}}">{{t.useThis}}</button></sc-if>
+          </div>
+        </sc-for>
+        <p class="ag-m" style="padding: 0 4px">{{t.modelNote}}</p>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{is.plus}}" hint-placeholder-val="{{false}}">
+  <div class="ag-screen">
+    <header class="ag-top"><button class="ag-ib" aria-label="{{t.close}}" onClick="{{back}}"><svg class="ag-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button></header>
+    <div class="ag-scroll" style="padding: 0 20px 20px">
+      <div style="display: flex; flex-direction: column; gap: 16px">
+        <div style="display: flex; flex-direction: column; gap: 10px"><span class="ag-tag lamp" style="align-self: flex-start; height: 24px; padding: 0 10px; font-size: 12px">AGORA Plus</span><h1 class="ag-display">{{t.plusTitle}}</h1><p class="ag-b" style="color: var(--ink-2)">{{t.plusSub}}</p></div>
+        <div class="ag-card" style="display: flex; flex-direction: column; gap: 10px">
+          <p class="ag-k">{{t.freeCol}}</p>
+          <sc-for list="{{pl.free}}" as="x"><p class="ag-b" style="display: flex; gap: 10px"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--primary); margin-top: 1px"><path d="M20 6 9 17l-5-5"></path></svg><span>{{x.t}}</span></p></sc-for>
+        </div>
+        <div class="ag-card lamp" style="display: flex; flex-direction: column; gap: 10px">
+          <p class="ag-k" style="color: var(--lamp-ink)">{{t.plusCol}}</p>
+          <sc-for list="{{pl.plus}}" as="x"><p class="ag-b" style="display: flex; gap: 10px"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true" style="color: var(--lamp-ink); margin-top: 1px"><path d="M12 3v18"></path><path d="M3 12h18"></path></svg><span>{{x.t}}</span></p></sc-for>
+        </div>
+        <div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 8px"><sc-for list="{{pl.notes}}" as="x"><p class="ag-s" style="display: flex; gap: 8px"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path></svg><span>{{x.t}}</span></p></sc-for></div>
+        <p class="ag-s">{{t.priceLine}}</p>
+      </div>
+    </div>
+    <div style="padding: 12px 20px 20px; display: flex; flex-direction: column; gap: 10px">
+      <sc-if value="{{pl.notPlus}}"><button class="ag-btn block" onClick="{{pl.start}}">{{t.plusCta}}</button></sc-if>
+      <sc-if value="{{pl.isPlus}}"><div class="ag-card sunk" style="display: flex; flex-direction: column; gap: 8px"><p class="ag-t">{{t.plusActive}}</p><p class="ag-m">{{t.creditsLine}}</p><div class="ag-bar"><i style="width: 62%; background: var(--lamp)"></i></div></div><button class="ag-btn ghost block" onClick="{{pl.stop}}">{{t.plusCancel}}</button></sc-if>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{sx.open}}" hint-placeholder-val="{{false}}">
+  <button class="ag-scrim" aria-label="{{t.close}}" onClick="{{sx.close}}"></button>
+  <div class="ag-sheet" role="dialog" aria-modal="true" aria-label="{{sx.label}}">
+    <div class="ag-handle" aria-hidden="true"></div>
+
+    <sc-if value="{{sx.isNewChat}}">
+      <p class="ag-sheet-t">{{t.newChat}}</p>
+      <div style="padding: 14px 0 6px"><button class="ag-li" style="border-radius: 18px; background: var(--sunken)" onClick="{{sx.newGroup}}"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M16 14.2a5 5 0 0 1 5.5 5.8"></path></svg></span><span class="ag-li-b"><span class="ag-li-t" style="font-weight: 700">{{t.newGroup}}</span><span class="ag-li-s">{{t.newGroupSub}}</span></span><svg class="ag-ico xs ag-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button></div>
+      <p class="ag-k" style="padding: 12px 8px 4px">{{t.startDm}}</p>
+      <sc-for list="{{sx.phils}}" as="p"><button class="ag-pop-r ag-h-{{p.id}}" style="border-radius: 14px; padding: 6px 8px" onClick="{{p.pick}}"><img class="ag-av s36 ag-ring-s" src="{{p.img}}" alt=""><div><strong class="ag-hue">{{p.name}}</strong><span>{{p.sub}}</span></div></button></sc-for>
+    </sc-if>
+
+    <sc-if value="{{sx.isInvite}}">
+      <div class="ag-h-{{sx.pid}}" style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 4px 8px 14px; text-align: center"><img class="ag-av s64 ag-ring" src="{{sx.img}}" alt=""><p class="ag-sheet-t">{{sx.inviteTitle}}</p><p class="ag-sheet-s">{{t.inviteSub}}</p></div>
+      <button class="ag-opt" onClick="{{sx.temp}}"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span><span class="ag-li-b"><span class="ag-li-t" style="font-weight: 700">{{t.inviteTemp}}</span><span class="ag-li-s">{{t.inviteTempSub}}</span></span></button>
+      <button class="ag-opt" onClick="{{sx.fixed}}"><span class="ag-tile"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M19 8v6"></path><path d="M16 11h6"></path></svg></span><span class="ag-li-b"><span class="ag-li-t" style="font-weight: 700">{{t.inviteFixed}}</span><span class="ag-li-s">{{t.inviteFixedSub}}</span></span></button>
+      <button class="ag-btn ghost block" style="margin-top: 10px" onClick="{{sx.close}}">{{t.cancel}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isMsg}}">
+      <div class="ag-card sunk ag-h-{{sx.msgPid}}" style="margin: 0 4px 8px; padding: 12px 14px"><p class="ag-hue" style="font-size: 12px; font-weight: 700; margin-bottom: 4px">{{sx.msgWho}}</p><p class="ag-s" style="color: var(--ink); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden">{{sx.msgText}}</p></div>
+      <sc-for list="{{sx.actions}}" as="a">
+        <button class="ag-opt" style="align-items: center; padding: 12px" onClick="{{a.run}}">
+          <span class="ag-tile">
+            <sc-if value="{{a.iReply}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"></path><path d="M4 9h10a6 6 0 0 1 6 6v4"></path></svg></sc-if>
+            <sc-if value="{{a.iCopy}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg></sc-if>
+            <sc-if value="{{a.iDm}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg></sc-if>
+            <sc-if value="{{a.iNote}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 12.2a6 6 0 0 0-8.5-8.5L5 10.5V19h8.5z"></path><path d="M16 8 2 22"></path><path d="M17.5 15H9"></path></svg></sc-if>
+            <sc-if value="{{a.iJournal}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg></sc-if>
+            <sc-if value="{{a.iFlag}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 22V4"></path><path d="M4 4h13l-2 4 2 4H4"></path></svg></sc-if>
+            <sc-if value="{{a.iTrash}}"><svg class="ag-ico sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="M19 6l-1 14H6L5 6"></path></svg></sc-if>
+          </span>
+          <span class="ag-li-b"><span class="ag-li-t">{{a.label}}</span><sc-if value="{{a.hasSub}}"><span class="ag-li-s">{{a.sub}}</span></sc-if></span>
+        </button>
+      </sc-for>
+    </sc-if>
+
+    <sc-if value="{{sx.isReport}}">
+      <p class="ag-sheet-t">{{t.reportTitle}}</p><p class="ag-sheet-s">{{t.reportSub}}</p>
+      <div style="padding: 10px 0; display: flex; flex-direction: column; gap: 2px"><sc-for list="{{sx.reasons}}" as="r"><button class="{{r.cls}}" role="radio" aria-checked="{{r.on}}" onClick="{{r.pick}}"><span class="ag-radio"><i></i></span><span class="ag-li-b"><span class="ag-li-t">{{r.label}}</span></span></button></sc-for></div>
+      <button class="ag-btn block" disabled="{{sx.reportDisabled}}" onClick="{{sx.submitReport}}">{{t.submitReport}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isAccess}}">
+      <p class="ag-sheet-t">{{t.accessTitle}}</p><p class="ag-sheet-s">{{sx.entryTitle}}</p>
+      <p class="ag-k" style="padding: 16px 8px 2px">{{t.whoReads}}</p>
+      <div style="padding: 6px 0; display: flex; flex-direction: column; gap: 2px"><sc-for list="{{sx.modes}}" as="o"><button class="{{o.cls}}" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}"><span class="ag-radio"><i></i></span><span class="ag-li-b"><span class="ag-li-t" style="font-weight: 700">{{o.label}}</span><span class="ag-li-s">{{o.sub}}</span></span></button></sc-for></div>
+      <sc-if value="{{sx.showPick}}"><div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 0 8px 10px"><sc-for list="{{sx.picks}}" as="p"><button class="{{p.cls}}" role="checkbox" aria-checked="{{p.on}}" onClick="{{p.toggle}}" style="padding-left: 10px"><img class="ag-av s24" src="{{p.img}}" alt="" style="margin-left: -4px">{{p.name}}</button></sc-for></div></sc-if>
+      <p class="ag-k" style="padding: 10px 8px 8px">{{t.autoC}}</p>
+      <sc-if value="{{sx.autoEnabled}}">
+        <div class="ag-seg" role="radiogroup" aria-label="{{t.autoC}}" style="margin: 0 4px"><sc-for list="{{sx.autoOpts}}" as="o"><button class="{{o.cls}}" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div>
+        <p class="ag-s" style="padding: 8px 8px 0">{{sx.autoHelp}}</p>
+        <p class="ag-m" style="padding: 2px 8px 0; display: flex; align-items: center; gap: 6px; flex-wrap: wrap">{{sx.autoSrc}}<sc-if value="{{sx.hasReset}}"><button class="ag-link" style="min-height: 28px; font-size: 12.5px" onClick="{{sx.resetAuto}}">{{t.autoCReset}}</button></sc-if></p>
+        <sc-if value="{{sx.hasPlans}}"><p class="ag-m" style="padding: 6px 8px 0; display: flex; align-items: flex-start; gap: 6px"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>{{sx.planNote}}</span></p></sc-if>
+      </sc-if>
+      <sc-if value="{{sx.autoDisabled}}"><p class="ag-s" style="padding: 0 8px">{{t.autoCPrivate}}</p></sc-if>
+      <div class="ag-group" style="margin: 14px 0 4px"><button class="ag-li" role="switch" aria-checked="{{sx.notifOn}}" onClick="{{sx.toggleNotif}}"><span class="ag-li-b"><span class="ag-li-t" style="font-size: 14px">{{t.commentNotif}}</span><span class="ag-li-s">{{t.commentNotifSub}}</span></span><span class="{{sx.notifCls}}"><i></i></span></button></div>
+      <p class="ag-m" style="padding: 8px 8px 14px; display: flex; gap: 8px"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true" style="flex: none"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path></svg><span>{{t.accessFoot}}</span></p>
+      <button class="ag-btn block" onClick="{{sx.saveAccess}}" disabled="{{sx.accessDisabled}}">{{t.save}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isAutoSet}}">
+      <p class="ag-sheet-t">{{t.autoCTitle}}</p><p class="ag-sheet-s">{{t.autoCSheetSub}}</p>
+      <div style="padding: 10px 0; display: flex; flex-direction: column; gap: 2px"><sc-for list="{{sx.autoModes}}" as="o"><button class="{{o.cls}}" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}"><span class="ag-radio"><i></i></span><span class="ag-li-b"><span class="ag-li-t" style="font-weight: 700">{{o.label}}</span><span class="ag-li-s">{{o.sub}}</span></span></button></sc-for></div>
+      <p class="ag-m" style="padding: 0 8px 14px; display: flex; gap: 8px"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>{{t.autoCFoot}}</span></p>
+      <button class="ag-btn block" onClick="{{sx.close}}">{{t.done}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isWhyPlan}}">
+      <div class="ag-h-{{sx.wpPid}}" style="display: flex; align-items: center; gap: 12px; padding: 0 8px"><img class="ag-av s44 ag-ring" src="{{sx.wpImg}}" alt=""><p class="ag-sheet-t" style="padding: 0; flex: 1">{{sx.wpTitle}}</p></div>
+      <p class="ag-sheet-s" style="padding-top: 12px">{{sx.wpText}}</p>
+      <p class="ag-k" style="padding: 16px 8px 8px">{{sx.wpChecksT}}</p>
+      <div class="ag-group" style="margin: 0"><sc-for list="{{sx.wpChecks}}" as="c"><div class="ag-li" style="min-height: 44px; padding: 8px 14px; gap: 12px"><span class="ag-check on" style="width: 22px; height: 22px"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span><span class="ag-li-t" style="font-size: 14px; font-weight: 500">{{c.t}}</span></div></sc-for></div>
+      <p class="ag-m" style="padding: 12px 8px 14px">{{sx.wpFoot}}</p>
+      <sc-if value="{{sx.canAutoOff}}"><button class="ag-btn ghost block" onClick="{{sx.autoOff}}">{{t.autoOffNote}}</button></sc-if>
+    </sc-if>
+
+    <sc-if value="{{sx.isRevs}}">
+      <p class="ag-sheet-t">{{t.revs}}</p><p class="ag-sheet-s">{{t.revsSub}}</p>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 0 6px"><sc-for list="{{sx.revRows}}" as="r"><div class="{{r.cls}}" style="display: flex; flex-direction: column; gap: 6px; padding: 14px 16px"><span style="display: flex; align-items: center; gap: 8px"><strong style="font-size: 13px">{{r.label}}</strong><span class="ag-m">{{r.time}}</span></span><sc-if value="{{r.hasTitle}}"><p class="ag-serif" style="font-size: 15px; line-height: 22px; font-weight: 700">{{r.title}}</p></sc-if><p class="ag-s" style="font-family: var(--serif); line-height: 21px">{{r.text}}</p></div></sc-for></div>
+      <button class="ag-btn ghost block" onClick="{{sx.close}}">{{t.close}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isWhy}}">
+      <p class="ag-sheet-t">{{t.whyTitle}}</p>
+      <p class="ag-sheet-s">{{sx.whyText}}</p>
+      <div class="ag-quote" style="margin: 14px 4px"><span class="ag-k">{{sx.whySrcLabel}}</span><p class="ag-serif" style="font-size: 15px; line-height: 24px">{{sx.whySrc}}</p></div>
+      <div class="ag-group" style="margin: 0 0 10px"><button class="ag-li" role="switch" aria-checked="{{sx.initOn}}" onClick="{{sx.toggleInit}}"><span class="ag-li-b"><span class="ag-li-t">{{sx.initLabel}}</span><span class="ag-li-s">{{sx.initSub}}</span></span><span class="{{sx.initCls}}"><i></i></span></button></div>
+      <p class="ag-m" style="padding: 0 8px 14px">{{t.whyNote}}</p>
+      <button class="ag-btn ghost block" onClick="{{sx.openSettings}}">{{t.openNotifSettings}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isCloud}}">
+      <p class="ag-sheet-t">{{t.cloudTitle}}</p><p class="ag-sheet-s">{{t.cloudSub}}</p>
+      <div class="ag-group" style="margin: 14px 0">
+        <div class="ag-li"><span class="ag-li-b"><span class="ag-li-t">{{t.cloudItem1}}</span><span class="ag-li-s">{{t.required}}</span></span><span class="ag-check on"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span></div>
+        <button class="ag-li sep" role="checkbox" aria-checked="{{sx.cJournal}}" onClick="{{sx.toggleCJ}}"><span class="ag-li-b"><span class="ag-li-t">{{t.cloudItem2}}</span><span class="ag-li-s">{{t.optional}}</span></span><span class="{{sx.cJournalCls}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span></button>
+        <button class="ag-li sep" role="checkbox" aria-checked="{{sx.cMemory}}" onClick="{{sx.toggleCM}}"><span class="ag-li-b"><span class="ag-li-t">{{t.cloudItem3}}</span><span class="ag-li-s">{{t.optional}}</span></span><span class="{{sx.cMemoryCls}}"><svg class="ag-ico xs" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></span></button>
+      </div>
+      <p class="ag-m" style="padding: 0 8px 14px">{{t.cloudNever}}</p>
+      <button class="ag-btn block" onClick="{{sx.agreeCloud}}">{{t.agreeOn}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isSource}}">
+      <p class="ag-sheet-t">{{t.sourceTitle}}</p><p class="ag-sheet-s">{{sx.srcRoom}}</p>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 4px">
+        <sc-for list="{{sx.srcMsgs}}" as="m"><div class="ag-card sunk ag-h-{{m.pid}}" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px"><span style="display: flex; gap: 6px; align-items: center"><strong class="ag-hue" style="font-size: 13px">{{m.name}}</strong><sc-if value="{{m.isPhil}}"><span class="ag-tag">AI</span></sc-if><span class="ag-m">{{m.time}}</span></span><p class="ag-s" style="color: var(--ink)">{{m.t}}</p></div></sc-for>
+      </div>
+      <button class="ag-btn ghost block" onClick="{{sx.goRoom}}">{{t.seeOriginal}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isPick}}">
+      <p class="ag-sheet-t">{{sx.pickTitle}}</p><sc-if value="{{sx.hasPickSub}}"><p class="ag-sheet-s">{{sx.pickSub}}</p></sc-if>
+      <div style="padding: 10px 0; display: flex; flex-direction: column; gap: 2px"><sc-for list="{{sx.pickList}}" as="p"><button class="ag-pop-r ag-h-{{p.id}}" style="border-radius: 14px; padding: 6px 8px" onClick="{{p.pick}}" disabled="{{p.disabled}}"><img class="ag-av s36 ag-ring-s" src="{{p.img}}" alt=""><div><strong class="ag-hue">{{p.name}}</strong><span>{{p.sub}}</span></div></button></sc-for></div>
+      <sc-if value="{{sx.pickEmpty}}"><p class="ag-s" style="padding: 8px 8px 12px">{{sx.pickEmptyText}}</p></sc-if>
+    </sc-if>
+
+    <sc-if value="{{sx.isNoteSet}}">
+      <p class="ag-sheet-t">{{t.noteAuto}}</p><p class="ag-sheet-s">{{t.noteAutoSub}}</p>
+      <div style="padding: 10px 0; display: flex; flex-direction: column; gap: 2px"><sc-for list="{{sx.noteModes}}" as="o"><button class="{{o.cls}}" role="radio" aria-checked="{{o.on}}" onClick="{{o.pick}}"><span class="ag-radio"><i></i></span><span class="ag-li-b"><span class="ag-li-t" style="font-weight: 700">{{o.label}}</span><span class="ag-li-s">{{o.sub}}</span></span></button></sc-for></div>
+      <button class="ag-btn block" onClick="{{sx.close}}">{{t.done}}</button>
+    </sc-if>
+
+    <sc-if value="{{sx.isConfirm}}">
+      <p class="ag-sheet-t">{{sx.cTitle}}</p><p class="ag-sheet-s">{{sx.cText}}</p>
+      <div style="display: flex; gap: 8px; padding: 18px 0 4px"><button class="ag-btn ghost" style="flex: 1" onClick="{{sx.close}}">{{sx.cNoLabel}}</button><button class="{{sx.cOkCls}}" style="flex: 1" onClick="{{sx.cOk}}">{{sx.cOkLabel}}</button></div>
+    </sc-if>
+
+    <sc-if value="{{sx.isSearch}}">
+      <p class="ag-sheet-t">{{t.searchTitle}}</p>
+      <div style="padding: 12px 0 6px"><input class="ag-field" ref="{{sx.searchRef}}" value="{{sx.q}}" onChange="{{sx.onQ}}" placeholder="{{t.searchPh}}" aria-label="{{t.searchPh}}" autocomplete="off"></div>
+      <p class="ag-m" style="padding: 0 8px 8px">{{t.searchHint}}</p>
+      <div style="display: flex; flex-direction: column; gap: 2px; min-height: 220px">
+        <sc-for list="{{sx.results}}" as="r"><button class="ag-opt" style="align-items: center; padding: 12px" onClick="{{r.open}}"><span class="ag-tag">{{r.kind}}</span><span class="ag-li-b"><span class="ag-li-t" style="font-size: 14px">{{r.title}}</span><span class="ag-li-s" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.sub}}</span></span></button></sc-for>
+        <sc-if value="{{sx.noResults}}"><p class="ag-s" style="padding: 16px 8px">{{t.searchNone}}</p></sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{sx.isInfo}}">
+      <p class="ag-sheet-t">{{sx.iTitle}}</p>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px 0"><sc-for list="{{sx.iRows}}" as="r"><div class="ag-card sunk" style="padding: 12px 14px"><p class="ag-li-t" style="font-size: 14px">{{r.t}}</p><p class="ag-m">{{r.s}}</p></div></sc-for></div>
+      <button class="ag-btn ghost block" onClick="{{sx.close}}">{{t.close}}</button>
+    </sc-if>
+  </div>
+</sc-if>
+
+<sc-if value="{{tt.on}}" hint-placeholder-val="{{false}}"><div class="ag-toast" role="status" style="bottom: {{tt.bottom}}"><span>{{tt.text}}</span><sc-if value="{{tt.hasAct}}"><button onClick="{{tt.act}}">{{tt.actLabel}}</button></sc-if></div></sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"language": {"editor": "enum", "options": ["한국어", "English"], "default": "한국어", "section": "보기"}, "theme": {"editor": "enum", "options": ["시스템", "라이트", "다크"], "default": "시스템", "section": "보기"}, "start": {"editor": "enum", "options": ["홈", "첫 실행", "첫 실행 · 모델", "광장", "멘션", "초대", "이어 말하기", "논쟁", "먼저 연락", "새 방", "방 분위기", "방 정보", "나의 노트", "새 노트", "대화 노트", "노트 댓글", "자동 댓글 예약", "읽기와 댓글", "사유 노트", "사유 노트 상세", "철학자", "프로필", "설정", "Plus", "클라우드 동의", "기억", "모델"], "default": "홈", "section": "시작 화면"}, "offline": {"editor": "boolean", "default": false, "section": "상태"}, "speed": {"editor": "enum", "options": ["느리게", "보통", "빠르게"], "default": "보통", "section": "상태"}, "$preview": {"width": 412, "height": 915}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.setup(props);
+  }
+}
+AgoraMixin(Component);
+</script>
+</body>
+</html>

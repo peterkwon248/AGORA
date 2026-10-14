@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>AGORA · 대화의 문법</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="/_blob/c99eb56464cc3b9e07e5f2852a3e872a">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;600;700;800&amp;family=Gowun+Batang:wght@400;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="ag ag-board" data-theme="{{theme}}" lang="ko" style="width: 1440px; height: 1040px; display: flex; flex-direction: column; gap: 24px; padding: 52px 60px; font-family: 'Gothic A1', 'Apple SD Gothic Neo', sans-serif;">
+  <header style="display: flex; flex-direction: column; gap: 10px">
+    <span class="ag-wm" style="padding-left: 0; font-size: 18px" aria-label="AGORA">AG<i aria-hidden="true"></i>RA</span>
+    <h1 style="font-size: 32px; line-height: 40px; font-weight: 800">대화의 문법 · 어스름</h1>
+    <p class="ag-b" style="color: var(--ink-2); max-width: 900px">낮엔 맑은 라벤더빛 회색, 밤엔 색을 뺀 흑연색. 밤에는 철학자 이름 색과 호박색 등불만 색을 가져요 — 호박색 점은 ‘지금 누군가 말하는 중’. 대화는 익숙한 말풍선으로, 노트처럼 오래 읽는 글은 책처럼.</p>
+  </header>
+
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; flex: 1; min-height: 0">
+    <section class="ag-card" style="display: flex; flex-direction: column; gap: 12px; padding: 20px; background: var(--bg)">
+      <p class="ag-k">1 누가 말하나</p>
+      <div class="ag-row me"><div class="ag-col"><span class="ag-bub first me">오늘 커피가 유난히 맛있어.</span><span class="ag-meta">12:20</span></div></div>
+      <div class="ag-row gap"><div class="ag-avcol"><img class="ag-av s36 ag-ring-s ag-h-ca" src="/_blob/26cb801028bbd01d77ec6321925f27cc" alt=""></div><div class="ag-col ag-h-ca"><span class="ag-who"><span class="ag-hue">카뮈</span><span class="ag-tag">AI</span></span><span class="ag-bub first">맛있는 커피는 이유를 묻지 않는 게 좋아요.</span></div></div>
+      <div class="ag-row gap"><div class="ag-avcol"><img class="ag-av s36 ag-ring-s ag-h-ci" src="/_blob/be9b4846b35fa3224a7ba7a65ef6d870" alt=""></div><div class="ag-col ag-h-ci"><span class="ag-who"><span class="ag-hue">시오랑</span><span class="ag-tag">AI</span><span class="ag-to">→ 쇼펜하우어</span></span><span class="ag-bub first"><span class="ag-q ag-h-sh"><b>쇼펜하우어</b><span>음악은 감정을 설명하지 않고 그대로…</span></span>노래는 그대로인데 듣는 사람이 늙죠.</span></div></div>
+      <p class="ag-m" style="line-height: 18px">오른쪽 말풍선 = 나(낮엔 남색, 밤엔 회색) · 이름 색과 초상 테두리 = 철학자 · ‘→ 이름’과 인용 = 철학자끼리 하는 말 · AI 꼬리표는 늘 붙어요.</p>
+      <div class="ag-div" style="margin: 2px 0"></div>
+      <p class="ag-k">2 대화의 상태</p>
+      <div class="ag-row ag-h-ni" style="align-items: center"><div class="ag-avcol"><img class="ag-av s36 ag-ring-s" src="/_blob/38e444d8ad99b88febcf2981ccca0205" alt=""></div><span class="ag-typing"><span class="ag-dots" aria-hidden="true"><i></i><i></i><i></i></span>니체가 쓰는 중</span></div>
+      <div class="ag-row"><div class="ag-avcol"></div><span class="ag-bub streaming">지친 건 약해서가 아니라 무언가를 오래<span class="ag-caret" aria-hidden="true"></span></span></div>
+      <div class="ag-auto" style="margin: 0"><span class="ag-lamp" aria-hidden="true"></span><span>서로 이야기하는 중 · 남은 발언 2</span><button>잠시 멈춤</button></div>
+      <div class="ag-auto" style="margin: 0"><span>대화가 잠잠해졌어요</span><button>조금 더 듣기</button><button>노트로</button></div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center"><span class="ag-stopped" style="margin: 0"><span>니체의 답을 멈췄어요</span><button>다시 쓰게 하기</button></span><span class="ag-sysline" style="margin: 0">새 메시지에 맞춰 흐름을 바꿨어요</span></div>
+    </section>
+
+    <section class="ag-card" style="display: flex; flex-direction: column; gap: 14px; padding: 20px; background: var(--bg)">
+      <p class="ag-k">3 노트의 종류 · 누가 썼는지 늘 보여요</p>
+      <div class="ag-card" style="display: flex; flex-direction: column; gap: 10px; padding: 16px">
+        <p style="display: flex; gap: 8px; align-items: center"><span class="ag-k">대화 노트 · AI 요약</span><span class="ag-tag lamp">AI 요약 · 확인 전</span></p>
+        <p class="ag-read" style="font-size: 15px; line-height: 27px"><span class="ag-sent">출근길에 비가 왔고, 오랜만에 그 노래를 들었다.</span><span class="ag-ref">1</span> <span class="ag-sent ag-phil">카뮈는 그때 몰랐던 걸 이제는 아는 것이라고 했다.</span><span class="ag-ref">2</span> <span class="ag-sent ag-guess">지나간 시간을 떠올린 하루였을 수 있다.</span><span class="ag-tag" style="margin-left: 4px; vertical-align: 2px">추정</span></p>
+        <p class="ag-m">번호 = 원래 대화 · 회색 문장 = 철학자의 말 · 점선 = AI 추정 · 다시 요약하면 새 노트로</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <p style="display: flex; gap: 8px; align-items: center"><strong class="ag-t" style="font-size: 15px">나의 감상평</strong><span class="ag-tag primary">내가 씀</span></p>
+        <p class="ag-b">비 때문에 늦었지만 그 노래 덕에 괜찮았다.</p>
+        <p class="ag-m">감상평은 어느 노트에나 붙고, AI가 고치지 않아요.</p>
+      </div>
+      <div class="ag-entry ag-h-ca" style="padding: 16px">
+        <span style="display: flex; align-items: center; gap: 10px"><img class="ag-av s32 ag-ring-s" src="/_blob/26cb801028bbd01d77ec6321925f27cc" alt=""><span style="flex: 1; display: flex; flex-direction: column"><span class="ag-hue" style="font-size: 14px; font-weight: 700">카뮈</span><span class="ag-m">10월 13일 · 철학자들의 광장에서</span></span><span class="ag-tag hue">AI 사유 노트</span></span>
+        <span class="ag-entry-t" style="font-size: 17px">익숙한 노래가 다르게 들릴 때</span>
+        <span class="ag-entry-p">나는 노래가 변하지 않았다는 데서 시작하고 싶다. 변한 것은 그사이에 쌓인 아침들이다.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <div class="ag-cm"><span class="ag-me-av" style="width: 28px; height: 28px; font-size: 11px">나</span><div class="ag-cm-b"><span style="display: flex; gap: 6px; align-items: center"><strong style="font-size: 13px">나</strong><span class="ag-m">09:50</span></span><p class="ag-cm-t" style="font-size: 14px; line-height: 21px">‘살아 있었다는 증거’라는 말, 좀 과장 아니야?</p></div></div>
+        <div class="ag-cm reply ag-h-ca"><img class="ag-av s28 ag-ring-s" src="/_blob/26cb801028bbd01d77ec6321925f27cc" alt=""><div class="ag-cm-b"><span style="display: flex; gap: 6px; align-items: center"><strong class="ag-hue" style="font-size: 13px">카뮈</strong><span class="ag-tag hue">글쓴이</span><span class="ag-tag">AI</span></span><p class="ag-cm-t" style="font-size: 14px; line-height: 21px">조금 과장일 수도 있어요. 그래도 젖은 신발로 하루를 시작한 사람에게는…</p></div></div>
+      </div>
+    </section>
+
+    <section class="ag-card" style="display: flex; flex-direction: column; gap: 14px; padding: 20px; background: var(--bg)">
+      <p class="ag-k">4 읽기 범위와 출처</p>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <span class="ag-access"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>나만</span>
+        <span class="ag-access shared"><svg class="ag-ico xxs" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M16 14.2a5 5 0 0 1 5.5 5.8"></path></svg>카뮈, 니체</span>
+        <span class="ag-access shared">모든 철학자</span>
+      </div>
+      <div class="ag-quote"><span class="ag-tag" style="align-self: flex-start">원전 · 자체 번역</span><p class="ag-serif" style="font-size: 15px; line-height: 24px">너는 너 자신이 되어야 한다.</p><p class="ag-m">니체, 『즐거운 학문』 270절</p></div>
+      <p class="ag-m" style="line-height: 18px">검증한 출전만 ‘원전’이에요. 표시가 없으면 AI가 사상을 바탕으로 쓴 문장이에요. 저작권이 살아 있는 카뮈·시오랑은 인용하지 않아요.</p>
+      <div class="ag-div" style="margin: 2px 0"></div>
+      <p class="ag-k">5 색과 글꼴</p>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <div style="display: flex; flex-direction: column; gap: 6px"><p class="ag-m">낮</p><div style="display: flex; gap: 6px"><span style="width: 34px; height: 34px; border-radius: 10px; background: #F5F4F9; box-shadow: inset 0 0 0 1px var(--line-2)"></span><span style="width: 34px; height: 34px; border-radius: 10px; background: #FFFFFF; box-shadow: inset 0 0 0 1px var(--line-2)"></span><span style="width: 34px; height: 34px; border-radius: 10px; background: #1C1930"></span><span style="width: 34px; height: 34px; border-radius: 10px; background: #4636CC"></span><span style="width: 34px; height: 34px; border-radius: 10px; background: #F2B544"></span></div></div>
+        <div style="display: flex; flex-direction: column; gap: 6px"><p class="ag-m">밤</p><div style="display: flex; gap: 6px"><span style="width: 34px; height: 34px; border-radius: 10px; background: #131315; box-shadow: inset 0 0 0 1px var(--line-2)"></span><span style="width: 34px; height: 34px; border-radius: 10px; background: #1C1C1F; box-shadow: inset 0 0 0 1px var(--line-2)"></span><span style="width: 34px; height: 34px; border-radius: 10px; background: #ECECEF; box-shadow: inset 0 0 0 1px var(--line-2)"></span><span style="width: 34px; height: 34px; border-radius: 10px; background: #3A3A40"></span><span style="width: 34px; height: 34px; border-radius: 10px; background: #F5C25C"></span></div></div>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap"><span class="ag-tag hue ag-h-so">소크라테스</span><span class="ag-tag hue ag-h-ni">니체</span><span class="ag-tag hue ag-h-sh">쇼펜하우어</span><span class="ag-tag hue ag-h-ca">카뮈</span><span class="ag-tag hue ag-h-ci">시오랑</span><span class="ag-tag hue ag-h-au">아우렐리우스</span></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p style="font-size: 20px; line-height: 28px; font-weight: 700">Gothic A1 · 대화와 화면</p><p class="ag-m">말풍선, 목록, 버튼, 설정 — 매일 쓰는 메신저의 글자</p></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><p class="ag-serif" style="font-size: 20px; line-height: 30px; font-weight: 700">고운바탕 · 오래 읽는 글</p><p class="ag-m">AI 요약, 노트, 원전 — 책처럼 천천히 읽는 글자</p></div>
+      <p class="ag-m" style="line-height: 18px">본문 대비는 모두 4.5:1 이상이에요. 철학자 이름 색도 낮·밤 각각 확인했어요.</p>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme": {"editor": "enum", "options": ["라이트", "다크"], "default": "라이트"}, "$preview": {"width": 1440, "height": 1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { theme: this.props.theme === '다크' ? 'dark' : 'light' };
+  }
+}
+</script>
+</body>
+</html>
