@@ -1,0 +1,23 @@
+# 확장 검증용 가짜 철학자 (지시서 4.4). 실제 앱에 배포하지 않는다.
+schema_version: 1
+id: test_philosopher
+pack_version: "0.0.1-test"
+status: beta
+order: 99
+display:
+  name: { ko: "시험철학자", en: "Testphilosopher" }
+  years: { ko: "2000–", en: "2000–" }
+  one_line: { ko: "등록 구조를 시험하는 인물", en: "Exists to test the registry" }
+  ideas: { ko: ["시험"], en: ["Testing"] }
+  style_summary: { ko: "짧게 말해요.", en: "Speaks briefly." }
+  colors:
+    light: { hue: "#2E5E2E", hue_soft: "#E4F0E4" }
+    dark:  { hue: "#9FD49F", hue_soft: "#1F2F1F" }
+aliases: { ko: ["시험철학자", "시험"], en: ["testphilosopher"] }
+persona:
+  speech_level: { ko: "해요체", en: "Plain." }
+  conversation_traits: { ko: ["짧게 답한다."], en: ["Answers briefly."] }
+knowledge:
+  core_concepts: [testing]
+  quote_policy: paraphrase_only
+locales: [ko, en]
