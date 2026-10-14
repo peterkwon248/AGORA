@@ -30,6 +30,8 @@ android {
 dependencies {
     implementation(project(":core:orchestration"))
     // 주의: :adapters:demo-inference 는 여기에 넣지 않는다 (지시서 9.3)
+    // 개발용 PC 연결은 디버그 빌드에만
+    debugImplementation(project(":adapters:ollama-dev"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 디버그 전용: 개발 PC(10.0.2.2) Ollama 연결용. 릴리스 앱에는 인터넷 권한이 없다. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application android:networkSecurityConfig="@xml/dev_network_security" />
+</manifest>

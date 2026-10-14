@@ -20,5 +20,17 @@ class MainActivity : ComponentActivity() {
         setContent {
             AgoraTheme { RoomScreen(vm, locale) }
         }
+        devSend(intent, locale)
+    }
+
+    override fun onNewIntent(intent: android.content.Intent) {
+        super.onNewIntent(intent)
+        devSend(intent, if (resources.configuration.locales[0].language == "ko") "ko" else "en")
+    }
+
+    /** 디버그 전용: adb로 한글 메시지를 보내 화면을 시험한다(adb input은 한글을 못 친다). 릴리스에서는 무시. */
+    private fun devSend(intent: android.content.Intent?, locale: String) {
+        if (!app.agora.dev.DevProviders.IS_DEV_BRIDGE) return
+        intent?.getStringExtra("dev_send")?.let { vm.send(it, locale) }
     }
 }

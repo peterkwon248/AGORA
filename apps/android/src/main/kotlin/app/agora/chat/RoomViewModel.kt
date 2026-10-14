@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import app.agora.inference.FailureCode
 import app.agora.inference.GenerateEvent
 import app.agora.inference.InferenceProvider
-import app.agora.inference.UnavailableInferenceProvider
+import app.agora.dev.DevProviders
 import app.agora.orchestration.ConversationEngine
 import app.agora.orchestration.FlowEvent
 import app.agora.orchestration.Member
@@ -49,7 +49,9 @@ class RoomViewModel(app: Application) : AndroidViewModel(app) {
         },
     )
 
-    var provider: InferenceProvider = UnavailableInferenceProvider()
+    // 디버그: 개발 PC 연결 / 릴리스: 모델 없음으로 정직하게 실패 (기기 안 AI 어댑터는 다음 단계)
+    var provider: InferenceProvider = DevProviders.create()
+    val devBridge: Boolean = DevProviders.IS_DEV_BRIDGE
 
     private val members = listOf(Member("nietzsche"), Member("schopenhauer"))
     private val _state = MutableStateFlow(RoomState(members.map { it.philosopherId }))
@@ -98,6 +100,7 @@ class RoomViewModel(app: Application) : AndroidViewModel(app) {
             }
             is FlowEvent.Silent -> _state.update { it.copy(typing = null) }
             is FlowEvent.Failed -> _state.update {
+                android.util.Log.w("AGORA", "generation failed speaker=${e.speakerId} event=${e.event}")
                 val code = (e.event as? GenerateEvent.Failed)?.code
                 val kind = if (code == FailureCode.MODEL_NOT_INSTALLED) SystemKind.MODEL_MISSING else SystemKind.GENERATION_FAILED
                 it.copy(messages = it.messages + UiMessage.System(newId(), kind, e.speakerId), typing = null)

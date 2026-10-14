@@ -1,5 +1,6 @@
 package app.agora.tools
 
+import app.agora.inference.ollama.OllamaProvider
 import app.agora.orchestration.Autonomy
 import app.agora.orchestration.ConversationEngine
 import app.agora.orchestration.DebateFrequency

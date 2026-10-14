@@ -4,4 +4,5 @@
     <string name="app_model_missing" formatted="false">기기 안 AI가 아직 준비되지 않았어요. 모델을 받으면 대화할 수 있어요.</string>
     <string name="app_generation_failed" formatted="false">{n} 답을 만들지 못했어요.</string>
     <string name="app_sprint0_room" formatted="false">니체 · 쇼펜하우어</string>
+    <string name="app_dev_bridge" formatted="false">개발용 · 이 화면의 답은 개발 PC의 AI가 만들어요 (기기 안 AI 아님)</string>
 </resources>

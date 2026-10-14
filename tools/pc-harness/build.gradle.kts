@@ -10,6 +10,7 @@ kotlin { jvmToolchain(17) }
 
 dependencies {
     implementation(project(":core:orchestration"))
+    implementation(project(":adapters:ollama-dev"))
     implementation(libs.kotlinx.serialization.json)
 }
 

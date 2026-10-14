@@ -76,6 +76,11 @@ fun RoomScreen(vm: RoomViewModel, locale: String) {
             BasicText(stringResource(R.string.app_sprint0_room), style = AgoraType.topTitle.copy(color = c.ink), modifier = Modifier.weight(1f))
             Row { st.members.forEachIndexed { i, id -> Avatar(vm.registry, id, locale, 24, Modifier.offset(x = (-8 * i).dp)) } }
         }
+        if (vm.devBridge) {
+            // 개발 모드 표시 — 기기 안 AI로 오인하지 않게 (지시서 9.3)
+            BasicText(stringResource(R.string.app_dev_bridge), style = AgoraType.sysline.copy(color = c.lampInk),
+                modifier = Modifier.fillMaxWidth().background(c.lampSoft).padding(horizontal = 16.dp, vertical = 6.dp))
+        }
         LazyColumn(Modifier.weight(1f).fillMaxWidth(), state = list, contentPadding = androidx.compose.foundation.layout.PaddingValues(8.dp, 8.dp, 12.dp, 12.dp)) {
             item {
                 // ag-notice: 방패 안내, sunken, r16, 12.5/18

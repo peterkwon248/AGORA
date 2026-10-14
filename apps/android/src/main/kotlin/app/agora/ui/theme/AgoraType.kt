@@ -17,7 +17,11 @@ object AgoraFonts {
 }
 
 // 한글 어절 단위 줄바꿈(word-break: keep-all) 대응
-private val ko = TextStyle(fontFamily = AgoraFonts.sans, lineBreak = LineBreak.Paragraph)
+private val ko = TextStyle(
+    fontFamily = AgoraFonts.sans,
+    // Phrase = 한국어 어절 단위(Android 13+). 그 아래 버전은 글자 단위로 끊길 수 있음 — 차이 기록 대상
+    lineBreak = LineBreak(LineBreak.Strategy.HighQuality, LineBreak.Strictness.Normal, LineBreak.WordBreak.Phrase),
+)
 
 object AgoraType {
     val topTitle = ko.copy(fontSize = 20.sp, lineHeight = 28.sp, fontWeight = FontWeight.ExtraBold)

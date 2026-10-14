@@ -23,6 +23,7 @@ include(":core:orchestration")
 
 // 테스트·개발 전용 어댑터 — 릴리스 앱에 넣지 않는다 (AGENTS.md)
 include(":adapters:demo-inference")
+include(":adapters:ollama-dev")
 include(":tools:pc-harness")
 
 // Android 앱 — 시안 이식 화면 (ADR-001)
