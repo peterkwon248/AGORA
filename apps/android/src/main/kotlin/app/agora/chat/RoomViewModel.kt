@@ -32,10 +32,14 @@ sealed interface UiMessage {
 
 enum class SystemKind { MODEL_MISSING, GENERATION_FAILED, INTERRUPTED }
 
+/** 생성 중인 답 — 화면에만 있고 저장하지 않는다. 완성되면 [UiMessage.Philosopher]로 바뀐다. */
+data class Streaming(val speakerId: String, val text: String)
+
 data class RoomState(
     val members: List<String>,
     val messages: List<UiMessage> = emptyList(),
     val typing: String? = null,
+    val streaming: Streaming? = null,
 )
 
 /**
@@ -73,6 +77,8 @@ class RoomViewModel(app: Application) : AndroidViewModel(app) {
                     listOfNotNull(if (interrupted) UiMessage.System(newId(), SystemKind.INTERRUPTED) else null) +
                     UiMessage.User(newId(), t),
                 typing = null,
+                // 부분 문장은 완성 발언으로 저장하지 않는다(02 명세 4장 8). 시안의 '멈춘 답'(ag-stopped) 표시는 아직 — 지금은 지운다.
+                streaming = null,
             )
         }
         val transcript = _state.value.messages.mapNotNull {
@@ -88,23 +94,26 @@ class RoomViewModel(app: Application) : AndroidViewModel(app) {
                 TurnInput(RoomKind.GROUP, members, policy = RoomPolicy()),
                 transcript, rev, { revision },
             ).collect { e -> onEvent(e) }
-            _state.update { it.copy(typing = null) }
+            _state.update { it.copy(typing = null, streaming = null) }
         }
     }
 
     private fun onEvent(e: FlowEvent) {
         when (e) {
-            is FlowEvent.Typing -> _state.update { it.copy(typing = e.speakerId) }
+            is FlowEvent.Typing -> _state.update { it.copy(typing = e.speakerId, streaming = null) }
+            // 첫 글자가 오면 '쓰는 중' 점 대신 실제로 써지는 말풍선을 보여 준다
+            is FlowEvent.Token -> _state.update { it.copy(typing = null, streaming = Streaming(e.speakerId, e.text)) }
             is FlowEvent.Committed -> _state.update {
-                it.copy(messages = it.messages + UiMessage.Philosopher(e.generationId, e.speakerId, e.text, e.respondTo), typing = null)
+                it.copy(messages = it.messages + UiMessage.Philosopher(e.generationId, e.speakerId, e.text, e.respondTo), typing = null, streaming = null)
             }
-            is FlowEvent.Silent -> _state.update { it.copy(typing = null) }
+            is FlowEvent.Silent -> _state.update { it.copy(typing = null, streaming = null) }
             is FlowEvent.Failed -> _state.update {
                 android.util.Log.w("AGORA", "generation failed speaker=${e.speakerId} event=${e.event}")
                 val code = (e.event as? GenerateEvent.Failed)?.code
                 val kind = if (code == FailureCode.MODEL_NOT_INSTALLED) SystemKind.MODEL_MISSING else SystemKind.GENERATION_FAILED
-                it.copy(messages = it.messages + UiMessage.System(newId(), kind, e.speakerId), typing = null)
+                it.copy(messages = it.messages + UiMessage.System(newId(), kind, e.speakerId), typing = null, streaming = null)
             }
+            is FlowEvent.Superseded -> _state.update { it.copy(typing = null, streaming = null) }
             else -> Unit
         }
     }

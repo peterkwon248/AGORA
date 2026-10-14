@@ -90,6 +90,28 @@ class PhilosopherRegistryTest {
     }
 
     @Test
+    fun `화제 관련도와 말투 예시는 선택 항목이고 잘못 쓰면 그 팩만 거부한다`() {
+        val base = fixture("test_philosopher.yaml")
+        // 없어도 된다
+        assertTrue(PhilosopherRegistry.load(listOf(base)).rejected.isEmpty())
+        fun withPersona(extra: String) = base.first to base.second.replace(
+            "  conversation_traits: { ko: [\"짧게 답한다.\"], en: [\"Answers briefly.\"] }",
+            "  conversation_traits: { ko: [\"짧게 답한다.\"], en: [\"Answers briefly.\"] }\n$extra",
+        )
+        val ok = PhilosopherRegistry.load(listOf(withPersona("  topic_affinity: { music: 0.5, open: 1.0 }\n  examples: { ko: [\"좋아요.\"], en: [\"Good.\"] }")))
+        assertTrue(ok.rejected.isEmpty(), "${ok.rejected}")
+        assertEquals(0.5, ok.require("test_philosopher").persona.topicAffinity["music"])
+        assertEquals(listOf("좋아요."), ok.require("test_philosopher").persona.examples.ko)
+
+        val typo = PhilosopherRegistry.load(listOf(withPersona("  topic_affinity: { musc: 0.5 }")))
+        assertTrue(typo.rejected.single().reasons.any { "musc" in it })
+        val range = PhilosopherRegistry.load(listOf(withPersona("  topic_affinity: { music: 1.5 }")))
+        assertTrue(range.rejected.single().reasons.any { "범위" in it })
+        val long = PhilosopherRegistry.load(listOf(withPersona("  examples: { ko: [\"${"가".repeat(MAX_EXAMPLE_CHARS + 1)}\"] }")))
+        assertTrue(long.rejected.single().reasons.any { "최대" in it })
+    }
+
+    @Test
     fun `같은 ID 팩이 둘이면 둘 다 거부한다`() {
         val f = fixture("test_philosopher.yaml")
         val reg = PhilosopherRegistry.load(realSources() + f + ("copy.yaml" to f.second))

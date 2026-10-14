@@ -33,6 +33,8 @@
 | `persona.dm_greeting.ko/en` | | 개인톡 첫 인사(시안 `dmHello`). 이건 **고정 문구로 써도 되는 유일한 대사** — 'AI 생성'이 아님을 내부에 표시 |
 | `persona.conversation_traits[]` · `avoid[]` | ✔ | 프롬프트 지침. `avoid`는 설계서 10.1의 '고정관념 금지' |
 | `persona.ask_question_tendency` · `default_length_profile` · `debate_affinity` | | 조율기가 참고하는 성향값(low/medium/high) |
+| `persona.topic_affinity` | | 화제별 관련도 0~1. 키는 `music/meaning/work/daily/greet/thanks/change/soften/private/open`. 첫 발언자 순위의 **보조 신호**. 초기 6명은 시안 `03_engine.js` REL 순위를 `(6-순위)/6`으로 옮긴 값을 쓴다 |
+| `persona.examples.ko/en[]` | | 말투 예시(언어마다 최대 12개, 160자). 화면에 안 보이고 프롬프트에만 들어간다. **이 앱이 만든 문장**이어야 하며 저작 인용을 넣지 않는다 |
 | `relations[]` | | 다른 철학자와의 실제 사상적 관계. 대상 ID가 없거나 비활성이면 무시 |
 | `knowledge.core_concepts[]` | ✔ | 화제 관련도 계산·프롬프트 |
 | `knowledge.sources[].rights` | ✔ | `public_domain` / `licensed` / `in_copyright` |

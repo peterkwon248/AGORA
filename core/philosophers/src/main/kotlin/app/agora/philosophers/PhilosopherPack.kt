@@ -69,6 +69,16 @@ data class Persona(
     @SerialName("ask_question_tendency") val askQuestionTendency: Level = Level.MEDIUM,
     @SerialName("default_length_profile") val defaultLengthProfile: String = "adaptive",
     @SerialName("debate_affinity") val debateAffinity: Level = Level.MEDIUM,
+    /**
+     * 화제별 관련도(0~1). 키는 [TOPIC_KEYS]. 발언자 순위의 보조 신호로만 쓴다.
+     * 없는 화제는 `open` 값, 그것도 없으면 0.
+     */
+    @SerialName("topic_affinity") val topicAffinity: Map<String, Double> = emptyMap(),
+    /**
+     * 말투 예시 문장. 작은 모델은 규칙보다 예시를 더 잘 따른다.
+     * 화면에 보이지 않고 프롬프트에만 들어간다. 실제 저작 인용이 아니라 이 앱이 만든 문장이어야 한다.
+     */
+    val examples: LocalizedList = LocalizedList(),
 )
 
 @Serializable

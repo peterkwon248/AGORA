@@ -1,12 +1,14 @@
 # NEXT-ACTION — 다음 세션이 바로 할 일
 
-> 마지막 갱신: 2026-10-14 10:32 · DESKTOP-JCJTAH8 (집/회사 미상 Windows PC) · Claude Code
+> 마지막 갱신: 2026-10-14 20:30 · claude.ai 클라우드 세션(세션 2) · Claude — 이 PC에서는 먼저 `git pull`
 
 ## 지금 위치
 Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝, 0-7은 화면까지(답은 아직 **개발 PC의 AI**), 0-6(기기 안 AI 실측)·0-8(시안 비교)은 대기.
 
 ## 다음 행동 (순서대로)
 
+0. **`git pull` 후 PC 시험 재실행** — `./gradlew :tools:pc-harness:run`. 세션 2에서 바뀐 것: 첫 화자 선택(화제 관련도·직전 화자), PASS 지시 한 번, 팩 말투 예시, 스트리밍. 클라우드 비교 결과는 `qa/pc-runs/*cloudcpu-before*`·`*cloudcpu-after*`.
+   - 클라우드 결과에서 남은 문제: ① 말투 예시를 **그대로 베끼는** 답이 나옴(니체 01번) → 요청마다 예시 일부만 돌려 넣기 또는 '예시와 같은 문장' 검사 ② 긴 흐름에서 **중국어가 섞이고 다른 사람 대사를 대신 씀**(05번, 수정 전에도 06번에서 발생) → 생성 후 검사(한자·이름표 줄에서 자르기)로 막기
 1. **사장님 승인 받기 → 다운로드** (승인 전엔 받지 않는다)
    - llama.cpp 소스(github.com/ggml-org, 약 30MB)
    - Qwen3 1.7B GGUF Q4_K_M (Hugging Face Qwen 공식, 약 1.1GB) / Qwen3 4B (약 2.5GB)

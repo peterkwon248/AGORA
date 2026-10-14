@@ -121,6 +121,53 @@ class ConversationEngineTest {
     }
 
     @Test
+    fun `관련도를 안 넘기면 화제와 팩 값으로 첫 화자를 고른다 — 늘 니체가 아니다`() = runTest {
+        // 버그: 앱이 관련도를 안 넘겨 동점 → 멤버 순서 첫 번째(니체)가 매번 먼저 말했다
+        val p = DemoInferenceProvider(mapOf(null to listOf("한 마디요.")))
+        val events = ConversationEngine(registry, p).run("r", RoomKind.GROUP, "ko",
+            TurnInput(RoomKind.GROUP, two, policy = RoomPolicy(autonomy = Autonomy.OFF)),
+            listOf(TranscriptLine(null, "오늘 커피가 유난히 맛있어.")), 1, { 1 }).toList()
+        assertEquals("schopenhauer", events.filterIsInstance<FlowEvent.Committed>().first().speakerId, "일상 화제는 시안 REL.daily대로 쇼펜하우어가 먼저")
+    }
+
+    @Test
+    fun `직전 화자를 안 넘기면 대화 기록의 마지막 철학자를 빼고 고른다`() = runTest {
+        val p = DemoInferenceProvider(mapOf(null to listOf("한 마디요.")))
+        val transcript = listOf(
+            TranscriptLine(null, "노력해도 결과가 없다면 노력은 무의미할까?"),
+            TranscriptLine("schopenhauer", "바라던 걸 얻어도 기쁨은 짧지요."),
+            TranscriptLine(null, "그럼 왜 노력하지?"),
+        )
+        val events = ConversationEngine(registry, p).run("r", RoomKind.GROUP, "ko",
+            TurnInput(RoomKind.GROUP, two, policy = RoomPolicy(autonomy = Autonomy.OFF)), transcript, 1, { 1 }).toList()
+        assertEquals("nietzsche", events.filterIsInstance<FlowEvent.Committed>().single().speakerId, "의미 화제는 쇼펜하우어가 앞이지만 방금 말했으니 니체")
+    }
+
+    @Test
+    fun `생성 중인 답은 누적 부분 문장으로 흘려보내고 완성본과 같게 끝난다`() = runTest {
+        val p = DemoInferenceProvider(mapOf("nietzsche" to listOf("니체: 커피가 맛있었다면 그걸로 됐소.")), chunkChars = 3)
+        val events = ConversationEngine(registry, p).run("r", RoomKind.DM, "ko",
+            TurnInput(RoomKind.DM, listOf(Member("nietzsche"))), userSays, 1, { 1 }).toList()
+        val tokens = events.filterIsInstance<FlowEvent.Token>().map { it.text }
+        val committed = events.filterIsInstance<FlowEvent.Committed>().single()
+        assertTrue(tokens.size > 2, "조각마다 화면이 바뀌어야 한다: $tokens")
+        assertTrue(tokens.none { it.startsWith("니체") }, "이름표는 흘려보내지 않는다: $tokens")
+        assertTrue(tokens.zipWithNext().all { (a, b) -> b.startsWith(a) }, "누적이어야 한다: $tokens")
+        assertEquals(committed.text, tokens.last())
+        assertTrue(events.indexOf(committed) > events.indexOfLast { it is FlowEvent.Token })
+    }
+
+    @Test
+    fun `침묵 신호로 끝나는 답은 한 글자도 흘려보내지 않는다`() = runTest {
+        val p = DemoInferenceProvider(mapOf("nietzsche" to listOf("첫 마디요."), "schopenhauer" to listOf("[PASS]")), chunkChars = 1)
+        val events = ConversationEngine(registry, p).run("r", RoomKind.GROUP, "ko",
+            TurnInput(RoomKind.GROUP, two, relevance = mapOf("nietzsche" to 1.0), policy = RoomPolicy(autonomy = Autonomy.CONTEXTUAL)),
+            userSays, 1, { 1 }).toList()
+        assertTrue(events.filterIsInstance<FlowEvent.Token>().none { it.speakerId == "schopenhauer" })
+        assertTrue(events.any { it is FlowEvent.Silent && it.speakerId == "schopenhauer" })
+    }
+
+    @Test
     fun `임시 손님은 말한 뒤 퇴장한다`() = runTest {
         val p = DemoInferenceProvider(mapOf(null to listOf("잠깐 들렀소.")))
         val events = ConversationEngine(registry, p).run("r", RoomKind.GROUP, "ko",

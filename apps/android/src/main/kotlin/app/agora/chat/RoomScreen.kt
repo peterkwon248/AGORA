@@ -1,5 +1,6 @@
 package app.agora.chat
 
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -47,6 +49,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.unit.em
 import androidx.compose.foundation.clickable
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.agora.R
@@ -68,7 +76,9 @@ fun RoomScreen(vm: RoomViewModel, locale: String) {
     val c = Agora.colors
     val st by vm.state.collectAsStateWithLifecycle()
     val list = rememberLazyListState()
-    LaunchedEffect(st.messages.size, st.typing) { if (st.messages.isNotEmpty()) list.animateScrollToItem(st.messages.size) }
+    // 마지막 항목(쓰는 중 점 / 써지는 말풍선 포함)을 따라간다. 0번은 안내문.
+    val lastIndex = st.messages.size + (if (st.streaming != null) 1 else 0) + (if (st.typing != null) 1 else 0)
+    LaunchedEffect(lastIndex, st.streaming?.text?.length) { if (lastIndex > 0) list.animateScrollToItem(lastIndex) }
 
     Column(Modifier.fillMaxSize().background(c.bg).safeDrawingPadding().imePadding()) {
         // ag-top: 64dp, 제목 20/28/800
@@ -95,6 +105,14 @@ fun RoomScreen(vm: RoomViewModel, locale: String) {
                         is UiMessage.User -> MeRow(m.text, first)
                         is UiMessage.Philosopher -> PhilosopherRow(vm.registry, m, locale, first)
                         is UiMessage.System -> SysLine(m, vm.registry, locale)
+                    }
+                }
+            }
+            st.streaming?.let { sm ->
+                val prev = st.messages.lastOrNull()?.let(::authorKey)
+                item(key = "streaming") {
+                    Box(Modifier.padding(top = if (prev != sm.speakerId) 12.dp else 2.dp)) {
+                        PhilosopherRow(vm.registry, UiMessage.Philosopher("streaming", sm.speakerId, sm.text, null), locale, first = prev != sm.speakerId, streaming = true)
                     }
                 }
             }
@@ -126,7 +144,7 @@ private fun Avatar(registry: PhilosopherRegistry, id: String, locale: String, si
 }
 
 @Composable
-private fun PhilosopherRow(registry: PhilosopherRegistry, m: UiMessage.Philosopher, locale: String, first: Boolean) {
+private fun PhilosopherRow(registry: PhilosopherRegistry, m: UiMessage.Philosopher, locale: String, first: Boolean, streaming: Boolean = false) {
     val c = Agora.colors
     val p = registry.get(m.speakerId)
     val hue = p?.let { hexColor(if (c.isDark) it.display.colors.dark.hue else it.display.colors.light.hue) } ?: c.ink
@@ -146,13 +164,41 @@ private fun PhilosopherRow(registry: PhilosopherRegistry, m: UiMessage.Philosoph
                 Spacer(Modifier.height(4.dp))
             }
             // ag-bub: raised, 1px line(다크는 테두리 없음), r20, 첫 말풍선 왼쪽 위 6
+            // ag-bub.streaming: 테두리 대신 등불색 1.5px(낮·밤 모두) + 끝에 깜빡이는 커서(ag-caret)
             val shape = RoundedCornerShape(topStart = if (first) 6.dp else 20.dp, topEnd = 20.dp, bottomEnd = 20.dp, bottomStart = 20.dp)
-            BasicText(m.text, style = AgoraType.bubble.copy(color = c.ink),
-                modifier = Modifier.clip(shape).background(c.raised)
-                    .then(if (c.isDark) Modifier else Modifier.border(1.dp, c.line, shape))
-                    .padding(horizontal = 14.dp, vertical = 10.dp))
+            val outline = when {
+                streaming -> Modifier.border(1.5.dp, c.lamp, shape)
+                c.isDark -> Modifier
+                else -> Modifier.border(1.dp, c.line, shape)
+            }
+            val bubble = Modifier.clip(shape).background(c.raised).then(outline).padding(horizontal = 14.dp, vertical = 10.dp)
+            if (streaming) StreamingText(m.text, bubble) else BasicText(m.text, style = AgoraType.bubble.copy(color = c.ink), modifier = bubble)
         }
     }
+}
+
+/**
+ * 써지는 중인 말 + 끝의 커서. 시안 ag-caret: 너비 2px·높이 1.05em·등불색, 왼쪽 여백 2px,
+ * `agBlink 1s steps(2)` — 0.5초마다 불투명도 1 ↔ 0.5.
+ */
+@Composable
+private fun StreamingText(text: String, modifier: Modifier) {
+    val c = Agora.colors
+    val t = rememberInfiniteTransition(label = "caret")
+    val phase by t.animateFloat(0f, 1f, infiniteRepeatable(tween(1000, easing = LinearEasing), RepeatMode.Restart), label = "caretPhase")
+    val caret = mapOf(
+        "caret" to InlineTextContent(Placeholder(width = 4.sp, height = 1.05.em, placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter)) {
+            Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterEnd) {
+                Box(Modifier.width(2.dp).fillMaxHeight().alpha(if (phase < 0.5f) 1f else 0.5f).background(c.lamp))
+            }
+        },
+    )
+    BasicText(
+        buildAnnotatedString { append(text); appendInlineContent("caret", "▍") },
+        style = AgoraType.bubble.copy(color = c.ink),
+        inlineContent = caret,
+        modifier = modifier,
+    )
 }
 
 @Composable
