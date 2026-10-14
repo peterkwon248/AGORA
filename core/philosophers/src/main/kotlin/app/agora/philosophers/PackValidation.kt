@@ -16,6 +16,13 @@ private val HEX_RE = Regex("^#[0-9A-Fa-f]{6}$")
 private val SUPPORTED_LOCALES = setOf("ko", "en")
 const val MIN_TEXT_CONTRAST = 4.5
 
+/** `persona.topic_affinity`에 쓸 수 있는 화제 키. orchestration의 화제 분류와 같아야 한다(테스트로 고정). */
+val TOPIC_KEYS = setOf("music", "meaning", "work", "daily", "greet", "thanks", "change", "soften", "private", "open")
+
+/** 말투 예시는 매 요청 프롬프트에 들어가므로 길이·개수를 묶어 둔다(기기 안 모델의 짧은 문맥 대비). */
+const val MAX_EXAMPLES_PER_LOCALE = 12
+const val MAX_EXAMPLE_CHARS = 160
+
 fun validatePack(p: PhilosopherPack): List<String> = buildList {
     if (p.schemaVersion != SUPPORTED_SCHEMA_VERSION) add("schema_version ${p.schemaVersion} 미지원")
     if (!ID_RE.matches(p.id)) add("id '${p.id}' 형식 오류(소문자·숫자·밑줄)")
@@ -36,6 +43,18 @@ fun validatePack(p: PhilosopherPack): List<String> = buildList {
     if (p.aliases.all().none { it.isNotBlank() }) add("aliases 비어 있음")
     if (p.knowledge.coreConcepts.isEmpty()) add("knowledge.core_concepts 비어 있음")
     if (p.locales.isEmpty() || !SUPPORTED_LOCALES.containsAll(p.locales)) add("locales ${p.locales} — ko/en만 지원")
+
+    for ((topic, w) in p.persona.topicAffinity) {
+        if (topic !in TOPIC_KEYS) add("persona.topic_affinity '$topic' — 모르는 화제(${TOPIC_KEYS.sorted().joinToString("/")})")
+        if (w.isNaN() || w < 0.0 || w > 1.0) add("persona.topic_affinity.$topic $w — 0~1 범위 밖")
+    }
+    for ((loc, list) in listOf("ko" to p.persona.examples.ko, "en" to p.persona.examples.en)) {
+        if (list.size > MAX_EXAMPLES_PER_LOCALE) add("persona.examples.$loc ${list.size}개 — 최대 $MAX_EXAMPLES_PER_LOCALE")
+        list.forEachIndexed { i, s ->
+            if (s.isBlank()) add("persona.examples.$loc[$i] 비어 있음")
+            if (s.length > MAX_EXAMPLE_CHARS) add("persona.examples.$loc[$i] ${s.length}자 — 최대 $MAX_EXAMPLE_CHARS")
+        }
+    }
 
     for ((mode, colors, bgs) in listOf(
         Triple("light", p.display.colors.light, ThemeBackgrounds.light),

@@ -14,8 +14,9 @@ data class GenerationOutcome(
  * - Completed일 때만 [GenerationOutcome.text]가 채워진다.
  * - Cancelled/Failed면 스트리밍된 조각이 있어도 text는 null.
  * - 끝 이벤트 없이 흐름이 닫히면 INTERNAL 실패로 본다(조용한 실패 금지).
+ * - [onToken]은 조각마다 불린다. suspend라서 호출자가 그 안에서 화면용 스트리밍 사건을 내보낼 수 있다.
  */
-suspend fun Flow<GenerateEvent>.collectOutcome(onToken: (String) -> Unit = {}): GenerationOutcome {
+suspend fun Flow<GenerateEvent>.collectOutcome(onToken: suspend (String) -> Unit = {}): GenerationOutcome {
     val buf = StringBuilder()
     var terminal: GenerateEvent? = null
     collect { e ->
