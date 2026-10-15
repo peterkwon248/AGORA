@@ -1,0 +1,47 @@
+
+[[screen|models|models|⟦기기 안 AI 모델¦On-device AI models⟧]]
+  [[hdr|⟦기기 안 AI 모델¦On-device AI models⟧]]
+  [[scroll]]
+    <div style="padding: 0 16px 28px; display: flex; flex-direction: column; gap: 12px;">
+      <div style="padding: 14px 16px; border-radius: 18px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--ink2);"><span>⟦이 기기 여유 공간¦Free space on this device⟧</span><span style="font-weight: 700;">23GB / 61GB</span></div>
+        <div style="height: 8px; border-radius: 999px; background: var(--sunken); overflow: hidden;" aria-hidden="true"><div style="width: 62%; height: 100%; border-radius: 999px; background: var(--primary);"></div></div>
+      </div>
+      <article style="padding: 16px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 16px; line-height: 22px; font-weight: 700;">⟦[기본 모델]¦[Base model]⟧</span><span style="font-size: 12px; line-height: 17px; color: var(--ink3);">⟦[모델 용량] · 한국어·영어 대화¦[size] · Korean and English⟧</span></div>
+          <sc-if value="{{ models.baseActive }}"><span style="height: 22px; padding: 0 8px; flex: none; border-radius: 6px; background: var(--psoft); color: var(--pink); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center;">⟦사용 중¦In use⟧</span></sc-if>
+          <sc-if value="{{ models.lightActive }}"><button onClick="{{ models.useBase }}" style="height: 36px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px var(--line2); color: var(--ink); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">⟦사용하기¦Use⟧</button></sc-if>
+        </div>
+        <p style="margin: 0; font-size: 13px; line-height: 20px; color: var(--ink2);">⟦한국어·영어 대화와 노트 정리에 맞춘 기본 모델이에요. 밤사이 피드 글도 이 모델이 써요.¦The default model for chats and notes in Korean and English. It also writes the overnight feed.⟧</p>
+      </article>
+      <article style="padding: 16px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 16px; line-height: 22px; font-weight: 700;">⟦[가벼운 모델]¦[Light model]⟧</span><span style="font-size: 12px; line-height: 17px; color: var(--ink3);">⟦[모델 용량] · 오래된 기기용¦[size] · for older devices⟧</span></div>
+          <sc-if value="{{ models.lightInUse }}"><span style="height: 22px; padding: 0 8px; flex: none; border-radius: 6px; background: var(--psoft); color: var(--pink); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center;">⟦사용 중¦In use⟧</span></sc-if>
+          <sc-if value="{{ models.lightCanUse }}"><button onClick="{{ models.useLight }}" style="height: 36px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; background: var(--primary); color: var(--onprimary); font-family: inherit; font-size: 13px; font-weight: 800; cursor: pointer;">⟦사용하기¦Use⟧</button></sc-if>
+        </div>
+        <p style="margin: 0; font-size: 13px; line-height: 20px; color: var(--ink2);">⟦답이 짧고 빨라요. 인물의 개성은 조금 덜 살아나요.¦Short, fast replies. Personalities come through a little less.⟧</p>
+        <sc-if value="{{ models.lightLoading }}">
+          <div style="height: 6px; border-radius: 999px; background: var(--sunken); overflow: hidden;" aria-hidden="true"><div style="height: 100%; border-radius: 999px; background: var(--lamp); transition: width 0.3s ease; {{ models.bar }}"></div></div>
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="flex-grow: 1; font-size: 12px; color: var(--ink3);">{{ models.lightLine }}</span>
+            <button onClick="{{ models.togglePause }}" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px var(--line2); color: var(--ink); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">{{ models.pauseLabel }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ models.lightDone }}"><span style="font-size: 12px; color: var(--ink3);">{{ models.lightLine }}</span></sc-if>
+      </article>
+      <article style="padding: 16px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+          <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 16px; line-height: 22px; font-weight: 700;">⟦[큰 모델]¦[Large model]⟧</span><span style="font-size: 12px; line-height: 17px; color: var(--ink3);">⟦[모델 용량] · 메모리 12GB 이상¦[size] · 12GB+ memory⟧</span></div>
+          <span style="height: 22px; padding: 0 8px; flex: none; border-radius: 6px; background: var(--sunken); color: var(--ink3); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center;">⟦맞지 않음¦Not supported⟧</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; line-height: 20px; color: var(--ink2);">⟦이 기기에는 메모리가 부족해요. 데스크톱 앱에서는 쓸 수 있어요.¦Not enough memory on this device. Available in the desktop app.⟧</p>
+      </article>
+      <div style="background: var(--surface); border-radius: 20px; box-shadow: inset 0 0 0 1px var(--line); overflow: hidden;">
+        [[swrow|models.wifiSw|⟦Wi-Fi에서만 받기¦Download on Wi-Fi only⟧||1]]
+      </div>
+      <p style="margin: 0 4px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦모델 이름과 용량은 실기기 시험 뒤에 정해요. 받은 파일은 서명과 해시로 확인해요.¦Model names and sizes are set after device testing. Downloads are verified by signature and hash.⟧</p>
+    </div>
+  [[/scroll]]
+[[/screen]]

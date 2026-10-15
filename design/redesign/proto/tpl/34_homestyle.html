@@ -1,0 +1,65 @@
+
+[[screen|homeStyle|homeStyle|⟦채팅 홈 모양¦Chat home layout⟧]]
+  [[hdr|⟦채팅 홈 모양¦Chat home layout⟧]]
+  [[scroll]]
+    <div style="padding: 0 16px 28px; display: flex; flex-direction: column; gap: 10px;">
+      <p style="margin: 0 4px 4px; font-size: 13.5px; line-height: 21px; color: var(--ink2);">⟦채팅 탭을 열었을 때 처음 보이는 화면이에요. 대화는 그대로, 모양만 바뀌어요.¦What you see first in the Chats tab. Your conversations stay the same; only the layout changes.⟧</p>
+      <div role="radiogroup" aria-label="⟦채팅 홈 모양¦Chat home layout⟧" style="display: flex; flex-direction: column; gap: 10px;">
+        <sc-for list="{{ homeStyle.opts }}" as="ho" hint-placeholder-count="5">
+          <button role="radio" aria-checked="{{ ho.on }}" onClick="{{ ho.pick }}" style="width: 100%; padding: 12px; border: 0; border-radius: 20px; background: var(--surface); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer; {{ ho.card }}">
+            <span style="width: 72px; height: 112px; flex: none; padding: 8px 7px; border-radius: 12px; background: var(--bg); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 5px; overflow: hidden;" aria-hidden="true">
+              <sc-if value="{{ ho.isB }}">
+                <span style="height: 4px; width: 30px; border-radius: 2px; background: var(--ink3);"></span>
+                <span style="height: 34px; border-radius: 8px; box-shadow: inset 0 0 0 1.5px var(--primary); background: var(--surface);"></span>
+                <span style="height: 6px; border-radius: 3px; background: var(--lampsoft);"></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+              </sc-if>
+              <sc-if value="{{ ho.isG }}">
+                <span style="height: 4px; width: 30px; border-radius: 2px; background: var(--ink3);"></span>
+                <span style="height: 12px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px var(--primary); background: var(--surface);"></span>
+                <span style="display: flex; gap: 4px; align-items: center; padding: 3px; border-radius: 6px; background: var(--lampsoft);"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--lamp);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--lamp);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+              </sc-if>
+              <sc-if value="{{ ho.isD }}">
+                <span style="height: 5px; width: 22px; border-radius: 2px; background: var(--ink);"></span>
+                <span style="height: 9px; border-radius: 999px; background: var(--sunken);"></span>
+                <span style="display: flex; gap: 3px;"><span style="width: 14px; height: 6px; border-radius: 3px; background: var(--psoft);"></span><span style="width: 12px; height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px var(--line2);"></span><span style="width: 12px; height: 6px; border-radius: 3px; box-shadow: inset 0 0 0 1px var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="align-self: flex-end; width: 16px; height: 10px; border-radius: 4px; background: var(--primary);"></span>
+              </sc-if>
+              <sc-if value="{{ ho.isE }}">
+                <span style="height: 4px; width: 30px; border-radius: 2px; background: var(--ink3);"></span>
+                <span style="display: flex; gap: 3px;"><span style="width: 13px; height: 6px; border-radius: 3px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line2);"></span><span style="width: 13px; height: 6px; border-radius: 3px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line2);"></span><span style="width: 13px; height: 6px; border-radius: 3px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line2);"></span></span>
+                <span style="display: flex; gap: 3px;"><span style="width: 13px; height: 13px; border-radius: 50%; background: var(--line2);"></span><span style="width: 13px; height: 13px; border-radius: 50%; background: var(--line2);"></span><span style="width: 13px; height: 13px; border-radius: 50%; background: var(--line2);"></span><span style="width: 13px; height: 13px; border-radius: 50%; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 0; box-shadow: inset 0 -1px 0 var(--line);"><span style="flex: 1 1 0; height: 6px; box-shadow: inset 0 -2px 0 var(--primary);"></span><span style="flex: 1 1 0; height: 6px;"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 10px; height: 10px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+              </sc-if>
+              <sc-if value="{{ ho.isF }}">
+                <span style="height: 4px; width: 30px; border-radius: 2px; background: var(--ink3);"></span>
+                <span style="display: flex; gap: 3px;"><span style="flex: 1 1 0; height: 14px; border-radius: 4px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line2);"></span><span style="flex: 1 1 0; height: 14px; border-radius: 4px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line2);"></span><span style="flex: 1 1 0; height: 14px; border-radius: 4px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line2);"></span></span>
+                <span style="height: 3px; width: 22px; border-radius: 2px; background: var(--ink3);"></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--ink2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="height: 3px; width: 22px; border-radius: 2px; background: var(--ink3);"></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+                <span style="display: flex; gap: 4px; align-items: center;"><span style="width: 7px; height: 7px; border-radius: 50%; background: var(--line2);"></span><span style="flex-grow: 1; height: 4px; border-radius: 2px; background: var(--line2);"></span></span>
+              </sc-if>
+            </span>
+            <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+              <span style="display: flex; align-items: center; gap: 8px;"><span style="width: 22px; height: 22px; flex: none; border-radius: 7px; background: var(--psoft); color: var(--pink); font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center;">{{ ho.letter }}</span><span style="font-size: 15.5px; font-weight: 800;">{{ ho.name }}</span></span>
+              <span style="font-size: 13px; line-height: 19px; color: var(--ink2);">{{ ho.desc }}</span>
+            </span>
+            [[radio|ho]]
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  [[/scroll]]
+[[/screen]]

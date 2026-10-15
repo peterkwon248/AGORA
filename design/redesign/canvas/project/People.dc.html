@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>새 대화 — 철학자</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&amp;family=Gowun+Batang:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#3A2BB0}a:hover{color:#4636CC}
+</style>
+</helmet>
+<div style="width: 390px; height: 860px; box-sizing: border-box; display: flex; flex-direction: column; background: #F5F4F9; color: #1C1930; font-family: 'Gothic A1', sans-serif; overflow: hidden;">
+
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    <a href="Main.dc.html" aria-label="뒤로" style="width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1C1930;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 style="margin: 0; flex-grow: 1; font-size: 18px; line-height: 24px; font-weight: 800;">새 대화</h1>
+    <button aria-label="철학자 찾기" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: transparent; color: #1C1930; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2"></path></svg>
+    </button>
+  </header>
+
+  <main style="flex-grow: 1; overflow: hidden; padding: 4px 16px 24px; display: flex; flex-direction: column; gap: 10px;">
+
+    <button style="min-height: 64px; padding: 10px 16px; box-sizing: border-box; border: 0; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; display: flex; align-items: center; gap: 14px; font-family: inherit; text-align: left; color: inherit; cursor: pointer;">
+      <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: #E8E5FD; color: #3A2BB0; display: flex; align-items: center; justify-content: center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M19 8v6"></path><path d="M16 11h6"></path></svg>
+      </span>
+      <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px;">
+        <span style="font-size: 15px; line-height: 21px; font-weight: 700; color: #3A2BB0;">새 단톡방 만들기</span>
+        <span style="font-size: 13px; line-height: 18px; color: #625E7A;">함께할 철학자를 골라 방을 만들어요</span>
+      </span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#625E7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+    </button>
+
+    <p style="margin: 2px 0 0; padding: 10px 12px; border-radius: 14px; background: #ECEAF3; font-size: 12px; line-height: 18px; color: #474360; display: flex; gap: 8px;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+      <span>모두 역사 속 인물의 사상을 바탕으로 한 AI 시뮬레이션이에요. 이름을 누르면 프로필, 말풍선을 누르면 개인톡이에요.</span>
+    </p>
+
+    <h2 style="margin: 8px 4px 0; font-size: 13px; line-height: 18px; font-weight: 700; color: #625E7A;">철학자 6명</h2>
+
+    <div style="display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 14px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB;">
+      <a href="Profile.dc.html" style="flex-grow: 1; min-width: 0; min-height: 56px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit;">
+        <img src="/_blob/5d0e39a976cd27ba0c182884b28405df" alt="" style="width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #56691A;">
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+          <span style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;"><strong style="font-size: 16px; line-height: 22px; color: #56691A;">소크라테스</strong><span style="font-size: 11px; color: #625E7A;">기원전 470?–399</span></span>
+          <span style="font-size: 13px; line-height: 19px; color: #474360;">질문으로 생각을 함께 다듬는 사람</span>
+        </span>
+      </a>
+      <a href="Room.dc.html" aria-label="소크라테스와 개인톡" style="width: 44px; height: 44px; flex: none; border-radius: 50%; background: #ECEAF3; color: #474360; display: flex; align-items: center; justify-content: center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 14px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB;">
+      <a href="Profile.dc.html" style="flex-grow: 1; min-width: 0; min-height: 56px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit;">
+        <img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #B0353F;">
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+          <span style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;"><strong style="font-size: 16px; line-height: 22px; color: #B0353F;">니체</strong><span style="font-size: 11px; color: #625E7A;">1844–1900</span></span>
+          <span style="font-size: 13px; line-height: 19px; color: #474360;">물려받은 가치를 다시 묻고, 자기를 넘어서라고 말하는 사람</span>
+        </span>
+      </a>
+      <a href="Room.dc.html" aria-label="니체와 개인톡" style="width: 44px; height: 44px; flex: none; border-radius: 50%; background: #ECEAF3; color: #474360; display: flex; align-items: center; justify-content: center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 14px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB;">
+      <a href="Profile.dc.html" style="flex-grow: 1; min-width: 0; min-height: 56px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit;">
+        <img src="/_blob/5f26f9191b593e11d32dd705b72fd5d0" alt="" style="width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #3D5A93;">
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+          <span style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;"><strong style="font-size: 16px; line-height: 22px; color: #3D5A93;">쇼펜하우어</strong><span style="font-size: 11px; color: #625E7A;">1788–1860</span></span>
+          <span style="font-size: 13px; line-height: 19px; color: #474360;">욕망과 고통을 정직하게 바라본 사람</span>
+        </span>
+      </a>
+      <a href="Room.dc.html" aria-label="쇼펜하우어와 개인톡" style="width: 44px; height: 44px; flex: none; border-radius: 50%; background: #ECEAF3; color: #474360; display: flex; align-items: center; justify-content: center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 14px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB;">
+      <a href="Profile.dc.html" style="flex-grow: 1; min-width: 0; min-height: 56px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit;">
+        <img src="/_blob/ad60c4638819dddb9854296103adaa9e" alt="" style="width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #8A580B;">
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+          <span style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;"><strong style="font-size: 16px; line-height: 22px; color: #8A580B;">카뮈</strong><span style="font-size: 11px; color: #625E7A;">1913–1960</span></span>
+          <span style="font-size: 13px; line-height: 19px; color: #474360;">부조리 속에서도 구체적인 삶을 긍정한 작가</span>
+        </span>
+      </a>
+      <a href="Room.dc.html" aria-label="카뮈와 개인톡" style="width: 44px; height: 44px; flex: none; border-radius: 50%; background: #ECEAF3; color: #474360; display: flex; align-items: center; justify-content: center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 14px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB;">
+      <a href="Profile.dc.html" style="flex-grow: 1; min-width: 0; min-height: 56px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit;">
+        <img src="/_blob/a90fc63f902a3c0fa8c95bdb16c6537e" alt="" style="width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #7A4284;">
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+          <span style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;"><strong style="font-size: 16px; line-height: 22px; color: #7A4284;">시오랑</strong><span style="font-size: 11px; color: #625E7A;">1911–1995</span></span>
+          <span style="font-size: 13px; line-height: 19px; color: #474360;">권태와 회의를 역설로 말한 사람</span>
+        </span>
+      </a>
+      <a href="Room.dc.html" aria-label="시오랑과 개인톡" style="width: 44px; height: 44px; flex: none; border-radius: 50%; background: #ECEAF3; color: #474360; display: flex; align-items: center; justify-content: center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+      </a>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 14px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB;">
+      <a href="Profile.dc.html" style="flex-grow: 1; min-width: 0; min-height: 56px; display: flex; align-items: center; gap: 14px; text-decoration: none; color: inherit;">
+        <img src="/_blob/acb8b83c2cbf2faec6a1a5d08ce1e73f" alt="" style="width: 52px; height: 52px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #1E6D66;">
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+          <span style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;"><strong style="font-size: 16px; line-height: 22px; color: #1E6D66;">마르쿠스 아우렐리우스</strong><span style="font-size: 11px; color: #625E7A;">121–180</span></span>
+          <span style="font-size: 13px; line-height: 19px; color: #474360;">내 손에 달린 것에 집중하라고 말한 황제</span>
+        </span>
+      </a>
+      <a href="Room.dc.html" aria-label="마르쿠스 아우렐리우스와 개인톡" style="width: 44px; height: 44px; flex: none; border-radius: 50%; background: #ECEAF3; color: #474360; display: flex; align-items: center; justify-content: center;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+      </a>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

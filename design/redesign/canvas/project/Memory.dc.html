@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>기억</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&amp;family=Gowun+Batang:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#3A2BB0}a:hover{color:#4636CC}
+</style>
+</helmet>
+<div style="width: 390px; height: 1060px; box-sizing: border-box; display: flex; flex-direction: column; background: #F5F4F9; color: #1C1930; font-family: 'Gothic A1', sans-serif; overflow: hidden;">
+
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    <a href="Settings.dc.html" aria-label="뒤로" style="width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1C1930;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 style="margin: 0; flex-grow: 1; font-size: 18px; line-height: 24px; font-weight: 800;">기억</h1>
+  </header>
+
+  <div role="group" aria-label="기억 종류" style="display: flex; gap: 8px; padding: 0 16px 10px; overflow: hidden; flex: none;">
+    <button aria-pressed="true" style="height: 36px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; background: #1C1930; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;">전체 5</button>
+    <button aria-pressed="false" style="height: 36px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; background: #ECEAF3; color: #474360; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;">내가 말한 것</button>
+    <button aria-pressed="false" style="height: 36px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; background: #ECEAF3; color: #474360; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;">나의 노트에서</button>
+    <button aria-pressed="false" style="height: 36px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; background: #ECEAF3; color: #474360; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer;">AI 추정</button>
+  </div>
+
+  <main style="flex-grow: 1; overflow: hidden; padding: 0 16px 24px; display: flex; flex-direction: column; gap: 10px;">
+    <p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: #ECEAF3; font-size: 12px; line-height: 18px; color: #474360; display: flex; gap: 8px;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px;"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"></path></svg>
+      <span>AI 추정은 확인하기 전까지 사실처럼 쓰지 않아요. 지운 기억은 검색 색인에서도 지워요. 기억은 이 기기 밖으로 나가지 않아요.</span>
+    </p>
+
+    <article style="padding: 14px 16px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; display: flex; flex-direction: column; gap: 6px;">
+      <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #FCF0D6; color: #835300; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">AI 추정</span>
+        <span style="font-size: 11.5px; color: #625E7A;">단톡방 ‘니체 · 쇼펜하우어’ 대화에서 추정</span>
+      </span>
+      <span style="font-size: 15px; line-height: 22px; font-weight: 600;">스무 살 무렵을 자주 떠올리는 편일 수 있다</span>
+      <span style="font-size: 12px; line-height: 17px; color: #625E7A;">확인 전엔 쓰지 않아요</span>
+      <span style="display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap;">
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: #E8E5FD; color: #3A2BB0; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">맞아요</button>
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #CDC9DA; color: #474360; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">아니에요</button>
+      </span>
+    </article>
+
+    <article style="padding: 14px 16px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; display: flex; flex-direction: column; gap: 6px;">
+      <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #E8E5FD; color: #3A2BB0; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">내가 말함</span>
+        <span style="font-size: 11.5px; color: #625E7A;">니체 개인톡 · 10월 11일</span>
+      </span>
+      <span style="font-size: 15px; line-height: 22px; font-weight: 600;">회사를 그만둘지 고민 중이다</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; line-height: 17px; color: #625E7A;">
+        <img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 16px; height: 16px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 1.5px #FFFFFF, 0 0 0 3px #B0353F;">
+        니체 개인톡에서만 써요 · 니체만 알아요
+      </span>
+      <span style="display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap;">
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #CDC9DA; color: #474360; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">사용 중지</button>
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #CDC9DA; color: #474360; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">삭제</button>
+      </span>
+    </article>
+
+    <article style="padding: 14px 16px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; display: flex; flex-direction: column; gap: 6px;">
+      <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #ECEAF3; color: #474360; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">나의 노트에서</span>
+        <span style="font-size: 11.5px; color: #625E7A;">‘빗속에서 만난 유재하’ · 10월 13일</span>
+      </span>
+      <span style="font-size: 15px; line-height: 22px; font-weight: 600;">유재하의 노래를 좋아한다</span>
+      <span style="display: inline-flex; align-items: center; gap: 5px; font-size: 12px; line-height: 17px; color: #625E7A;">
+        <span style="display: inline-flex;" aria-hidden="true">
+          <img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 16px; height: 16px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 1.5px #FFFFFF, 0 0 0 3px #B0353F;">
+          <img src="/_blob/5f26f9191b593e11d32dd705b72fd5d0" alt="" style="width: 16px; height: 16px; margin-left: 1px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 1.5px #FFFFFF, 0 0 0 3px #3D5A93;">
+        </span>
+        니체·쇼펜하우어만 써요 (읽기를 허락한 노트)
+      </span>
+      <span style="display: flex; gap: 6px; margin-top: 4px;">
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #CDC9DA; color: #474360; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">삭제</button>
+      </span>
+    </article>
+
+    <article style="padding: 14px 16px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; display: flex; flex-direction: column; gap: 6px;">
+      <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #E8E5FD; color: #3A2BB0; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">내가 말함</span>
+        <span style="font-size: 11.5px; color: #625E7A;">단톡방 ‘니체 · 쇼펜하우어’ · 오늘</span>
+      </span>
+      <span style="font-size: 15px; line-height: 22px; font-weight: 600;">아침 커피를 천천히 마신다</span>
+      <span style="font-size: 12px; line-height: 17px; color: #625E7A;">이 방에서만 써요</span>
+      <span style="display: flex; gap: 6px; margin-top: 4px;">
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #CDC9DA; color: #474360; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">사용 중지</button>
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #CDC9DA; color: #474360; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">삭제</button>
+      </span>
+    </article>
+
+    <article style="padding: 14px 16px; border-radius: 20px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; display: flex; flex-direction: column; gap: 6px;">
+      <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #E8E5FD; color: #3A2BB0; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">내가 말함</span>
+        <span style="font-size: 11.5px; color: #625E7A;">소크라테스 개인톡 · 10월 12일</span>
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #ECEAF3; color: #625E7A; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">사용 중지</span>
+      </span>
+      <span style="font-size: 15px; line-height: 22px; font-weight: 600; color: #625E7A;">좋은 삶이 뭔지 아직 모르겠다고 했다</span>
+      <span style="font-size: 12px; line-height: 17px; color: #625E7A;">소크라테스 개인톡에서만 써요 · 지금은 쓰지 않아요</span>
+      <span style="display: flex; gap: 6px; margin-top: 4px;">
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: #E8E5FD; color: #3A2BB0; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">다시 쓰기</button>
+        <button style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #CDC9DA; color: #474360; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">삭제</button>
+      </span>
+    </article>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1060}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

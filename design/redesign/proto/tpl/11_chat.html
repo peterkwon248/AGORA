@@ -1,0 +1,206 @@
+
+<section aria-label="⟦채팅¦Chats⟧" style="{{ tabDisp.chat }} flex: 1 1 auto; min-height: 0; flex-direction: column; position: relative;">
+
+  <sc-if value="{{ chat.isB }}" hint-placeholder-val="{{ true }}">
+    <header style="height: 64px; padding: 0 8px 0 20px; display: flex; align-items: center; gap: 2px; flex: none;">
+      [[wordmark]]
+      [[iconbtn|fn.openSearch|⟦검색¦Search⟧|search|23]]
+      [[iconbtn|fn.openSettings|⟦설정¦Settings⟧|gear|23]]
+    </header>
+    [[scroll]]
+      <div style="padding: 6px 20px 0; display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 12px; line-height: 17px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink3);">{{ dateLine }}</span>
+        <h1 style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 24px; line-height: 33px; font-weight: 700;">⟦오늘은 무슨 이야기를¦What would you like⟧<br>⟦꺼내 볼까요?¦to talk about today?⟧</h1>
+      </div>
+      <section aria-label="⟦철학자에게 말 걸기¦Talk to philosophers⟧" style="margin: 14px 16px 0; padding: 14px 16px 12px; border-radius: 24px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--primary), 0 4px 14px var(--cardshadow); display: flex; flex-direction: column; gap: 10px;">
+        [[hidelabel|b-say|⟦철학자에게 할 말¦What to say⟧]]
+        <textarea id="b-say" rows="2" value="{{ chat.draft }}" onChange="{{ fn.onDraft }}" placeholder="⟦예: 회의에서 낸 아이디어가 그냥 묻혔어. 괜히 말했나 싶어.¦e.g. My idea got buried in the meeting. Maybe I shouldn’t have spoken.⟧" style="width: 100%; height: 72px; padding: 0; border: 0; resize: none; background: transparent; color: var(--ink); font-family: inherit; font-size: 16px; line-height: 24px; outline: none;"></textarea>
+        <div style="padding-top: 10px; box-shadow: inset 0 1px 0 var(--line); display: flex; flex-direction: column; gap: 8px;">
+          <span style="display: flex; align-items: baseline; gap: 6px;">
+            <span style="flex-grow: 1; font-size: 12px; font-weight: 700; color: var(--ink2);">{{ chat.pickLabel }}</span>
+            <span style="font-size: 11px; color: var(--ink3);">{{ chat.pickHint }}</span>
+          </span>
+          <div role="group" aria-label="⟦같이 이야기할 철학자¦Who to talk with⟧" style="display: flex; flex-wrap: wrap; gap: 6px;">
+            <sc-for list="{{ chat.chips }}" as="c" hint-placeholder-count="3">
+              <button aria-pressed="{{ c.on }}" onClick="{{ c.toggle }}" style="height: 34px; padding: 0 10px 0 4px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; {{ c.style }}">[[av|c.av|24|3|{{ c.gap }}|]]{{ c.name }}</button>
+            </sc-for>
+            <button aria-label="⟦다른 철학자 고르기¦Pick others⟧" onClick="{{ fn.openPickCompose }}" style="width: 34px; height: 34px; border: 1.5px dashed var(--line2); border-radius: 50%; background: transparent; color: var(--ink2); display: inline-flex; align-items: center; justify-content: center; cursor: pointer;">[[i|plus|16|2]]</button>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+            <button onClick="{{ fn.openRoute }}" style="align-self: flex-start; max-width: 100%; height: 32px; padding: 0 8px 0 12px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; cursor: pointer;"><span style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ chat.route }}</span>[[i|chevd|14|2.2|flex: none;]]</button>
+            <span style="font-size: 11px; line-height: 15px; color: var(--ink3);">{{ chat.routeHint }}</span>
+          </span>
+          <button aria-label="⟦보내기¦Send⟧" onClick="{{ fn.sendHome }}" disabled="{{ chat.cantSend }}" style="width: 44px; height: 44px; flex: none; border: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; {{ chat.sendStyle }}">[[i|up|20|2.2]]</button>
+        </div>
+      </section>
+      <sc-if value="{{ chat.hasLive }}">
+        <div style="padding: 12px 16px 0;">
+          <button onClick="{{ chat.openLive }}" style="width: 100%; min-height: 48px; padding: 0 14px; border: 0; border-radius: 16px; background: var(--lampsoft); color: var(--lampink); font-family: inherit; text-align: left; display: flex; align-items: center; gap: 10px; cursor: pointer;">
+            <span style="width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--lamp); animation: agPulse 1.8s ease-in-out infinite;" aria-hidden="true"></span>
+            <span style="flex-grow: 1; font-size: 13.5px; line-height: 19px; font-weight: 600;">{{ chat.liveText }}</span>
+            [[i|chev|16|2|flex: none;]]
+          </button>
+        </div>
+      </sc-if>
+      <h2 style="margin: 0; padding: 16px 20px 2px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink2);">⟦하던 대화 이어가기¦Continue a conversation⟧</h2>
+      <sc-for list="{{ chat.rows }}" as="r" hint-placeholder-count="5">[[row|r|44|15|9px 20px]]</sc-for>
+      <sc-if value="{{ chat.empty }}"><p style="margin: 14px 20px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦아직 대화가 없어요. 위에 첫 마디를 써 보세요.¦No conversations yet. Write your first line above.⟧</p></sc-if>
+      <div style="height: 16px;"></div>
+    [[/scroll]]
+  </sc-if>
+
+  <sc-if value="{{ chat.isG }}">
+    <header style="height: 64px; padding: 0 8px 0 20px; display: flex; align-items: center; gap: 2px; flex: none;">
+      [[wordmark]]
+      [[iconbtn|fn.openSearch|⟦검색¦Search⟧|search|23]]
+      [[iconbtn|fn.openSettings|⟦설정¦Settings⟧|gear|23]]
+    </header>
+    [[scroll]]
+      <div style="padding: 4px 16px 10px;">
+        <div style="border-radius: 28px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--primary), 0 4px 14px var(--cardshadow); padding: 6px; display: flex; flex-direction: column; gap: 6px;">
+          <div style="display: flex; align-items: center; gap: 10px; padding-left: 2px;">
+            <sc-if value="{{ chat.meNoPhoto }}"><span style="width: 36px; height: 36px; flex: none; border-radius: 50%; background: var(--lampsoft); color: var(--lampink); font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center;" aria-hidden="true">{{ chat.meInitial }}</span></sc-if>
+            <sc-if value="{{ chat.meHasPhoto }}"><img src="{{ chat.mePhoto }}" alt="" style="width: 36px; height: 36px; flex: none; border-radius: 50%; object-fit: cover;"></sc-if>
+            [[hidelabel|g-say|⟦철학자에게 말 걸기¦Talk to philosophers⟧]]
+            <input id="g-say" type="text" value="{{ chat.draft }}" onChange="{{ fn.onDraft }}" onFocus="{{ fn.gFocusOn }}" placeholder="⟦오늘은 무슨 이야기를 꺼내 볼까요?¦What’s on your mind today?⟧" style="flex-grow: 1; min-width: 0; height: 44px; border: 0; padding: 0; background: transparent; color: var(--ink); font-family: inherit; font-size: 15px; outline: none;">
+            <button aria-label="⟦보내기¦Send⟧" onClick="{{ fn.sendHome }}" disabled="{{ chat.cantSend }}" style="width: 44px; height: 44px; flex: none; border: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; {{ chat.sendStyle }}">[[i|up|20|2.2]]</button>
+          </div>
+          <sc-if value="{{ chat.gOpen }}">
+            <div style="padding: 8px 8px 6px; display: flex; flex-direction: column; gap: 8px; box-shadow: inset 0 1px 0 var(--line);">
+              <span style="display: flex; align-items: baseline; gap: 6px;">
+                <span style="flex-grow: 1; font-size: 12px; font-weight: 700; color: var(--ink2);">{{ chat.pickLabel }}</span>
+                <span style="font-size: 11px; color: var(--ink3);">{{ chat.pickHint }}</span>
+              </span>
+              <div role="group" aria-label="⟦같이 이야기할 철학자¦Who to talk with⟧" style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <sc-for list="{{ chat.chips }}" as="c" hint-placeholder-count="3">
+                  <button aria-pressed="{{ c.on }}" onClick="{{ c.toggle }}" style="height: 34px; padding: 0 10px 0 4px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; {{ c.style }}">[[av|c.av|24|3|{{ c.gap }}|]]{{ c.name }}</button>
+                </sc-for>
+                <button aria-label="⟦다른 철학자 고르기¦Pick others⟧" onClick="{{ fn.openPickCompose }}" style="width: 34px; height: 34px; border: 1.5px dashed var(--line2); border-radius: 50%; background: transparent; color: var(--ink2); display: inline-flex; align-items: center; justify-content: center; cursor: pointer;">[[i|plus|16|2]]</button>
+              </div>
+              <button onClick="{{ fn.openRoute }}" style="align-self: flex-start; max-width: 100%; height: 32px; padding: 0 8px 0 12px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; cursor: pointer;"><span style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ chat.route }}</span>[[i|chevd|14|2.2|flex: none;]]</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      <sc-if value="{{ chat.liveRow }}">
+        <div style="padding: 2px 12px 6px;">
+          <button onClick="{{ chat.liveRow.open }}" style="width: 100%; padding: 10px; border: 0; border-radius: 18px; background: var(--lampsoft); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+            [[cl|chat.liveRow.cl|44|var(--lampsoft)]]
+            <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px;">
+              <span style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 15.5px; font-weight: 700; flex-grow: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ chat.liveRow.title }}</span><span style="font-size: 11px; color: var(--lampink); font-weight: 700;">{{ chat.liveRow.time }}</span></span>
+              <span style="display: flex; align-items: center; gap: 7px;">[[pulse]]<span style="font-size: 14px; line-height: 20px; color: var(--lampink); font-weight: 600;">{{ chat.liveRow.writingText }}</span></span>
+            </span>
+          </button>
+        </div>
+      </sc-if>
+      <h2 style="margin: 0; padding: 10px 20px 2px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink2);">⟦대화¦Chats⟧</h2>
+      <sc-for list="{{ chat.restRows }}" as="r" hint-placeholder-count="5">[[row|r|48|15.5|10px 20px]]</sc-for>
+      <sc-if value="{{ chat.empty }}"><p style="margin: 14px 20px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦아직 대화가 없어요. 위에 첫 마디를 써 보세요.¦No conversations yet. Write your first line above.⟧</p></sc-if>
+      <div style="height: 16px;"></div>
+    [[/scroll]]
+  </sc-if>
+
+  <sc-if value="{{ chat.isD }}">
+    <header style="height: 64px; padding: 0 8px 0 20px; display: flex; align-items: center; gap: 2px; flex: none;">
+      <h1 style="margin: 0; flex-grow: 1; font-size: 22px; line-height: 30px; font-weight: 800;">⟦채팅¦Chats⟧</h1>
+      [[iconbtn|fn.openPickNew|⟦새 대화¦New chat⟧|pen|23]]
+      [[iconbtn|fn.openSettings|⟦설정¦Settings⟧|gear|23]]
+    </header>
+    <div style="padding: 4px 16px 8px; flex: none;">
+      [[hidelabel|d-q|⟦대화 찾기¦Search chats⟧]]
+      <span style="height: 44px; padding: 0 16px; border-radius: 999px; background: var(--sunken); color: var(--ink3); display: flex; align-items: center; gap: 10px;">[[i|search|18|2]]<input id="d-q" type="search" value="{{ chat.listQ }}" onChange="{{ fn.onListQ }}" placeholder="⟦대화나 철학자 찾기¦Search chats or people⟧" style="flex-grow: 1; min-width: 0; border: 0; padding: 0; background: transparent; color: var(--ink); font-family: inherit; font-size: 15px; outline: none;"></span>
+    </div>
+    <div role="group" aria-label="⟦대화 거르기¦Filter chats⟧" class="ag-scroll" style="display: flex; gap: 8px; padding: 2px 16px 8px; flex: none; overflow-x: auto;">
+      <sc-for list="{{ chat.dChips }}" as="fc" hint-placeholder-count="5">
+        <button aria-pressed="{{ fc.on }}" onClick="{{ fc.pick }}" style="height: 34px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; {{ fc.style }}">{{ fc.label }}</button>
+      </sc-for>
+    </div>
+    [[scroll]]
+      <sc-for list="{{ chat.dRows }}" as="r" hint-placeholder-count="5">[[row|r|48|16|12px 20px]]</sc-for>
+      <sc-if value="{{ chat.dEmpty }}"><p style="margin: 18px 20px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦이 조건에 맞는 대화가 없어요¦No chats match⟧</p></sc-if>
+      <div style="height: 88px;"></div>
+    [[/scroll]]
+    <button onClick="{{ fn.openPickNew }}" style="position: absolute; right: 20px; bottom: 16px; height: 56px; padding: 0 20px 0 16px; border: 0; border-radius: 18px; background: var(--primary); color: var(--onprimary); font-family: inherit; font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 6px 18px var(--cardshadow);">[[i|pen|22]]⟦새 대화¦New chat⟧</button>
+  </sc-if>
+
+  <sc-if value="{{ chat.isE }}">
+    <header style="height: 64px; padding: 0 8px 0 20px; display: flex; align-items: center; gap: 2px; flex: none;">
+      [[wordmark]]
+      [[iconbtn|fn.openPickNew|⟦새 대화¦New chat⟧|pen|23]]
+      [[iconbtn|fn.openSettings|⟦설정¦Settings⟧|gear|23]]
+    </header>
+    <div style="padding: 4px 16px 4px; flex: none;">
+      [[hidelabel|e-q|⟦대화 찾기¦Search chats⟧]]
+      <span style="height: 44px; padding: 0 16px; border-radius: 999px; background: var(--sunken); color: var(--ink3); display: flex; align-items: center; gap: 10px;">[[i|search|18|2]]<input id="e-q" type="search" value="{{ chat.listQ }}" onChange="{{ fn.onListQ }}" placeholder="⟦찾기¦Search⟧" style="flex-grow: 1; min-width: 0; border: 0; padding: 0; background: transparent; color: var(--ink); font-family: inherit; font-size: 15px; outline: none;"></span>
+    </div>
+    [[scroll]]
+      <section aria-label="⟦오늘의 한 마디¦Today’s lines⟧" class="ag-scroll" style="display: flex; gap: 4px; padding: 8px 12px 12px; overflow-x: auto;">
+        <sc-for list="{{ chat.notes }}" as="nt" hint-placeholder-count="5">
+          <button onClick="{{ nt.open }}" style="width: 84px; flex: none; padding: 0; border: 0; background: transparent; font-family: inherit; color: inherit; display: flex; flex-direction: column; align-items: center; cursor: pointer;">
+            <span style="width: 80px; min-height: 36px; padding: 6px 7px; border-radius: 14px; background: var(--surface); box-shadow: 0 1px 3px var(--cardshadow), inset 0 0 0 1px var(--line); font-family: 'Gowun Batang', serif; font-size: 11px; line-height: 15px; color: var(--ink); text-align: center; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">{{ nt.text }}</span>
+            <span style="align-self: flex-start; width: 7px; height: 7px; margin: 2px 0 0 30px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line);" aria-hidden="true"></span>
+            <span style="align-self: flex-start; width: 4px; height: 4px; margin: 1px 0 6px 25px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line);" aria-hidden="true"></span>
+            <sc-if value="{{ nt.me }}"><sc-if value="{{ nt.noPhoto }}"><span style="width: 56px; height: 56px; flex: none; border-radius: 50%; background: var(--lampsoft); color: var(--lampink); font-size: 19px; font-weight: 800; box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--line2); display: flex; align-items: center; justify-content: center;" aria-hidden="true">{{ nt.initial }}</span></sc-if><sc-if value="{{ nt.hasPhoto }}"><img src="{{ nt.photo }}" alt="" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--bg), 0 0 0 3.5px var(--line2);"></sc-if></sc-if>
+            <sc-if value="{{ nt.phil }}"><span style="position: relative; width: 56px; height: 56px; display: block;">[[av|nt.av|56|4|var(--bg)|]]<sc-if value="{{ nt.writing }}"><span style="position: absolute; right: -3px; bottom: -3px; width: 13px; height: 13px; border-radius: 50%; background: var(--lamp); box-shadow: 0 0 0 3px var(--bg); animation: agPulse 1.8s ease-in-out infinite;" aria-hidden="true"></span></sc-if></span></sc-if>
+            <span style="margin-top: 8px; font-size: 11.5px; line-height: 16px; font-weight: 700; color: {{ nt.hue }}; white-space: nowrap;">{{ nt.name }}</span>
+          </button>
+        </sc-for>
+      </section>
+      <div role="tablist" aria-label="⟦대화 나누어 보기¦Chat tabs⟧" style="display: flex; padding: 0 16px; box-shadow: inset 0 -1px 0 var(--line);">
+        <button role="tab" aria-selected="{{ chat.eTalk }}" onClick="{{ chat.pickTalk }}" style="height: 44px; flex: 1 1 0; border: 0; background: transparent; font-family: inherit; font-size: 14px; cursor: pointer; {{ chat.eTalkStyle }}">⟦대화¦Chats⟧</button>
+        <button role="tab" aria-selected="{{ chat.eFirst }}" onClick="{{ chat.pickFirst }}" style="height: 44px; flex: 1 1 0; border: 0; background: transparent; font-family: inherit; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; {{ chat.eFirstStyle }}">⟦먼저 건넨 말¦First messages⟧<sc-if value="{{ chat.hasFirstCount }}"><span style="min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--lamp); color: var(--onlamp); font-size: 10.5px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center;">{{ chat.firstCount }}</span></sc-if></button>
+      </div>
+      <div style="height: 4px;"></div>
+      <sc-for list="{{ chat.eRows }}" as="r" hint-placeholder-count="5">[[row|r|48|15.5|10px 20px]]</sc-for>
+      <sc-if value="{{ chat.eEmpty }}"><p style="margin: 18px 20px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦여기에 보일 대화가 없어요¦Nothing here yet⟧</p></sc-if>
+      <div style="height: 16px;"></div>
+    [[/scroll]]
+  </sc-if>
+
+  <sc-if value="{{ chat.isF }}">
+    <header style="height: 64px; padding: 0 8px 0 20px; display: flex; align-items: center; gap: 2px; flex: none;">
+      [[wordmark]]
+      [[iconbtn|fn.openSearch|⟦검색¦Search⟧|search|23]]
+      [[iconbtn|fn.openSettings|⟦설정¦Settings⟧|gear|23]]
+    </header>
+    <div style="padding: 4px 16px 8px; flex: none;">
+      [[hidelabel|f-q|⟦방이나 철학자로 바로 가기¦Jump to a room or person⟧]]
+      <span style="height: 44px; padding: 0 16px; border-radius: 999px; background: var(--sunken); color: var(--ink3); display: flex; align-items: center; gap: 10px;">[[i|search|18|2]]<input id="f-q" type="search" value="{{ chat.listQ }}" onChange="{{ fn.onListQ }}" placeholder="⟦방이나 철학자로 바로 가기¦Jump to a room or person⟧" style="flex-grow: 1; min-width: 0; border: 0; padding: 0; background: transparent; color: var(--ink); font-family: inherit; font-size: 15px; outline: none;"></span>
+    </div>
+    [[scroll]]
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 2px 16px 10px;">
+        <button onClick="{{ chat.openTileWriting }}" style="min-height: 76px; padding: 10px 12px; border: 0; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; justify-content: space-between; gap: 6px; text-align: left; font-family: inherit; color: inherit; cursor: pointer;">
+          <span style="display: flex; align-items: center; justify-content: space-between; width: 100%;"><span style="width: 30px; height: 30px; border-radius: 10px; background: var(--lampsoft); color: var(--lampink); display: flex; align-items: center; justify-content: center;">[[i|chat|17|2]]</span><span style="font-size: 15px; font-weight: 800; color: var(--lampink);">{{ chat.tileWriting }}</span></span>
+          <span style="font-size: 12.5px; line-height: 17px; font-weight: 700;">⟦쓰는 중¦Writing⟧</span>
+        </button>
+        <button onClick="{{ chat.openTileFirst }}" style="min-height: 76px; padding: 10px 12px; border: 0; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; justify-content: space-between; gap: 6px; text-align: left; font-family: inherit; color: inherit; cursor: pointer;">
+          <span style="display: flex; align-items: center; justify-content: space-between; width: 100%;"><span style="width: 30px; height: 30px; border-radius: 10px; background: var(--lampsoft); color: var(--lampink); display: flex; align-items: center; justify-content: center;">[[i|hand|17|2]]</span><span style="font-size: 15px; font-weight: 800; color: var(--lampink);">{{ chat.tileFirst }}</span></span>
+          <span style="font-size: 12.5px; line-height: 17px; font-weight: 700;">⟦먼저 건넨 말¦First messages⟧</span>
+        </button>
+        <button onClick="{{ chat.openTileMemo }}" style="min-height: 76px; padding: 10px 12px; border: 0; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; justify-content: space-between; gap: 6px; text-align: left; font-family: inherit; color: inherit; cursor: pointer;">
+          <span style="display: flex; align-items: center; justify-content: space-between; width: 100%;"><span style="width: 30px; height: 30px; border-radius: 10px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|memo|17|2]]</span><span style="font-size: 15px; font-weight: 800; color: var(--pink);">{{ chat.tileMemo }}</span></span>
+          <span style="font-size: 12.5px; line-height: 17px; font-weight: 700;">⟦여백 메모¦Margin notes⟧</span>
+        </button>
+      </div>
+      <div style="height: 40px; padding: 0 8px 0 14px; display: flex; align-items: center; gap: 6px;">
+        <button aria-expanded="{{ chat.fGroupOpen }}" onClick="{{ chat.toggleFGroup }}" style="height: 36px; padding: 0 8px 0 4px; border: 0; border-radius: 10px; background: transparent; color: var(--ink2); font-family: inherit; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 4px; cursor: pointer;"><span style="display: flex; transition: transform 0.15s ease; {{ chat.fGroupChevron }}">[[i|chevd|16|2.2]]</span>⟦단톡방¦Group chats⟧</button>
+        <span style="flex-grow: 1;"></span>
+        [[iconbtn|fn.openPickNew|⟦단톡방 만들기¦New group⟧|plus|18]]
+      </div>
+      <sc-if value="{{ chat.fGroupOpen }}"><sc-for list="{{ chat.fGroups }}" as="r" hint-placeholder-count="2">[[drow|r]]</sc-for></sc-if>
+      <div style="height: 40px; padding: 0 8px 0 14px; display: flex; align-items: center; gap: 6px;">
+        <button aria-expanded="{{ chat.fDmOpen }}" onClick="{{ chat.toggleFDm }}" style="height: 36px; padding: 0 8px 0 4px; border: 0; border-radius: 10px; background: transparent; color: var(--ink2); font-family: inherit; font-size: 13px; font-weight: 800; display: flex; align-items: center; gap: 4px; cursor: pointer;"><span style="display: flex; transition: transform 0.15s ease; {{ chat.fDmChevron }}">[[i|chevd|16|2.2]]</span>⟦개인톡¦Direct chats⟧</button>
+        <span style="flex-grow: 1;"></span>
+        [[iconbtn|fn.openPickNew|⟦개인톡 시작하기¦New direct chat⟧|plus|18]]
+      </div>
+      <sc-if value="{{ chat.fDmOpen }}"><sc-for list="{{ chat.fDms }}" as="r" hint-placeholder-count="4">[[drow|r]]</sc-for></sc-if>
+      <div style="padding: 4px 8px 0;">
+        <button onClick="{{ fn.openPickNew }}" style="width: 100%; min-height: 44px; padding: 0 12px; border: 0; border-radius: 12px; background: transparent; color: var(--pink); font-family: inherit; font-size: 14px; font-weight: 700; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer;"><span style="width: 28px; height: 28px; flex: none; border-radius: 9px; background: var(--psoft); display: flex; align-items: center; justify-content: center;">[[i|plus|16|2.2]]</span>⟦철학자 더 부르기¦Talk to someone new⟧</button>
+      </div>
+      <div style="height: 88px;"></div>
+    [[/scroll]]
+    <button aria-label="⟦새 대화¦New chat⟧" onClick="{{ fn.openPickNew }}" style="position: absolute; right: 20px; bottom: 16px; width: 56px; height: 56px; border: 0; border-radius: 18px; background: var(--primary); color: var(--onprimary); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 18px var(--cardshadow);">[[i|pen|22]]</button>
+  </sc-if>
+</section>

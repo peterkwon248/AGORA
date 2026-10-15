@@ -11,6 +11,8 @@
 3. 디자인 시안 `legacy-design-reference/AGORA_design_draft/` — **읽기 전용, 수정 금지**
 4. 결정 기록 `docs/decisions/ADR-*.md`
 
+> **리디자인 예외 (2026-10-15 사장님 결정):** [ADR-011](docs/decisions/ADR-011-redesign-structure.md)·[ADR-012](docs/decisions/ADR-012-user-materials.md)의 확정 결정과 [리디자인 차이 표](docs/design/REDESIGN-DIFF.md)의 ✅ 줄은 3번 시안, 그리고 2번 설계서의 화면 구조(탭, 노트와 피드 나눔 등)보다 우선한다. 🟡·↩︎ 줄은 승인 전까지 3번 시안이 기준이다.
+
 ## 절대 규칙
 - **새 디자인 금지.** 색·글꼴·간격·컴포넌트는 `docs/sprint0/01_design_inventory.md`의 토큰 그대로. 바꿔야 하면 차이 표를 만들어 사용자 승인 후.
 - **시연 문장을 실제 AI처럼 쓰지 않는다.** `DemoInferenceProvider`는 테스트 전용이며 릴리스 빌드에 포함하지 않는다. 모델이 없으면 '없다'고 표시한다.
@@ -39,3 +41,6 @@
 - 요구사항 점검표: `docs/sprint0/03_requirements_gap_checklist.md`
 - Registry 계약: `docs/sprint0/04_philosopher_registry_contract.md`
 - 착수 보고: `docs/sprint0/00_kickoff_report.md`
+- 결정 기록: `docs/decisions/` (제품 방향 ADR-010, 리디자인 화면 구조 ADR-011, 나에 대해·같이 읽기 ADR-012)
+- 리디자인 차이 표 — 앱으로 옮겨도 되는 것은 ✅ 줄만: `docs/design/REDESIGN-DIFF.md`
+- 리디자인 캔버스 사본·써 보기 원본·점검 도구: `design/redesign/` — 시안 자료이지 앱 코드가 아니다. 예시 문장·예시 데이터는 옮기지 않는다

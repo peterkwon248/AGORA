@@ -1,0 +1,60 @@
+
+[[screen|about|about|⟦나에 대해¦About me⟧]]
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    [[back]]
+    <h1 style="margin: 0; flex-grow: 1; min-width: 0; font-size: 18px; line-height: 24px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ about.title }}</h1>
+    <button aria-label="⟦더 보기 — 고치기, 바꾸기, 지우기¦More — edit, replace, delete⟧" onClick="{{ about.more }}" style="width: 48px; height: 48px; flex: none; border: 0; border-radius: 50%; background: transparent; color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer;">[[i|more|24]]</button>
+  </header>
+  [[scroll]]
+    <div style="padding: 0 16px 28px; display: flex; flex-direction: column; gap: 14px;">
+      <span style="padding: 0 4px; font-size: 12px; line-height: 18px; color: var(--ink3);">{{ about.meta }}</span>
+      <sc-if value="{{ about.busy }}">
+        <section role="status" aria-live="polite" style="padding: 16px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--lamp); display: flex; flex-direction: column; gap: 12px;">
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 15px; line-height: 21px; font-weight: 800;">[[pulse]]⟦읽는 중이에요¦Reading it⟧</span>
+          <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <sc-for list="{{ about.steps }}" as="st" hint-placeholder-count="3">
+              <li style="display: flex; align-items: center; gap: 10px; font-size: 14px; line-height: 20px; {{ st.style }}">
+                <sc-if value="{{ st.done }}"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--primary); color: var(--onprimary); display: flex; align-items: center; justify-content: center;">[[i|check|14|2.6]]</span></sc-if>
+                <sc-if value="{{ st.now }}"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--lamp); display: flex; align-items: center; justify-content: center;">[[pulse]]</span></sc-if>
+                <sc-if value="{{ st.todo }}"><span style="width: 22px; height: 22px; flex: none; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--line2);"></span></sc-if>
+                <span>{{ st.label }}</span>
+              </li>
+            </sc-for>
+          </ol>
+          <div style="height: 6px; border-radius: 999px; background: var(--sunken); overflow: hidden;" aria-hidden="true"><div style="width: 40%; height: 100%; border-radius: 999px; background: var(--lamp); animation: agShimmer 1s ease-in-out infinite;"></div></div>
+          <span style="font-size: 12px; line-height: 18px; color: var(--ink3);">⟦이 기기 안에서만 읽어요. 큰 파일은 충전 중에 이어서 읽어요.¦Read only on this device. Large files continue while charging.⟧</span>
+        </section>
+      </sc-if>
+      <sc-if value="{{ about.done }}">
+        <div style="border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden;">
+          <div style="min-height: 64px; padding: 10px 12px 10px 16px; display: flex; align-items: center; gap: 12px;">
+            <span style="flex-grow: 1; min-width: 0; font-size: 15px; line-height: 21px; font-weight: 700;">{{ about.summary }}</span>
+            <sc-if value="{{ about.hasCands }}"><button onClick="{{ about.openCands }}" style="height: 40px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; background: var(--psoft); color: var(--pink); font-family: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer;">⟦후보 확인하기¦Review⟧</button></sc-if>
+          </div>
+          [[swrow|about.useSw|⟦철학자들이 이 자료를 참고해요¦Philosophers may use this file⟧|{{ about.useSub }}]]
+          [[lrow|about.openMemory|{{ about.memLine }}|⟦기억 화면에서 고치거나 잊게 할 수 있어요¦Edit or forget them on the Memory screen⟧]]
+        </div>
+        <sc-if value="{{ about.clipped }}"><p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--lampsoft); color: var(--lampink); font-size: 12.5px; line-height: 18px;">⟦파일이 길어서 앞부분만 읽었어요.¦The file is long, so only the first part was read.⟧</p></sc-if>
+        <p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--sunken); font-size: 12px; line-height: 18px; color: var(--ink2);">⟦철학자는 지금 대화와 이어지는 대목만 꺼내 봐요. 같은 대목을 매번 꺼내지 않고, 피드 글에는 쓰지 않아요.¦They only look at sections that connect to the current talk, not the same one every time, and never in feed posts.⟧</p>
+        <h2 style="margin: 4px 4px -4px; display: flex; align-items: baseline; gap: 6px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink2);">⟦대목¦Sections⟧ <span style="color: var(--ink3);">{{ about.secCount }}</span></h2>
+        <sc-for list="{{ about.sections }}" as="sec" hint-placeholder-count="3">
+          <article style="border-radius: 20px; padding: 14px 16px 4px; display: flex; flex-direction: column; gap: 8px; {{ sec.cardStyle }}">
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <h3 style="margin: 0; flex-grow: 1; min-width: 0; font-size: 15px; line-height: 21px; font-weight: 800;">{{ sec.title }}</h3>
+              <sc-if value="{{ sec.hasTags }}"><span style="display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; max-width: 55%;"><sc-for list="{{ sec.tags }}" as="tg" hint-placeholder-count="2"><span style="height: 20px; padding: 0 7px; border-radius: 6px; background: var(--sunken2); color: var(--ink2); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center;">{{ tg.label }}</span></sc-for></span></sc-if>
+            </div>
+            <p style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 14.5px; line-height: 23px; color: var(--ink2); white-space: pre-line; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">{{ sec.text }}</p>
+            <sc-if value="{{ sec.dated }}"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 17px; font-weight: 700; color: var(--lampink);">[[i|clock|14|2|flex: none;]]⟦10월 14일에 적음 · 시간이 지나면 단정하지 않고 다시 물어봐요¦Written Oct 14 · later on, they ask instead of assuming⟧</span></sc-if>
+            <sc-if value="{{ sec.hasUsed }}"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 17px; color: var(--ink3);">[[i|chat|14|2|flex: none;]]{{ sec.usedLine }}</span></sc-if>
+            <button onClick="{{ sec.openScope }}" style="min-height: 44px; margin: 0 -8px; padding: 0 8px; border: 0; border-radius: 12px; background: transparent; font-family: inherit; text-align: left; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: inset 0 1px 0 var(--line);">
+              [[i|readers|16|2|flex: none; color: var(--ink3);]]
+              <span style="font-size: 12.5px; font-weight: 600; color: var(--ink3); flex: none;">⟦참고 범위¦Who may use it⟧</span>
+              <span style="flex-grow: 1; min-width: 0; font-size: 13px; font-weight: 700; text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; {{ sec.scopeStyle }}">{{ sec.scopeLabel }}</span>
+              [[i|chev|14|2|flex: none; color: var(--ink3);]]
+            </button>
+          </article>
+        </sc-for>
+      </sc-if>
+    </div>
+  [[/scroll]]
+[[/screen]]

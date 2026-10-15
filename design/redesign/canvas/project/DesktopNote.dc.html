@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>데스크톱 — 노트와 여백 메모</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&amp;family=Gowun+Batang:wght@400;700&amp;display=swap">
+<style>
+body{margin:0;background:#131315}
+a{color:#F2F2F5}a:hover{color:#FFFFFF}
+input::placeholder{color:#A0A0A8}
+</style>
+</helmet>
+<div style="box-sizing: border-box; min-height: 100vh; display: flex; flex-wrap: wrap; background: #131315; color: #ECECEF; font-family: 'Gothic A1', sans-serif;">
+
+  <nav aria-label="주요 화면" style="flex: 1 1 72px; box-sizing: border-box; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: inset -1px 0 0 #2A2A2E;">
+    <span style="width: 40px; height: 40px; margin-bottom: 14px; border-radius: 50%; background: #27272B; display: flex; align-items: center; justify-content: center;" aria-hidden="true">
+      <span style="width: 12px; height: 12px; border-radius: 50%; background: #F5C25C;"></span>
+    </span>
+    <a href="PeopleTab.dc.html" style="width: 56px; height: 56px; border-radius: 16px; color: #A0A0A8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; font-weight: 700; text-decoration: none;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+      프로필
+    </a>
+    <a href="DesktopChat.dc.html" style="width: 56px; height: 56px; border-radius: 16px; color: #A0A0A8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; font-weight: 700; text-decoration: none;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+      채팅
+    </a>
+    <a href="DesktopFeed.dc.html" style="position: relative; width: 56px; height: 56px; border-radius: 16px; color: #A0A0A8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; font-weight: 700; text-decoration: none;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"></path><path d="M17 9h3v8a2 2 0 0 1-2 2"></path><path d="M8 9h5M8 13h5M8 16h3"></path></svg>
+      피드
+      <span style="position: absolute; right: 8px; top: 6px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: #F5C25C; color: #2B1D00; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center;">3</span>
+    </a>
+    <a href="DesktopNote.dc.html" aria-current="page" style="width: 56px; height: 56px; border-radius: 16px; background: #27272B; color: #ECECEF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; font-weight: 700; text-decoration: none;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg>
+      노트
+    </a>
+    <span style="flex-grow: 1;"></span>
+    <a href="DesktopSettings.dc.html" style="width: 56px; height: 56px; border-radius: 16px; color: #A0A0A8; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; font-weight: 700; text-decoration: none;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>
+      설정
+    </a>
+  </nav>
+
+  <section aria-labelledby="notes-h" style="flex: 1 1 320px; box-sizing: border-box; padding-bottom: 16px; display: flex; flex-direction: column; box-shadow: inset -1px 0 0 #2A2A2E;">
+    <div style="height: 64px; flex: none; padding: 0 12px 0 20px; display: flex; align-items: center; gap: 4px;">
+      <h1 id="notes-h" style="margin: 0; flex-grow: 1; font-size: 20px; line-height: 28px; font-weight: 800;">노트</h1>
+      <button aria-label="새 노트" style="width: 44px; height: 44px; border: 0; border-radius: 50%; background: #27272B; color: #ECECEF; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+      </button>
+    </div>
+    <div style="padding: 0 16px 8px; flex: none;">
+      <label for="notes-search" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);">노트 검색</label>
+      <div style="height: 40px; box-sizing: border-box; padding: 0 14px; border-radius: 999px; background: #27272B; color: #A0A0A8; display: flex; align-items: center; gap: 8px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2"></path></svg>
+        <input id="notes-search" type="text" placeholder="노트 검색" style="flex-grow: 1; min-width: 0; border: 0; background: transparent; color: #ECECEF; font-family: inherit; font-size: 14px; outline: none;">
+      </div>
+    </div>
+    <div role="group" aria-label="노트 유형" style="padding: 0 16px 4px; display: flex; gap: 6px; flex-wrap: wrap; flex: none;">
+      <button aria-pressed="true" style="height: 34px; padding: 0 13px; border: 0; border-radius: 999px; background: #E2E2E6; color: #141416; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">전체</button>
+      <button aria-pressed="false" style="height: 34px; padding: 0 13px; border: 0; border-radius: 999px; background: #27272B; color: #BDBDC4; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;">직접 쓴 노트</button>
+      <button aria-pressed="false" style="height: 34px; padding: 0 13px; border: 0; border-radius: 999px; background: #27272B; color: #BDBDC4; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;">대화 노트</button>
+    </div>
+
+    <h2 style="margin: 0; padding: 14px 20px 6px; font-size: 12px; line-height: 17px; font-weight: 700; color: #A0A0A8;">오늘 · 10월 14일 수요일</h2>
+    <a href="DesktopNote.dc.html" style="margin: 0 8px; padding: 10px 12px; border-radius: 14px; display: flex; flex-direction: column; gap: 3px; text-decoration: none; color: inherit;">
+      <span style="display: flex; align-items: center; gap: 8px;">
+        <span style="flex-grow: 1; min-width: 0; font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 22px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">성취와 삶의 의미</span>
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #2F2F35; color: #F2F2F5; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center; flex: none;">대화 노트</span>
+      </span>
+      <span style="font-size: 13px; line-height: 19px; color: #BDBDC4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">노력의 결과가 없을 때, 그 노력은 무엇으로 남는가.</span>
+      <span style="display: flex; align-items: center; gap: 5px; font-size: 11px; color: #A0A0A8;">
+        오전 8:31 ·
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>
+        나만
+      </span>
+    </a>
+
+    <h2 style="margin: 0; padding: 14px 20px 6px; font-size: 12px; line-height: 17px; font-weight: 700; color: #A0A0A8;">어제 · 10월 13일 화요일</h2>
+    <a href="DesktopNote.dc.html" style="margin: 0 8px; padding: 10px 12px; border-radius: 14px; display: flex; flex-direction: column; gap: 3px; text-decoration: none; color: inherit;">
+      <span style="font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 22px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">오늘 떠오른 질문</span>
+      <span style="font-size: 13px; line-height: 19px; color: #BDBDC4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">좋아하는 일을 하면서도 지루할 수 있을까?</span>
+      <span style="display: flex; align-items: center; gap: 5px; font-size: 11px; color: #A0A0A8;">
+        오후 9:40 ·
+        <img src="/_blob/ad60c4638819dddb9854296103adaa9e" alt="" style="width: 14px; height: 14px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #34343A; box-shadow: 0 0 0 1.5px #131315, 0 0 0 3px #F0C373;">
+        <span style="font-weight: 700; color: #F5C25C;">카뮈 댓글 예정 · 오후 3:00</span>
+      </span>
+    </a>
+    <a href="DesktopNote.dc.html" aria-current="true" style="margin: 2px 8px 0; padding: 10px 12px; border-radius: 14px; background: #27272B; display: flex; flex-direction: column; gap: 3px; text-decoration: none; color: inherit;">
+      <span style="font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 22px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">빗속에서 만난 유재하</span>
+      <span style="font-size: 13px; line-height: 19px; color: #BDBDC4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">출근길에 비가 내렸다. 버스 창에 맺힌 빗방울을 보다가,</span>
+      <span style="display: flex; align-items: center; gap: 6px; font-size: 11px; color: #A0A0A8;">
+        오전 8:12
+        <span style="display: inline-flex; margin-left: 2px;" aria-hidden="true">
+          <img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 14px; height: 14px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #34343A; box-shadow: 0 0 0 1.5px #27272B, 0 0 0 3px #FF9DA8;">
+          <img src="/_blob/5f26f9191b593e11d32dd705b72fd5d0" alt="" style="width: 14px; height: 14px; margin-left: 1px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #34343A; box-shadow: 0 0 0 1.5px #27272B, 0 0 0 3px #A8C0F4;">
+        </span>
+        <span style="flex-grow: 1;"></span>
+        <span style="height: 18px; padding: 0 7px; border-radius: 999px; background: #3A2F17; color: #F5C25C; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">새 여백 메모 2</span>
+      </span>
+    </a>
+
+    <h2 style="margin: 0; padding: 14px 20px 6px; font-size: 12px; line-height: 17px; font-weight: 700; color: #A0A0A8;">10월 11일 일요일</h2>
+    <a href="DesktopNote.dc.html" style="margin: 0 8px; padding: 10px 12px; border-radius: 14px; display: flex; flex-direction: column; gap: 3px; text-decoration: none; color: inherit;">
+      <span style="font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 22px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">일요일, 오래 걷기</span>
+      <span style="font-size: 13px; line-height: 19px; color: #BDBDC4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">생각이 막힐 때마다 걸었다. 오늘은 강변까지 갔다.</span>
+      <span style="font-size: 11px; color: #A0A0A8;">오후 5:02</span>
+    </a>
+  </section>
+
+  <section aria-labelledby="note-title" style="flex: 1000 1 480px; min-width: 0; box-sizing: border-box; background: #1C1C1F; display: flex; flex-direction: column;">
+    <header style="height: 64px; flex: none; padding: 0 16px 0 32px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; box-shadow: inset 0 -1px 0 #2A2A2E;">
+      <span style="flex-grow: 1; font-size: 13px; color: #A0A0A8;">노트 · 어제</span>
+      <button style="height: 44px; padding: 0 16px 0 12px; border: 0; border-radius: 999px; background: #27272B; color: #ECECEF; font-family: inherit; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"></path></svg>
+        고치기
+      </button>
+      <button style="height: 44px; padding: 0 16px 0 12px; border: 0; border-radius: 999px; background: #E2E2E6; color: #141416; font-family: inherit; font-size: 13px; font-weight: 800; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path><path d="M12 9v5M9.5 11.5h5"></path></svg>
+        댓글 부탁하기
+      </button>
+      <button aria-label="더 보기 — 수정 기록, 내보내기, 삭제" style="width: 44px; height: 44px; border: 0; border-radius: 50%; background: transparent; color: #BDBDC4; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg>
+      </button>
+    </header>
+
+    <article style="flex-grow: 1; overflow: hidden; padding: 40px 32px 32px;">
+      <div style="max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
+        <span style="font-size: 12px; line-height: 18px; color: #A0A0A8;">10월 13일 화요일 · 오전 8:12 · 직접 쓴 노트</span>
+        <h2 id="note-title" style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 34px; line-height: 46px; font-weight: 700;">빗속에서 만난 유재하</h2>
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <span style="font-size: 12px; font-weight: 700; color: #BDBDC4;">읽기와 댓글</span>
+          <span style="height: 30px; padding: 0 11px 0 5px; border-radius: 999px; background: #27272B; display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700;">
+            <img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #34343A; box-shadow: 0 0 0 1.5px #27272B, 0 0 0 3px #FF9DA8;">
+            니체
+          </span>
+          <span style="height: 30px; padding: 0 11px 0 5px; border-radius: 999px; background: #27272B; display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700;">
+            <img src="/_blob/5f26f9191b593e11d32dd705b72fd5d0" alt="" style="width: 22px; height: 22px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #34343A; box-shadow: 0 0 0 1.5px #27272B, 0 0 0 3px #A8C0F4;">
+            쇼펜하우어
+          </span>
+          <span style="font-size: 12px; color: #A0A0A8;">· 자동 댓글 가끔</span>
+          <button style="height: 44px; margin: -7px 0; padding: 0 6px; border: 0; background: transparent; color: #F2F2F5; font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;">바꾸기</button>
+        </div>
+
+        <div style="padding-top: 12px; display: flex; flex-direction: column; gap: 20px; font-family: 'Gowun Batang', serif; font-size: 18px; line-height: 34px;">
+          <p style="margin: 0;">출근길에 비가 내렸다. 버스 창에 맺힌 빗방울을 보다가, 이어폰에서 오랜만에 유재하가 흘러나왔다.</p>
+          <p style="margin: 0;"><span style="background: rgba(255, 157, 168, 0.13); border-radius: 4px; text-decoration: underline; text-decoration-color: #FF9DA8; text-decoration-thickness: 2px; text-underline-offset: 6px;">오랜만에 듣는 그의 목소리가 더 깊고 묵직하다.</span><span style="display: inline-flex; width: 18px; height: 18px; margin-left: 4px; vertical-align: 6px; border-radius: 50%; background: #FF9DA8; color: #131315; font-family: 'Gothic A1', sans-serif; font-size: 10.5px; font-weight: 800; align-items: center; justify-content: center;" aria-label="니체의 여백 메모 1">1</span> 같은 노래인데 첫 소절에서 한참을 멈춰 있었다.</p>
+          <p style="margin: 0;">가사는 하나도 바뀌지 않았는데, <span style="text-decoration: underline; text-decoration-color: #A8C0F4; text-decoration-thickness: 2px; text-underline-offset: 6px;">스무 살에 듣던 것과 다르게 들린다.</span><span style="display: inline-flex; width: 18px; height: 18px; margin-left: 4px; vertical-align: 6px; border-radius: 50%; background: #A8C0F4; color: #131315; font-family: 'Gothic A1', sans-serif; font-size: 10.5px; font-weight: 800; align-items: center; justify-content: center;" aria-label="쇼펜하우어의 여백 메모 2">2</span></p>
+          <p style="margin: 0;">회사 앞에 내렸을 때 비는 그쳐 있었다. 노래가 조금 더 길었으면 했다.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <aside aria-labelledby="margin-h" style="flex: 1 1 360px; box-sizing: border-box; box-shadow: inset 1px 0 0 #2A2A2E; display: flex; flex-direction: column;">
+    <div style="height: 64px; flex: none; padding: 21px 20px 0 24px; box-sizing: border-box; display: flex; align-items: baseline; gap: 6px; box-shadow: inset 0 -1px 0 #2A2A2E;">
+      <h2 id="margin-h" style="margin: 0; font-size: 15px; line-height: 22px; font-weight: 800;">여백 메모</h2>
+      <span style="font-size: 15px; font-weight: 800; color: #A0A0A8;">2</span>
+      <span style="flex-grow: 1;"></span>
+      <span style="font-size: 11px; color: #A0A0A8;">철학자의 글을 바탕으로 AI가 써요</span>
+    </div>
+
+    <div style="padding: 16px 20px 20px; display: flex; flex-direction: column; gap: 12px;">
+      <article aria-label="니체의 여백 메모" style="background: #222225; border-radius: 20px; box-shadow: inset 0 0 0 1px #3D3D44; padding: 14px 16px 6px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: flex-start; gap: 8px;">
+          <span style="width: 17px; height: 17px; flex: none; margin-top: 3px; border-radius: 50%; background: #FF9DA8; color: #131315; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center;" aria-hidden="true">1</span>
+          <span style="font-family: 'Gowun Batang', serif; font-size: 14px; line-height: 22px; color: #BDBDC4;">오랜만에 듣는 그의 목소리가 더 깊고 묵직하다.</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a href="Profile.dc.html" aria-label="니체 프로필" style="flex: none; align-self: flex-start; display: flex; margin-top: 2px;"><img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #34343A; box-shadow: 0 0 0 2px #222225, 0 0 0 3.5px #FF9DA8;"></a>
+          <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">
+            <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span style="font-size: 13px; font-weight: 700; color: #FF9DA8;">니체</span>
+              <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #27272B; color: #A0A0A8; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">AI</span>
+              <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #3A2F17; color: #F5C25C; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">자동</span>
+              <span style="font-size: 11px; color: #A0A0A8;">오늘 오전 2:10</span>
+            </span>
+            <p style="margin: 0; font-size: 15px; line-height: 23px;">목소리가 무거워진 게 아니라 당신이 무거워진 것이오. 그 무게가 싫지 않았다면 좋은 징조요.</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 2px; margin-left: 32px; flex-wrap: wrap;">
+          <button style="height: 44px; padding: 0 8px; border: 0; background: transparent; color: #BDBDC4; font-family: inherit; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 7l-5 5 5 5"></path><path d="M4 12h10a6 6 0 0 1 6 6v1"></path></svg>
+            답글
+          </button>
+          <a href="DesktopChat.dc.html" style="height: 44px; padding: 0 8px; color: #BDBDC4; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; text-decoration: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+            개인톡에서 이어가기
+          </a>
+          <button style="height: 44px; padding: 0 8px; border: 0; background: transparent; color: #A0A0A8; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;">어떻게 왔나요?</button>
+        </div>
+      </article>
+
+      <article aria-label="쇼펜하우어의 여백 메모" style="background: #1C1C1F; border-radius: 20px; box-shadow: inset 0 0 0 1px #2A2A2E; padding: 14px 16px 6px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: flex-start; gap: 8px;">
+          <span style="width: 17px; height: 17px; flex: none; margin-top: 3px; border-radius: 50%; background: #A8C0F4; color: #131315; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center;" aria-hidden="true">2</span>
+          <span style="font-family: 'Gowun Batang', serif; font-size: 14px; line-height: 22px; color: #BDBDC4;">스무 살에 듣던 것과 다르게 들린다.</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <a href="Profile.dc.html" aria-label="쇼펜하우어 프로필" style="flex: none; align-self: flex-start; display: flex; margin-top: 2px;"><img src="/_blob/5f26f9191b593e11d32dd705b72fd5d0" alt="" style="width: 30px; height: 30px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #34343A; box-shadow: 0 0 0 2px #1C1C1F, 0 0 0 3.5px #A8C0F4;"></a>
+          <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">
+            <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+              <span style="font-size: 13px; font-weight: 700; color: #A8C0F4;">쇼펜하우어</span>
+              <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #27272B; color: #A0A0A8; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">AI</span>
+              <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #3A2F17; color: #F5C25C; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">자동</span>
+              <span style="font-size: 11px; color: #A0A0A8;">오늘 오전 3:40</span>
+            </span>
+            <p style="margin: 0; font-size: 15px; line-height: 23px;">음악은 늙지 않습니다. 듣는 쪽이 늙을 뿐이지요. 스무 살의 당신은 선율을 들었고, 오늘의 당신은 그 아래에 흐르는 것을 들은 겁니다.</p>
+          </div>
+        </div>
+        <div style="margin-left: 40px; display: flex; gap: 8px;">
+          <span style="width: 24px; height: 24px; flex: none; border-radius: 50%; background: #2F2F35; color: #F2F2F5; font-size: 10.5px; font-weight: 800; display: flex; align-items: center; justify-content: center;" aria-hidden="true">나</span>
+          <div style="flex-grow: 1; padding: 9px 12px; border-radius: 6px 16px 16px 16px; background: #3A3A40; display: flex; flex-direction: column; gap: 3px;">
+            <span style="font-size: 12px; font-weight: 700; color: #BDBDC4;">나 · 오전 8:40</span>
+            <p style="margin: 0; font-size: 14px; line-height: 21px;">스무 살의 나는 이 노래를 슬프게만 들었는데.</p>
+          </div>
+        </div>
+        <div style="margin-left: 40px; display: flex; align-items: center; gap: 6px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F5C25C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg>
+          <span style="font-size: 12px; line-height: 17px; font-weight: 600; color: #F5C25C;">쇼펜하우어의 답글은 내일 아침 피드로 와요</span>
+        </div>
+        <div style="display: flex; gap: 2px; margin-left: 32px;">
+          <a href="DesktopChat.dc.html" style="height: 44px; padding: 0 8px; color: #BDBDC4; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; text-decoration: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg>
+            지금 개인톡에서 이야기하기
+          </a>
+        </div>
+      </article>
+
+      <a href="DesktopChat.dc.html" style="padding: 12px 16px; border-radius: 18px; border: 1.5px dashed #3D3D44; display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
+        <span style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1; min-width: 0;">
+          <span style="font-size: 11px; font-weight: 700; color: #A0A0A8;">이 노트에서 이어진 대화</span>
+          <span style="font-size: 14px; line-height: 20px; font-weight: 700;">노래는 가사로 남을까, 선율로 남을까</span>
+          <span style="font-size: 12px; color: #A0A0A8;">단톡방 ‘니체 · 쇼펜하우어’ · 어젯밤</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A0A0A8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+      </a>
+    </div>
+  </aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+{
+  "v": 3,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-10-14T12:35:00Z"
+  },
+  "title": "AGORA 리디자인",
+  "launch": {
+    "view": "canvas"
+  },
+  "pages": [],
+  "boards": {
+    "PeopleTab.dc.html": {
+      "x": 0,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "프로필 (첫 탭)"
+    },
+    "MyProfile.dc.html": {
+      "x": 470,
+      "y": 0,
+      "w": 390,
+      "h": 1500,
+      "title": "내 프로필 설정"
+    },
+    "Main.dc.html": {
+      "x": 940,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "채팅 — 홈 A · 말 걸기 먼저"
+    },
+    "HomeA.dc.html": {
+      "x": 470,
+      "y": -1800,
+      "w": 390,
+      "h": 844,
+      "title": "지난 안 — 지금이 먼저 (A로 합침)"
+    },
+    "HomeC.dc.html": {
+      "x": 940,
+      "y": -1800,
+      "w": 390,
+      "h": 844,
+      "title": "지난 안 — 응접실 (A로 합침)"
+    },
+    "Room.dc.html": {
+      "x": 1410,
+      "y": 0,
+      "w": 390,
+      "h": 844,
+      "title": "채팅방"
+    },
+    "Feed.dc.html": {
+      "x": 1880,
+      "y": 0,
+      "w": 390,
+      "h": 1520,
+      "title": "피드 — 오늘의 아고라"
+    },
+    "FeedArchive.dc.html": {
+      "x": 2350,
+      "y": 0,
+      "w": 390,
+      "h": 1160,
+      "title": "피드 — 지난 날 · 철학자의 글"
+    },
+    "Notes.dc.html": {
+      "x": 2820,
+      "y": 0,
+      "w": 390,
+      "h": 1040,
+      "title": "노트 — 내가 쓴 노트"
+    },
+    "Note.dc.html": {
+      "x": 3290,
+      "y": 0,
+      "w": 390,
+      "h": 1360,
+      "title": "노트 상세 — 여백 메모"
+    },
+    "People.dc.html": {
+      "x": 0,
+      "y": 1880,
+      "w": 390,
+      "h": 860,
+      "title": "새 대화 — 철학자"
+    },
+    "Profile.dc.html": {
+      "x": 470,
+      "y": 1880,
+      "w": 390,
+      "h": 1780,
+      "title": "철학자 프로필"
+    },
+    "RoomInfo.dc.html": {
+      "x": 940,
+      "y": 1880,
+      "w": 390,
+      "h": 1980,
+      "title": "방 정보·설정"
+    },
+    "Settings.dc.html": {
+      "x": 1410,
+      "y": 1880,
+      "w": 390,
+      "h": 2520,
+      "title": "설정"
+    },
+    "Models.dc.html": {
+      "x": 1880,
+      "y": 1880,
+      "w": 390,
+      "h": 900,
+      "title": "기기 안 AI 모델"
+    },
+    "Memory.dc.html": {
+      "x": 2350,
+      "y": 1880,
+      "w": 390,
+      "h": 1060,
+      "title": "기억"
+    },
+    "PhilImages.dc.html": {
+      "x": 2820,
+      "y": 1880,
+      "w": 390,
+      "h": 844,
+      "title": "설정 — 철학자 이미지"
+    },
+    "PhilImageSheet.dc.html": {
+      "x": 3290,
+      "y": 1880,
+      "w": 390,
+      "h": 844,
+      "title": "철학자 이미지 — 바꾸기 시트"
+    },
+    "PhilImageCrop.dc.html": {
+      "x": 3760,
+      "y": 1880,
+      "w": 390,
+      "h": 844,
+      "title": "철학자 이미지 — 동그랗게 맞추기"
+    },
+    "DesktopChat.dc.html": {
+      "x": 0,
+      "y": 4840,
+      "w": 1440,
+      "h": 900,
+      "title": "데스크톱 — 채팅 + 노트",
+      "expand": "fill"
+    },
+    "DesktopNote.dc.html": {
+      "x": 1520,
+      "y": 4840,
+      "w": 1440,
+      "h": 900,
+      "title": "데스크톱 — 노트 + 여백 메모",
+      "expand": "fill"
+    },
+    "DesktopFeed.dc.html": {
+      "x": 3040,
+      "y": 4840,
+      "w": 1440,
+      "h": 1060,
+      "title": "데스크톱 — 피드",
+      "expand": "fill"
+    },
+    "DesktopSettings.dc.html": {
+      "x": 4560,
+      "y": 4840,
+      "w": 1440,
+      "h": 900,
+      "title": "데스크톱 — 설정",
+      "expand": "fill"
+    },
+    "Home0.dc.html": {
+      "w": 390,
+      "h": 844,
+      "x": 0,
+      "y": -1800,
+      "title": "처음 안 — 초상 띠 + 목록"
+    },
+    "HomeD.dc.html": {
+      "w": 390,
+      "h": 844,
+      "x": 2110,
+      "y": -1800,
+      "title": "채팅 홈 C — 목록이 먼저"
+    },
+    "HomeE.dc.html": {
+      "w": 390,
+      "h": 844,
+      "x": 2580,
+      "y": -1800,
+      "title": "채팅 홈 D — 한 마디 띠 + 목록"
+    },
+    "HomeF.dc.html": {
+      "w": 390,
+      "h": 844,
+      "x": 3050,
+      "y": -1800,
+      "title": "채팅 홈 E — 묶음 목록"
+    },
+    "HomeG.dc.html": {
+      "w": 390,
+      "h": 844,
+      "x": 1640,
+      "y": -1800,
+      "title": "채팅 홈 B — 한 줄 말 걸기 + 목록"
+    },
+    "Proto.dc.html": {
+      "x": 0,
+      "y": -3300,
+      "w": 390,
+      "h": 844,
+      "title": "써 보기 — 앱 전체 (인터랙티브)",
+      "is_interactive": true
+    }
+  },
+  "order": [
+    "Proto.dc.html",
+    "PeopleTab.dc.html",
+    "MyProfile.dc.html",
+    "Main.dc.html",
+    "Home0.dc.html",
+    "HomeA.dc.html",
+    "HomeC.dc.html",
+    "HomeG.dc.html",
+    "HomeD.dc.html",
+    "HomeE.dc.html",
+    "HomeF.dc.html",
+    "Room.dc.html",
+    "Feed.dc.html",
+    "FeedArchive.dc.html",
+    "Notes.dc.html",
+    "Note.dc.html",
+    "People.dc.html",
+    "Profile.dc.html",
+    "RoomInfo.dc.html",
+    "Settings.dc.html",
+    "Models.dc.html",
+    "Memory.dc.html",
+    "PhilImages.dc.html",
+    "PhilImageSheet.dc.html",
+    "PhilImageCrop.dc.html",
+    "DesktopChat.dc.html",
+    "DesktopNote.dc.html",
+    "DesktopFeed.dc.html",
+    "DesktopSettings.dc.html"
+  ],
+  "notes": {
+    "home": {
+      "x": 0,
+      "y": -2100,
+      "text": "채팅 홈 — 지난 안 (지금 채팅 홈은 A)",
+      "kind": "title1",
+      "maxW": 1330
+    },
+    "row1": {
+      "x": 0,
+      "y": -300,
+      "text": "폰 — 프로필 · 채팅 · 피드 · 노트",
+      "kind": "title1",
+      "maxW": 3680
+    },
+    "row3": {
+      "x": 0,
+      "y": 1580,
+      "text": "폰 — 철학자 · 방 정보 · 설정 · 기억 · 철학자 이미지",
+      "kind": "title1",
+      "maxW": 4150
+    },
+    "row2": {
+      "x": 0,
+      "y": 4540,
+      "text": "데스크톱 — 같은 네 공간, 넓은 화면 (밤 테마)",
+      "kind": "title1",
+      "maxW": 6000
+    },
+    "home2": {
+      "x": 1640,
+      "y": -2100,
+      "text": "채팅 홈 B~E — 설정에서 고를 수 있는 나머지 모양",
+      "kind": "title1",
+      "maxW": 1800
+    },
+    "proto": {
+      "x": 470,
+      "y": -3300,
+      "w": 380,
+      "maxH": 560,
+      "size": "m",
+      "fill": "purple",
+      "text": "▶ 이 보드의 Play를 누르면 앱 전체를 실제로 눌러 볼 수 있어요.\n\n설정 › 채팅 홈 모양에서 A~E를 바꿔 보세요. 다크 테마와 English도 설정에서 바로 바뀌어요.\n\n내 프로필 › 나에 대한 자료에서 예시 파일을 넣어 보세요. 철학자가 그 자료를 참고해 답하면 말풍선 아래에 ‘참고’ 표시가 붙어요.\n\n채팅방 입력창 왼쪽 클립 버튼으로 같이 읽을 글을 보내 보세요. 철학자들이 읽고 대목을 짚어 이야기하고, 부탁하면 다음 날 아침 피드로 사유 노트가 와요.\n\n철학자 답과 기억 후보는 정해 둔 예시예요."
+    }
+  },
+  "designSystems": []
+}

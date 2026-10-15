@@ -1,0 +1,58 @@
+
+[[screen|phil|phil|{{ phil.full }}]]
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">[[back]]<span style="flex-grow: 1;"></span></header>
+  [[scroll]]
+    <section style="display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 4px 20px 8px; text-align: center;">
+      <span style="position: relative; width: 96px; height: 96px; margin: 6px 0 12px; display: block;">
+        [[av|phil.av|96|6|var(--bg)|]]
+        <button aria-label="⟦이미지 바꾸기¦Change image⟧" onClick="{{ phil.changeImage }}" style="position: absolute; right: -10px; bottom: -8px; width: 40px; height: 40px; border: 0; border-radius: 50%; background: var(--ink); color: var(--bg); box-shadow: 0 0 0 3px var(--bg); display: flex; align-items: center; justify-content: center; cursor: pointer;">[[i|camera|18|2]]</button>
+      </span>
+      <h1 style="margin: 0; font-size: 26px; line-height: 32px; font-weight: 800; color: {{ phil.hue }};">{{ phil.full }}</h1>
+      <span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ phil.years }}</span>
+      <span style="margin-top: 4px; height: 24px; padding: 0 10px; border-radius: 999px; background: {{ phil.soft }}; color: {{ phil.hue }}; font-size: 11.5px; font-weight: 700; display: inline-flex; align-items: center;">⟦AI 시뮬레이션¦AI simulation⟧</span>
+      <p style="margin: 4px 0 0; max-width: 300px; font-size: 14px; line-height: 21px; color: var(--ink2);">{{ phil.tagline }}</p>
+      <div style="display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; justify-content: center;">
+        <button onClick="{{ phil.dm }}" style="height: 44px; padding: 0 16px 0 14px; border: 0; border-radius: 999px; background: var(--primary); color: var(--onprimary); font-family: inherit; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">[[i|chat|16|2]]⟦개인톡¦Message⟧</button>
+        <button onClick="{{ phil.invite }}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--psoft); color: var(--pink); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;">⟦방에 초대¦Invite⟧</button>
+        <button onClick="{{ phil.reflections }}" style="height: 44px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px var(--line2); color: var(--ink2); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;">⟦사유 노트¦Reflections⟧</button>
+      </div>
+    </section>
+    [[h2|⟦생각의 결¦Ideas⟧]]
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px;">
+      <sc-for list="{{ phil.keys }}" as="kk" hint-placeholder-count="4"><span style="height: 34px; padding: 0 14px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 13.5px; font-weight: 600; display: inline-flex; align-items: center;">{{ kk.k }}</span></sc-for>
+    </div>
+    [[h2|⟦말하는 방식¦How they talk⟧]]
+    <p style="margin: 0; padding: 0 20px; font-size: 15px; line-height: 23px; color: var(--ink2);">{{ phil.manner }}</p>
+    [[h2|⟦이 철학자가 읽을 수 있는 것¦What they can read⟧]]
+    [[card]]
+      <div style="min-height: 56px; padding: 10px 16px; display: flex; flex-direction: column; justify-content: center; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">{{ phil.readDm }}</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦이 철학자와 나눈 개인톡¦Your direct chat with them⟧</span></div>
+      <div style="min-height: 56px; padding: 10px 16px; display: flex; flex-direction: column; justify-content: center; gap: 2px; box-shadow: inset 0 1px 0 var(--line);"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">⟦함께 있는 방¦Shared rooms⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ phil.readRooms }}</span></div>
+      <div style="min-height: 56px; padding: 10px 16px; display: flex; flex-direction: column; justify-content: center; gap: 2px; box-shadow: inset 0 1px 0 var(--line);"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">{{ phil.readNotes }}</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ phil.readNotesSub }}</span></div>
+      <sc-if value="{{ phil.hasAbout }}"><button onClick="{{ phil.openAbout }}" style="width: 100%; min-height: 56px; padding: 10px 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer; box-shadow: inset 0 1px 0 var(--line);"><span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">{{ phil.readAbout }}</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ phil.readAboutSub }}</span></span>[[i|chev|16|2|flex: none; color: var(--ink3);]]</button></sc-if>
+    [[/card]]
+    [[h2|⟦먼저 연락¦First messages⟧]]
+    [[card]]
+      [[swrow|phil.firstSw|{{ phil.firstTitle }}|{{ phil.firstSub }}|1]]
+    [[/card]]
+    <div style="display: flex; align-items: center; padding: 20px 20px 8px;">
+      <h2 style="margin: 0; flex-grow: 1; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink3);">⟦이 철학자가 기억하는 것¦What they remember⟧</h2>
+      <button onClick="{{ fn.openMemory }}" style="height: 32px; padding: 0; border: 0; background: transparent; color: var(--pink); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">⟦기억 모두 보기¦All memories⟧</button>
+    </div>
+    [[card]]
+      <sc-for list="{{ phil.mems }}" as="mm" hint-placeholder-count="2">[[mem|mm]]</sc-for>
+      <sc-if value="{{ phil.noMems }}"><p style="margin: 0; padding: 16px; font-size: 14px; color: var(--ink3);">⟦기억하는 것이 없어요¦Nothing remembered⟧</p></sc-if>
+    [[/card]]
+    [[h2|⟦자료와 출처¦Sources⟧]]
+    [[card]]
+      <sc-for list="{{ phil.works }}" as="wk" hint-placeholder-count="2">
+        <div style="min-height: 56px; padding: 10px 16px; display: flex; flex-direction: column; justify-content: center; gap: 2px; box-shadow: inset 0 -1px 0 var(--line);"><span style="font-size: 14px; line-height: 20px; font-weight: 600;">{{ wk.title }}</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ wk.sub }}</span></div>
+      </sc-for>
+    [[/card]]
+    <div style="height: 16px;"></div>
+    [[card]]
+      [[lrow|phil.forgetAll|{{ phil.forgetLabel }}|||1|danger]]
+      [[lrow|phil.hide|{{ phil.hideLabel }}|||0|danger]]
+    [[/card]]
+    <div style="height: 28px;"></div>
+  [[/scroll]]
+[[/screen]]

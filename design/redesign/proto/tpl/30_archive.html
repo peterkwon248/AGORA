@@ -1,0 +1,67 @@
+
+[[screen|archive|archive|⟦지난 날¦Past days⟧]]
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    [[back]]
+    <h1 style="margin: 0; flex-grow: 1; font-size: 18px; line-height: 24px; font-weight: 800;">⟦지난 날¦Past days⟧</h1>
+    [[iconbtn|fn.openSearch|⟦철학자의 글 찾기¦Search posts⟧|search|24]]
+  </header>
+  [[scroll]]
+    <div style="padding: 0 0 96px; display: flex; flex-direction: column; gap: 12px;">
+      <p style="margin: 0 20px; font-size: 13px; line-height: 20px; color: var(--ink2);">⟦철학자들이 쓴 글이 날마다 여기 쌓여요. 내가 쓴 노트는 노트 탭에 있어요.¦Philosophers’ posts collect here day by day. Your own notes are in the Notes tab.⟧</p>
+      <div role="group" aria-label="⟦철학자별로 보기¦By philosopher⟧" class="ag-scroll" style="display: flex; gap: 8px; padding: 0 16px; overflow-x: auto;">
+        <sc-for list="{{ archive.pidChips }}" as="pc" hint-placeholder-count="5">
+          <button aria-pressed="{{ pc.on }}" onClick="{{ pc.pick }}" style="height: 36px; padding: 0 12px 0 6px; flex: none; border: 0; border-radius: 999px; font-family: inherit; font-size: 13.5px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap; {{ pc.style }}"><sc-if value="{{ pc.notAll }}">[[av|pc.av|24|3|{{ pc.gap }}|]]</sc-if><sc-if value="{{ pc.all }}"><span style="width: 6px;"></span></sc-if>{{ pc.label }}</button>
+        </sc-for>
+      </div>
+      <div role="group" aria-label="⟦글 종류¦Kind⟧" style="display: flex; gap: 8px; padding: 0 16px; flex-wrap: wrap;">
+        <sc-for list="{{ archive.kindChips }}" as="kc" hint-placeholder-count="3">
+          <button aria-pressed="{{ kc.on }}" onClick="{{ kc.pick }}" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; {{ kc.style }}">{{ kc.label }}</button>
+        </sc-for>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; padding: 4px 20px 0;">
+        <span style="flex-grow: 1; font-size: 15px; font-weight: 800;">⟦2026년 10월¦October 2026⟧</span>
+        <button onClick="{{ fn.openArchDay }}" style="height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink2); font-family: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">[[i|cal|15|2]]⟦날짜로 보기¦By date⟧</button>
+      </div>
+      <sc-if value="{{ archive.dayFiltered }}">
+        <div style="margin: 0 16px; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 12px; background: var(--psoft); color: var(--pink); font-size: 13px; font-weight: 700;">
+          <span style="flex-grow: 1;">{{ archive.dayText }}</span>
+          <button onClick="{{ fn.clearArchDay }}" style="height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: var(--surface); color: var(--pink); font-family: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;">⟦전체 보기¦Show all⟧</button>
+        </div>
+      </sc-if>
+      <sc-for list="{{ archive.days }}" as="dg" hint-placeholder-count="2">
+        <h2 style="margin: 8px 20px 0; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink2);">{{ dg.label }}</h2>
+        <sc-for list="{{ dg.items }}" as="ai" hint-placeholder-count="1">
+          <sc-if value="{{ ai.isRefl }}">
+            <article style="margin: 0 16px; background: var(--surface); border-radius: 22px; box-shadow: inset 0 0 0 1px var(--line); padding: 18px 16px 8px; display: flex; flex-direction: column; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                [[av|ai.av|34|3.5|var(--surface)|]]
+                <span style="font-size: 13px; font-weight: 700; color: {{ ai.hue }};">{{ ai.name }}</span>
+                <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: var(--sunken); color: var(--ink3); font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">⟦AI 사유 노트¦AI reflection⟧</span>
+                <span style="flex-grow: 1;"></span>
+                <span style="font-size: 11px; color: var(--ink3);">{{ ai.time }}</span>
+              </div>
+              <span style="font-family: 'Gowun Batang', serif; font-size: 19px; line-height: 27px; font-weight: 700;">{{ ai.title }}</span>
+              <p style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 16px; line-height: 27px; color: var(--ink2);">{{ ai.text }}</p>
+              <div style="display: flex; align-items: center; gap: 8px; padding-top: 6px; box-shadow: inset 0 1px 0 var(--line); flex-wrap: wrap;">
+                <span style="height: 24px; padding: 0 9px; border-radius: 999px; background: var(--sunken); color: var(--ink2); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center;">{{ ai.origin }}</span>
+                <span style="flex-grow: 1; font-size: 11.5px; color: var(--ink3);">{{ ai.meta }}</span>
+                <button onClick="{{ ai.comment }}" style="height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--pink); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">⟦댓글 달기¦Comment⟧</button>
+              </div>
+            </article>
+          </sc-if>
+          <sc-if value="{{ ai.isMemo }}">
+            <div style="padding: 0 16px;">
+              <button onClick="{{ ai.open }}" style="width: 100%; padding: 14px 16px; border: 0; border-radius: 18px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                <span style="display: flex; flex: none;" aria-hidden="true"><sc-for list="{{ ai.heads }}" as="ah" hint-placeholder-count="2">[[av|ah|26|3.5|var(--surface)|{{ ah.ml }}]]</sc-for></span>
+                <span style="flex-grow: 1; font-size: 13.5px; line-height: 20px; font-weight: 600;">{{ ai.text }}</span>
+                [[i|chev|16|2|flex: none; color: var(--ink3);]]
+              </button>
+            </div>
+          </sc-if>
+        </sc-for>
+      </sc-for>
+      <sc-if value="{{ archive.empty }}"><p style="margin: 8px 20px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦이 조건에 맞는 글이 없어요¦No posts match⟧</p></sc-if>
+    </div>
+  [[/scroll]]
+  <button onClick="{{ fn.openAskNote }}" style="position: absolute; right: 20px; bottom: 24px; height: 52px; padding: 0 18px 0 14px; border: 0; border-radius: 18px; background: var(--primary); color: var(--onprimary); font-family: inherit; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 6px 18px var(--cardshadow);">[[i|feather|20|1.9]]⟦사유 노트 부탁하기¦Ask for a reflection⟧</button>
+[[/screen]]

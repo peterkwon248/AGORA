@@ -1,0 +1,7 @@
+
+<sc-if value="{{ toast.show }}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; left: 50%; bottom: 96px; z-index: 300; transform: translateX(-50%); width: max-content; max-width: 350px; min-height: 44px; padding: 8px 8px 8px 16px; border-radius: 16px; background: var(--toast); color: var(--ontoast); display: flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px var(--cardshadow); animation: agToast 0.2s ease-out;">
+  <span style="font-size: 13.5px; line-height: 19px; font-weight: 600; flex-grow: 1; padding: 4px 0;">{{ toast.text }}</span>
+  <sc-if value="{{ toast.hasAction }}"><button onClick="{{ fn.toastAct }}" style="height: 36px; padding: 0 12px; flex: none; border: 0; border-radius: 10px; background: transparent; color: var(--toastaction); font-family: inherit; font-size: 13.5px; font-weight: 800; cursor: pointer;">{{ toast.label }}</button></sc-if>
+</div>
+</sc-if>
