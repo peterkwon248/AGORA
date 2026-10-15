@@ -1,0 +1,101 @@
+
+[[screen|settings|settings|⟦설정¦Settings⟧]]
+  [[hdr|⟦설정¦Settings⟧]]
+  [[scroll]]
+    <div style="padding: 0 16px;">
+      <button onClick="{{ fn.openMyProfile }}" style="width: 100%; padding: 12px 14px; border: 0; border-radius: 18px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+        <span style="width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--psoft); color: var(--pink); font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center;" aria-hidden="true">⟦나¦Me⟧</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 14px; font-weight: 700;">⟦이 기기의 프로필¦Profile on this device⟧</span><span style="font-size: 12px; line-height: 17px; color: var(--ink3);">⟦계정 없이 쓰는 중 · 기록은 이 기기에 저장돼요¦No account · records stay on this device⟧</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+      </button>
+    </div>
+
+    [[h2|⟦AI 엔진¦AI engine⟧]]
+    [[card]]
+      <button onClick="{{ fn.openModels }}" style="width: 100%; min-height: 64px; padding: 10px 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|chip|20|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">{{ settings.modelLine }}</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ settings.modelSub }}</span></span>
+        <span style="height: 22px; padding: 0 8px; flex: none; border-radius: 6px; background: var(--psoft); color: var(--pink); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center;">⟦사용 중¦In use⟧</span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+      </button>
+      <button onClick="{{ settings.plus }}" style="width: 100%; min-height: 64px; padding: 10px 16px; border: 0; background: transparent; box-shadow: inset 0 1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--lampsoft); color: var(--lampink); display: flex; align-items: center; justify-content: center;">[[i|cloud|20|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">⟦Plus 클라우드 AI¦Plus cloud AI⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ settings.plusSub }}</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+      </button>
+    [[/card]]
+
+    [[h2|⟦언어¦Language⟧]]
+    <div style="margin: 0 16px; padding: 14px 16px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 10px;">
+      <span style="font-size: 14px; font-weight: 700;">⟦앱 언어¦App language⟧</span>
+      [[seg|settings.lang|⟦앱 언어¦App language⟧]]
+      <span style="font-size: 12px; line-height: 17px; color: var(--ink3);">{{ settings.langHelp }}</span>
+      <span style="margin-top: 6px; font-size: 14px; font-weight: 700;">⟦AI 대화 언어¦AI reply language⟧</span>
+      [[seg|settings.aiLang|⟦AI 대화 언어¦AI reply language⟧]]
+      <span style="font-size: 12px; line-height: 17px; color: var(--ink3);">{{ settings.aiLangHelp }}</span>
+    </div>
+
+    [[h2|⟦화면¦Display⟧]]
+    <div style="padding: 0 16px 10px; display: flex; flex-direction: column; gap: 8px;">
+      [[seg|settings.theme|⟦테마¦Theme⟧]]
+    </div>
+    [[card]]
+      <button onClick="{{ fn.openHomeStyle }}" style="width: 100%; min-height: 64px; padding: 10px 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|layout|20|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">⟦채팅 홈 모양¦Chat home layout⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ settings.homeLabel }}</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+      </button>
+      <button onClick="{{ fn.openImages }}" style="width: 100%; min-height: 64px; padding: 10px 16px; border: 0; background: transparent; box-shadow: inset 0 1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="display: flex; flex: none; padding-left: 2px;" aria-hidden="true"><sc-for list="{{ settings.imgHeads }}" as="ih" hint-placeholder-count="3">[[av|ih|26|3.5|var(--surface)|{{ ih.ml }}]]</sc-for></span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">⟦철학자 이미지¦Philosopher images⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ settings.imgLine }}</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+      </button>
+    [[/card]]
+
+    <h2 style="margin: 0; padding: 20px 20px 8px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink3); display: flex; align-items: center; gap: 6px;">⟦피드¦Feed⟧<span style="height: 18px; padding: 0 6px; border-radius: 6px; background: var(--lampsoft); color: var(--lampink); font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">⟦새로 생김¦New⟧</span></h2>
+    [[card]]
+      [[lrow|settings.pickFeedTime|⟦새 글이 오는 시간¦When new posts arrive⟧|⟦밤사이 쓴 글을 이때 한 번에 받아요¦Overnight posts arrive together⟧|{{ settings.feedTime }}|1]]
+      [[swrow|settings.sw.feedNotify|⟦피드 알림¦Feed notification⟧|⟦새 피드가 오면 한 번만 알려요¦One alert when the feed arrives⟧|0]]
+      [[swrow|settings.sw.chargeOnly|⟦충전 중일 때만 밤사이 쓰기¦Write overnight only while charging⟧|⟦기기 안 AI가 밤에 글을 쓸 때 배터리를 아껴요¦Saves battery when the on-device AI writes at night⟧|0]]
+      [[lrow|settings.pickFeedItems|⟦피드에 담을 것¦What the feed includes⟧|{{ settings.feedItems }}||0]]
+      [[lrow|settings.pickReflect|⟦사유 노트 자동 작성¦Automatic reflections⟧|{{ settings.autoReflect }}||0]]
+    [[/card]]
+
+    [[h2|⟦알림과 먼저 연락¦Notifications & first messages⟧]]
+    [[card]]
+      [[swrow|settings.sw.firstContact|⟦철학자가 먼저 연락하기¦Philosophers may write first⟧|⟦허락한 노트·감상평을 바탕으로 가끔 먼저 말을 걸어요¦Occasionally, based on what you allowed⟧|1]]
+      <sc-if value="{{ settings.firstOn }}">
+        <div style="padding: 12px 16px 14px; display: flex; flex-direction: column; gap: 8px; box-shadow: inset 0 1px 0 var(--line);">
+          <span style="display: flex; align-items: baseline; gap: 8px;"><span style="font-size: 15px; font-weight: 600; flex-grow: 1;">⟦하루 최대¦Daily limit⟧</span><span style="font-size: 13px; color: var(--ink3);">{{ settings.maxLine }}</span></span>
+          [[seg|settings.maxPerDay|⟦하루 최대 횟수¦Daily limit⟧]]
+        </div>
+        [[lrow|settings.pickQuiet|⟦조용한 시간¦Quiet hours⟧|⟦이 시간엔 먼저 연락하지 않아요¦No first messages in this window⟧|{{ settings.quiet }}|0]]
+      </sc-if>
+      [[swrow|settings.sw.lockHide|⟦잠금 화면에서 내용 숨기기¦Hide content on lock screen⟧|⟦알림에는 누가 보냈는지만 보여요¦Notifications show only who sent it⟧|0]]
+    [[/card]]
+
+    [[h2|⟦기억과 노트¦Memory & notes⟧]]
+    [[card]]
+      [[lrow|fn.openMemory|⟦기억¦Memory⟧|{{ settings.memLine }}||1]]
+      [[lrow|settings.pickScope|⟦새 노트의 기본 읽기 범위¦Default reading access⟧|⟦노트마다 따로 바꿀 수 있어요¦Change it per note⟧|{{ settings.scope }}|0]]
+      [[lrow|settings.pickComment|⟦노트 자동 댓글¦Automatic margin notes⟧|⟦읽기를 허락한 노트에만 달려요¦Only on notes you allowed⟧|{{ settings.autoComment }}|0]]
+    [[/card]]
+
+    [[h2|⟦데이터¦Data⟧]]
+    [[card]]
+      [[lrow|settings.exportAll|⟦모든 기록 내보내기¦Export everything⟧|⟦Markdown과 JSON으로¦As Markdown and JSON⟧||1]]
+      [[swrow|settings.sw.appLock|⟦앱 잠금¦App lock⟧|⟦열 때마다 기기 잠금으로 확인해요¦Unlock with your device lock each time⟧|0]]
+      [[swrow|settings.sw.crash|⟦오류 보고 보내기¦Send error reports⟧|⟦대화 내용은 보내지 않아요¦Never includes conversations⟧|0]]
+      [[lrow|settings.wipe|⟦모든 기록 지우기¦Erase everything⟧|⟦대화, 노트, 기억, 검색 색인까지 지워요¦Chats, notes, memories and search index⟧||0|danger]]
+    [[/card]]
+
+    [[h2|⟦안내¦About⟧]]
+    [[card]]
+      [[lrow|settings.aiInfo|⟦AI 시뮬레이션 안내¦About the AI simulation⟧|⟦철학자는 실제 인물이 아니에요¦The philosophers are not the real people⟧||1]]
+      [[lrow|settings.licenses|⟦원전과 라이선스¦Sources and licenses⟧|⟦원전 인용, 번역, 초상의 출처¦Quotes, translations and portraits⟧||0]]
+      [[lrow|settings.reports|⟦신고 내역¦Reports⟧||{{ settings.reportsLine }}|0]]
+      [[lrow|settings.onboarding|⟦첫 실행 화면 다시 보기¦See the welcome screens again⟧|||0]]
+    [[/card]]
+    <div style="height: 32px;"></div>
+  [[/scroll]]
+[[/screen]]

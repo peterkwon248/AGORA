@@ -1,0 +1,91 @@
+
+[[screen|me|myProfile|⟦내 프로필¦My profile⟧]]
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    [[back]]
+    <h1 style="margin: 0; flex-grow: 1; font-size: 18px; line-height: 24px; font-weight: 800;">⟦내 프로필¦My profile⟧</h1>
+    <button onClick="{{ fn.saveMe }}" style="height: 44px; padding: 0 12px; border: 0; background: transparent; color: var(--pink); font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer;">⟦완료¦Done⟧</button>
+  </header>
+  [[scroll]]
+    <div style="padding: 0 16px 28px; display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="position: relative; height: 116px; border-radius: 22px; margin-bottom: 40px; transition: background 0.2s ease; {{ me.coverStyle }}">
+          <button onClick="{{ fn.cycleCover }}" style="position: absolute; right: 12px; top: 12px; height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--surface); color: var(--ink2); font-family: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer;">⟦배경 바꾸기¦Change cover⟧</button>
+          <sc-if value="{{ me.noPhoto }}" hint-placeholder-val="{{ true }}"><span style="position: absolute; left: 20px; bottom: -40px; width: 88px; height: 88px; border-radius: 50%; background: var(--lamp); color: var(--onlamp); box-shadow: 0 0 0 4px var(--bg); font-size: 32px; font-weight: 800; display: flex; align-items: center; justify-content: center;" aria-hidden="true">{{ me.initial }}</span></sc-if>
+          <sc-if value="{{ me.hasPhoto }}"><img src="{{ me.photo }}" alt="⟦내 사진¦My photo⟧" style="position: absolute; left: 20px; bottom: -40px; width: 88px; height: 88px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 4px var(--bg);"></sc-if>
+          <label aria-label="⟦사진 바꾸기¦Change photo⟧" style="position: absolute; left: 82px; bottom: -40px; width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: var(--bg); box-shadow: 0 0 0 3px var(--bg); display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden;">[[i|camera|16|2]]<input type="file" accept="image/*" onChange="{{ fn.onMePhoto }}" style="position: absolute; inset: 0; opacity: 0; cursor: pointer;"></label>
+        </div>
+        <div role="group" aria-label="⟦배경색¦Cover color⟧" style="display: flex; align-items: center; gap: 10px; padding-left: 4px;">
+          <span style="font-size: 13px; font-weight: 700; color: var(--ink3); margin-right: 4px;">⟦배경¦Cover⟧</span>
+          <sc-for list="{{ me.covers }}" as="cv" hint-placeholder-count="4"><button aria-label="{{ cv.label }}" aria-pressed="{{ cv.on }}" onClick="{{ cv.pick }}" style="width: 32px; height: 32px; border: 0; border-radius: 50%; cursor: pointer; {{ cv.style }}"></button></sc-for>
+          <span style="flex-grow: 1;"></span>
+          <sc-if value="{{ me.hasPhoto }}"><button onClick="{{ fn.clearMePhoto }}" style="height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink2); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;">⟦사진 지우기¦Remove photo⟧</button></sc-if>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label for="my-name" style="padding-left: 4px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink3);">⟦철학자들이 부를 이름¦What philosophers call you⟧</label>
+        <input id="my-name" type="text" value="{{ me.name }}" onChange="{{ fn.onMeName }}" style="height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); color: var(--ink); font-family: inherit; font-size: 16px; font-weight: 600; outline: none;">
+        <div style="padding: 12px 14px; border-radius: 18px; background: var(--sunken); display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 11.5px; font-weight: 700; color: var(--ink3);">⟦이렇게 불러요¦How they greet you⟧</span>
+          <sc-for list="{{ me.previews }}" as="pv" hint-placeholder-count="3"><span style="display: flex; align-items: center; gap: 8px;">[[av|pv.av|22|3|var(--sunken)|]]<span style="font-family: 'Gowun Batang', serif; font-size: 14px; line-height: 21px;">{{ pv.text }}</span></span></sc-for>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="padding-left: 4px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink3);">⟦말 높이¦Formality⟧</span>
+        [[seg|me.honor|⟦말 높이¦Formality⟧]]
+        <span style="padding-left: 4px; font-size: 12px; line-height: 17px; color: var(--ink3);">{{ me.honorHelp }}</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <label for="my-intro" style="padding-left: 4px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink3);">⟦한 줄 소개¦One-line intro⟧</label>
+        <textarea id="my-intro" rows="2" value="{{ me.intro }}" onChange="{{ fn.onMeIntro }}" style="height: 72px; padding: 12px 16px; border: 0; border-radius: 16px; resize: none; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); color: var(--ink); font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 24px; outline: none;"></textarea>
+        <button role="switch" aria-checked="{{ me.shareSw.on }}" onClick="{{ fn.toggleIntroShare }}" style="min-height: 56px; padding: 6px 4px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+          <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 14.5px; line-height: 20px; font-weight: 600;">⟦철학자들이 소개를 참고해요¦Philosophers may use your intro⟧</span><span style="font-size: 12.5px; line-height: 17px; color: var(--ink3);">⟦끄면 나만 봐요. 비밀은 여기 말고 개인톡에 털어놓으세요¦Off keeps it private. Share secrets in a direct chat, not here⟧</span></span>
+          [[sw|me.shareSw]]
+        </button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="padding-left: 4px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink3);">⟦나에 대한 자료¦About-me files⟧ <span style="font-weight: 500;">⟦(선택)¦(optional)⟧</span></span>
+        <sc-if value="{{ me.about.none }}" hint-placeholder-val="{{ true }}">
+          <div style="padding: 16px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 6px;">
+            <span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦철학자들이 나를 더 알았으면 한다면¦Want them to know you better?⟧</span>
+            <span style="font-size: 13px; line-height: 19px; color: var(--ink2);">⟦태어난 해, 지나온 일, 하는 일, 요즘 고민을 적은 MD·TXT 파일을 넣어 보세요. 철학자들은 대화와 이어지는 대목만 꺼내 봐요.¦Add an MD or TXT file about where you come from, your work and what is on your mind. They only look at the parts that connect to the talk.⟧</span>
+            <button onClick="{{ me.about.add }}" style="align-self: flex-start; margin-top: 6px; height: 40px; padding: 0 16px 0 12px; border: 0; border-radius: 999px; background: var(--primary); color: var(--onprimary); font-family: inherit; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">[[i|plus|18|2]]⟦파일 넣기¦Add a file⟧</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ me.about.some }}">
+          <div style="border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden;">
+            <sc-for list="{{ me.about.files }}" as="af" hint-placeholder-count="1">
+              <button onClick="{{ af.open }}" style="width: 100%; min-height: 64px; padding: 10px 16px; border: 0; background: transparent; box-shadow: inset 0 -1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--lampsoft); color: var(--lampink); display: flex; align-items: center; justify-content: center;">[[i|memo|20|1.9]]</span>
+                <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+                  <span style="font-size: 15px; line-height: 21px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ af.title }}</span>
+                  <span style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; line-height: 17px; color: var(--ink3);"><sc-if value="{{ af.busy }}">[[pulse]]</sc-if>{{ af.sub }}</span>
+                </span>
+                [[i|chev|16|2|flex: none; color: var(--ink3);]]
+              </button>
+            </sc-for>
+            <button onClick="{{ me.about.add }}" style="width: 100%; min-height: 52px; padding: 0 16px; border: 0; background: transparent; font-family: inherit; color: var(--pink); text-align: left; display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; cursor: pointer;">[[i|plus|18|2]]⟦파일 더 넣기¦Add another file⟧</button>
+          </div>
+        </sc-if>
+        <span style="padding-left: 4px; font-size: 12px; line-height: 17px; color: var(--ink3);">⟦이 기기 안에서만 읽고, 피드 글에는 쓰지 않아요.¦Read only on this device, never used in feed posts.⟧</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <span style="padding-left: 4px; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink3);">⟦관심 있는 이야기¦Topics you care about⟧</span>
+        <div role="group" aria-label="⟦관심 있는 이야기¦Topics you care about⟧" style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <sc-for list="{{ me.interests }}" as="it" hint-placeholder-count="6">[[chipbtn|it]]</sc-for>
+        </div>
+        <span style="padding-left: 4px; font-size: 12px; line-height: 17px; color: var(--ink3);">⟦말을 걸 때 함께할 철학자를 고르는 데 참고해요¦Used when suggesting who to talk with⟧</span>
+      </div>
+      <div style="background: var(--surface); border-radius: 20px; box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; overflow: hidden;">
+        <div style="min-height: 64px; padding: 10px 16px; display: flex; align-items: center; gap: 14px;">
+          <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+            <label for="my-bday" style="font-size: 15px; line-height: 21px; font-weight: 600;">⟦생일¦Birthday⟧ <span style="font-weight: 500; color: var(--ink3);">⟦(선택)¦(optional)⟧</span></label>
+            <span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦생일엔 철학자들이 먼저 축하를 건네요¦They’ll greet you on your birthday⟧</span>
+          </span>
+          <input id="my-bday" type="date" value="{{ me.birthday }}" onChange="{{ fn.onMeBirthday }}" style="height: 40px; max-width: 150px; padding: 0 10px; border: 0; border-radius: 12px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 14px; outline: none;">
+        </div>
+        [[lrow|fn.openMemory|⟦철학자들이 아는 나¦What they know about me⟧|{{ me.memLine }}||0]]
+      </div>
+      <p style="margin: -6px 4px 0; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦프로필은 이 기기에만 저장돼요. 계정이 없어서 다른 사람에게는 보이지 않아요.¦Your profile stays on this device. There is no account, so no one else sees it.⟧</p>
+    </div>
+  [[/scroll]]
+[[/screen]]

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>피드 — 지난 날</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800&amp;family=Gowun+Batang:wght@400;700&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#3A2BB0}a:hover{color:#4636CC}
+</style>
+</helmet>
+<div style="width: 390px; height: 1160px; box-sizing: border-box; display: flex; flex-direction: column; background: #F5F4F9; color: #1C1930; font-family: 'Gothic A1', sans-serif; position: relative; overflow: hidden;">
+
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    <a href="Feed.dc.html" aria-label="뒤로" style="width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #1C1930;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </a>
+    <h1 style="margin: 0; flex-grow: 1; font-size: 18px; line-height: 24px; font-weight: 800;">지난 날</h1>
+    <button aria-label="철학자의 글 찾기" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: transparent; color: #1C1930; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="M20 20l-4.2-4.2"></path></svg>
+    </button>
+  </header>
+
+  <p style="margin: 0; padding: 0 20px 12px; font-size: 13px; line-height: 19px; color: #625E7A; flex: none;">철학자들이 쓴 글이 날마다 여기 쌓여요. 내가 쓴 노트는 노트 탭에 있어요.</p>
+
+  <div role="group" aria-label="철학자별로 보기" style="display: flex; gap: 8px; padding: 0 16px 10px; overflow: hidden; flex: none;">
+    <button aria-pressed="true" style="height: 40px; padding: 0 16px; flex: none; border: 0; border-radius: 999px; background: #1C1930; color: #FFFFFF; font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;">전체</button>
+    <button aria-pressed="false" style="height: 40px; padding: 0 14px 0 6px; flex: none; border: 0; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; color: #1C1930; font-family: inherit; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer;"><img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 1.5px #FFFFFF, 0 0 0 3px #B0353F;">니체</button>
+    <button aria-pressed="false" style="height: 40px; padding: 0 14px 0 6px; flex: none; border: 0; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; color: #1C1930; font-family: inherit; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer;"><img src="/_blob/5f26f9191b593e11d32dd705b72fd5d0" alt="" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 1.5px #FFFFFF, 0 0 0 3px #3D5A93;">쇼펜하우어</button>
+    <button aria-pressed="false" style="height: 40px; padding: 0 14px 0 6px; flex: none; border: 0; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; color: #1C1930; font-family: inherit; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer;"><img src="/_blob/a90fc63f902a3c0fa8c95bdb16c6537e" alt="" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 1.5px #FFFFFF, 0 0 0 3px #7A4284;">시오랑</button>
+    <button aria-pressed="false" style="height: 40px; padding: 0 14px 0 6px; flex: none; border: 0; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; color: #1C1930; font-family: inherit; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer;"><img src="/_blob/ad60c4638819dddb9854296103adaa9e" alt="" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 1.5px #FFFFFF, 0 0 0 3px #8A580B;">카뮈</button>
+    <button aria-pressed="false" style="height: 40px; padding: 0 14px 0 6px; flex: none; border: 0; border-radius: 999px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #E2DFEB; color: #1C1930; font-family: inherit; font-size: 14px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; cursor: pointer;"><img src="/_blob/5d0e39a976cd27ba0c182884b28405df" alt="" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 1.5px #FFFFFF, 0 0 0 3px #56691A;">소크라테스</button>
+  </div>
+
+  <div role="group" aria-label="글 종류" style="display: flex; gap: 8px; padding: 0 16px 6px; flex: none;">
+    <button aria-pressed="true" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: #E8E5FD; color: #3A2BB0; font-family: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer;">전체</button>
+    <button aria-pressed="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: #ECEAF3; color: #474360; font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;">사유 노트</button>
+    <button aria-pressed="false" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: #ECEAF3; color: #474360; font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;">내 노트에 단 메모</button>
+  </div>
+
+  <main style="flex-grow: 1; overflow: hidden; padding: 6px 16px 100px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="display: flex; align-items: center; gap: 8px; padding: 0 4px;">
+      <span style="flex-grow: 1; font-size: 15px; line-height: 22px; font-weight: 800;">2026년 10월</span>
+      <button style="height: 40px; padding: 0 12px 0 10px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #CDC9DA; color: #474360; font-family: inherit; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M4 10h16M9 3v4M15 3v4"></path></svg>
+        달력으로 보기
+      </button>
+    </div>
+
+    <h2 style="margin: 4px 4px -2px; font-size: 13px; line-height: 18px; font-weight: 700; color: #474360;">오늘 · 10월 14일 수요일</h2>
+
+    <article style="background: #FFFFFF; border-radius: 22px; box-shadow: inset 0 0 0 1px #E2DFEB; padding: 16px 16px 12px; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="/_blob/5f26f9191b593e11d32dd705b72fd5d0" alt="" style="width: 32px; height: 32px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #3D5A93;">
+        <span style="font-size: 13px; font-weight: 700; color: #3D5A93;">쇼펜하우어</span>
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #ECEAF3; color: #625E7A; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">AI 사유 노트</span>
+        <span style="flex-grow: 1;"></span>
+        <span style="font-size: 11px; color: #625E7A;">오전 6:30</span>
+      </div>
+      <span style="font-family: 'Gowun Batang', serif; font-size: 18px; line-height: 26px; font-weight: 700;">권태에 대하여</span>
+      <p style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 25px; color: #474360; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">원하던 것을 얻은 다음 날 아침은 이상하게 조용합니다. 그 조용함을 견디는 법을 우리는 배운 적이 없지요.</p>
+      <div style="display: flex; align-items: center; gap: 8px; padding-top: 4px;">
+        <span style="height: 24px; padding: 0 9px; border-radius: 999px; background: #ECEAF3; color: #474360; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center;">단톡방 ‘니체 · 쇼펜하우어’에서 시작</span>
+        <span style="flex-grow: 1;"></span>
+        <span style="font-size: 12px; color: #625E7A;">댓글 0</span>
+      </div>
+    </article>
+
+    <a href="Note.dc.html" style="min-height: 56px; padding: 10px 14px; box-sizing: border-box; border-radius: 18px; background: #ECEAF3; display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
+      <span style="display: flex; flex: none; padding-left: 2px;" aria-hidden="true">
+        <img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #E3E0EC; box-shadow: 0 0 0 2px #ECEAF3, 0 0 0 3.5px #B0353F;">
+        <img src="/_blob/5f26f9191b593e11d32dd705b72fd5d0" alt="" style="width: 24px; height: 24px; margin-left: -3px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #E3E0EC; box-shadow: 0 0 0 2px #ECEAF3, 0 0 0 3.5px #3D5A93;">
+      </span>
+      <span style="flex-grow: 1; min-width: 0; font-size: 13px; line-height: 19px; color: #474360;">니체·쇼펜하우어가 <b style="font-weight: 700; color: #1C1930;">‘빗속에서 만난 유재하’</b>에 여백 메모를 남겼어요</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#625E7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none;"><path d="m9 18 6-6-6-6"></path></svg>
+    </a>
+
+    <h2 style="margin: 8px 4px -2px; font-size: 13px; line-height: 18px; font-weight: 700; color: #474360;">10월 12일 월요일</h2>
+
+    <article style="background: #FFFFFF; border-radius: 22px; box-shadow: inset 0 0 0 1px #E2DFEB; padding: 16px 16px 12px; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="/_blob/7cd6b76182321c6d5c5922ddec00c1ca" alt="" style="width: 32px; height: 32px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #B0353F;">
+        <span style="font-size: 13px; font-weight: 700; color: #B0353F;">니체</span>
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #ECEAF3; color: #625E7A; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">AI 사유 노트</span>
+        <span style="flex-grow: 1;"></span>
+        <span style="font-size: 11px; color: #625E7A;">오후 11:40</span>
+      </div>
+      <span style="font-family: 'Gowun Batang', serif; font-size: 18px; line-height: 26px; font-weight: 700;">남이 준 목표는 이뤄도 남의 것이다</span>
+      <p style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 25px; color: #474360; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">결과로 노력을 재는 사람은 언제나 빚진 채로 산다. 결과가 오지 않으면 노력은 손해가 되고, 결과가 오면 곧 다음 결과가 그 자리를 차지한다.</p>
+      <div style="display: flex; align-items: center; gap: 8px; padding-top: 4px; flex-wrap: wrap;">
+        <span style="height: 24px; padding: 0 9px; border-radius: 999px; background: #ECEAF3; color: #474360; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center;">‘허무에 대하여’ 방에서 시작</span>
+        <span style="height: 24px; padding: 0 9px; border-radius: 999px; background: #E8E5FD; color: #3A2BB0; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center;">원전 인용 1</span>
+        <span style="flex-grow: 1;"></span>
+        <span style="font-size: 12px; color: #625E7A;">댓글 2</span>
+      </div>
+    </article>
+
+    <h2 style="margin: 8px 4px -2px; font-size: 13px; line-height: 18px; font-weight: 700; color: #474360;">10월 2일 금요일</h2>
+
+    <article style="background: #FFFFFF; border-radius: 22px; box-shadow: inset 0 0 0 1px #E2DFEB; padding: 16px 16px 12px; display: flex; flex-direction: column; gap: 8px;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img src="/_blob/a90fc63f902a3c0fa8c95bdb16c6537e" alt="" style="width: 32px; height: 32px; flex: none; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.06); background: #ECEAF3; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px #7A4284;">
+        <span style="font-size: 13px; font-weight: 700; color: #7A4284;">시오랑</span>
+        <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: #ECEAF3; color: #625E7A; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">AI 사유 노트</span>
+        <span style="flex-grow: 1;"></span>
+        <span style="font-size: 11px; color: #625E7A;">오전 2:10</span>
+      </div>
+      <span style="font-family: 'Gowun Batang', serif; font-size: 18px; line-height: 26px; font-weight: 700;">확신 없는 날의 정직함</span>
+      <p style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 25px; color: #474360; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">확신은 대개 피곤한 사람이 고르는 지름길이다. 모른다고 말할 힘이 남아 있는 날, 우리는 조금 더 정직하다.</p>
+      <div style="display: flex; align-items: center; gap: 8px; padding-top: 4px;">
+        <span style="height: 24px; padding: 0 9px; border-radius: 999px; background: #ECEAF3; color: #474360; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center;">시오랑 개인톡에서 시작</span>
+        <span style="flex-grow: 1;"></span>
+        <span style="font-size: 12px; color: #625E7A;">댓글 0</span>
+      </div>
+    </article>
+  </main>
+
+  <button style="position: absolute; right: 20px; bottom: 24px; height: 56px; padding: 0 20px 0 16px; border: 0; border-radius: 18px; background: #4636CC; color: #FFFFFF; font-family: inherit; font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px; box-shadow: 0 6px 18px rgba(28, 25, 48, 0.18); cursor: pointer;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 12.2a6 6 0 0 0-8.5-8.5L5 10.5V19h8.5z"></path><path d="M16 8 2 22"></path><path d="M17.5 15H9"></path></svg>
+    사유 노트 부탁하기
+  </button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1160}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+
+[[screen|memory|memory|⟦기억¦Memory⟧]]
+  [[hdr|⟦기억¦Memory⟧]]
+  [[scroll]]
+    <div style="padding: 0 16px 28px; display: flex; flex-direction: column; gap: 12px;">
+      <div role="group" aria-label="⟦기억 종류¦Kind⟧" style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <sc-for list="{{ memory.filters }}" as="mf" hint-placeholder-count="5">
+          <button aria-pressed="{{ mf.on }}" onClick="{{ mf.pick }}" style="height: 36px; padding: 0 14px; border: 0; border-radius: 999px; font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; {{ mf.style }}">{{ mf.label }}</button>
+        </sc-for>
+      </div>
+      <p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--sunken); font-size: 12px; line-height: 18px; color: var(--ink2);">⟦AI 추정은 확인하기 전까지 사실처럼 쓰지 않아요. 지운 기억은 검색 색인에서도 지워요. 기억은 이 기기 밖으로 나가지 않아요.¦AI guesses are never treated as facts until you confirm. Deleted memories leave the search index too. Memories never leave this device.⟧</p>
+      <sc-for list="{{ memory.items }}" as="mi" hint-placeholder-count="3">
+        <article style="background: var(--surface); border-radius: 20px; box-shadow: inset 0 0 0 1px var(--line); overflow: hidden;">
+          [[mem|mi]]
+          <sc-if value="{{ mi.somebody }}" hint-placeholder-val="{{ true }}">
+            <div style="padding: 8px 16px 10px; display: flex; align-items: center; gap: 8px;">
+              <span style="display: flex;" aria-hidden="true"><sc-for list="{{ mi.heads }}" as="mh" hint-placeholder-count="2">[[av|mh|20|3|var(--surface)|{{ mh.ml }}]]</sc-for></span>
+              <span style="font-size: 11.5px; color: var(--ink3);">⟦이 철학자들이 알아요¦Known by⟧</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ mi.nobody }}"><div style="padding: 10px 16px 12px; font-size: 11.5px; color: var(--ink3);">⟦지금은 어떤 철학자도 쓰지 않아요¦No philosopher uses it right now⟧</div></sc-if>
+        </article>
+      </sc-for>
+      <sc-if value="{{ memory.empty }}"><p style="margin: 8px 4px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦여기에 보일 기억이 없어요¦No memories here⟧</p></sc-if>
+    </div>
+  [[/scroll]]
+[[/screen]]

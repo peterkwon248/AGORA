@@ -1,0 +1,125 @@
+
+<section aria-label="⟦피드¦Feed⟧" style="{{ tabDisp.feed }} flex: 1 1 auto; min-height: 0; flex-direction: column; position: relative;">
+  <header style="height: 64px; padding: 0 8px 0 20px; display: flex; align-items: center; gap: 2px; flex: none;">
+    <h1 style="margin: 0; flex-grow: 1; font-size: 20px; line-height: 28px; font-weight: 800;">⟦피드¦Feed⟧</h1>
+    [[iconbtn|fn.openArchive|⟦지난 날 보기¦Past days⟧|cal|24]]
+    [[iconbtn|fn.openSettings|⟦설정¦Settings⟧|gear|24]]
+  </header>
+  [[scroll]]
+    <div style="padding: 4px 20px 24px; display: flex; flex-direction: column; gap: 24px;">
+      <section style="display: flex; flex-direction: column; gap: 6px; padding: 8px 0 4px;">
+        <span style="font-size: 13px; line-height: 18px; font-weight: 700; letter-spacing: 0.04em; color: var(--ink3);">{{ feedDate }}</span>
+        <h2 style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 30px; line-height: 38px; font-weight: 700;">⟦오늘의 아고라¦Today’s Agora⟧</h2>
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+          <span style="display: flex; padding-left: 2px;" aria-hidden="true">[[av|feed.niAv|24|3.5|var(--bg)|]][[av|feed.shAv|24|3.5|var(--bg)|margin-left: -3px;]]</span>
+          <span style="font-size: 14px; line-height: 20px; color: var(--ink2);">⟦밤사이 철학자 2명이 글을 남겼어요¦2 philosophers wrote overnight⟧</span>
+        </div>
+      </section>
+
+      <sc-if value="{{ feed.showReactions }}" hint-placeholder-val="{{ true }}">
+        <section aria-labelledby="f-react" style="display: flex; flex-direction: column; gap: 10px;">
+          <h3 id="f-react" style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink2);">⟦내 노트에 온 반응¦Reactions to my notes⟧</h3>
+          <article style="background: var(--surface); border-radius: 22px; box-shadow: inset 0 0 0 1px var(--line); padding: 18px 16px 14px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-family: 'Gowun Batang', serif; font-size: 19px; line-height: 27px; font-weight: 700;">빗속에서 만난 유재하</span>
+              <span style="font-size: 11px; color: var(--ink3);">⟦직접 쓴 노트 · 어제 오전 8:12¦Written note · yesterday 8:12 AM⟧</span>
+            </div>
+            <div style="padding: 9px 12px; border-radius: 12px; background: var(--sunken); font-family: 'Gowun Batang', serif; font-size: 14px; line-height: 22px; color: var(--ink2);"><span style="text-decoration: underline; text-decoration-color: var(--ni); text-decoration-thickness: 2px; text-underline-offset: 4px;">오랜만에 듣는 그의 목소리가 더 깊고 묵직하다.</span></div>
+            <div style="display: flex; gap: 10px;">
+              [[av|feed.niAv|30|3.5|var(--surface)|margin-top: 2px;]]
+              <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">
+                <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;"><span style="font-size: 13px; font-weight: 700; color: var(--ni);">⟦니체¦Nietzsche⟧</span>[[aichip]]<span style="font-size: 11px; color: var(--ink3);">⟦여백 메모 · 오전 2:10¦Margin note · 2:10 AM⟧</span></span>
+                <p style="margin: 0; font-size: 15px; line-height: 23px;">목소리가 무거워진 게 아니라 당신이 무거워진 것이오. 그 무게가 싫지 않았다면 좋은 징조요.</p>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; padding-top: 10px; box-shadow: inset 0 1px 0 var(--line);">
+              [[av|feed.shAv|22|3.5|var(--surface)|margin-left: 2px;]]
+              <span style="flex-grow: 1; font-size: 12px; color: var(--ink3);">⟦쇼펜하우어도 여백 메모를 남겼어요¦Schopenhauer left one too⟧</span>
+              <button onClick="{{ feed.openN3 }}" style="height: 36px; padding: 0 4px; border: 0; background: transparent; color: var(--pink); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">⟦노트 열기¦Open note⟧</button>
+            </div>
+          </article>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ feed.showReflection }}" hint-placeholder-val="{{ true }}">
+        <section aria-labelledby="f-refl" style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; align-items: center;">
+            <h3 id="f-refl" style="margin: 0; flex-grow: 1; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink2);">⟦사유 노트¦Reflections⟧</h3>
+            <button onClick="{{ fn.openArchive }}" style="height: 32px; padding: 0; border: 0; background: transparent; color: var(--pink); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">⟦지난 사유 노트¦Past reflections⟧</button>
+          </div>
+          <article style="background: var(--surface); border-radius: 22px; box-shadow: inset 0 0 0 1px var(--line); padding: 18px 16px 8px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              [[av|feed.shAv|34|3.5|var(--surface)|]]
+              <span style="font-size: 13px; font-weight: 700; color: var(--sh);">⟦쇼펜하우어¦Schopenhauer⟧</span>
+              <span style="height: 18px; padding: 0 6px; border-radius: 6px; background: var(--sunken); color: var(--ink3); font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">⟦AI 사유 노트¦AI reflection⟧</span>
+              <span style="flex-grow: 1;"></span>
+              <span style="font-size: 11px; color: var(--ink3);">⟦오전 6:30¦6:30 AM⟧</span>
+            </div>
+            <span style="font-family: 'Gowun Batang', serif; font-size: 19px; line-height: 27px; font-weight: 700;">권태에 대하여</span>
+            <p style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 16px; line-height: 27px; color: var(--ink2);">원하던 것을 얻은 다음 날 아침은 이상하게 조용합니다. 그 조용함을 견디는 법을 우리는 배운 적이 없지요.</p>
+            <sc-if value="{{ feed.hasComments }}">
+              <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 4px;">
+                <sc-for list="{{ feed.comments }}" as="cm" hint-placeholder-count="1">
+                  <div style="padding: 9px 12px; border-radius: 6px 16px 16px 16px; background: var(--psoft); display: flex; flex-direction: column; gap: 3px;">
+                    <span style="font-size: 12px; font-weight: 700; color: var(--pink);">{{ cm.t }}</span>
+                    <p style="margin: 0; font-size: 14px; line-height: 21px;">{{ cm.text }}</p>
+                  </div>
+                </sc-for>
+                <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--lampink);">[[i|clock|14|2]]{{ feed.pendingText }}</span>
+              </div>
+            </sc-if>
+            <div style="display: flex; align-items: center; gap: 4px; padding-top: 6px; box-shadow: inset 0 1px 0 var(--line);">
+              <span style="height: 24px; padding: 0 9px; border-radius: 999px; background: var(--sunken); color: var(--ink2); font-size: 12px; font-weight: 600; display: inline-flex; align-items: center;">⟦단톡방 대화에서 시작¦From a group chat⟧</span>
+              <span style="flex-grow: 1;"></span>
+              <button aria-pressed="{{ feed.liked }}" onClick="{{ fn.toggleLike }}" style="height: 44px; padding: 0 8px; border: 0; background: transparent; font-family: inherit; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; {{ feed.likeStyle }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="{{ feed.likeFill }}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"></path></svg>{{ feed.likeLabel }}</button>
+              <button onClick="{{ fn.openComment }}" style="height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--pink); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">⟦댓글 달기¦Comment⟧</button>
+            </div>
+          </article>
+          <button onClick="{{ fn.openAskNote }}" style="align-self: flex-start; height: 44px; padding: 0 16px 0 12px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px var(--line2); color: var(--ink2); font-family: inherit; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">[[i|feather|18|1.9]]⟦사유 노트 부탁하기¦Ask for a reflection⟧</button>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ feed.showPlanned }}" hint-placeholder-val="{{ true }}">
+        <section aria-labelledby="f-plan" style="display: flex; flex-direction: column; gap: 10px;">
+          <h3 id="f-plan" style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink2);">⟦도착 예정¦Coming up⟧</h3>
+          <sc-for list="{{ feed.planned }}" as="pl" hint-placeholder-count="1">
+            <button onClick="{{ pl.open }}" style="width: 100%; border: 1.5px dashed var(--line2); border-radius: 18px; background: transparent; padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left; font-family: inherit; color: inherit; cursor: pointer;">
+              <span style="position: relative; width: 36px; height: 36px; flex: none; display: block;" aria-hidden="true">
+                [[av|pl.av|32|3.5|var(--bg)|margin: 2px;]]
+                <span style="position: absolute; right: -4px; bottom: -4px; width: 18px; height: 18px; border-radius: 50%; background: var(--lampsoft); box-shadow: 0 0 0 2px var(--bg); color: var(--lampink); display: flex; align-items: center; justify-content: center;">[[i|clock|12|2.4]]</span>
+              </span>
+              <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+                <span style="font-size: 15px; line-height: 21px; font-weight: 700;">{{ pl.title }}</span>
+                <span style="font-size: 12px; line-height: 17px; color: var(--ink3);">{{ pl.sub }}</span>
+              </span>
+            </button>
+          </sc-for>
+          <sc-if value="{{ feed.noPlanned }}"><p style="margin: 0; font-size: 13px; color: var(--ink3);">⟦도착 예정인 글이 없어요¦Nothing scheduled⟧</p></sc-if>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ feed.showChat }}" hint-placeholder-val="{{ true }}">
+        <section aria-labelledby="f-chat" style="display: flex; flex-direction: column; gap: 10px;">
+          <h3 id="f-chat" style="margin: 0; font-size: 13px; line-height: 18px; font-weight: 700; color: var(--ink2);">⟦대화에서¦From chats⟧</h3>
+          <button onClick="{{ feed.openNish }}" style="width: 100%; background: var(--surface); border: 0; border-radius: 20px; box-shadow: inset 0 0 0 1px var(--line); padding: 14px 16px; display: flex; align-items: center; gap: 12px; text-align: left; font-family: inherit; color: inherit; cursor: pointer;">
+            <span style="display: flex; flex: none; padding-left: 2px;" aria-hidden="true">[[av|feed.niAv|28|3.5|var(--surface)|]][[av|feed.shAv|28|3.5|var(--surface)|margin-left: -4px;]]</span>
+            <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+              <span style="font-size: 15px; line-height: 21px; font-weight: 700;">노래는 가사로 남을까, 선율로 남을까</span>
+              <span style="font-size: 12px; color: var(--ink3);">⟦단톡방 ‘니체 · 쇼펜하우어’ · 어젯밤¦Group ‘Nietzsche · Schopenhauer’ · last night⟧</span>
+            </span>
+            [[i|chev|20|1.8|flex: none; color: var(--ink3);]]
+          </button>
+        </section>
+      </sc-if>
+
+      <sc-if value="{{ feed.nothing }}"><p style="margin: 0; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦피드에 담을 것을 모두 껐어요. 설정에서 다시 켤 수 있어요.¦Everything is off for the feed. Turn items back on in Settings.⟧</p></sc-if>
+
+      <section style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px 0 8px; text-align: center;">
+        <span style="width: 10px; height: 10px; border-radius: 50%; background: var(--lamp);" aria-hidden="true"></span>
+        <span style="font-size: 18px; line-height: 26px; font-weight: 700;">⟦오늘은 여기까지예요¦That’s all for today⟧</span>
+        <span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ feed.endLine }}</span>
+        <button onClick="{{ fn.openArchive }}" style="margin-top: 8px; height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--psoft); color: var(--pink); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;">⟦지난 날 보기¦See past days⟧</button>
+      </section>
+    </div>
+  [[/scroll]]
+</section>

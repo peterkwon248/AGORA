@@ -1,0 +1,90 @@
+
+[[screen|room|room|{{ room.title }}]]
+  <header style="height: 64px; padding: 0 4px 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    [[back]]
+    <div style="flex-grow: 1; display: flex; flex-direction: column; min-width: 0;">
+      <span style="font-size: 18px; line-height: 24px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ room.title }}</span>
+      <span style="font-size: 12px; color: var(--ink3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ room.sub }}</span>
+    </div>
+    <span style="display: flex; padding-right: 4px; flex: none;" aria-hidden="true"><sc-for list="{{ room.heads }}" as="h" hint-placeholder-count="2">[[av|h|26|3.5|var(--bg)|{{ h.ml }}]]</sc-for></span>
+    [[iconbtn|fn.openRoomInfo|⟦방 정보·설정¦Room info⟧|info|24]]
+  </header>
+  <div ref="{{ fn.setScrollEl }}" class="ag-scroll" style="flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 8px 12px 12px 8px;">
+    <p style="margin: 2px 8px 10px; padding: 10px 12px; border-radius: 14px; background: var(--sunken); font-size: 12px; line-height: 18px; color: var(--ink2); display: flex; gap: 8px;">[[i|info2|15|2|flex: none; margin-top: 2px;]]<span>⟦철학자들은 역사 속 인물의 사상을 바탕으로 한 AI 시뮬레이션이에요. 이 방의 대화는 이 방 안에서만 기억해요.¦The philosophers are AI simulations of historical thinkers. This room’s talk is remembered only here.⟧</span></p>
+    <sc-if value="{{ room.first }}">
+      <div style="margin: 0 8px 6px; padding: 10px 12px; border-radius: 14px; background: var(--lampsoft); color: var(--lampink); display: flex; flex-direction: column; gap: 6px;">
+        <span style="display: flex; align-items: center; gap: 8px;">[[i|hand|16|2|flex: none;]]<span style="flex-grow: 1; font-size: 12.5px; font-weight: 700;">{{ room.firstLine }}</span><button aria-expanded="{{ room.whyOpen }}" onClick="{{ room.toggleWhy }}" style="height: 30px; padding: 0 10px; border: 0; border-radius: 999px; background: var(--surface); color: var(--lampink); font-family: inherit; font-size: 12px; font-weight: 700; cursor: pointer;">⟦왜 왔나요?¦Why?⟧</button></span>
+        <sc-if value="{{ room.whyOpen }}"><p style="margin: 0; font-size: 12px; line-height: 18px; color: var(--ink2);">{{ room.whyText }}</p></sc-if>
+      </div>
+    </sc-if>
+    <sc-for list="{{ room.items }}" as="m" hint-placeholder-count="4">
+      <sc-if value="{{ m.divider }}"><div style="display: flex; justify-content: center; margin: 12px 0 0;"><span style="font-size: 11px; color: var(--ink3); padding: 3px 10px; border-radius: 999px; background: var(--sunken);">{{ m.label }}</span></div></sc-if>
+      <sc-if value="{{ m.docMsg }}">
+        <div style="display: flex; justify-content: flex-end; align-items: flex-end; gap: 6px; margin-top: 12px;">
+          <span style="font-size: 10.5px; color: var(--ink3); flex: none;">{{ m.t }}</span>
+          <button onClick="{{ m.openDoc }}" disabled="{{ m.docGone }}" style="width: 236px; padding: 12px 14px; border: 0; border-radius: 20px 6px 20px 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line2); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer;">
+            <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|memo|20|1.9]]</span>
+            <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-size: 14.5px; line-height: 20px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ m.docTitle }}</span>
+              <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 17px; color: var(--ink3);"><sc-if value="{{ m.docBusy }}">[[pulse]]</sc-if>{{ m.docSub }}</span>
+            </span>
+          </button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ m.me }}">
+        <div style="display: flex; justify-content: flex-end; align-items: flex-end; gap: 6px; margin-top: 12px;">
+          <span style="font-size: 10.5px; color: var(--ink3); flex: none;">{{ m.t }}</span>
+          <div style="max-width: 272px; padding: 10px 14px; border-radius: 20px 6px 20px 20px; background: var(--me); color: var(--onme); font-size: 15px; line-height: 23px; white-space: pre-wrap; overflow-wrap: anywhere;">{{ m.text }}</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ m.phil }}">
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
+          <button aria-label="{{ m.name }}" onClick="{{ m.openProfile }}" style="width: 36px; flex: none; padding: 2px 0 0; border: 0; background: transparent; display: flex; justify-content: center; align-self: flex-start; cursor: pointer;">[[av|m.av|32|4|var(--bg)|]]</button>
+          <div style="display: flex; flex-direction: column; gap: 4px; max-width: 280px; min-width: 0;">
+            <span style="display: flex; align-items: center; gap: 6px; padding-left: 4px; flex-wrap: wrap;"><span style="font-size: 13px; font-weight: 700; color: {{ m.hue }};">{{ m.name }}</span>[[aichip]]<sc-if value="{{ m.hasTo }}"><span style="font-size: 12px; font-weight: 600; color: var(--ink3);">{{ m.to }}</span></sc-if><sc-if value="{{ m.first }}">[[firstchip]]</sc-if></span>
+            <div style="display: flex; align-items: flex-end; gap: 6px;">
+              <div style="padding: 10px 14px; border-radius: 6px 20px 20px 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 15px; line-height: 23px; overflow-wrap: anywhere;">{{ m.text }}<sc-if value="{{ m.cut }}"><span style="margin-left: 6px; font-size: 11px; color: var(--ink3);">⟦멈춤¦stopped⟧</span></sc-if></div>
+              <span style="font-size: 10.5px; color: var(--ink3); flex: none;">{{ m.t }}</span>
+            </div>
+            <sc-if value="{{ m.hasRef }}"><button aria-label="{{ m.refAria }}" onClick="{{ m.openRef }}" style="align-self: flex-start; max-width: 100%; min-height: 32px; margin-left: 2px; padding: 0 12px 0 9px; border: 0; border-radius: 999px; font-family: inherit; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; cursor: pointer; {{ m.refStyle }}">[[i|memo|14|2|flex: none;]]<span style="min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ m.refLabel }}</span></button></sc-if>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ m.typing }}">
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
+          <button aria-label="{{ m.name }}" onClick="{{ m.openProfile }}" style="width: 36px; flex: none; padding: 2px 0 0; border: 0; background: transparent; display: flex; justify-content: center; align-self: flex-start; cursor: pointer;">[[av|m.av|32|4|var(--bg)|]]</button>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <span style="display: flex; align-items: center; gap: 6px; padding-left: 4px;"><span style="font-size: 13px; font-weight: 700; color: {{ m.hue }};">{{ m.name }}</span>[[aichip]]<sc-if value="{{ m.hasTo }}"><span style="font-size: 12px; font-weight: 600; color: var(--ink3);">{{ m.to }}</span></sc-if></span>
+            <div role="status" aria-label="⟦쓰는 중¦Writing⟧" style="align-self: flex-start; padding: 14px 16px; border-radius: 6px 20px 20px 20px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--lamp); display: flex; gap: 5px;">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink3); animation: agDots 1.2s infinite;"></span>
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink3); animation: agDots 1.2s infinite; animation-delay: 0.2s;"></span>
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--ink3); animation: agDots 1.2s infinite; animation-delay: 0.4s;"></span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ m.streaming }}">
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
+          <button aria-label="{{ m.name }}" onClick="{{ m.openProfile }}" style="width: 36px; flex: none; padding: 2px 0 0; border: 0; background: transparent; display: flex; justify-content: center; align-self: flex-start; cursor: pointer;">[[av|m.av|32|4|var(--bg)|]]</button>
+          <div style="display: flex; flex-direction: column; gap: 4px; max-width: 280px; min-width: 0;">
+            <span style="display: flex; align-items: center; gap: 6px; padding-left: 4px;"><span style="font-size: 13px; font-weight: 700; color: {{ m.hue }};">{{ m.name }}</span>[[aichip]]<sc-if value="{{ m.hasTo }}"><span style="font-size: 12px; font-weight: 600; color: var(--ink3);">{{ m.to }}</span></sc-if></span>
+            <div aria-live="polite" style="padding: 10px 14px; border-radius: 6px 20px 20px 20px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--lamp); font-size: 15px; line-height: 23px; overflow-wrap: anywhere;">{{ m.text }}<span style="display: inline-block; width: 2px; height: 1.05em; background: var(--lamp); margin-left: 2px; vertical-align: -2px; animation: agBlink 1s steps(2) infinite;" aria-hidden="true"></span></div>
+          </div>
+        </div>
+      </sc-if>
+    </sc-for>
+    <sc-if value="{{ room.hasWait }}"><p style="margin: 14px 8px 0; font-size: 12px; line-height: 17px; color: var(--ink3); display: flex; align-items: center; gap: 6px;">[[i|clock|14|2|flex: none;]]{{ room.waitLine }}</p></sc-if>
+    <sc-if value="{{ room.empty }}"><p style="margin: 18px 8px; font-size: 14px; line-height: 21px; color: var(--ink3); text-align: center;">⟦첫 마디를 건네 보세요.¦Say the first word.⟧</p></sc-if>
+  </div>
+  <sc-if value="{{ room.hasAddr }}">
+    <div style="flex: none; padding: 0 16px 2px; display: flex;"><button onClick="{{ room.clearAddr }}" style="height: 30px; padding: 0 8px 0 12px; border: 0; border-radius: 999px; background: var(--psoft); color: var(--pink); font-family: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; cursor: pointer;">{{ room.addrText }}[[i|close|14|2.2]]</button></div>
+  </sc-if>
+  <footer style="flex: none; padding: 8px 12px 16px; display: flex; align-items: center; gap: 8px; background: var(--bg);">
+    <button aria-label="⟦자료 보내기 — 같이 읽기¦Send a file to read together⟧" onClick="{{ fn.openDocAdd }}" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: var(--sunken); color: var(--ink2); display: flex; align-items: center; justify-content: center; flex: none; cursor: pointer;">[[i|clip|22|1.8]]</button>
+    <button aria-label="⟦누구에게 말할지 고르기¦Choose who to address⟧" onClick="{{ fn.openMention }}" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: var(--sunken); color: var(--ink2); display: flex; align-items: center; justify-content: center; flex: none; cursor: pointer;">[[i|at|22|1.8]]</button>
+    [[hidelabel|room-in|⟦메시지¦Message⟧]]
+    <input id="room-in" type="text" value="{{ room.draft }}" onChange="{{ fn.onRoomDraft }}" onKeyDown="{{ fn.onRoomKey }}" placeholder="{{ room.placeholder }}" style="flex-grow: 1; min-width: 0; height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 15px; outline: none;">
+    <sc-if value="{{ room.idle }}"><button aria-label="⟦보내기¦Send⟧" onClick="{{ fn.sendRoom }}" disabled="{{ room.cantSend }}" style="width: 48px; height: 48px; border: 0; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex: none; cursor: pointer; {{ room.sendStyle }}">[[i|up|20|2.2]]</button></sc-if>
+    <sc-if value="{{ room.busy }}"><button aria-label="⟦답 멈추기¦Stop replies⟧" onClick="{{ fn.stopHere }}" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: var(--lamp); color: var(--onlamp); display: flex; align-items: center; justify-content: center; flex: none; cursor: pointer;">[[i|stop|20]]</button></sc-if>
+  </footer>
+[[/screen]]

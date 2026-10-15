@@ -1,0 +1,17 @@
+
+</div>
+<nav aria-label="⟦주요 화면¦Main⟧" style="height: 80px; flex: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--nav); box-shadow: inset 0 1px 0 var(--line);">
+  <button aria-current="{{ nav.people.current }}" onClick="{{ nav.people.go }}" style="border: 0; background: transparent; font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 700; cursor: pointer; {{ nav.people.color }}">
+    <span style="position: relative; width: 64px; height: 32px; border-radius: 16px; display: flex; align-items: center; justify-content: center; {{ nav.people.pill }}">[[i|person|24|1.8]]</span>⟦프로필¦Profiles⟧
+  </button>
+  <button aria-current="{{ nav.chat.current }}" onClick="{{ nav.chat.go }}" style="border: 0; background: transparent; font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 700; cursor: pointer; {{ nav.chat.color }}">
+    <span style="position: relative; width: 64px; height: 32px; border-radius: 16px; display: flex; align-items: center; justify-content: center; {{ nav.chat.pill }}">[[i|chat|24|1.8]]<sc-if value="{{ nav.hasChatBadge }}"><span style="position: absolute; right: 7px; top: -1px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px; background: var(--primary); color: var(--onprimary); box-shadow: 0 0 0 2px var(--nav); font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center;">{{ nav.chatBadge }}</span></sc-if></span>⟦채팅¦Chats⟧
+  </button>
+  <button aria-current="{{ nav.feed.current }}" onClick="{{ nav.feed.go }}" style="border: 0; background: transparent; font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 700; cursor: pointer; {{ nav.feed.color }}">
+    <span style="position: relative; width: 64px; height: 32px; border-radius: 16px; display: flex; align-items: center; justify-content: center; {{ nav.feed.pill }}">[[i|feed|24|1.8]]<sc-if value="{{ nav.hasFeedBadge }}"><span style="position: absolute; right: 9px; top: 0; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 999px; background: var(--lamp); color: var(--onlamp); font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center;">3</span></sc-if></span>⟦피드¦Feed⟧
+  </button>
+  <button aria-current="{{ nav.notes.current }}" onClick="{{ nav.notes.go }}" style="border: 0; background: transparent; font-family: inherit; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 12px; font-weight: 700; cursor: pointer; {{ nav.notes.color }}">
+    <span style="position: relative; width: 64px; height: 32px; border-radius: 16px; display: flex; align-items: center; justify-content: center; {{ nav.notes.pill }}">[[i|book|24|1.8]]</span>⟦노트¦Notes⟧
+  </button>
+</nav>
+</div>

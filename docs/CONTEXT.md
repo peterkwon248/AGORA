@@ -3,6 +3,8 @@
 ## 제품
 철학자 AI들과 자유롭게 이야기하는 Android 메신저 + 하루 여러 개의 독립 노트. 기준 문서는 `docs/source/`(지시서 v1.0, 설계서 v2.1), 시각 기준은 `legacy-design-reference/`(시안 '어스름'). 에이전트 규칙은 `AGENTS.md`.
 
+화면 구조는 리디자인 중이다: 하단 탭 프로필·채팅·피드·노트, 나에 대해·같이 읽기(ADR-011·012). 앱으로 옮겨도 되는 범위는 `docs/design/REDESIGN-DIFF.md`의 ✅ 줄. 지금 앱 코드는 아직 이전 구조의 Sprint 0 대화방 하나뿐이다.
+
 ## 모듈
 | 모듈 | 종류 | 내용 |
 |---|---|---|
@@ -20,9 +22,10 @@
 ## 구현된 것 / 안 된 것
 - ✅ 생성 계약, 등록부, 조율 규칙(화제 관련도·직전 화자 포함), 스트리밍 표시, PC 실제 생성, 가상 휴대폰 대화방 1개(메모리 안에서만)
 - ❌ 기기 안 AI(llama.cpp), 영구 저장, 여러 방·개인톡, 멘션 UI, 노트·댓글, 예약·선제 연락, 설정·온보딩, 시안 글꼴·초상
+- ❌ 리디자인 화면(탭 4개·채팅 홈·피드·프로필 탭·철학자 이미지·나에 대해·같이 읽기) — 캔버스와 `design/redesign/` 써 보기 보드에만 있다
 
 ## 실행
 `docs/NEXT-ACTION.md`의 '시작 명령'. 환경 의존: JDK 17, Android SDK(36·37, build-tools 36.1.0, NDK 29.0.14206865, CMake 3.31.6), PC 시험엔 Ollama + `qwen2.5:7b`.
 
 ## 문서 지도
-`docs/sprint0/00_kickoff_report.md`(착수 보고) · `01` 시안 분석 · `02` 시안 동작 명세 · `03` 요구사항 점검표 · `04` Registry 계약 · `docs/decisions/ADR-*` (제품 방향: `ADR-010`)
+`docs/sprint0/00_kickoff_report.md`(착수 보고) · `01` 시안 분석 · `02` 시안 동작 명세 · `03` 요구사항 점검표 · `04` Registry 계약 · `docs/decisions/ADR-*` (제품 방향: `ADR-010`, 리디자인: `ADR-011` 화면 구조·`ADR-012` 나에 대해·같이 읽기) · `docs/design/REDESIGN-DIFF.md`(리디자인 차이 표) · `design/redesign/`(캔버스 사본·써 보기 원본·빌드/점검 도구 — 앱 코드 아님, README에 명령)

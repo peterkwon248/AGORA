@@ -1,0 +1,31 @@
+
+[[screen|cands|aboutCands|⟦기억 후보¦Memory candidates⟧]]
+  [[hdr|⟦기억 후보¦Memory candidates⟧]]
+  [[scroll]]
+    <div style="padding: 0 16px 28px; display: flex; flex-direction: column; gap: 12px;">
+      <p style="margin: 0 4px; font-size: 14px; line-height: 21px; color: var(--ink2);">{{ cands.intro }}</p>
+      <sc-if value="{{ cands.demo }}"><p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--sunken); font-size: 12px; line-height: 18px; color: var(--ink2);">⟦이 시안에선 대목마다 첫 문장을 후보로 보여 줘요. 실제 앱에선 기기 안 AI가 뽑아요.¦In this prototype each section’s first sentence is shown as a candidate. The real app uses the on-device AI.⟧</p></sc-if>
+      <sc-for list="{{ cands.items }}" as="cd" hint-placeholder-count="3">
+        <article style="padding: 14px 16px 12px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 6px;">
+          <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;"><span style="height: 18px; padding: 0 6px; border-radius: 6px; font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center; {{ cd.tone }}">{{ cd.label }}</span><span style="font-size: 11.5px; color: var(--ink3);">{{ cd.source }}</span></span>
+          <span style="font-size: 15.5px; line-height: 22px; font-weight: 700;">{{ cd.text }}</span>
+          <sc-if value="{{ cd.hasSub }}"><span style="font-size: 12.5px; line-height: 18px; color: var(--ink3);">{{ cd.sub }}</span></sc-if>
+          <sc-if value="{{ cd.dated }}"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 17px; font-weight: 700; color: var(--lampink);">[[i|clock|14|2|flex: none;]]⟦10월 14일 기준 · 시간이 지나면 다시 물어봐요¦As of Oct 14 · they’ll check again later⟧</span></sc-if>
+          <span style="display: flex; gap: 6px; margin-top: 4px;">
+            <button onClick="{{ cd.yes }}" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--psoft); color: var(--pink); font-family: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer;">{{ cd.yesLabel }}</button>
+            <button onClick="{{ cd.no }}" style="height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px var(--line2); color: var(--ink2); font-family: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer;">{{ cd.noLabel }}</button>
+          </span>
+        </article>
+      </sc-for>
+      <sc-if value="{{ cands.manyFacts }}">[[primary|cands.acceptAll|{{ cands.allLabel }}]]</sc-if>
+      <sc-if value="{{ cands.empty }}">
+        <div style="padding: 24px 8px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;">
+          <span style="width: 48px; height: 48px; border-radius: 50%; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|check|24|2.4]]</span>
+          <span style="font-size: 15px; line-height: 22px; font-weight: 700;">⟦확인할 후보를 모두 정리했어요¦All candidates reviewed⟧</span>
+          <span style="font-size: 13px; line-height: 19px; color: var(--ink3);">⟦기억한 내용은 기억 화면에서 고치거나 잊게 할 수 있어요.¦You can edit or forget them on the Memory screen.⟧</span>
+          [[secondary|fn.goBack|⟦돌아가기¦Back⟧|width: auto; padding: 0 28px; margin-top: 6px;]]
+        </div>
+      </sc-if>
+    </div>
+  [[/scroll]]
+[[/screen]]

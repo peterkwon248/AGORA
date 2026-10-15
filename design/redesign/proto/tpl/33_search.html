@@ -1,0 +1,30 @@
+
+[[screen|search|search|⟦검색¦Search⟧]]
+  <header style="height: 64px; padding: 0 12px 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    [[back]]
+    [[hidelabel|sr-q|⟦검색어¦Search terms⟧]]
+    <input id="sr-q" ref="{{ fn.focusEl }}" type="search" value="{{ search.q }}" onChange="{{ fn.onSearchQ }}" placeholder="⟦대화, 철학자, 노트 찾기¦Search chats, people, notes⟧" style="flex-grow: 1; min-width: 0; height: 44px; padding: 0 16px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 15px; outline: none;">
+  </header>
+  [[scroll]]
+    <sc-if value="{{ search.hint }}"><p style="margin: 12px 20px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦대화 내용, 철학자 이름, 생각의 결, 노트 제목으로 찾을 수 있어요.¦Search message text, names, ideas or note titles.⟧</p></sc-if>
+    <sc-if value="{{ search.hasRooms }}">
+      [[h2|⟦대화¦Chats⟧]]
+      <sc-for list="{{ search.rooms }}" as="r" hint-placeholder-count="2">[[row|r|44|15|9px 20px]]</sc-for>
+    </sc-if>
+    <sc-if value="{{ search.hasPhils }}">
+      [[h2|⟦철학자¦Philosophers⟧]]
+      <sc-for list="{{ search.phils }}" as="sp" hint-placeholder-count="2">
+        <button onClick="{{ sp.open }}" style="width: 100%; display: flex; align-items: center; gap: 14px; padding: 9px 20px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; cursor: pointer;">
+          [[av|sp.av|44|4|var(--bg)|margin: 2px;]]
+          <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><strong style="font-size: 15px; color: {{ sp.hue }};">{{ sp.name }}</strong><span style="font-size: 13px; line-height: 19px; color: var(--ink2);">{{ sp.sub }}</span></span>
+        </button>
+      </sc-for>
+    </sc-if>
+    <sc-if value="{{ search.hasNotes }}">
+      [[h2|⟦노트¦Notes⟧]]
+      <div style="padding: 0 16px; display: flex; flex-direction: column; gap: 10px;"><sc-for list="{{ search.notes }}" as="nc" hint-placeholder-count="1">[[ncard|nc]]</sc-for></div>
+    </sc-if>
+    <sc-if value="{{ search.none }}"><p style="margin: 18px 20px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦찾는 결과가 없어요¦No results⟧</p></sc-if>
+    <div style="height: 24px;"></div>
+  [[/scroll]]
+[[/screen]]

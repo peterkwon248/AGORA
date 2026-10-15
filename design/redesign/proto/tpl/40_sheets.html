@@ -1,0 +1,334 @@
+
+<sc-if value="{{ sheet.open }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; z-index: 200;">
+  <button aria-label="⟦닫기¦Close⟧" onClick="{{ fn.closeSheet }}" style="position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: var(--scrim); cursor: default; animation: agFade 0.18s ease-out;"></button>
+  <section role="dialog" aria-modal="true" class="ag-scroll" style="position: absolute; left: 0; right: 0; bottom: 0; max-height: 88%; overflow-y: auto; padding: 8px 16px 24px; border-radius: 28px 28px 0 0; background: var(--surface); color: var(--ink); box-shadow: 0 -8px 24px var(--cardshadow); display: flex; flex-direction: column; animation: agUp 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);">
+    <span style="align-self: center; width: 36px; height: 4px; margin-bottom: 14px; border-radius: 2px; background: var(--line2); flex: none;" aria-hidden="true"></span>
+
+    <sc-if value="{{ sheet.is_img }}">
+      <div style="padding: 0 4px 10px; display: flex; flex-direction: column; gap: 2px;">
+        <h2 style="margin: 0; font-size: 18px; line-height: 25px; font-weight: 800;">{{ sheet.img.title }}</h2>
+        <span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ sheet.img.sub }}</span>
+      </div>
+      <label style="position: relative; min-height: 68px; padding: 8px 4px; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|image|22|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦앨범에서 고르기¦Choose from album⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦내 사진이나 저장해 둔 그림¦Your photos or saved pictures⟧</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+        <input type="file" accept="image/*" aria-label="⟦앨범에서 고르기¦Choose from album⟧" onChange="{{ fn.onPickFile }}" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+      </label>
+      <label style="position: relative; min-height: 68px; padding: 8px 4px; display: flex; align-items: center; gap: 14px; cursor: pointer; box-shadow: inset 0 1px 0 var(--line);">
+        <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|camera|22|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦사진 찍기¦Take a photo⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦찍은 다음 동그랗게 맞춰요¦Then fit it into the circle⟧</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+        <input type="file" accept="image/*" capture="environment" aria-label="⟦사진 찍기¦Take a photo⟧" onChange="{{ fn.onPickFile }}" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+      </label>
+      <sc-if value="{{ sheet.img.custom }}">
+        <button onClick="{{ fn.recrop }}" style="width: 100%; min-height: 68px; padding: 8px 4px; border: 0; background: transparent; box-shadow: inset 0 1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+          <span style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center;">[[av|sheet.img.av|40|3.5|var(--surface)|]]</span>
+          <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦위치·크기 다시 맞추기¦Adjust position and size⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦지금 쓰는 내 이미지¦Your picture in use⟧</span></span>
+          [[i|check|22|2.4|flex: none; color: var(--primary);]]
+        </button>
+        <button onClick="{{ fn.resetImage }}" style="width: 100%; min-height: 68px; padding: 8px 4px; border: 0; background: transparent; box-shadow: inset 0 1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+          <span style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center;">[[av|sheet.img.appAv|40|3.5|var(--surface)|]]</span>
+          <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦앱이 준 초상으로 되돌리기¦Back to the app portrait⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦내 이미지는 지워져요¦Removes your picture⟧</span></span>
+        </button>
+      </sc-if>
+      <sc-if value="{{ sheet.img.app }}">
+        <div style="min-height: 68px; padding: 8px 4px; box-shadow: inset 0 1px 0 var(--line); display: flex; align-items: center; gap: 14px;">
+          <span style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center;">[[av|sheet.img.appAv|40|3.5|var(--surface)|]]</span>
+          <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦앱이 준 초상¦App portrait⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦지금 쓰는 중¦In use⟧</span></span>
+          [[i|check|22|2.4|flex: none; color: var(--primary); margin-right: 4px;]]
+        </div>
+      </sc-if>
+      <button onClick="{{ fn.useSample }}" style="width: 100%; min-height: 60px; padding: 8px 4px; border: 0; background: transparent; box-shadow: inset 0 1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--sunken); color: var(--ink2); display: flex; align-items: center; justify-content: center;">[[i|image|20|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 14.5px; line-height: 20px; font-weight: 700;">⟦예시 그림으로 해 보기¦Try a sample picture⟧</span><span style="font-size: 12.5px; line-height: 17px; color: var(--ink3);">⟦프로토타입에서 바로 써 볼 수 있는 산 그림¦A mountain picture to try it out in this prototype⟧</span></span>
+      </button>
+      <p style="margin: 6px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦고른 이미지는 동그랗게 잘라 보여요. 이 기기 밖으로 나가지 않아요.¦Pictures are shown cropped into a circle and never leave this device.⟧</p>
+      [[secondary|fn.closeSheet|⟦닫기¦Close⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_route }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦어디로 보낼까요?¦Where should it go?⟧</h2>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <sc-if value="{{ sheet.route.hasMatch }}">
+          <button role="radio" aria-checked="{{ sheet.route.contOn }}" onClick="{{ sheet.route.pickCont }}" style="width: 100%; padding: 14px 16px; border: 0; border-radius: 18px; background: var(--surface); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer; {{ sheet.route.contStyle }}">
+            <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">{{ sheet.route.contTitle }}</span><span style="font-size: 13px; color: var(--ink3);">⟦하던 대화에 이어서 보내요¦Continue the conversation⟧</span></span>
+            <span style="width: 22px; height: 22px; flex: none; border-radius: 50%; {{ sheet.route.contDot }}" aria-hidden="true"></span>
+          </button>
+          <sc-if value="{{ sheet.route.group }}">
+            <button role="radio" aria-checked="{{ sheet.route.newOn }}" onClick="{{ sheet.route.pickNew }}" style="width: 100%; padding: 14px 16px; border: 0; border-radius: 18px; background: var(--surface); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer; {{ sheet.route.newStyle }}">
+              <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; font-weight: 700;">⟦새 단톡방으로 따로 시작¦Start a separate group⟧</span><span style="font-size: 13px; color: var(--ink3);">{{ sheet.route.newSub }}</span></span>
+              <span style="width: 22px; height: 22px; flex: none; border-radius: 50%; {{ sheet.route.newDot }}" aria-hidden="true"></span>
+            </button>
+          </sc-if>
+        </sc-if>
+        <sc-if value="{{ sheet.route.noMatch }}"><p style="margin: 0 4px; font-size: 14px; line-height: 21px; color: var(--ink2);">{{ sheet.route.info }}</p></sc-if>
+      </div>
+      <div style="height: 14px;"></div>
+      [[secondary|fn.closeSheet|⟦닫기¦Close⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_mention }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦누구에게 말할까요?¦Who are you talking to?⟧</h2>
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <button onClick="{{ sheet.mention.pickAll }}" style="width: 100%; padding: 14px 16px; border: 0; border-radius: 18px; background: var(--surface); font-family: inherit; color: inherit; text-align: left; display: flex; flex-direction: column; gap: 2px; cursor: pointer; {{ sheet.mention.allStyle }}"><span style="font-size: 15px; font-weight: 700;">⟦모두에게¦Everyone⟧</span><span style="font-size: 13px; color: var(--ink3);">⟦방의 철학자들이 흐름에 따라 답해요¦Replies follow the room’s flow⟧</span></button>
+        <sc-for list="{{ sheet.mention.people }}" as="mp" hint-placeholder-count="2">
+          <button onClick="{{ mp.pick }}" style="width: 100%; padding: 10px 16px; border: 0; border-radius: 18px; background: var(--surface); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer; {{ mp.style }}">[[av|mp.av|36|3.5|var(--surface)|]]<span style="font-size: 15px; font-weight: 700; color: {{ mp.hue }};">{{ mp.label }}</span></button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_invite }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">{{ sheet.invite.title }}</h2>
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <sc-for list="{{ sheet.invite.rooms }}" as="ir" hint-placeholder-count="2">
+          <button onClick="{{ ir.pick }}" style="width: 100%; padding: 10px 12px; border: 0; border-radius: 18px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer;">[[cl|ir.cl|40|var(--surface)]]<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0;"><span style="font-size: 15px; font-weight: 700;">{{ ir.title }}</span><span style="font-size: 12.5px; color: var(--ink3);">{{ ir.sub }}</span></span></button>
+        </sc-for>
+        <sc-if value="{{ sheet.invite.none }}"><p style="margin: 0 4px; font-size: 14px; color: var(--ink3);">⟦부를 수 있는 단톡방이 없어요¦No group to invite to⟧</p></sc-if>
+      </div>
+      <div style="height: 12px;"></div>
+      [[secondary|sheet.invite.newGroup|⟦이 철학자와 새 단톡방 만들기¦Start a new group with them⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_askNote }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦누구에게 사유 노트를 부탁할까요?¦Who should write a reflection?⟧</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ sheet.pick.chips }}" as="sc" hint-placeholder-count="6">[[avchip|sc]]</sc-for></div>
+      [[hidelabel|sh-topic|⟦주제¦Topic⟧]]
+      <input id="sh-topic" type="text" value="{{ sheet.text }}" onChange="{{ fn.onSheetText }}" placeholder="⟦주제 (선택) · 예: 일과 쉼¦Topic (optional) · e.g. work and rest⟧" style="margin-top: 14px; height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 15px; outline: none;">
+      <p style="margin: 10px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦밤사이 쓰고, 내일 아침 피드로 와요¦Written overnight, arrives in tomorrow’s feed⟧</p>
+      [[primary|fn.submitAskNote|⟦부탁하기¦Ask⟧|sheet.pick.cant|sheet.pick.btn]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_comment }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦‘권태에 대하여’에 댓글¦Comment on ‘권태에 대하여’⟧</h2>
+      [[hidelabel|sh-comment|⟦댓글¦Comment⟧]]
+      <textarea id="sh-comment" value="{{ sheet.text }}" onChange="{{ fn.onSheetText }}" placeholder="⟦생각을 남겨 보세요¦Share your thoughts⟧" style="height: 110px; padding: 12px 16px; border: 0; border-radius: 16px; resize: none; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 15px; line-height: 23px; outline: none;"></textarea>
+      <p style="margin: 10px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦답글은 다음 날 아침 피드로 와요¦Replies arrive in the next morning’s feed⟧</p>
+      [[primary|fn.submitComment|⟦남기기¦Post⟧|sheet.comment.cant|sheet.comment.btn]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_access }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦누가 이 노트를 읽을 수 있나요?¦Who can read this note?⟧</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ sheet.pick.chips }}" as="sc" hint-placeholder-count="6">[[avchip|sc]]</sc-for></div>
+      <p style="margin: 12px 4px 14px; font-size: 12.5px; line-height: 18px; color: var(--ink3);">{{ sheet.pick.accessHelp }}</p>
+      [[primary|fn.submitAccess|⟦저장¦Save⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_askMemo }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦누구에게 여백 메모를 부탁할까요?¦Who should leave a margin note?⟧</h2>
+      <sc-if value="{{ sheet.pick.notEmpty }}">
+        <div style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ sheet.pick.chips }}" as="sc" hint-placeholder-count="2">[[avchip|sc]]</sc-for></div>
+        <p style="margin: 12px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦읽기를 허락한 철학자에게만 부탁할 수 있어요¦You can ask only those allowed to read⟧</p>
+        [[primary|fn.submitAskMemo|⟦부탁하기¦Ask⟧|sheet.pick.cant|sheet.pick.btn]]
+      </sc-if>
+      <sc-if value="{{ sheet.pick.empty }}">
+        <p style="margin: 0 4px 14px; font-size: 14px; line-height: 21px; color: var(--ink2);">⟦먼저 이 노트를 읽을 철학자를 골라 주세요.¦First choose who can read this note.⟧</p>
+        [[primary|sheet.pick.toAccess|⟦읽기 허락하기¦Allow reading⟧]]
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_confirm }}">
+      <h2 style="margin: 0 4px 8px; font-size: 18px; line-height: 25px; font-weight: 800;">{{ sheet.confirm.title }}</h2>
+      <p style="margin: 0 4px 16px; font-size: 14px; line-height: 21px; color: var(--ink2);">{{ sheet.confirm.body }}</p>
+      <div style="display: flex; gap: 8px;">
+        <button onClick="{{ fn.closeSheet }}" style="flex: 1 1 0; height: 48px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;">⟦취소¦Cancel⟧</button>
+        <button onClick="{{ fn.confirmOk }}" style="flex: 1 1 0; height: 48px; border: 0; border-radius: 999px; background: var(--danger); color: var(--ondanger); font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer;">{{ sheet.confirm.okLabel }}</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_noteMore }}">
+      <div style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line);">
+        [[lrow|sheet.more.edit|⟦고치기¦Edit⟧|||1]]
+        [[lrow|sheet.more.remove|⟦노트 지우기¦Delete note⟧|||0|danger]]
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_options }}">
+      <h2 style="margin: 0 4px 4px; font-size: 18px; line-height: 25px; font-weight: 800;">{{ sheet.options.title }}</h2>
+      <p style="margin: 0 4px 12px; font-size: 13px; line-height: 19px; color: var(--ink3);">{{ sheet.options.help }}</p>
+      <div role="radiogroup" aria-label="{{ sheet.options.title }}" style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line);">
+        <sc-for list="{{ sheet.options.items }}" as="op" hint-placeholder-count="3">
+          <button role="radio" aria-checked="{{ op.on }}" onClick="{{ op.pick }}" style="width: 100%; min-height: 54px; padding: 0 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: inset 0 -1px 0 var(--line);"><span style="flex-grow: 1;">{{ op.label }}</span>[[radio|op]]</button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_feedItems }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦피드에 담을 것¦What the feed includes⟧</h2>
+      <div style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line);">
+        <sc-for list="{{ sheet.feedItems }}" as="fi" hint-placeholder-count="4">
+          <button role="checkbox" aria-checked="{{ fi.on }}" onClick="{{ fi.pick }}" style="width: 100%; min-height: 54px; padding: 0 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: inset 0 -1px 0 var(--line);"><span style="flex-grow: 1;">{{ fi.label }}</span>[[checkbox|fi]]</button>
+        </sc-for>
+      </div>
+      <div style="height: 14px;"></div>
+      [[secondary|fn.closeSheet|⟦완료¦Done⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_plus }}">
+      <h2 style="margin: 0 4px 8px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦Plus 클라우드 AI¦Plus cloud AI⟧</h2>
+      <p style="margin: 0 4px 12px; font-size: 14px; line-height: 21px; color: var(--ink2);">⟦더 깊은 대화가 필요할 때, 고른 대화만 클라우드 AI로 보내요. 기본은 꺼져 있고, 켜도 방마다 따로 정해요.¦For deeper conversations, only the chats you choose go to a cloud AI. Off by default; even when on, you decide per room.⟧</p>
+      <div style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line);">
+        [[swrow|sheet.plus.sw|⟦Plus 클라우드 AI 쓰기¦Use Plus cloud AI⟧|{{ sheet.plus.state }}|1]]
+      </div>
+      <p style="margin: 10px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦유료 기능이에요. 가격과 출시는 아직 정하지 않았어요.¦A paid feature. Price and launch are not decided yet.⟧</p>
+      [[secondary|fn.closeSheet|⟦완료¦Done⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_report }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦이 방을 신고할까요?¦Report this room?⟧</h2>
+      <div role="radiogroup" aria-label="⟦신고 이유¦Reason⟧" style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line);">
+        <sc-for list="{{ sheet.report.reasons }}" as="rr" hint-placeholder-count="4">
+          <button role="radio" aria-checked="{{ rr.on }}" onClick="{{ rr.pick }}" style="width: 100%; min-height: 54px; padding: 0 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: inset 0 -1px 0 var(--line);"><span style="flex-grow: 1;">{{ rr.label }}</span>[[radio|rr]]</button>
+        </sc-for>
+      </div>
+      <p style="margin: 10px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦신고한 대화는 이 기기에 기록되고, 모델 개선에 쓰지 않아요.¦Reports are logged on this device and never used for training.⟧</p>
+      [[primary|fn.submitReport|⟦신고하기¦Report⟧|sheet.report.cant|sheet.report.btn]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_archDay }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦날짜로 보기¦By date⟧</h2>
+      <div role="radiogroup" aria-label="⟦날짜¦Date⟧" style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line);">
+        <sc-for list="{{ sheet.archDays }}" as="ad" hint-placeholder-count="3">
+          <button role="radio" aria-checked="{{ ad.on }}" onClick="{{ ad.pick }}" style="width: 100%; min-height: 54px; padding: 0 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: inset 0 -1px 0 var(--line);"><span style="flex-grow: 1;">{{ ad.label }}</span>[[radio|ad]]</button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_export }}">
+      <h2 style="margin: 0 4px 6px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦모든 기록 내보내기¦Export everything⟧</h2>
+      <p style="margin: 0 4px 12px; font-size: 13px; line-height: 19px; color: var(--ink3);">{{ sheet.exp.line }}</p>
+      <sc-if value="{{ sheet.exp.idle }}">
+        <p style="margin: 0 4px 14px; font-size: 14px; line-height: 21px; color: var(--ink2);">⟦Markdown과 JSON 파일로 만들어 이 기기에 저장해요.¦Creates Markdown and JSON files on this device.⟧</p>
+        [[primary|fn.doExport|⟦내보내기¦Export⟧]]
+      </sc-if>
+      <sc-if value="{{ sheet.exp.busy }}">
+        <div style="height: 8px; margin: 6px 4px 10px; border-radius: 999px; background: var(--sunken); overflow: hidden;" aria-hidden="true"><div style="width: 40%; height: 100%; border-radius: 999px; background: var(--primary); animation: agShimmer 1s ease-in-out infinite;"></div></div>
+        <p role="status" style="margin: 0 4px 6px; font-size: 14px; color: var(--ink2);">⟦만드는 중…¦Preparing…⟧</p>
+      </sc-if>
+      <sc-if value="{{ sheet.exp.done }}">
+        <p role="status" style="margin: 0 4px 14px; font-size: 14px; line-height: 21px; color: var(--ink2); display: flex; gap: 8px; align-items: flex-start;">[[i|check|20|2.4|flex: none; color: var(--primary);]]<span>⟦다 만들었어요. 프로토타입이라 실제 파일은 만들지 않아요.¦Done. This prototype does not create real files.⟧</span></p>
+        [[secondary|fn.closeSheet|⟦닫기¦Close⟧]]
+      </sc-if>
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_aboutAdd }}">
+      <div style="padding: 0 4px 10px; display: flex; flex-direction: column; gap: 2px;">
+        <h2 style="margin: 0; font-size: 18px; line-height: 25px; font-weight: 800;">⟦나에 대한 자료 넣기¦Add an about-me file⟧</h2>
+        <span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦## 제목마다 대목이 돼요. 제목이 없으면 문단마다 나눠요.¦Each ## heading becomes a section. Without headings, each paragraph does.⟧</span>
+      </div>
+      <label style="position: relative; min-height: 68px; padding: 8px 4px; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|upload|22|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦기기에서 파일 고르기¦Choose a file⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦MD·TXT · 2MB까지¦MD or TXT · up to 2 MB⟧</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+        <input type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" aria-label="⟦기기에서 파일 고르기¦Choose a file⟧" onChange="{{ fn.onAboutFile }}" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+      </label>
+      <button onClick="{{ fn.useAboutTemplate }}" style="width: 100%; min-height: 68px; padding: 8px 4px; border: 0; background: transparent; box-shadow: inset 0 1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|pen|22|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦빈 틀에 바로 쓰기¦Write from a template⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦부르는 이름, 하는 일, 요즘 고민… 제목만 있는 틀¦Headings only: name, work, these days…⟧</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+      </button>
+      <button onClick="{{ fn.useAboutSample }}" style="width: 100%; min-height: 60px; padding: 8px 4px; border: 0; background: transparent; box-shadow: inset 0 1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--sunken); color: var(--ink2); display: flex; align-items: center; justify-content: center;">[[i|memo|20|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 14.5px; line-height: 20px; font-weight: 700;">⟦예시 파일로 해 보기¦Try a sample file⟧</span><span style="font-size: 12.5px; line-height: 17px; color: var(--ink3);">{{ sheet.aboutAdd.sampleSub }}</span></span>
+      </button>
+      <p style="margin: 6px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦파일은 이 기기 안에서만 읽어요. 철학자는 대화와 이어지는 대목만 꺼내 보고, 피드 글에는 쓰지 않아요.¦Files are read only on this device. Philosophers look only at sections that connect to the talk, never in feed posts.⟧</p>
+      [[secondary|fn.closeSheet|⟦닫기¦Close⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_aboutScope }}">
+      <h2 style="margin: 0 4px 12px; font-size: 18px; line-height: 25px; font-weight: 800;">{{ sheet.scope.title }}</h2>
+      <div role="radiogroup" aria-label="{{ sheet.scope.title }}" style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line);">
+        <sc-for list="{{ sheet.scope.opts }}" as="sco" hint-placeholder-count="5">
+          <button role="radio" aria-checked="{{ sco.on }}" onClick="{{ sco.pick }}" style="width: 100%; min-height: 60px; padding: 10px 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 12px; cursor: pointer; box-shadow: inset 0 -1px 0 var(--line);"><span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">{{ sco.label }}</span><span style="font-size: 12.5px; line-height: 17px; color: var(--ink3);">{{ sco.desc }}</span></span>[[radio|sco]]</button>
+        </sc-for>
+      </div>
+      <sc-if value="{{ sheet.scope.isPick }}">
+        <div role="group" aria-label="⟦알게 할 철학자¦Who may know it⟧" style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ sheet.scope.chips }}" as="sc" hint-placeholder-count="6">[[avchip|sc]]</sc-for></div>
+        <p style="margin: 8px 4px 0; font-size: 12.5px; line-height: 18px; color: var(--ink3);">{{ sheet.scope.pickHelp }}</p>
+      </sc-if>
+      <p style="margin: 12px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦피드 글에는 어떤 대목도 쓰지 않아요.¦No section is ever used in feed posts.⟧</p>
+      [[primary|fn.saveAboutScope|⟦저장¦Save⟧|sheet.scope.cant|sheet.scope.btn]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_aboutRef }}">
+      <div style="padding: 0 4px 12px; display: flex; align-items: center; gap: 12px;">
+        [[av|sheet.ref.av|40|3.5|var(--surface)|]]
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><h2 style="margin: 0; font-size: 18px; line-height: 25px; font-weight: 800;">⟦이 답이 참고한 대목¦What this reply drew on⟧</h2><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ sheet.ref.line }}</span></span>
+      </div>
+      <blockquote style="margin: 0; max-height: 200px; overflow-y: auto; padding: 12px 14px 12px 16px; border-radius: 16px; background: var(--sunken); box-shadow: inset 3px 0 0 var(--lamp); font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 24px; color: var(--ink); white-space: pre-line;">{{ sheet.ref.excerpt }}</blockquote>
+      <p style="margin: 10px 4px 12px; font-size: 12.5px; line-height: 18px; color: var(--ink3);">{{ sheet.ref.scopeLine }}</p>
+      <div style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); margin-bottom: 14px;">
+        [[lrow|sheet.ref.open|⟦이 대목 보기¦View this section⟧|⟦참고 범위를 바꾸거나 고칠 수 있어요¦Change who may use it, or edit⟧||1]]
+        <sc-if value="{{ sheet.ref.notOff }}">[[lrow|sheet.ref.stop|⟦이 대목은 쓰지 않기¦Stop using this section⟧|⟦어떤 철학자도 참고하지 않아요 · 되돌릴 수 있어요¦No philosopher will use it · undoable⟧||0|danger]]</sc-if>
+        <sc-if value="{{ sheet.ref.isOff }}">[[lrow|sheet.ref.resume|⟦다시 모두 참고하게 하기¦Let everyone use it again⟧|⟦지금은 쓰지 않는 대목이에요¦Not in use right now⟧||0]]</sc-if>
+      </div>
+      [[secondary|fn.closeSheet|⟦닫기¦Close⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_docAdd }}">
+      <div style="padding: 0 4px 10px; display: flex; flex-direction: column; gap: 2px;">
+        <h2 style="margin: 0; font-size: 18px; line-height: 25px; font-weight: 800;">⟦같이 읽을 자료 보내기¦Send something to read together⟧</h2>
+        <span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ sheet.docAdd.sub }}</span>
+      </div>
+      <label style="position: relative; min-height: 68px; padding: 8px 4px; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--psoft); color: var(--pink); display: flex; align-items: center; justify-content: center;">[[i|upload|22|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 700;">⟦기기에서 파일 고르기¦Choose a file⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦기사·에세이·책 한 대목 · MD·TXT · 2MB까지¦An article, essay or excerpt · MD or TXT · up to 2 MB⟧</span></span>
+        [[i|chev|16|2|flex: none; color: var(--ink3);]]
+        <input type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" aria-label="⟦기기에서 파일 고르기¦Choose a file⟧" onChange="{{ fn.onDocFile }}" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+      </label>
+      <sc-if value="{{ sheet.docAdd.hasNotes }}">
+        <h3 style="margin: 0; padding: 12px 4px 4px; font-size: 12.5px; line-height: 18px; font-weight: 700; color: var(--ink3); box-shadow: inset 0 1px 0 var(--line);">⟦내 노트 보내기¦Send one of my notes⟧</h3>
+        <sc-for list="{{ sheet.docAdd.notes }}" as="dn" hint-placeholder-count="2">
+          <button onClick="{{ dn.pick }}" style="width: 100%; min-height: 56px; padding: 6px 4px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+            <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--sunken); color: var(--ink2); display: flex; align-items: center; justify-content: center;">[[i|book|20|1.9]]</span>
+            <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ dn.title }}</span><span style="font-size: 12.5px; line-height: 17px; color: var(--ink3);">{{ dn.meta }}</span></span>
+          </button>
+        </sc-for>
+      </sc-if>
+      <button onClick="{{ fn.useDocSample }}" style="width: 100%; min-height: 60px; padding: 8px 4px; border: 0; background: transparent; box-shadow: inset 0 1px 0 var(--line); font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+        <span style="width: 44px; height: 44px; flex: none; border-radius: 14px; background: var(--sunken); color: var(--ink2); display: flex; align-items: center; justify-content: center;">[[i|memo|20|1.9]]</span>
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 14.5px; line-height: 20px; font-weight: 700;">⟦예시 글로 해 보기¦Try a sample piece⟧</span><span style="font-size: 12.5px; line-height: 17px; color: var(--ink3);">{{ sheet.docAdd.sampleSub }}</span></span>
+      </button>
+      <p style="margin: 6px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦이 기기 안에서만 읽어요. 철학자는 글을 읽은 사람으로서 동의하거나 반박해요. 자료가 철학자의 생각을 바꾸지는 않아요.¦Read only on this device. Philosophers respond as readers — agreeing or pushing back. The file never changes who they are.⟧</p>
+      [[secondary|fn.closeSheet|⟦닫기¦Close⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_docRef }}">
+      <div style="padding: 0 4px 12px; display: flex; align-items: center; gap: 12px;">
+        [[av|sheet.docRef.av|40|3.5|var(--surface)|]]
+        <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><h2 style="margin: 0; font-size: 18px; line-height: 25px; font-weight: 800;">⟦이 답이 짚은 대목¦The passage this reply points to⟧</h2><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">{{ sheet.docRef.line }}</span></span>
+      </div>
+      <blockquote style="margin: 0; max-height: 200px; overflow-y: auto; padding: 12px 14px 12px 16px; border-radius: 16px; background: var(--sunken); box-shadow: inset 3px 0 0 var(--primary); font-family: 'Gowun Batang', serif; font-size: 15px; line-height: 24px; color: var(--ink); white-space: pre-line;">{{ sheet.docRef.excerpt }}</blockquote>
+      <p style="margin: 10px 4px 12px; font-size: 12.5px; line-height: 18px; color: var(--ink3);">⟦이 방에서 함께 읽은 자료예요. 다른 방이나 피드에는 쓰지 않아요.¦A file read together in this room. Never used in other rooms or the feed.⟧</p>
+      <div style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line); margin-bottom: 14px;">
+        [[lrow|sheet.docRef.open|⟦자료 전체 보기¦View the whole file⟧|||1]]
+        [[lrow|sheet.docRef.ask|⟦이 자료로 사유 노트 부탁하기¦Ask for a reflection on it⟧|⟦밤사이 쓰고 내일 아침 피드로 와요¦Written overnight, in tomorrow’s feed⟧||0]]
+      </div>
+      [[secondary|fn.closeSheet|⟦닫기¦Close⟧]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_askDoc }}">
+      <h2 style="margin: 0 4px 2px; font-size: 18px; line-height: 25px; font-weight: 800;">⟦이 자료로 누구에게 사유 노트를 부탁할까요?¦Who should write a reflection on it?⟧</h2>
+      <p style="margin: 0 4px 12px; font-size: 13px; line-height: 19px; color: var(--ink3);">{{ sheet.askDoc.docTitle }}</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ sheet.askDoc.chips }}" as="sc" hint-placeholder-count="2">[[avchip|sc]]</sc-for></div>
+      <p style="margin: 12px 4px 14px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦밤사이 이 자료를 다시 읽고 써서, 내일 아침 피드로 와요. 이 방에 있는 철학자에게만 부탁할 수 있어요.¦Written overnight from this file and delivered in tomorrow’s feed. Only philosophers in this room can be asked.⟧</p>
+      [[primary|fn.submitAskDoc|⟦부탁하기¦Ask⟧|sheet.askDoc.cant|sheet.askDoc.btn]]
+    </sc-if>
+
+    <sc-if value="{{ sheet.is_aboutMore }}">
+      <div style="border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--line);">
+        [[lrow|sheet.aboutMore.edit|⟦고치기¦Edit⟧|⟦## 제목마다 대목이 돼요 · 저장하면 다시 읽어요¦Each ## heading is a section · re-read on save⟧||1]]
+        <sc-if value="{{ sheet.aboutMore.canReplace }}">
+          <label style="position: relative; min-height: 60px; padding: 10px 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; box-shadow: inset 0 1px 0 var(--line);">
+            <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">⟦다른 파일로 바꾸기¦Replace with another file⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦제목이 같은 대목은 참고 범위를 그대로 둬요¦Sections with the same heading keep their scope⟧</span></span>
+            [[i|chev|16|2|flex: none; color: var(--ink3);]]
+            <input type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" aria-label="⟦다른 파일로 바꾸기¦Replace with another file⟧" onChange="{{ fn.onAboutReplace }}" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+          </label>
+        </sc-if>
+        [[lrow|sheet.aboutMore.remove|⟦자료 지우기¦Delete file⟧|⟦여기서 나온 기억도 함께 지워요¦Memories from it are deleted too⟧||0|danger]]
+      </div>
+    </sc-if>
+  </section>
+</div>
+</sc-if>

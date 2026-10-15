@@ -1,0 +1,30 @@
+
+[[screen|images|philImages|⟦철학자 이미지¦Philosopher images⟧]]
+  [[hdr|⟦철학자 이미지¦Philosopher images⟧]]
+  [[scroll]]
+    <div style="padding: 0 16px 24px; display: flex; flex-direction: column; gap: 14px;">
+      <p style="margin: 0 4px; font-size: 13.5px; line-height: 21px; color: var(--ink2);">⟦앱이 준 초상 대신 내가 고른 그림이나 사진을 쓸 수 있어요. 바꾸면 채팅·피드·프로필 어디서나 그 이미지로 보여요.¦Use your own picture instead of the app portrait. It shows everywhere: chats, feed and profiles.⟧</p>
+      <div style="background: var(--surface); border-radius: 20px; box-shadow: inset 0 0 0 1px var(--line); overflow: hidden;">
+        <button role="switch" aria-checked="{{ images.graySw.on }}" onClick="{{ fn.toggleGray }}" style="width: 100%; min-height: 64px; padding: 10px 16px; border: 0; background: transparent; font-family: inherit; color: inherit; text-align: left; display: flex; align-items: center; gap: 14px; cursor: pointer;">
+          <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;"><span style="font-size: 15px; line-height: 21px; font-weight: 600;">⟦모든 이미지를 흑백으로¦Make all images grayscale⟧</span><span style="font-size: 13px; line-height: 18px; color: var(--ink3);">⟦내 이미지도 앱 초상과 어울리게 맞춰요¦Matches your pictures to the portraits⟧</span></span>
+          [[sw|images.graySw]]
+        </button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px;">
+        <sc-for list="{{ images.cards }}" as="ic" hint-placeholder-count="6">
+          <button aria-label="{{ ic.name }} ⟦이미지 바꾸기¦change image⟧" onClick="{{ ic.open }}" style="padding: 16px 6px 12px; border: 0; border-radius: 20px; background: var(--surface); font-family: inherit; color: inherit; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; {{ ic.card }}">
+            <span style="position: relative; width: 64px; height: 64px; display: block;">
+              [[av|ic.av|64|4|var(--surface)|]]
+              <span style="position: absolute; right: -7px; bottom: -5px; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: var(--bg); box-shadow: 0 0 0 2.5px var(--surface); display: flex; align-items: center; justify-content: center;" aria-hidden="true">[[i|camera|13|2.2]]</span>
+            </span>
+            <span style="font-size: 13.5px; font-weight: 700; color: {{ ic.hue }};">{{ ic.name }}</span>
+            <span style="height: 20px; font-size: 11px; line-height: 20px; {{ ic.statusStyle }}">{{ ic.status }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <p style="margin: 2px 4px 0; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦누르면 앨범에서 고르거나 바로 찍어서 바꿀 수 있어요. 철학자 프로필의 사진 버튼으로도 돼요.¦Tap to pick from your album or take a photo. The camera button on a profile works too.⟧</p>
+      <p style="margin: 0 4px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦바꾼 철학자에는 ‘내 이미지’ 표시가 붙고, 언제든 앱 초상으로 되돌릴 수 있어요. 색 테두리와 ‘AI’ 표시는 그대로 남아요.¦Changed ones are marked “Mine” and can go back to the app portrait anytime. The color ring and “AI” label stay.⟧</p>
+      <p style="margin: 0 4px; font-size: 12px; line-height: 18px; color: var(--ink3);">⟦고른 이미지는 이 기기에만 저장되고 밖으로 나가지 않아요.¦Your pictures are stored only on this device.⟧</p>
+    </div>
+  [[/scroll]]
+[[/screen]]

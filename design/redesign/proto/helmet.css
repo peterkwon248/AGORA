@@ -1,0 +1,17 @@
+body{margin:0;background:#F5F4F9}
+.ag{--bg:#F5F4F9;--surface:#FFFFFF;--sunken:#ECEAF3;--sunken2:#E3E0EC;--line:#E2DFEB;--line2:#CDC9DA;--ink:#1C1930;--ink2:#474360;--ink3:#625E7A;--primary:#4636CC;--onprimary:#FFFFFF;--psoft:#E8E5FD;--pink:#3A2BB0;--lamp:#F2B544;--onlamp:#2B1D00;--lampink:#835300;--lampsoft:#FCF0D6;--danger:#B3261E;--ondanger:#FFFFFF;--me:#4636CC;--onme:#FFFFFF;--nav:#FFFFFF;--scrim:rgba(28,25,48,.42);--cardshadow:rgba(28,25,48,.08);--sel:#FFFFFF;--segshadow:rgba(28,25,48,.12);--knoboff:#FFFFFF;--night:#1C1930;--toast:#1C1930;--ontoast:#FFFFFF;--toastaction:#C9C2FF;--so:#56691A;--ni:#B0353F;--sh:#3D5A93;--ca:#8A580B;--ci:#7A4284;--au:#1E6D66;--so-soft:#EEF1DF;--ni-soft:#FBE9EB;--sh-soft:#E7ECF6;--ca-soft:#F6ECDC;--ci-soft:#F3E8F5;--au-soft:#E0F0EE;color-scheme:light}
+.ag.dark{--bg:#131315;--surface:#1C1C1F;--sunken:#27272B;--sunken2:#34343A;--line:#2A2A2E;--line2:#3D3D44;--ink:#ECECEF;--ink2:#BDBDC4;--ink3:#A0A0A8;--primary:#E2E2E6;--onprimary:#141416;--psoft:#2F2F35;--pink:#F2F2F5;--lamp:#F5C25C;--onlamp:#2B1D00;--lampink:#F5C25C;--lampsoft:#3A2F17;--danger:#F2B8B5;--ondanger:#601410;--me:#3A3A40;--onme:#ECECEF;--nav:#1C1C1F;--scrim:rgba(0,0,0,.55);--cardshadow:rgba(0,0,0,.35);--sel:#3D3D44;--segshadow:transparent;--knoboff:#A0A0A8;--night:#0B0B0D;--toast:#ECECEF;--ontoast:#141416;--toastaction:#3A2BB0;--so:#C5D47E;--ni:#FF9DA8;--sh:#A8C0F4;--ca:#F0C373;--ci:#E3A9EB;--au:#84D3C8;--so-soft:#2A2E1C;--ni-soft:#3A2427;--sh-soft:#232A38;--ca-soft:#352C1C;--ci-soft:#33263A;--au-soft:#1D302D;color-scheme:dark}
+.ag *{box-sizing:border-box}
+.ag-scroll{scrollbar-width:none}.ag-scroll::-webkit-scrollbar{display:none}
+.ag input::placeholder,.ag textarea::placeholder{color:var(--ink3);opacity:1}
+.ag button:disabled{cursor:default}
+.ag :focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+@keyframes agPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.8)}}
+@keyframes agBlink{0%{opacity:1}100%{opacity:0}}
+@keyframes agIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes agFade{from{opacity:0}to{opacity:1}}
+@keyframes agUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes agDots{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@keyframes agToast{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes agShimmer{from{transform:translateX(-100%)}to{transform:translateX(260%)}}
+@media (prefers-reduced-motion: reduce){.ag *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition:none!important}}

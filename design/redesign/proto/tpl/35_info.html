@@ -1,0 +1,33 @@
+
+[[screen|info|info|{{ info.title }}]]
+  [[hdr|{{ info.title }}]]
+  [[scroll]]
+    <div style="padding: 0 16px 28px; display: flex; flex-direction: column; gap: 12px;">
+      <sc-if value="{{ info.isAi }}">
+        <div style="padding: 18px 16px; border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 24px;">
+          <p style="margin: 0;">⟦AGORA의 철학자는 역사 속 인물의 사상을 바탕으로 한 AI예요. 실제 인물의 말이나 생각이 아니에요.¦AGORA’s philosophers are AI based on the ideas of historical thinkers. They are not the real people’s words or thoughts.⟧</p>
+          <p style="margin: 0;">⟦답은 기기 안 AI가 만들어요. 틀리거나 지어낼 수 있으니, 중요한 결정은 스스로 확인해 주세요.¦Replies come from the on-device AI. They can be wrong or made up, so check anything important yourself.⟧</p>
+          <p style="margin: 0;">⟦원전을 인용할 때는 출처를 함께 보여 줘요. 저작권을 확인하지 못한 글은 인용하지 않아요.¦Quotes always show their source. Works whose rights are unconfirmed are never quoted.⟧</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ info.isLic }}">
+        <sc-for list="{{ info.groups }}" as="lg" hint-placeholder-count="3">
+          <div style="border-radius: 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); overflow: hidden;">
+            <div style="padding: 12px 16px; display: flex; align-items: center; gap: 10px; box-shadow: inset 0 -1px 0 var(--line);">[[av|lg.av|28|3.5|var(--surface)|]]<strong style="font-size: 15px; color: {{ lg.hue }};">{{ lg.name }}</strong></div>
+            <sc-for list="{{ lg.works }}" as="lw" hint-placeholder-count="2"><div style="min-height: 52px; padding: 8px 16px; display: flex; flex-direction: column; justify-content: center; gap: 2px; box-shadow: inset 0 -1px 0 var(--line);"><span style="font-size: 14px; line-height: 20px; font-weight: 600;">{{ lw.title }}</span><span style="font-size: 12.5px; line-height: 18px; color: var(--ink3);">{{ lw.sub }}</span></div></sc-for>
+          </div>
+        </sc-for>
+      </sc-if>
+      <sc-if value="{{ info.isRep }}">
+        <sc-for list="{{ info.items }}" as="ri" hint-placeholder-count="1">
+          <div style="padding: 14px 16px; border-radius: 18px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: flex; flex-direction: column; gap: 4px;">
+            <span style="display: flex; align-items: center; gap: 8px;"><strong style="font-size: 15px; flex-grow: 1;">{{ ri.title }}</strong><span style="font-size: 11.5px; color: var(--ink3);">{{ ri.t }}</span></span>
+            <span style="font-size: 13.5px; color: var(--ink2);">{{ ri.reason }}</span>
+            <span style="font-size: 12px; color: var(--ink3);">{{ ri.status }}</span>
+          </div>
+        </sc-for>
+        <sc-if value="{{ info.none }}"><p style="margin: 8px 4px; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦신고한 내역이 없어요. 방 정보에서 대화를 신고할 수 있어요.¦No reports. You can report a chat from its room info.⟧</p></sc-if>
+      </sc-if>
+    </div>
+  [[/scroll]]
+[[/screen]]

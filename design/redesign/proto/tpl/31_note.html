@@ -1,0 +1,84 @@
+
+[[screen|note|note|{{ note.title }}]]
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    [[back]]
+    <span style="flex-grow: 1;"></span>
+    <button aria-label="⟦더 보기 — 고치기, 삭제¦More — edit, delete⟧" onClick="{{ fn.openNoteMore }}" style="width: 48px; height: 48px; border: 0; border-radius: 50%; background: transparent; color: var(--ink); display: flex; align-items: center; justify-content: center; cursor: pointer;">[[i|more|24]]</button>
+  </header>
+  [[scroll]]
+    <div style="padding: 4px 24px 24px; display: flex; flex-direction: column; gap: 20px;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 12px; line-height: 18px; color: var(--ink3);">{{ note.meta }}</span>
+        <h1 style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 28px; line-height: 38px; font-weight: 700;">{{ note.title }}</h1>
+      </div>
+      <section aria-labelledby="acc-h" style="border-radius: 16px; background: var(--sunken); padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          [[i|readers|14|2|flex: none; color: var(--ink2);]]
+          <h2 id="acc-h" style="margin: 0; flex-grow: 1; font-size: 12px; line-height: 18px; font-weight: 700; color: var(--ink2);">⟦읽기와 댓글¦Reading & comments⟧</h2>
+          <button onClick="{{ note.changeAccess }}" style="height: 44px; margin: -13px -4px; padding: 0 4px; border: 0; background: transparent; color: var(--pink); font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer;">⟦바꾸기¦Change⟧</button>
+        </div>
+        <sc-if value="{{ note.hasReaders }}">
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <sc-for list="{{ note.readers }}" as="rd" hint-placeholder-count="2"><span style="height: 34px; padding: 0 12px 0 6px; border-radius: 999px; background: var(--surface); display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700;">[[av|rd|24|3|var(--surface)|]]{{ rd.name }}</span></sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ note.noReaders }}"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--ink2);">[[i|lock|14|2]]⟦나만 볼 수 있어요¦Only you can see it⟧</span></sc-if>
+        <span style="font-size: 12px; line-height: 18px; color: var(--ink2);">{{ note.accessLine }}</span>
+      </section>
+      <sc-if value="{{ note.sched }}"><div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 14px; background: var(--lampsoft); color: var(--lampink); font-size: 13px; font-weight: 700;">[[i|clock|16|2|flex: none;]]{{ note.schedText }}</div></sc-if>
+      <article style="display: flex; flex-direction: column; gap: 14px; font-family: 'Gowun Batang', serif; font-size: 17px; line-height: 30px;">
+        <sc-for list="{{ note.paras }}" as="pa" hint-placeholder-count="3">
+          <p style="margin: 0;"><sc-for list="{{ pa.segs }}" as="sg" hint-placeholder-count="1"><sc-if value="{{ sg.plain }}">{{ sg.text }}</sc-if><sc-if value="{{ sg.marked }}"><span style="{{ sg.underline }}">{{ sg.text }}</span><span role="img" aria-label="{{ sg.label }}" style="display: inline-flex; width: 17px; height: 17px; margin-left: 3px; vertical-align: 5px; border-radius: 50%; color: var(--bg); font-family: 'Gothic A1', sans-serif; font-size: 10px; font-weight: 800; align-items: center; justify-content: center; {{ sg.badge }}">{{ sg.num }}</span></sc-if></sc-for></p>
+        </sc-for>
+      </article>
+      <section aria-labelledby="memo-h" style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; box-shadow: inset 0 1px 0 var(--line);">
+        <div style="display: flex; align-items: baseline; gap: 6px;">
+          <h2 id="memo-h" style="margin: 0; font-size: 15px; line-height: 22px; font-weight: 800;">⟦여백 메모¦Margin notes⟧</h2>
+          <span style="font-size: 15px; font-weight: 800; color: var(--ink3);">{{ note.memoCount }}</span>
+          <span style="flex-grow: 1;"></span>
+          <span style="font-size: 11px; color: var(--ink3);">⟦철학자의 글을 바탕으로 AI가 써요¦Written by AI from their works⟧</span>
+        </div>
+        <sc-for list="{{ note.memos }}" as="mo" hint-placeholder-count="2">
+          <article style="background: var(--surface); border-radius: 20px; box-shadow: inset 0 0 0 1px var(--line); padding: 14px 16px 6px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: flex-start; gap: 8px;">
+              <span style="width: 17px; height: 17px; flex: none; margin-top: 3px; border-radius: 50%; color: var(--bg); font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; {{ mo.badge }}" aria-hidden="true">{{ mo.num }}</span>
+              <span style="font-family: 'Gowun Batang', serif; font-size: 14px; line-height: 22px; color: var(--ink2);">{{ mo.quote }}</span>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button aria-label="{{ mo.name }}" onClick="{{ mo.openProfile }}" style="flex: none; margin-top: 2px; padding: 0; border: 0; background: transparent; align-self: flex-start; cursor: pointer;">[[av|mo.av|30|3.5|var(--surface)|]]</button>
+              <div style="display: flex; flex-direction: column; gap: 3px; min-width: 0;">
+                <span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;"><span style="font-size: 13px; font-weight: 700; color: {{ mo.hue }};">{{ mo.name }}</span>[[aichip]]<span style="height: 18px; padding: 0 6px; border-radius: 6px; background: var(--lampsoft); color: var(--lampink); font-size: 10.5px; font-weight: 700; display: inline-flex; align-items: center;">⟦자동¦Auto⟧</span><span style="font-size: 11px; color: var(--ink3);">{{ mo.t }}</span></span>
+                <p style="margin: 0; font-size: 15px; line-height: 23px;">{{ mo.text }}</p>
+              </div>
+            </div>
+            <sc-for list="{{ mo.replies }}" as="rp" hint-placeholder-count="1">
+              <div style="margin-left: 40px; display: flex; gap: 8px;">
+                <span style="width: 26px; height: 26px; flex: none; border-radius: 50%; background: var(--psoft); color: var(--pink); font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center;" aria-hidden="true">⟦나¦Me⟧</span>
+                <div style="flex-grow: 1; padding: 9px 12px; border-radius: 6px 16px 16px 16px; background: var(--psoft); display: flex; flex-direction: column; gap: 3px;"><span style="font-size: 12px; font-weight: 700; color: var(--pink);">{{ rp.t }}</span><p style="margin: 0; font-size: 14px; line-height: 21px;">{{ rp.text }}</p></div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ mo.hasReplies }}"><div style="margin-left: 40px; display: flex; align-items: center; gap: 6px; color: var(--lampink); font-size: 12px; line-height: 17px; font-weight: 600;">[[i|clock|14|2|flex: none;]]{{ mo.pendingText }}</div></sc-if>
+            <sc-if value="{{ mo.replyOpen }}">
+              <div style="margin-left: 40px; display: flex; gap: 8px; align-items: center;">
+                <input type="text" aria-label="⟦답글¦Reply⟧" value="{{ mo.replyText }}" onChange="{{ mo.onReply }}" placeholder="⟦답글 쓰기¦Write a reply⟧" style="flex-grow: 1; min-width: 0; height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 14px; outline: none;">
+                <button onClick="{{ mo.sendReply }}" disabled="{{ mo.cantReply }}" style="height: 40px; padding: 0 14px; flex: none; border: 0; border-radius: 999px; background: var(--primary); color: var(--onprimary); font-family: inherit; font-size: 13px; font-weight: 800; cursor: pointer;">⟦남기기¦Post⟧</button>
+              </div>
+            </sc-if>
+            <div style="display: flex; gap: 2px; margin-left: 32px; flex-wrap: wrap;">
+              <button onClick="{{ mo.toggleReply }}" style="height: 44px; padding: 0 8px; border: 0; background: transparent; color: var(--ink2); font-family: inherit; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">[[i|reply|16|2]]⟦답글¦Reply⟧</button>
+              <button onClick="{{ mo.dm }}" style="height: 44px; padding: 0 8px; border: 0; background: transparent; color: var(--ink2); font-family: inherit; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; cursor: pointer;">[[i|chat|16|2]]{{ mo.dmLabel }}</button>
+              <button aria-expanded="{{ mo.whyOpen }}" onClick="{{ mo.toggleWhy }}" style="height: 44px; padding: 0 8px; border: 0; background: transparent; color: var(--ink3); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;">⟦이 댓글은 어떻게 왔나요?¦Why this note?⟧</button>
+            </div>
+            <sc-if value="{{ mo.whyOpen }}"><p style="margin: 0 0 10px 40px; padding: 10px 12px; border-radius: 12px; background: var(--sunken); font-size: 12px; line-height: 18px; color: var(--ink2);">{{ mo.whyText }}</p></sc-if>
+          </article>
+        </sc-for>
+        <sc-if value="{{ note.noMemos }}"><p style="margin: 0; font-size: 14px; line-height: 21px; color: var(--ink3);">⟦아직 여백 메모가 없어요. 읽기를 허락하면 철학자가 가끔 남겨요.¦No margin notes yet. Allow reading and philosophers may leave some.⟧</p></sc-if>
+        <sc-if value="{{ note.hasAsked }}"><sc-for list="{{ note.asked }}" as="ak" hint-placeholder-count="1"><div style="display: flex; align-items: center; gap: 6px; color: var(--lampink); font-size: 12.5px; font-weight: 600;">[[i|clock|14|2|flex: none;]]{{ ak.text }}</div></sc-for></sc-if>
+      </section>
+    </div>
+  [[/scroll]]
+  <footer style="flex: none; padding: 12px 16px 18px; display: flex; align-items: center; gap: 8px; background: var(--surface); box-shadow: inset 0 1px 0 var(--line);">
+    <button onClick="{{ note.edit }}" style="height: 48px; padding: 0 18px 0 14px; border: 0; border-radius: 999px; background: var(--sunken); color: var(--ink); font-family: inherit; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">[[i|pen|18|1.9]]⟦고치기¦Edit⟧</button>
+    <button onClick="{{ note.askMemo }}" style="flex-grow: 1; height: 48px; border: 0; border-radius: 999px; background: var(--primary); color: var(--onprimary); font-family: inherit; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer;">[[i|askmemo|18|1.9]]⟦댓글 부탁하기¦Ask for a margin note⟧</button>
+  </footer>
+[[/screen]]

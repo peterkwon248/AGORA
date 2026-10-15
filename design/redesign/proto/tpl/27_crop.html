@@ -1,0 +1,43 @@
+
+[[screen|crop|crop|{{ crop.title }}|background: #131315; color: #ECECEF;]]
+  <header style="height: 64px; padding: 0 8px; display: flex; align-items: center; gap: 4px; flex: none;">
+    <button aria-label="⟦취소¦Cancel⟧" onClick="{{ fn.goBack }}" style="width: 48px; height: 48px; flex: none; border: 0; border-radius: 50%; background: transparent; color: #ECECEF; display: flex; align-items: center; justify-content: center; cursor: pointer;">[[i|close|22|1.9]]</button>
+    <h1 style="margin: 0; flex-grow: 1; font-size: 18px; line-height: 24px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ crop.title }}</h1>
+  </header>
+  <div style="height: 356px; flex: none; display: flex; align-items: center; justify-content: center;">
+    <div role="img" aria-label="⟦고른 이미지. 끌어서 자리를, 아래 막대로 크기를 맞춰요¦Your picture. Drag to move; use the slider to zoom⟧" onPointerDown="{{ fn.onCropDown }}" onPointerMove="{{ fn.onCropMove }}" onPointerUp="{{ fn.onCropUp }}" onPointerCancel="{{ fn.onCropUp }}" style="position: relative; width: 340px; height: 340px; overflow: hidden; touch-action: none; cursor: grab; background: #222225; border-radius: 12px;">
+      <img src="{{ crop.src }}" alt="" draggable="false" style="width: 100%; height: 100%; display: block; object-fit: cover; pointer-events: none; user-select: none; {{ crop.editor }}">
+      <span style="position: absolute; left: 42.5px; top: 42.5px; width: 255px; height: 255px; border-radius: 50%; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.92), 0 0 0 999px rgba(19, 19, 21, 0.62); pointer-events: none;" aria-hidden="true"></span>
+      <span style="position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); height: 28px; padding: 0 12px; border-radius: 999px; background: rgba(19, 19, 21, 0.72); color: #ECECEF; font-size: 12px; font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; pointer-events: none;">[[i|expand|14|2]]⟦끌어서 자리를 맞춰요¦Drag to position⟧</span>
+    </div>
+  </div>
+  <div style="padding: 4px 16px 14px; display: flex; align-items: center; gap: 8px; flex: none;">
+    <button role="switch" aria-checked="{{ crop.grayOn }}" onClick="{{ fn.toggleGray }}" style="height: 40px; padding: 0 12px; flex: none; border: 0; border-radius: 999px; font-family: inherit; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; {{ crop.grayStyle }}">{{ crop.grayLabel }}</button>
+    <button onClick="{{ fn.cropRotate }}" aria-label="⟦돌리기¦Rotate⟧" style="width: 40px; height: 40px; flex: none; border: 0; border-radius: 50%; background: transparent; box-shadow: inset 0 0 0 1px #3D3D44; color: #ECECEF; display: flex; align-items: center; justify-content: center; cursor: pointer;">[[i|rotate|18|2]]</button>
+    [[hidelabel|crop-zoom|⟦크기¦Zoom⟧]]
+    <input id="crop-zoom" type="range" min="1" max="3" step="0.01" value="{{ crop.zoom }}" onChange="{{ fn.onZoom }}" style="flex-grow: 1; min-width: 0; accent-color: #E2E2E6;">
+  </div>
+  <section aria-labelledby="pv-h" style="margin: 0 16px; padding: 14px; border-radius: 20px; background: var(--bg); color: var(--ink); display: flex; flex-direction: column; gap: 10px; flex: none;">
+    <h2 id="pv-h" style="margin: 0 2px; font-size: 12px; line-height: 17px; font-weight: 700; color: var(--ink3);">⟦이렇게 보여요¦Preview⟧</h2>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      [[av|crop.pv|44|4|var(--bg)|margin: 2px;]]
+      <span style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px;">
+        <span style="display: flex; align-items: baseline; gap: 7px;"><strong style="font-size: 15.5px; line-height: 21px; color: {{ crop.pv.hue }};">{{ crop.full }}</strong><span style="font-size: 11px; color: var(--ink3);">{{ crop.years }}</span></span>
+        <span style="font-family: 'Gowun Batang', serif; font-size: 14px; line-height: 21px; color: var(--ink2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ crop.status }}</span>
+      </span>
+    </div>
+    <div style="padding-top: 12px; box-shadow: inset 0 1px 0 var(--line); display: flex; gap: 8px;">
+      <span style="width: 36px; flex: none; display: flex; justify-content: center; align-self: flex-start; padding-top: 2px;" aria-hidden="true">[[av|crop.pv|32|4|var(--bg)|]]</span>
+      <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+        <span style="display: flex; align-items: center; gap: 6px; padding-left: 4px;"><span style="font-size: 13px; font-weight: 700; color: {{ crop.pv.hue }};">{{ crop.name }}</span>[[aichip]]</span>
+        <div style="padding: 10px 14px; border-radius: 6px 20px 20px 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-size: 15px; line-height: 23px;">{{ crop.line }}</div>
+      </div>
+    </div>
+  </section>
+  <p style="margin: 10px 20px 0; font-size: 12px; line-height: 18px; color: #A0A0A8; flex: none;">⟦고른 이미지는 이 기기에만 저장돼요. 색 테두리와 ‘AI’ 표시는 그대로 남아요.¦Your picture stays on this device. The color ring and “AI” label stay.⟧</p>
+  <span style="flex-grow: 1;"></span>
+  <div style="padding: 10px 16px 18px; display: flex; gap: 8px; flex: none;">
+    <button onClick="{{ fn.goBack }}" style="flex: 1 1 0; height: 52px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px #3D3D44; color: #ECECEF; font-family: inherit; font-size: 15px; font-weight: 700; cursor: pointer;">⟦다시 고르기¦Choose again⟧</button>
+    <button onClick="{{ fn.cropApply }}" style="flex: 1.4 1 0; height: 52px; border: 0; border-radius: 999px; background: #E2E2E6; color: #141416; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer;">⟦이 이미지로 하기¦Use this picture⟧</button>
+  </div>
+[[/screen]]

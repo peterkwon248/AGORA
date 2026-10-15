@@ -1,0 +1,36 @@
+
+[[screen|doc|doc|⟦함께 읽는 자료¦Shared file⟧]]
+  [[hdr|⟦함께 읽는 자료¦Shared file⟧]]
+  [[scroll]]
+    <div style="padding: 0 20px 28px; display: flex; flex-direction: column; gap: 16px;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 12px; line-height: 18px; color: var(--ink3);">{{ doc.meta }}</span>
+        <h1 style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 26px; line-height: 36px; font-weight: 700;">{{ doc.title }}</h1>
+      </div>
+      <section style="border-radius: 16px; background: var(--sunken); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="display: flex; flex: none;" aria-hidden="true"><sc-for list="{{ doc.readers }}" as="dr" hint-placeholder-count="2">[[av|dr|22|3|var(--sunken)|{{ dr.ml }}]]</sc-for></span>
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 12.5px; line-height: 18px; font-weight: 700; color: var(--ink2);"><sc-if value="{{ doc.busy }}">[[pulse]]</sc-if>{{ doc.readersLine }}</span>
+        </div>
+        <span style="font-size: 12px; line-height: 18px; color: var(--ink2);">⟦이 방 사람만 읽어요. 다른 방이나 피드에는 쓰지 않고, 사유 노트를 부탁하면 그 글만 피드로 와요.¦Only this room reads it. It is never used in other rooms or the feed — only a reflection you ask for arrives there.⟧</span>
+      </section>
+      <sc-if value="{{ doc.clipped }}"><p style="margin: 0; padding: 10px 12px; border-radius: 14px; background: var(--lampsoft); color: var(--lampink); font-size: 12.5px; line-height: 18px;">⟦파일이 길어서 앞부분만 읽었어요.¦The file is long, so only the first part was read.⟧</p></sc-if>
+      <sc-if value="{{ doc.done }}">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button onClick="{{ doc.ask }}" style="height: 44px; padding: 0 16px 0 12px; border: 0; border-radius: 999px; background: var(--primary); color: var(--onprimary); font-family: inherit; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">[[i|feather|17|1.9]]⟦사유 노트 부탁하기¦Ask for a reflection⟧</button>
+          <sc-if value="{{ doc.canSave }}"><button onClick="{{ doc.saveNote }}" style="height: 44px; padding: 0 16px 0 12px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px var(--line2); color: var(--ink); font-family: inherit; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">[[i|book|17|1.9]]⟦노트로 저장¦Save as note⟧</button></sc-if>
+        </div>
+      </sc-if>
+      <article style="display: flex; flex-direction: column; gap: 20px; padding-top: 4px;">
+        <sc-for list="{{ doc.sections }}" as="ds" hint-placeholder-count="3">
+          <section style="display: flex; flex-direction: column; gap: 6px;">
+            <sc-if value="{{ ds.headed }}"><h2 style="margin: 0; font-size: 15px; line-height: 21px; font-weight: 800;">{{ ds.title }}</h2></sc-if>
+            <p style="margin: 0; font-family: 'Gowun Batang', serif; font-size: 16px; line-height: 28px; white-space: pre-line;">{{ ds.text }}</p>
+            <sc-if value="{{ ds.hasUsed }}"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; line-height: 17px; color: var(--ink3);">[[i|chat|14|2|flex: none;]]{{ ds.usedLine }}</span></sc-if>
+          </section>
+        </sc-for>
+      </article>
+      <button onClick="{{ doc.remove }}" style="align-self: flex-start; min-height: 44px; margin-top: 8px; padding: 0 4px; border: 0; background: transparent; color: var(--danger); font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer;">⟦이 방에서 내리기¦Remove from this room⟧</button>
+    </div>
+  [[/scroll]]
+[[/screen]]
