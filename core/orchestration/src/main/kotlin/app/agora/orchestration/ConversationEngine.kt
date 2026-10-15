@@ -81,6 +81,7 @@ class ConversationEngine(
             val debateAllowed = debateTurnsLeft > 0
             val others = members.map { it.philosopherId }.filter { it != speakerId }
             val examples = pack.persona.examples.get(locale)
+            val selfNames = listOf(pack.display.name.ko, pack.display.name.en).distinct()
             emit(FlowEvent.Typing(speakerId))
 
             // 생성 후 검사([guardReply])로 저장할 수 없는 부분을 뺀다. 남는 게 없으면 한 번만 다시 생성한다.
@@ -120,7 +121,7 @@ class ConversationEngine(
                 val raw = outcome.text
                 if (raw == null) { attempted += speakerId; emit(FlowEvent.Failed(speakerId, outcome.terminal)); return false }
                 if (isPassReply(raw)) { text = ""; break }
-                val g = guardReply(cleanReply(raw), locale, examples)
+                val g = guardReply(cleanReply(raw), locale, examples, selfNames)
                 // 걸린 부분을 빼고도 할 말이 남으면 그것으로 충분하다 — 다시 생성은 기기에서 몇십 초가 든다.
                 if (g.issue == null || g.text.isNotEmpty()) { text = g.text; break }
                 if (attempt++ == 0) { avoid = avoid + g.copied; continue }

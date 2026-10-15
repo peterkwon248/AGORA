@@ -84,4 +84,30 @@ class PromptComposerTest {
         assertFalse("말투 예시" in sys)
         assertTrue("규칙:" in sys)
     }
+
+    @Test
+    fun `자기 발언에는 당신 표시가 붙고 대화 상대는 사용자라고 부르지 않는다`() {
+        val user = compose("nietzsche").first { it.role == PromptRole.USER }.content
+        assertTrue("[니체(당신)] 맛있었다면 그걸로 됐소." in user, user)
+        assertTrue("[대화 상대] 오늘 커피가" in user, user)
+        assertFalse("[사용자]" in user)
+        val other = compose("schopenhauer").first { it.role == PromptRole.USER }.content
+        assertTrue("[니체] 맛있었다면" in other, "남의 발언에는 표시가 없다")
+    }
+
+    @Test
+    fun `마지막 요청 옆에 팩의 말투를 한 번 더 둔다`() {
+        val user = compose("nietzsche").first { it.role == PromptRole.USER }.content
+        assertTrue(user.trimEnd().endsWith(registry.require("nietzsche").persona.speechLevel.ko), user)
+    }
+
+    @Test
+    fun `함께 있는 철학자와의 관계를 팩에서 가져와 알려 준다`() {
+        val sys = compose("nietzsche").first { it.role == PromptRole.SYSTEM }.content
+        val note = registry.require("nietzsche").relations.first { it.philosopherId == "schopenhauer" }.note!!
+        assertTrue("쇼펜하우어: $note" in sys, sys)
+        val dm = composer.compose(registry.require("nietzsche"), "ko", transcript, RoomKind.DM, emptyList(), null, true, DebateIntensity.BALANCED, false)
+            .first { it.role == PromptRole.SYSTEM }.content
+        assertFalse(note in dm, "함께 없는 철학자의 관계는 넣지 않는다")
+    }
 }

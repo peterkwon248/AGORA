@@ -7,9 +7,10 @@ package app.agora.orchestration
  * - 남의 이름표를 붙여 다른 사람 대사를 대신 씀(「[ SHOPHACHAWE ] 你说得对」)
  * - 깨진 글자(U+FFFD, 「showc�포하우어」)
  * - 팩의 말투 예시를 그대로 베낌(「좋은 커피는 드물지요. 오늘은 운이 좋으셨습니다.」)
+ * - 자기를 3인칭으로 부름(니체가 「니체는 이런 질문에 … 답변했을지도」), 앱 내부 말(「@니체」, 「사용자에게」)
  */
 
-internal enum class GuardIssue { CONTAMINATED, BROKEN_TEXT, COPIED_EXAMPLE }
+internal enum class GuardIssue { CONTAMINATED, BROKEN_TEXT, SELF_THIRD_PERSON, COPIED_EXAMPLE }
 
 /**
  * @property text 저장해도 되는 부분(잘라 내고 남은 것). 비어 있을 수 있다.
@@ -78,12 +79,50 @@ internal fun copiedSentences(text: String, examples: List<String>): List<Pair<St
     return sentences.mapNotNull { s -> (long + short).firstOrNull { it.first == s } }
 }
 
+/** 답 속 `@니체` 같은 멘션 표시. 앱 입력창의 문법이라 철학자 말에 나오면 안 된다. */
+private val AT_MENTION = Regex("@[\\p{L}\\p{N}_]+\\s*")
+/** 대화 기록 이름표 '사용자'를 받아 쓴 것 → '당신'. 받침이 달라 조사도 맞춘다. */
+private val USER_WORD_KO = listOf("사용자가" to "당신이", "사용자는" to "당신은", "사용자를" to "당신을", "사용자와" to "당신과", "사용자님" to "당신", "사용자" to "당신")
+private val USER_WORD_EN = listOf(Regex("\\bthe user's\\b", RegexOption.IGNORE_CASE) to "your", Regex("\\bthe user\\b", RegexOption.IGNORE_CASE) to "you")
+
+/** 앱 내부 말(멘션 표시·'사용자')을 사람 말로 고친다. 문장은 빼지 않는다. */
+internal fun replaceAppWords(text: String, locale: String): String {
+    var t = text.replace(AT_MENTION, "")
+    if (locale == "en") for ((r, w) in USER_WORD_EN) t = t.replace(r, w)
+    else for ((a, b) in USER_WORD_KO) t = t.replace(a, b)
+    return t
+}
+
 /**
- * 답 하나를 검사한다. 순서: 오염 지점에서 자르기 → 깨진 글자 → 예시 베끼기.
- * 잘라 낸 뒤 남는 것은 마지막 완결 문장까지만 둔다(문장이 중간에 끊긴 채 저장되지 않게).
+ * 문장 첫머리의 되풀이 맞장구(「그렇습니다, 니체님 말씀대로」·「As Nietzsche said,」)를 떼어 낸다.
+ * PC 시험: 프롬프트로 금지해도 6가지 대화마다 1~2번 남았다. 뒤의 내용은 그대로 둔다.
  */
-internal fun guardReply(text: String, locale: String, examples: List<String>): Guarded {
-    var t = text
+private val ECHO_KO = Regex("^(?:(?:그렇습니다|맞습니다|네)[,\\s]*)?[\\p{L}]{1,12}?(?:님|선생님)?(?:의)?\\s*말씀(?:대로|처럼)[,\\s]*")
+private val ECHO_EN = Regex("^(?:(?:Yes|Indeed)[,\\s]+)?[Aa]s \\p{L}+ (?:said|says|put it)[,\\s]*")
+
+internal fun stripEchoOpeners(text: String, locale: String): String {
+    val r = if (locale == "en") ECHO_EN else ECHO_KO
+    return splitSentences(text).joinToString(" ") { s ->
+        val m = r.find(s) ?: return@joinToString s
+        val rest = s.substring(m.range.last + 1)
+        if (rest.isBlank()) s else rest.replaceFirstChar { it.uppercaseChar() }
+    }
+}
+
+/** 자기 이름을 3인칭으로 쓴 문장(「니체는 …라고 답했을지도」, 니체가 쓴 「니체의 말이 인상적이네요」). */
+internal fun selfThirdPersonSentences(text: String, selfNames: List<String>): List<String> {
+    val names = selfNames.filter { it.isNotBlank() }
+    if (names.isEmpty()) return emptyList()
+    return splitSentences(text).filter { s -> names.any { n -> s.contains(n, ignoreCase = true) } }
+}
+
+/**
+ * 답 하나를 검사한다. 순서: 앱 내부 말 고치기 → 오염 지점에서 자르기 → 깨진 글자 → 자기 3인칭 → 예시 베끼기.
+ * 잘라 낸 뒤 남는 것은 마지막 완결 문장까지만 둔다(문장이 중간에 끊긴 채 저장되지 않게).
+ * @param selfNames 말하는 철학자 자신의 이름들 — 답에 나오면 자기를 남처럼 부른 것이다.
+ */
+internal fun guardReply(text: String, locale: String, examples: List<String>, selfNames: List<String> = emptyList()): Guarded {
+    var t = replaceAppWords(text, locale).trim()
     var issue: GuardIssue? = null
     contaminationIndex(t, locale)?.let { idx ->
         val head = t.substring(0, idx)
@@ -96,6 +135,12 @@ internal fun guardReply(text: String, locale: String, examples: List<String>): G
         t = splitSentences(t).filter { BROKEN !in it }.joinToString(" ")
         issue = issue ?: GuardIssue.BROKEN_TEXT
     }
+    val third = selfThirdPersonSentences(t, selfNames).toSet()
+    if (third.isNotEmpty()) {
+        t = splitSentences(t).filter { it !in third }.joinToString(" ")
+        issue = issue ?: GuardIssue.SELF_THIRD_PERSON
+    }
+    t = stripEchoOpeners(t, locale)
     val withCopies = t
     val copied = copiedSentences(t, examples)
     if (copied.isNotEmpty()) {

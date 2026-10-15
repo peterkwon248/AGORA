@@ -22,7 +22,7 @@ for run in runs:
     text = (root / run).read_text(encoding="utf-8")
     print(f"\n### {run}")
     cases = re.split(r'^## ', text, flags=re.M)[1:]
-    tot = dict(cases=0, silent=0, fail=0, han=0, label=0, copy=0, nz_hao=0, nz_haeyo=0, turns=0, eng=0, broken=0)
+    tot = dict(cases=0, silent=0, fail=0, han=0, label=0, copy=0, nz_hao=0, nz_haeyo=0, turns=0, eng=0, broken=0, self3=0, appword=0, echo=0)
     for c in cases:
         cid = c.splitlines()[0].strip()
         tot["cases"] += 1
@@ -40,10 +40,13 @@ for run in runs:
             if re.search(r'\[[^\]]+\]|^\s*[A-Z ]{4,}\s*\]', b, flags=re.M): tot["label"] += 1; notes.append(f"{n}:이름표")
             hit = [s for s in sentences(b) for e in EX.get(n, []) if s in e or (len(s) >= 15 and s[:15] in e)]
             if hit: tot["copy"] += 1; notes.append(f"{n}:예시복사「{hit[0][:25]}」")
+            if n in b: tot["self3"] += 1; notes.append(f"{n}:자기3인칭")
+            if re.search(r'사용자|@\w|\bthe user\b', b): tot["appword"] += 1; notes.append(f"{n}:앱말")
+            if re.search(r'말씀대로|말씀처럼|As \w+ said', b): tot["echo"] += 1
             if n == "니체":
                 for s in sentences(b):
                     if re.search(r'(오|소|지|겠지|구려)[.?!]$', s): tot["nz_hao"] += 1
                     elif re.search(r'요[.?!]$', s): tot["nz_haeyo"] += 1
         m = re.search(r'자율 차례 (\d+)개 사용 · ([\d.]+)초', c)
         print(f"- {cid}: 첫 화자 {first} · 발화 {len(speakers)} · 침묵 {silent} · 실패 {fail} · {m.group(2)+'초' if m else '-'} {' '.join(notes)}")
-    print(f"  합계: 사례 {tot['cases']} · 발화 {tot['turns']} · 침묵 {tot['silent']} · 실패 {tot['fail']} · 한자 섞인 발화 {tot['han']} · 영어 섞인 한국어 발화 {tot['eng']} · 깨진 글자 {tot['broken']} · 이름표 {tot['label']} · 예시를 베낀 발화 {tot['copy']} · 니체 하오체 {tot['nz_hao']}/해요체 {tot['nz_haeyo']}")
+    print(f"  합계: 사례 {tot['cases']} · 발화 {tot['turns']} · 침묵 {tot['silent']} · 실패 {tot['fail']} · 한자 섞인 발화 {tot['han']} · 영어 섞인 한국어 발화 {tot['eng']} · 깨진 글자 {tot['broken']} · 이름표 {tot['label']} · 예시를 베낀 발화 {tot['copy']} · 자기 3인칭 {tot['self3']} · 앱 내부 말 {tot['appword']} · '말씀대로' 맞장구 {tot['echo']} · 니체 하오체 {tot['nz_hao']}/해요체 {tot['nz_haeyo']}")
