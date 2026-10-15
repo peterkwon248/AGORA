@@ -91,4 +91,4 @@
 - 이 클라우드 환경에서 `gh auth status`는 토큰 무효로 나오지만 REST API(`gh api`)는 된다. `gh pr create`는 GraphQL이라 막히므로 `gh api -X POST repos/peterkwon248/AGORA/pulls`로 PR을 열었다.
 
 ### 커밋
-브랜치 `claude/redesign-records` → PR #3. 병합은 사장님 승인 후.
+브랜치 `claude/redesign-records` → PR #3. 사장님 승인으로 squash 병합(2026-10-15).
