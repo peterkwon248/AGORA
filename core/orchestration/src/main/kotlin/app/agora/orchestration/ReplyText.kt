@@ -28,15 +28,16 @@ internal fun cleanReply(raw: String): String {
  * - 침묵 신호(`[PASS]` 등)로 끝날 수 있는 앞부분은 보류한다 — 침묵인데 글자가 깜빡 보이면 안 된다.
  * - `[니체] `·`니체: ` 같은 이름표가 될 수 있는 첫 어절은 끝날 때까지 보류한다.
  * - 끝에 붙기 시작한 `[PASS]` 조각은 잘라 낸다.
+ * - 다른 언어·남의 이름표가 시작되면 그 앞까지만 보여 준다([visibleBeforeContamination]).
  */
-internal fun displayablePartial(raw: String): String? {
+internal fun displayablePartial(raw: String, locale: String): String? {
     val t = raw.trimStart()
     if (t.contains(PASS_TOKEN) || mayBecomePass(t)) return null
     if (t.startsWith("[") && !t.contains(']') && t.length <= 21) return null
     val firstRun = t.takeWhile { !it.isWhitespace() && it != ':' && it != '：' }
     if (firstRun.length == t.length && t.length <= 12) return null
     val cut = (PASS_TOKEN.length - 1 downTo 1).firstOrNull { k -> t.endsWith(PASS_TOKEN.substring(0, k)) } ?: 0
-    return cleanReply(t.dropLast(cut)).ifEmpty { null }
+    return visibleBeforeContamination(cleanReply(t.dropLast(cut)), locale).ifEmpty { null }
 }
 
 private fun mayBecomePass(s: String): Boolean {

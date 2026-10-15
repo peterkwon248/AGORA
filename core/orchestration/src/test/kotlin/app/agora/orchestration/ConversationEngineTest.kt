@@ -104,9 +104,10 @@ class ConversationEngineTest {
 
     @Test
     fun `괄호 없는 PASS도 침묵이고 문장 속 pass는 침묵이 아니다`() = runTest {
-        for ((reply, silent) in listOf("PASS" to true, "(pass)." to true, "I'll pass on the cake, thanks." to false)) {
+        // 영어 문장은 영어 방에서 시험한다 — 한국어 방에서는 생성 후 검사가 다른 언어로 보고 잘라 낸다.
+        for ((reply, silent, locale) in listOf(Triple("PASS", true, "ko"), Triple("(pass).", true, "ko"), Triple("I'll pass on the cake, thanks.", false, "en"))) {
             val p = DemoInferenceProvider(mapOf("nietzsche" to listOf("첫 마디요."), "schopenhauer" to listOf(reply)))
-            val events = ConversationEngine(registry, p).run("r", RoomKind.GROUP, "ko",
+            val events = ConversationEngine(registry, p).run("r", RoomKind.GROUP, locale,
                 TurnInput(RoomKind.GROUP, two, relevance = mapOf("nietzsche" to 1.0)), userSays, 1, { 1 }).toList()
             assertEquals(silent, events.any { it is FlowEvent.Silent && it.speakerId == "schopenhauer" }, "'$reply'")
         }
@@ -165,6 +166,46 @@ class ConversationEngineTest {
             userSays, 1, { 1 }).toList()
         assertTrue(events.filterIsInstance<FlowEvent.Token>().none { it.speakerId == "schopenhauer" })
         assertTrue(events.any { it is FlowEvent.Silent && it.speakerId == "schopenhauer" })
+    }
+
+    private val coffee = listOf(TranscriptLine(null, "오늘 커피가 유난히 맛있어."))
+    private fun dm(p: InferenceProvider, id: String = "schopenhauer", transcript: List<TranscriptLine> = coffee) =
+        ConversationEngine(registry, p).run("r", RoomKind.DM, "ko", TurnInput(RoomKind.DM, listOf(Member(id))), transcript, 1, { 1 })
+
+    @Test
+    fun `예시를 통째로 베낀 답은 저장하지 않고 한 번 다시 생성한다`() = runTest {
+        // PC 시험: 쇼펜하우어가 커피 이야기에 팩 예시 문장을 그대로 냈다
+        val p = Recording(DemoInferenceProvider(mapOf("schopenhauer" to listOf("좋은 커피는 드물지요. 오늘은 운이 좋으셨습니다.", "맛이 기억에 남는 날은 드물지요."))))
+        val events = dm(p).toList()
+        assertEquals("맛이 기억에 남는 날은 드물지요.", events.filterIsInstance<FlowEvent.Committed>().single().text)
+        assertEquals(2, p.requests.size)
+    }
+
+    @Test
+    fun `다시 생성해도 베끼기만 나오면 침묵 대신 그 답을 저장한다`() = runTest {
+        val copy = "좋은 커피는 드물지요. 오늘은 운이 좋으셨습니다."
+        val p = Recording(DemoInferenceProvider(mapOf("schopenhauer" to listOf(copy))))
+        val events = dm(p).toList()
+        assertEquals(copy, events.filterIsInstance<FlowEvent.Committed>().single().text)
+        assertEquals(2, p.requests.size, "다시 생성은 한 번뿐")
+    }
+
+    @Test
+    fun `중간에 중국어로 넘어가면 앞 문장만 저장하고 화면에도 중국어를 흘리지 않는다`() = runTest {
+        val p = Recording(DemoInferenceProvider(mapOf("nietzsche" to listOf("그 고통이 무엇을 가르쳐 줄지 보시오. 고통 속에서我们也继续对话：\n[尼采] 每一次")), chunkChars = 3))
+        val events = dm(p, "nietzsche", userSays).toList()
+        assertEquals("그 고통이 무엇을 가르쳐 줄지 보시오.", events.filterIsInstance<FlowEvent.Committed>().single().text)
+        assertTrue(events.filterIsInstance<FlowEvent.Token>().none { t -> t.text.any { it.code in 0x4E00..0x9FFF } })
+        assertEquals(1, p.requests.size, "완결 문장이 남으면 다시 생성하지 않는다")
+    }
+
+    @Test
+    fun `두 번 다 깨진 답이면 아무것도 저장하지 않고 침묵한다`() = runTest {
+        val p = Recording(DemoInferenceProvider(mapOf("nietzsche" to listOf("showc�포하우어의 견해가 궁금하오."))))
+        val events = dm(p, "nietzsche", userSays).toList()
+        assertTrue(events.none { it is FlowEvent.Committed })
+        assertTrue(events.any { it is FlowEvent.Silent })
+        assertEquals(2, p.requests.size)
     }
 
     @Test

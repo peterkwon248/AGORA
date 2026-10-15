@@ -15,6 +15,11 @@ data class TranscriptLine(
 /** 할 말이 없을 때 모델이 내는 신호. 저장하지 않고 '침묵'으로 처리한다(설계서 7.2-3). */
 const val PASS_TOKEN = "[PASS]"
 
+/** 프롬프트에 넣는 말투 예시 수. 팩에는 언어마다 최대 12개까지 둘 수 있다. */
+internal const val MAX_EXAMPLES = 4
+/** 예시와의 겹침을 잴 때 보는 최근 대화 줄 수 */
+private const val RECENT_LINES = 3
+
 /**
  * 팩 + 대화 기록 → 프롬프트. 철학자별 분기 없이 팩 내용만으로 만든다.
  * 사용자가 쓴 글은 SYSTEM이 아니라 USER 역할에만 들어간다(설계서 23.4 프롬프트 삽입 대응).
@@ -31,24 +36,27 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
         debateAllowed: Boolean,
         intensity: DebateIntensity,
         mayPass: Boolean,
-    ): List<PromptMessage> = listOf(
-        PromptMessage(PromptRole.SYSTEM, system(speaker, locale, roomKind, otherMembers, debateAllowed, intensity, mayPass)),
-        PromptMessage(PromptRole.USER, conversation(speaker, locale, transcript, respondTo)),
-    )
+        avoidExamples: Set<String> = emptySet(),
+    ): List<PromptMessage> {
+        val examples = pickExamples(speaker.persona.examples.get(locale) - avoidExamples, transcript)
+        return listOf(
+            PromptMessage(PromptRole.SYSTEM, system(speaker, locale, roomKind, otherMembers, debateAllowed, intensity, mayPass, examples)),
+            PromptMessage(PromptRole.USER, conversation(speaker, locale, transcript, respondTo)),
+        )
+    }
 
     private fun name(id: String?, locale: String): String =
         if (id == null) (if (locale == "en") "User" else "사용자") else registry.get(id)?.display?.name?.get(locale) ?: id
 
     private fun system(
         p: PhilosopherPack, locale: String, roomKind: RoomKind, others: List<String>,
-        debateAllowed: Boolean, intensity: DebateIntensity, mayPass: Boolean,
+        debateAllowed: Boolean, intensity: DebateIntensity, mayPass: Boolean, examples: List<String>,
     ): String {
         val ko = locale != "en"
         val nm = p.display.name.get(locale)
         val full = (p.display.fullName ?: p.display.name).get(locale)
         val traits = p.persona.conversationTraits.get(locale).joinToString("\n") { "- $it" }
         val avoid = p.persona.avoid.get(locale).joinToString("\n") { "- $it" }
-        val examples = p.persona.examples.get(locale)
         val examplesBlock = if (examples.isEmpty()) "" else (
             (if (ko) "말투 예시(상황이 달라도 이런 결로 말한다. 그대로 베끼지 않는다):\n" else "Voice examples (speak in this grain even when the situation differs; never copy them verbatim):\n") +
                 examples.joinToString("\n") { "- $it" }
@@ -110,6 +118,29 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- Always answer in English.
             |${if (pass.isNotEmpty()) "- $pass" else ""}
         """.trimMargin().trim()
+    }
+
+    /**
+     * 말투 예시 중 지금 대화와 **상황이 가장 덜 겹치는** [MAX_EXAMPLES]개만 넣는다.
+     * PC 시험(qwen2.5:7b): 사용자가 커피·노래 이야기를 하면 같은 상황의 예시를 정답처럼 그대로 베꼈다(6가지 대화 중 4번).
+     * 겹침은 최근 대화와 예시가 공유하는 낱말 조각 수 — 한글은 두 글자 조각, 영문은 세 글자 이상 낱말.
+     * 겹침이 같으면 대화 내용에 따라 도는 순서로 고른다 — 늘 앞쪽 예시만 들어가지 않게(같은 대화엔 같은 결과).
+     */
+    private fun pickExamples(examples: List<String>, transcript: List<TranscriptLine>): List<String> {
+        if (examples.size <= MAX_EXAMPLES) return examples
+        val recent = transcript.takeLast(RECENT_LINES).joinToString(" ") { it.text }
+        val context = tokens(recent)
+        val offset = Math.floorMod(recent.hashCode(), examples.size)
+        return examples.withIndex()
+            .sortedWith(compareBy({ (tokens(it.value) intersect context).size }, { Math.floorMod(it.index - offset, examples.size) }))
+            .take(MAX_EXAMPLES).sortedBy { it.index }.map { it.value }
+    }
+
+    private fun tokens(s: String): Set<String> = buildSet {
+        for (w in s.lowercase().split(Regex("[^\\p{L}\\p{N}]+"))) {
+            if (w.isEmpty()) continue
+            if (w.first() in 'a'..'z') { if (w.length >= 3) add(w) } else w.windowed(2).forEach(::add)
+        }
     }
 
     private fun conversation(p: PhilosopherPack, locale: String, transcript: List<TranscriptLine>, respondTo: String?): String {
