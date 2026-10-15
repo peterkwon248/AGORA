@@ -88,4 +88,36 @@ class ReplyGuardTest {
             displayablePartial("좋아요, 오늘 들으신 노래가 무엇이었는지 궁금합니다. 선율이나 가사中有几处错误", "ko"))
         assertTrue(displayablePartial("고통 속에서我们也继续对话", "ko")!!.none { it.code in 0x4E00..0x9FFF })
     }
+
+    @Test
+    fun `자기 이름을 3인칭으로 쓴 문장은 뺀다`() {
+        val names = listOf("니체", "Nietzsche")
+        val raw = "노력 자체가 값지다고 보오. 니체는 이런 질문에 종종 다르게 답변했을지도 모르겠소."
+        assertEquals("노력 자체가 값지다고 보오.", guardReply(raw, "ko", emptyList(), names).text)
+        val only = guardReply("니체의 말이 인상적이네요.", "ko", emptyList(), names)
+        assertEquals("", only.text)
+        assertEquals(GuardIssue.SELF_THIRD_PERSON, only.issue)
+        assertEquals("Perhaps.", guardReply("Perhaps. Nietzsche would say otherwise.", "en", emptyList(), names).text)
+        // 남의 이름은 그대로 — 니체가 쇼펜하우어를 말하는 건 정상
+        val other = "쇼펜하우어의 비관은 너무 이르오."
+        assertEquals(other, guardReply(other, "ko", emptyList(), names).text)
+    }
+
+    @Test
+    fun `문장 첫머리의 말씀대로 맞장구는 떼고 내용은 둔다`() {
+        assertEquals("행복은 과정과 결과 모두에서 발견될 수 있을 것 같습니다. 그렇다면 무엇이 남을까요?",
+            guardReply("니체님 말씀대로, 행복은 과정과 결과 모두에서 발견될 수 있을 것 같습니다. 그렇다면 무엇이 남을까요?", "ko", emptyList()).text)
+        assertEquals("노력 자체는 가치가 있지요.", guardReply("그렇습니다, 니체의 말씀대로 노력 자체는 가치가 있지요.", "ko", emptyList()).text)
+        assertEquals("Effort has its own worth.", guardReply("As Nietzsche said, effort has its own worth.", "en", emptyList()).text)
+        val keep = "말씀대로 하겠소."
+        assertEquals(keep, guardReply(keep, "ko", emptyList()).text, "맞장구 뒤에 내용이 없으면 건드리지 않는다")
+    }
+
+    @Test
+    fun `멘션 표시와 사용자라는 말은 사람 말로 고친다`() {
+        assertEquals("니체 선생님 생각이 흥미롭습니다.", guardReply("@니체 니체 선생님 생각이 흥미롭습니다.", "ko", emptyList()).text)
+        assertEquals("오늘의 노래가 당신에게 어떤 의미를 가지는지 궁금합니다. 당신이 고른 노래인가요?",
+            guardReply("오늘의 노래가 사용자에게 어떤 의미를 가지는지 궁금합니다. 사용자가 고른 노래인가요?", "ko", emptyList()).text)
+        assertEquals("What did you hear in your song?", guardReply("What did the user hear in the user's song?", "en", emptyList()).text)
+    }
 }

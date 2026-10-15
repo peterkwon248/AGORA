@@ -45,8 +45,19 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
         )
     }
 
+    /**
+     * 대화 기록의 이름표. 사용자는 '사용자'가 아니라 '대화 상대' — PC 시험에서 모델이 이름표를 그대로 받아
+     * 「오늘의 노래가 사용자에게…」처럼 앱 내부 말을 답에 썼다.
+     */
     private fun name(id: String?, locale: String): String =
-        if (id == null) (if (locale == "en") "User" else "사용자") else registry.get(id)?.display?.name?.get(locale) ?: id
+        if (id == null) (if (locale == "en") "Chat partner" else "대화 상대") else registry.get(id)?.display?.name?.get(locale) ?: id
+
+    /** 함께 있는 철학자와의 관계(팩 relations). 맞장구만 오가지 않게 어디서 생각이 갈리는지 알려 준다. */
+    private fun relationLines(p: PhilosopherPack, others: List<String>, locale: String): List<String> =
+        p.relations.filter { it.philosopherId in others }.map { r ->
+            val note = if (locale == "en") r.relationType.replace('_', ' ') else r.note ?: r.relationType.replace('_', ' ')
+            "- ${name(r.philosopherId, locale)}: $note"
+        }
 
     private fun system(
         p: PhilosopherPack, locale: String, roomKind: RoomKind, others: List<String>,
@@ -62,6 +73,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
                 examples.joinToString("\n") { "- $it" }
             )
         val othersText = others.joinToString(", ") { name(it, locale) }
+        val relations = relationLines(p, others, locale)
         val quote = when (p.knowledge.quotePolicy) {
             QuotePolicy.PARAPHRASE_ONLY -> if (ko) "저작을 직접 인용하지 말고, 생각을 당신의 말로 풀어 말한다." else "Never quote your works; put ideas in your own words."
             QuotePolicy.VERIFIED_PUBLIC_DOMAIN_ONLY -> if (ko) "확실하지 않은 문장을 당신의 저작에서 인용한 것처럼 말하지 않는다." else "Never present an uncertain sentence as a quotation from your works."
@@ -69,7 +81,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
         val debate = when {
             !debateAllowed -> if (ko) "지금은 반박하지 말고 받아 주거나 덧붙인다." else "Do not argue right now; acknowledge or add."
             intensity == DebateIntensity.GENTLE -> if (ko) "생각이 다르면 부드럽게 다른 관점을 말한다." else "If you disagree, offer another view gently."
-            intensity == DebateIntensity.BALANCED -> if (ko) "생각이 실제로 다르면 근거를 들어 반박해도 된다. 억지로 반대하지는 않는다." else "If you truly disagree, you may push back with reasons. Never disagree for its own sake."
+            intensity == DebateIntensity.BALANCED -> if (ko) "당신의 사상과 실제로 다르면 다르다고 분명히 말하고 근거를 든다. 억지로 반대하지는 않는다." else "If it truly differs from your thought, say so plainly and give a reason. Never disagree for its own sake."
             else -> if (ko) "생각이 실제로 다르면 논증을 끝까지 밀고 간다. 인신공격·모욕은 하지 않는다." else "If you truly disagree, press the argument rigorously. No insults or personal attacks."
         }
         // 침묵 신호는 한 번만, 좁은 조건으로 말한다. PC 시험(qwen2.5:7b)에서 두 번 말하면 두 번째 화자가 거의 늘 침묵했다.
@@ -80,6 +92,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
         return if (ko) """
             |당신은 메신저 앱 AGORA의 ${if (roomKind == RoomKind.DM) "1:1 대화" else "단톡방"} 속 '$nm'입니다. $full 의 사상을 바탕으로 한 AI 시뮬레이션이며, 실제 인물이 아닙니다.
             |${if (others.isNotEmpty()) "함께 있는 철학자: $othersText." else ""}
+            |${if (relations.isNotEmpty()) "그들과의 관계(생각이 갈리는 곳):\n" + relations.joinToString("\n") else ""}
             |
             |말투: ${p.persona.speechLevel.ko}
             |성향:
@@ -91,15 +104,19 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- 메신저 대화처럼 말한다. 강의하지 않는다. 보통 1~3문장.
             |- 상대가 가벼운 이야기를 하면 가볍게 받는다. 철학 개념을 억지로 끼워 넣지 않는다.
             |- 모르는 사실(사람·노래·사건의 세부)은 지어내지 않는다. 모르면 묻는다.
-            |- 사용자의 감정을 진단하거나 훈계하지 않는다.
+            |- 상대의 감정을 진단하거나 훈계하지 않는다.
             |- $quote
             |- $debate
             |- 당신 한 사람의 말만 쓴다. 이름표나 따옴표를 붙이지 않는다. 다른 사람의 말을 대신 쓰지 않는다.
+            |- 당신 자신을 '$nm' 이름으로 부르지 않는다(「${nm}는 …」 금지). 당신은 '나'다. 대화 기록의 [$nm(당신)] 줄이 당신이 한 말이다.
+            |- 대화 상대는 '당신'이라고 부른다. '사용자'라고 부르지 않고 '@이름' 표시를 쓰지 않는다.
+            |- 앞사람 말을 「~말씀대로」로 받아 되풀이하지 않는다. 동의하면 새 이유나 경험을 보탠다.
             |- 반드시 한국어로 답한다.
             |${if (pass.isNotEmpty()) "- $pass" else ""}
         """.trimMargin().trim() else """
             |You are '$nm' in the ${if (roomKind == RoomKind.DM) "one-on-one chat" else "group chat"} of the messenger app AGORA — an AI simulation based on the ideas of $full, not the real person.
             |${if (others.isNotEmpty()) "Other philosophers here: $othersText." else ""}
+            |${if (relations.isNotEmpty()) "How you relate to them (where your thinking parts):\n" + relations.joinToString("\n") else ""}
             |
             |Voice: ${p.persona.speechLevel.en}
             |Traits:
@@ -111,10 +128,13 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- Talk like a messenger chat, not a lecture. Usually 1–3 sentences.
             |- Meet light talk lightly. Do not force philosophical concepts in.
             |- Never invent facts (details about people, songs, events). Ask if you don't know.
-            |- Do not diagnose or lecture the user about their feelings.
+            |- Do not diagnose or lecture them about their feelings.
             |- $quote
             |- $debate
             |- Write only your own single message. No name labels, no quotation marks, never speak for others.
+            |- Never refer to yourself as '$nm' in the third person. You are "I". Lines marked [$nm (you)] are what you said.
+            |- Address your chat partner as "you". Never call them "the user" and never write '@name' tags.
+            |- Do not echo the previous speaker ("As X said…"). If you agree, add a new reason or experience.
             |- Always answer in English.
             |${if (pass.isNotEmpty()) "- $pass" else ""}
         """.trimMargin().trim()
@@ -145,21 +165,26 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
 
     private fun conversation(p: PhilosopherPack, locale: String, transcript: List<TranscriptLine>, respondTo: String?): String {
         val ko = locale != "en"
-        val log = transcript.joinToString("\n") { "[${name(it.authorId, locale)}] ${it.text}" }
         val nm = p.display.name.get(locale)
+        // 자기 발언에 '(당신)'을 붙인다 — 이름표만 있으면 모델이 자기 말을 남의 말처럼 받아 「니체의 말이 인상적이네요」라고 했다.
+        val log = transcript.joinToString("\n") {
+            val tag = name(it.authorId, locale) + if (it.authorId == p.id) (if (ko) "(당신)" else " (you)") else ""
+            "[$tag] ${it.text}"
+        }
         // 침묵 신호는 SYSTEM 규칙에만 있다 — 여기서 다시 말하지 않는다.
         return if (ko) {
             val ask = when (respondTo) {
                 null -> "이제 '$nm'로서 사용자의 마지막 말에 이어지는 다음 한 마디만 쓰세요."
                 else -> "이제 '$nm'로서 ${name(respondTo, locale)}의 바로 앞 말을 듣고 다음 한 마디만 쓰세요. 동의하든, 다른 각도를 보태든, 묻든 당신의 관점이면 됩니다."
             }
-            "지금까지의 대화:\n$log\n\n$ask"
+            // 말투는 SYSTEM에도 있지만 긴 대화에서 해요체로 흘렀다 — 마지막 요청 바로 옆에 한 번 더.
+            "지금까지의 대화:\n$log\n\n$ask\n말투: ${p.persona.speechLevel.ko}"
         } else {
             val ask = when (respondTo) {
                 null -> "Now, as '$nm', write only your next single message responding to the user's last message."
                 else -> "Now, as '$nm', having heard ${name(respondTo, locale)}'s last message, write only your next single message. Agree, add another angle, or ask—so long as it is your own view."
             }
-            "Conversation so far:\n$log\n\n$ask"
+            "Conversation so far:\n$log\n\n$ask\nVoice: ${p.persona.speechLevel.en}"
         }
     }
 }

@@ -217,4 +217,12 @@ class ConversationEngineTest {
             userSays, 1, { 1 }).toList()
         assertEquals(listOf("nietzsche"), events.filterIsInstance<FlowEvent.GuestLeft>().map { it.speakerId })
     }
+
+    @Test
+    fun `자기를 3인칭으로만 말한 답은 다시 생성한다`() = runTest {
+        val p = Recording(DemoInferenceProvider(mapOf("nietzsche" to listOf("니체는 이런 질문에 다르게 답했을지도 모르겠소.", "결과로만 재면 노력은 늘 빚지는 셈이오."))))
+        val c = dm(p, "nietzsche", userSays).toList().filterIsInstance<FlowEvent.Committed>().single()
+        assertEquals("결과로만 재면 노력은 늘 빚지는 셈이오.", c.text)
+        assertEquals(2, p.requests.size)
+    }
 }
