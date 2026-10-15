@@ -88,7 +88,7 @@
 - 사장님 결정: 탭 순서·광장 제거·프로필 탭·노트/피드 분리·채팅 홈 A 기본+고르기(예전 A·C를 A로 합침)·철학자 이미지 바꾸기 / 나에 대해 / 같이 읽기 / 서재 보류 / 성격 바꾸는 파일 없음.
 - 승인 대기: 차이 표 🟡·↩︎ 줄(D7), 채팅 홈을 몇 개 남길지(D8).
 - 캔버스 게시가 거부된 일 두 가지: ① 이 세션에서 캔버스 파일을 읽지 않고 올리려 함 → 읽고 비교한 뒤 게시 ② 편집 도구가 `logic.js`의 이스케이프를 실제 U+FFFD 글자로 바꿔 넣음 → 이스케이프로 되돌림. 둘 다 `design/redesign/README.md`에 적어 둠.
-- `gh` CLI 토큰이 이 클라우드 환경에서 무효였음.
+- 이 클라우드 환경에서 `gh auth status`는 토큰 무효로 나오지만 REST API(`gh api`)는 된다. `gh pr create`는 GraphQL이라 막히므로 `gh api -X POST repos/peterkwon248/AGORA/pulls`로 PR을 열었다.
 
 ### 커밋
-브랜치 `claude/redesign-records` → PR. 병합은 사장님 승인 후.
+브랜치 `claude/redesign-records` → PR #3. 병합은 사장님 승인 후.

@@ -31,4 +31,4 @@
 ## 이력
 - 2026-10-14: 저장소 생성, Sprint 0 착수, 커밋 5개 main 직접 푸시.
 - 2026-10-14: 세션 2(claude.ai 클라우드) — 리뷰에서 찾은 4건 수정(첫 화자 고정·과도한 침묵·말투 예시·스트리밍) + ADR-010. 사장님이 병합까지 승인.
-- 2026-10-14~15: 세션 3(세션 2와 같은 claude.ai 클라우드 세션) — Claude Design 캔버스 'AGORA 리디자인' v41, ADR-011·012, 리디자인 차이 표, `design/redesign/`. 앱 코드 변경 없음. 브랜치 `claude/redesign-records` → PR(병합은 사장님 승인 후).
+- 2026-10-14~15: 세션 3(세션 2와 같은 claude.ai 클라우드 세션) — Claude Design 캔버스 'AGORA 리디자인' v41, ADR-011·012, 리디자인 차이 표, `design/redesign/`. 앱 코드 변경 없음. 브랜치 `claude/redesign-records` → PR #3(병합은 사장님 승인 후).
