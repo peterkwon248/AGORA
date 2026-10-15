@@ -80,39 +80,57 @@ class ConversationEngine(
             val pack = registry.get(speakerId) ?: return true
             val debateAllowed = debateTurnsLeft > 0
             val others = members.map { it.philosopherId }.filter { it != speakerId }
-            val messages = composer.compose(pack, locale, log, roomKind, others, respondTo, debateAllowed, plan.intensity, mayPass = autonomous)
-            val gid = UUID.randomUUID().toString()
+            val examples = pack.persona.examples.get(locale)
             emit(FlowEvent.Typing(speakerId))
-            val req = GenerateRequest(
-                generationId = gid,
-                scope = GenerationScope(if (roomKind == RoomKind.DM) ScopeType.DM else ScopeType.ROOM, roomId),
-                speakerId = speakerId,
-                task = GenerationTask.CHAT,
-                locale = locale,
-                personaVersion = pack.packVersion,
-                contextRefs = emptyList(),
-                messages = messages,
-                maxOutputTokens = maxOutputTokens,
-                deadlineMs = deadlineMs,
-            )
-            // 스트리밍: 지금까지의 부분 문장을 화면용으로 다듬어 누적으로 보낸다. [PASS]·이름표가 될 수 있는 앞부분은 보류.
-            val partial = StringBuilder()
-            var shown: String? = null
-            val outcome = provider.generate(req).collectOutcome { piece ->
-                partial.append(piece)
-                val view = displayablePartial(partial.toString())
-                if (view != null && view != shown) {
-                    shown = view
-                    emit(FlowEvent.Token(speakerId, view))
+
+            // 생성 후 검사([guardReply])로 저장할 수 없는 부분을 뺀다. 남는 게 없으면 한 번만 다시 생성한다.
+            // 베낀 예시는 다시 생성할 때 프롬프트에서 뺀다.
+            var avoid = emptySet<String>()
+            var gid: String
+            var text: String
+            var attempt = 0
+            while (true) {
+                val messages = composer.compose(pack, locale, log, roomKind, others, respondTo, debateAllowed, plan.intensity, mayPass = autonomous, avoidExamples = avoid)
+                gid = UUID.randomUUID().toString()
+                val req = GenerateRequest(
+                    generationId = gid,
+                    scope = GenerationScope(if (roomKind == RoomKind.DM) ScopeType.DM else ScopeType.ROOM, roomId),
+                    speakerId = speakerId,
+                    task = GenerationTask.CHAT,
+                    locale = locale,
+                    personaVersion = pack.packVersion,
+                    contextRefs = emptyList(),
+                    messages = messages,
+                    maxOutputTokens = maxOutputTokens,
+                    deadlineMs = deadlineMs,
+                )
+                // 스트리밍: 지금까지의 부분 문장을 화면용으로 다듬어 누적으로 보낸다. [PASS]·이름표가 될 수 있는 앞부분은 보류.
+                // 다시 생성하면 새 누적이 처음부터 다시 온다 — 화면은 같은 화자의 Token을 늘 마지막 것으로 바꿔 그린다.
+                val partial = StringBuilder()
+                var shown: String? = null
+                val outcome = provider.generate(req).collectOutcome { piece ->
+                    partial.append(piece)
+                    val view = displayablePartial(partial.toString(), locale)
+                    if (view != null && view != shown) {
+                        shown = view
+                        emit(FlowEvent.Token(speakerId, view))
+                    }
                 }
+                if (currentRevision() != startRevision) { emit(FlowEvent.Superseded); return false }
+                val raw = outcome.text
+                if (raw == null) { attempted += speakerId; emit(FlowEvent.Failed(speakerId, outcome.terminal)); return false }
+                if (isPassReply(raw)) { text = ""; break }
+                val g = guardReply(cleanReply(raw), locale, examples)
+                // 걸린 부분을 빼고도 할 말이 남으면 그것으로 충분하다 — 다시 생성은 기기에서 몇십 초가 든다.
+                if (g.issue == null || g.text.isNotEmpty()) { text = g.text; break }
+                if (attempt++ == 0) { avoid = avoid + g.copied; continue }
+                // 다시 생성해도 걸렸다: 저장해도 되는 부분만 남긴다. 베끼기만 남았으면 침묵보다 베낀 답이 낫다.
+                text = g.text.ifEmpty { if (g.copied.isNotEmpty()) g.withCopies else "" }
+                break
             }
-            if (currentRevision() != startRevision) { emit(FlowEvent.Superseded); return false }
-            val raw = outcome.text
-            val text = raw?.let(::cleanReply)
             attempted += speakerId
             when {
-                raw == null || text == null -> { emit(FlowEvent.Failed(speakerId, outcome.terminal)); return false }
-                isPassReply(raw) || text.isEmpty() -> emit(FlowEvent.Silent(speakerId))
+                text.isEmpty() -> emit(FlowEvent.Silent(speakerId))
                 else -> {
                     emit(FlowEvent.Committed(speakerId, text, respondTo, autonomous, gid))
                     log += TranscriptLine(speakerId, text)

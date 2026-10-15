@@ -47,10 +47,33 @@ class PromptComposerTest {
         val ni = registry.require("nietzsche")
         val ko = compose("nietzsche").first { it.role == PromptRole.SYSTEM }.content
         val en = compose("nietzsche", locale = "en").first { it.role == PromptRole.SYSTEM }.content
-        assertTrue(ni.persona.examples.ko.isNotEmpty() && ni.persona.examples.en.isNotEmpty())
-        assertTrue(ni.persona.examples.ko.all { it in ko })
+        assertTrue(ni.persona.examples.ko.size > MAX_EXAMPLES && ni.persona.examples.en.size > MAX_EXAMPLES)
+        assertEquals(MAX_EXAMPLES, ni.persona.examples.ko.count { it in ko })
         assertTrue(ni.persona.examples.en.none { it in ko })
-        assertTrue(ni.persona.examples.en.all { it in en })
+        assertEquals(MAX_EXAMPLES, ni.persona.examples.en.count { it in en })
+    }
+
+    @Test
+    fun `지금 대화와 상황이 겹치는 예시는 넣지 않는다`() {
+        // PC 시험: 커피 이야기에 쇼펜하우어가 커피 예시를 그대로 베꼈다(두 번 모두)
+        val coffee = registry.require("schopenhauer").persona.examples.ko.first { "커피" in it }
+        assertFalse(coffee in all(compose("schopenhauer")), "대화에 '커피'가 있으면 커피 예시는 빠져야 한다")
+        val song = listOf(TranscriptLine(null, "잠깐, 그 얘기 말고 오늘 들은 노래 이야기하자."))
+        val sys = composer.compose(registry.require("schopenhauer"), "ko", song, RoomKind.GROUP, listOf("nietzsche"), null, true, DebateIntensity.BALANCED, false)
+            .first { it.role == PromptRole.SYSTEM }.content
+        assertTrue(registry.require("schopenhauer").persona.examples.ko.filter { "노래" in it }.none { it in sys })
+    }
+
+    @Test
+    fun `다시 생성할 때 빼라고 한 예시는 넣지 않는다`() {
+        val ex = registry.require("nietzsche").persona.examples.ko
+        val first = composer.compose(registry.require("nietzsche"), "ko", transcript, RoomKind.GROUP, listOf("schopenhauer"), null, true, DebateIntensity.BALANCED, false)
+            .first { it.role == PromptRole.SYSTEM }.content
+        val used = ex.filter { it in first }
+        val again = composer.compose(registry.require("nietzsche"), "ko", transcript, RoomKind.GROUP, listOf("schopenhauer"), null, true, DebateIntensity.BALANCED, false, avoidExamples = used.toSet())
+            .first { it.role == PromptRole.SYSTEM }.content
+        assertTrue(used.none { it in again })
+        assertEquals(MAX_EXAMPLES, ex.count { it in again })
     }
 
     @Test
