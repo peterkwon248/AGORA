@@ -6,7 +6,7 @@
 - [x] 0-3 InferenceProvider 계약 + Demo/Unavailable + 취소·스트리밍 규칙
 - [x] 0-4 Registry 로더 + 니체·쇼펜하우어 팩 + test_philosopher
 - [x] 0-5 PC(Ollama) 시험 도구 + 첫 결과
-- [ ] 0-6 llama.cpp 어댑터 + Qwen3 1.7B/4B (+Gemma 4 확인) 실기기 측정 — 다운로드 끝(2026-10-17, NEXT-ACTION 1번), **휴대폰 대기**
+- [ ] 0-6 llama.cpp 어댑터 + Qwen3 1.7B/4B + Gemma 4 E2B 실기기 측정 — 다운로드 끝(2026-10-17, NEXT-ACTION 1번), **휴대폰 대기**
 - [~] 0-7 두 철학자 대화 시제품 — 화면·엔진 완료, 기기 안 AI 연결 남음
 - [ ] 0-8 시안 대비 화면 비교표 — **기준 스크린샷(D3) 대기**
 
