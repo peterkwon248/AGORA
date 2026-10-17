@@ -18,9 +18,10 @@ Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝, 0-7은 화면까지
    | llama.cpp 소스 | `llama.cpp/` (얕은 clone, 218MB) | github.com/ggml-org/llama.cpp · 커밋 `f74e2fa6` (2026-10-16) · MIT · `gemma4` 구조 지원 |
    | Qwen3 1.7B | `models/Qwen3-1.7B-Q8_0.gguf` (1.83GB) | Qwen/Qwen3-1.7B-GGUF · SHA-256 `061b54da…90cb1a` 공식값 일치 |
    | Qwen3 4B | `models/Qwen3-4B-Q4_K_M.gguf` (2.50GB) | Qwen/Qwen3-4B-GGUF · SHA-256 `7485fe6f…34fdf5` 공식값 일치 |
+   | Gemma 4 E2B | `models/gemma-4-E2B_q4_0-it.gguf` (3.35GB, QAT Q4_0) | google/gemma-4-E2B-it-qat-q4_0-gguf · Apache-2.0 · SHA-256 `fa401b55…dec6634` 공식값 일치 · 사진용 mmproj는 안 받음 |
    | 글꼴 | `fonts/gothica1/` 9굵기, `fonts/gowunbatang/` 2굵기 + 각 OFL.txt | github.com/google/fonts `ofl/` |
    - **정정:** 문서에 'Qwen3 1.7B Q4_K_M 공식 약 1.1GB'라고 적혀 있었으나, Qwen 공식 저장소의 1.7B는 **Q8_0 하나뿐**이다. 휴대폰에서 Q8_0이 무거우면 llama.cpp `llama-quantize`로 Q4_K_M을 만들거나(원본 BF16에서 만드는 편이 낫다) 다른 배포처를 쓴다 — 고를 때 사장님께 묻는다.
-   - **Gemma 4 GGUF 있음(받지 않음):** Google 공식 `google/gemma-4-E2B-it-qat-q4_0-gguf`(3.35GB)·`google/gemma-4-E4B-it-qat-q4_0-gguf`(5.15GB), Apache-2.0, 동의 절차 없음. ggml-org·unsloth 등에도 있다(E2B Q4_0 2.84GB~). 받을지는 사장님 결정(D6b).
+   - **Gemma 4:** E2B는 받았다(2026-10-17, D6b). E4B(`google/gemma-4-E4B-it-qat-q4_0-gguf`, 5.15GB)는 휴대폰 램(D2)을 본 뒤 받을지 정한다. 다른 배포처(ggml-org·unsloth 등)에도 있다.
 2. **`adapters/local-llm` 만들기** — llama.cpp를 NDK(29.0.14206865)·CMake(3.31.6)로 빌드, JNI로 `InferenceProvider` 구현(스트리밍·취소). 기존 계약 검사(`collectOutcome`, 취소 시 부분 문장 미저장)를 이 어댑터에도 적용.
 3. **실기기 측정** — 사장님 휴대폰 연결(USB 디버깅) 후 ADR-002 3장 절차로 측정, `qa/device-logs/`에 기록.
    - ADR-012 때문에 측정 항목 하나 추가: **참고 글(자료 대목)을 붙였을 때 첫 토큰까지 시간** → '나에 대해'·'같이 읽기'에서 한 번에 몇 조각까지 붙일지 정한다.
@@ -35,7 +36,7 @@ Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝, 0-7은 화면까지
 | D4 | 공개 저장소 유지 | ✅ 공개 유지 (정식 출시 때 비공개 전환은 사장님이 결정) |
 | D5 | 카뮈·시오랑 초상 사용권 | ⏳ Sprint 2 전까지 |
 | D6 | 모델·llama.cpp·글꼴 다운로드 | ✅ 2026-10-17 받음 (위 1번) |
-| D6b | Gemma 4 E2B/E4B GGUF도 받을지 | ⏳ 대기 — 있음 확인됨 |
+| D6b | Gemma 4 GGUF도 받을지 | ✅ E2B 받음 (2026-10-17) · E4B는 D2(휴대폰 램) 뒤에 |
 | D7 | 리디자인 차이 표의 🟡·↩︎ 줄 — 설정 묶음, 내 프로필 항목, 새 대화의 분위기 단계, 답 순서, 방 정보 배치, 노트 상세, 피드 배치, 철학자 프로필 배치, 데스크톱, 처음 안내·모델·Plus, 색 값 | ⏳ 대기 — 추천: 색은 원래 '어스름' 값 |
 | D8 | 채팅 홈 모양(A~E) 중 앱에 몇 개 남길지 | ⏳ 대기 — 추천: A·C 둘(많아도 셋) |
 
