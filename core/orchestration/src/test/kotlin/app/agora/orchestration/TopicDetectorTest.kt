@@ -5,6 +5,7 @@ import app.agora.philosophers.TOPIC_KEYS
 import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class TopicDetectorTest {
@@ -44,5 +45,23 @@ class TopicDetectorTest {
         val work = relevanceFor(Topic.WORK, two, registry)
         assertTrue(work.getValue("nietzsche") > work.getValue("schopenhauer"), "시안 REL.work: 니체가 쇼펜하우어보다 앞")
         assertEquals(0.0, relevanceFor(Topic.MUSIC, listOf("unknown_id"), registry).getValue("unknown_id"))
+    }
+}
+
+class LightTalkTest {
+    @Test
+    fun `일상 말은 가볍다`() {
+        listOf("오늘 커피가 유난히 맛있어.", "오늘 날씨 진짜 좋다.", "점심에 김치찌개 먹었는데 완전 맛있었어.",
+            "퇴근하고 동네 한 바퀴 산책했어.", "주말에 친구랑 영화 봤는데 재밌더라.", "The coffee was great today.")
+            .forEach { assertTrue(LightTalk.isLight(it), it) }
+    }
+
+    @Test
+    fun `깊게 받아야 할 평가 문장은 가볍지 않다`() {
+        listOf("빗속의 출근길에서 오랜만에 유재하를 만났다. 오랜만에 듣는 그의 목소리가 더 깊고 묵직하다.",
+            "노력해도 결과가 없다면 노력은 무의미할까?", "@니체 쇼펜하우어 말에 대해 넌 어떻게 생각해?",
+            "I heard an old song on my rainy commute, and it felt different this time.",
+            "밥 먹다가 갑자기 사는 게 무의미하게 느껴졌어.")
+            .forEach { assertFalse(LightTalk.isLight(it), it) }
     }
 }

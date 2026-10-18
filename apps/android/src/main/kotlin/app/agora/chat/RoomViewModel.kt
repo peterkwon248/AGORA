@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import app.agora.inference.FailureCode
 import app.agora.inference.GenerateEvent
 import app.agora.inference.InferenceProvider
+import app.agora.inference.llamacpp.LlamaCppProvider
+import app.agora.inference.llamacpp.LocalModels
 import app.agora.dev.DevProviders
 import app.agora.orchestration.ConversationEngine
 import app.agora.orchestration.FlowEvent
@@ -44,7 +46,8 @@ data class RoomState(
 
 /**
  * Sprint 0 시제품용 방 하나. 영구 저장·여러 방은 Sprint 1.
- * 모델 어댑터가 붙기 전에는 [UnavailableInferenceProvider] — 데모 문장으로 대신 답하지 않는다.
+ * 휴대폰에 모델 파일이 있으면 기기 안 AI(llama.cpp), 없으면 디버그는 개발 PC 연결·릴리스는 '모델 없음'.
+ * 데모 문장으로 대신 답하지 않는다.
  */
 class RoomViewModel(app: Application) : AndroidViewModel(app) {
     val registry: PhilosopherRegistry = PhilosopherRegistry.load(
@@ -53,9 +56,41 @@ class RoomViewModel(app: Application) : AndroidViewModel(app) {
         },
     )
 
-    // 디버그: 개발 PC 연결 / 릴리스: 모델 없음으로 정직하게 실패 (기기 안 AI 어댑터는 다음 단계)
-    var provider: InferenceProvider = DevProviders.create()
-    val devBridge: Boolean = DevProviders.IS_DEV_BRIDGE
+    private val prefs = app.getSharedPreferences("agora_local_llm", android.content.Context.MODE_PRIVATE)
+
+    var provider: InferenceProvider = createProvider(prefs.getString(KEY_MODEL, null), prefs.getInt(KEY_THREADS, 0), prefs.getFloat(KEY_TEMP, 0f))
+        private set
+
+    /** 개발 PC 연결 띠를 보여야 하는가 — 기기 안 AI로 답할 때는 false */
+    val devBridge: Boolean get() = provider !is LlamaCppProvider && DevProviders.IS_DEV_BRIDGE
+
+    private fun createProvider(model: String?, threads: Int, temperature: Float): InferenceProvider {
+        val file = LocalModels.pick(getApplication(), model) ?: return DevProviders.create()
+        val base = LlamaCppProvider.Sampling.forModel(file.name)
+        val sampling = if (temperature > 0f) base.copy(temperature = temperature) else base
+        val p = LlamaCppProvider(file, nThreads = if (threads > 0) threads else LlamaCppProvider.defaultThreads(), sampling = sampling)
+        android.util.Log.i("AGORA", "provider=${p.id} threads=${p.nThreads} ${p.sampling} (models: ${LocalModels.list(getApplication()).map { it.name }})")
+        return p
+    }
+
+    /** 디버그 측정용: 모델·스레드 수를 바꾼다(adb로 호출, MainActivity 참고). 진행 중 생성은 멈춘다. */
+    fun selectModel(model: String?, threads: Int, temperature: Float) {
+        job?.cancel()
+        prefs.edit().putString(KEY_MODEL, model).putInt(KEY_THREADS, threads).putFloat(KEY_TEMP, temperature).apply()
+        (provider as? LlamaCppProvider)?.close()
+        provider = createProvider(model, threads, temperature)
+        _state.update { RoomState(members.map { m -> m.philosopherId }) }
+    }
+
+    /** 디버그 측정용: 평가 문장을 지금 모델로 차례로 돌려 files/eval/에 기록한다. 릴리스에서는 아무 일도 안 한다. */
+    fun runEval(): Job {
+        job?.cancel()
+        return viewModelScope.launch { DevProviders.runEval(getApplication(), registry, provider) }.also { job = it }
+    }
+
+    override fun onCleared() {
+        (provider as? LlamaCppProvider)?.close()
+    }
 
     private val members = listOf(Member("nietzsche"), Member("schopenhauer"))
     private val _state = MutableStateFlow(RoomState(members.map { it.philosopherId }))
@@ -119,4 +154,10 @@ class RoomViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     private fun newId() = UUID.randomUUID().toString()
+
+    private companion object {
+        const val KEY_MODEL = "model"
+        const val KEY_THREADS = "threads"
+        const val KEY_TEMP = "temperature"
+    }
 }

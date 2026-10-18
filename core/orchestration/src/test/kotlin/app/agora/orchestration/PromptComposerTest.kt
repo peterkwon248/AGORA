@@ -110,4 +110,13 @@ class PromptComposerTest {
             .first { it.role == PromptRole.SYSTEM }.content
         assertFalse(note in dm, "함께 없는 철학자의 관계는 넣지 않는다")
     }
+
+    @Test
+    fun `가벼운 말 지시는 대화 상대가 가벼운 일상을 꺼냈을 때만 들어간다`() {
+        // 늘 넣었더니 멘션 질문에 「오늘 날씨가 꽤 쌀쌀하오」라고 화제를 지어냈다(노트북 Gemma 4 E2B)
+        assertTrue(LIGHT_KO in all(compose("schopenhauer", respondTo = "nietzsche")), "커피 이야기 → 이어 말하기에도 지시")
+        val deep = composer.compose(registry.require("nietzsche"), "ko", listOf(TranscriptLine(null, "노력해도 결과가 없다면 노력은 무의미할까?")),
+            RoomKind.GROUP, listOf("schopenhauer"), null, debateAllowed = true, intensity = DebateIntensity.BALANCED, mayPass = false)
+        assertFalse(LIGHT_KO in all(deep))
+    }
 }

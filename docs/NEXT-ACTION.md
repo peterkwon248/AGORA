@@ -1,9 +1,9 @@
 # NEXT-ACTION — 다음 세션이 바로 할 일
 
-> 마지막 갱신: 2026-10-17 · KWONKYUNGHUN Claude Code(세션 5, 새 기기 준비·다운로드) · Claude — 다른 기기에서는 먼저 `git pull`
+> 마지막 갱신: 2026-10-18 · KWONKYUNGHUN Claude Code(세션 5, 기기 안 AI 첫 실행) · Claude — 다른 기기에서는 먼저 `git pull`
 
 ## 지금 위치
-Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝, 0-7은 화면까지(답은 아직 **개발 PC의 AI**), 0-6(기기 안 AI 실측)·0-8(시안 비교)은 대기.
+Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝. **0-6·0-7: 사장님 Z Fold7에서 철학자가 기기 안 AI(llama.cpp)로 직접 답한다** — 첫 비교만 했고 정식 측정은 남음([기록](../qa/device-logs/20261018-zfold7-first-run.md)). 0-8(시안 비교)은 대기.
 
 디자인: 리디자인 캔버스 'AGORA 리디자인' v41의 결정이 저장소에 기록됐다 — [ADR-011](decisions/ADR-011-redesign-structure.md)(화면 구조), [ADR-012](decisions/ADR-012-user-materials.md)(나에 대해·같이 읽기), [차이 표](design/REDESIGN-DIFF.md), 캔버스 사본 `design/redesign/`. 세션 3은 앱 코드를 바꾸지 않았다. 앱 이식은 Sprint 0 게이트 뒤(차이 표 3장 순서).
 
@@ -22,8 +22,12 @@ Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝, 0-7은 화면까지
    | 글꼴 | `fonts/gothica1/` 9굵기, `fonts/gowunbatang/` 2굵기 + 각 OFL.txt | github.com/google/fonts `ofl/` |
    - **정정:** 문서에 'Qwen3 1.7B Q4_K_M 공식 약 1.1GB'라고 적혀 있었으나, Qwen 공식 저장소의 1.7B는 **Q8_0 하나뿐**이다. 휴대폰에서 Q8_0이 무거우면 llama.cpp `llama-quantize`로 Q4_K_M을 만들거나(원본 BF16에서 만드는 편이 낫다) 다른 배포처를 쓴다 — 고를 때 사장님께 묻는다.
    - **Gemma 4:** E2B는 받았다(2026-10-17, D6b). E4B(`google/gemma-4-E4B-it-qat-q4_0-gguf`, 5.15GB)는 휴대폰 램(D2)을 본 뒤 받을지 정한다. 다른 배포처(ggml-org·unsloth 등)에도 있다.
-2. **`adapters/local-llm` 만들기** — llama.cpp를 NDK(29.0.14206865)·CMake(3.31.6)로 빌드, JNI로 `InferenceProvider` 구현(스트리밍·취소). 기존 계약 검사(`collectOutcome`, 취소 시 부분 문장 미저장)를 이 어댑터에도 적용.
-3. **실기기 측정** — 사장님 휴대폰 연결(USB 디버깅) 후 ADR-002 3장 절차로 측정, `qa/device-logs/`에 기록.
+2. ✅ **`adapters/local-llm`** (2026-10-18) — llama.cpp(`third_party/llama.cpp` submodule, `f74e2fa6`)를 NDK·CMake로 빌드, JNI로 `LlamaCppProvider`(스트리밍·취소·마감 시간). 모델은 앱 내부 저장소 `files/models/`. 휴대폰에 모델이 있으면 디버그 앱도 기기 안 AI로 답하고 '개발용' 띠가 사라진다. arm64만 빌드(에뮬레이터용 x86_64는 아직).
+   - 남은 것: 어댑터에 계약 검사(`collectOutcome`) 기기 시험, 첫 글자까지 시간 줄이기(같은 화자 앞부분 캐시, 실행 중 명령어 고르기 i8mm, 스레드 비교).
+3. **실기기 정식 측정** — 첫 비교는 끝(Gemma 4 E2B: 첫 글자 8~11초·초당 19토큰·한국어 자연스러움 / Qwen3 4B: 23~30초·영어 섞임 / Qwen3 1.7B: 문장 무너짐 — 한 문장 한 번씩이라 확정 아님). 이제 ADR-002 3장 절차(평가 문장 13개 × 한/영, 10분 연속, 취소 시간)로 재고 `qa/device-logs/`에 기록.
+   - **E2B·E4B 평가 문장 비교 끝**([기록](../qa/device-logs/20261018-gemma-e2b-e4b-eval.md)): E4B가 말은 낫지만 첫 글자 2배 느림(23.6초)·메모리 6GB → 기본값 E2B 유지. 프롬프트 손질로 '캐묻기'는 해소, '가벼운 말에도 철학'은 노트북에서 손질함 — 가벼운 말 15개 중 9~10개 → 0~2개, 깊은 대화 유지([기록](../qa/pc-runs/20261018-light-talk-tuning.md)). **휴대폰 확인은 다음 실기기 측정 때.**
+   - **품질 손질은 노트북에서**: llama.cpp b11706 Windows 판(`C:/Users/kkh94/AgoraAssets/llama-bin-b11706`, 공식 SHA-256 확인)으로 `llama-server` → `./gradlew :tools:pc-harness:run --args="llama-server <이름>"`. 휴대폰은 속도 확인 때만, 사장님이 안 쓰실 때(예: 밤 충전 중).
+   - 휴대폰: 사장님 Galaxy Z Fold7(SM8750·12GB). USB 디버깅 켜짐, 이 노트북을 '항상 허용'. 화면 잠금 상태에서는 앱이 안 뜬다 → 측정 때 잠금 해제 부탁.
    - ADR-012 때문에 측정 항목 하나 추가: **참고 글(자료 대목)을 붙였을 때 첫 토큰까지 시간** → '나에 대해'·'같이 읽기'에서 한 번에 몇 조각까지 붙일지 정한다.
 4. **(디자인) 사장님 승인 받기 — D7·D8.** 답을 받으면 차이 표의 상태·날짜를 고친다. 이식은 Sprint 0 게이트 전에는 시작하지 않는다.
 
@@ -31,7 +35,7 @@ Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝, 0-7은 화면까지
 | 번호 | 내용 | 상태 |
 |---|---|---|
 | D1 | 개발 도구 설치 | ✅ 승인·설치 완료 |
-| D2 | 시험용 Android 휴대폰 (기종·RAM, USB 디버깅) | ⏳ 대기 |
+| D2 | 시험용 Android 휴대폰 (기종·RAM, USB 디버깅) | ✅ 사장님 Galaxy Z Fold7 (SM8750, 12GB, Android 16) — 2026-10-18 연결 |
 | D3 | 시안 기준 스크린샷 또는 'CSS 값 기준 OK' | ⏳ 대기 |
 | D4 | 공개 저장소 유지 | ✅ 공개 유지 (정식 출시 때 비공개 전환은 사장님이 결정) |
 | D5 | 카뮈·시오랑 초상 사용권 | ⏳ Sprint 2 전까지 |
@@ -53,8 +57,11 @@ export ANDROID_HOME="/c/Users/kwonkyunghun/AppData/Local/Android/Sdk"
 ./gradlew test                         # 검사 74가지
 ./gradlew :apps:android:assembleDebug  # 디버그 APK
 ./gradlew :tools:pc-harness:run        # PC Ollama로 니체·쇼펜하우어 시험 → qa/pc-runs/
+git submodule update --init --depth 1 third_party/llama.cpp   # 새로 clone했으면 먼저 (기기 안 AI 소스)
 "$ANDROID_HOME/emulator/emulator.exe" -avd agora_pixel -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect
 ```
+실제 휴대폰에서 기기 안 AI 시험 — 모델 넣기·고르기·로그 보기는 [첫 실행 기록](../qa/device-logs/20261018-zfold7-first-run.md) '다시 하는 법'.
+
 가상 휴대폰에 한글 메시지 보내기(adb input은 한글 불가):
 ```bash
 MSG=$(printf '%s' '오늘 커피가 유난히 맛있어.' | base64 -w0)

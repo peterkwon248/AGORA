@@ -14,6 +14,8 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "0.0.1-sprint0"
+        // 기기 안 AI 라이브러리가 arm64만 있다(Sprint 0 실기기 측정용)
+        ndk { abiFilters += listOf("arm64-v8a") }
     }
 
     buildFeatures { compose = true }
@@ -29,9 +31,13 @@ android {
 
 dependencies {
     implementation(project(":core:orchestration"))
+    // 기기 안 AI (llama.cpp). 모델 파일은 휴대폰 앱 저장소에 따로 둔다
+    implementation(project(":adapters:local-llm"))
     // 주의: :adapters:demo-inference 는 여기에 넣지 않는다 (지시서 9.3)
     // 개발용 PC 연결은 디버그 빌드에만
     debugImplementation(project(":adapters:ollama-dev"))
+    // 평가 문장을 휴대폰에서 돌리는 디버그 도구(adb로 실행)
+    debugImplementation(project(":tools:eval-script"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
