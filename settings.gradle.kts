@@ -22,6 +22,9 @@ include(":core:philosophers")
 include(":core:orchestration")
 
 // 테스트·개발 전용 어댑터 — 릴리스 앱에 넣지 않는다 (AGENTS.md)
+// 기기 안 AI — llama.cpp (ADR-002). 릴리스 앱의 생성 경로
+include(":adapters:local-llm")
+
 include(":adapters:demo-inference")
 include(":adapters:ollama-dev")
 include(":tools:pc-harness")
