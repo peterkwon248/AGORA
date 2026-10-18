@@ -27,6 +27,7 @@ include(":adapters:local-llm")
 
 include(":adapters:demo-inference")
 include(":adapters:ollama-dev")
+include(":tools:eval-script")
 include(":tools:pc-harness")
 
 // Android 앱 — 시안 이식 화면 (ADR-001)

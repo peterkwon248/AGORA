@@ -131,7 +131,7 @@ extern "C" JNIEXPORT jint JNICALL
 Java_app_agora_inference_llamacpp_LlamaNative_nativeGenerate(
         JNIEnv * env, jobject, jlong handle,
         jintArray jroles, jobjectArray jcontents,
-        jint max_tokens, jfloat temperature, jint seed,
+        jint max_tokens, jfloat temperature, jint top_k, jfloat top_p, jfloat min_p, jfloat repeat_penalty, jint seed,
         jobject sink, jlongArray jstats) {
     auto * s = reinterpret_cast<Session *>(handle);
     const llama_vocab * vocab = llama_model_get_vocab(s->model);
@@ -194,6 +194,10 @@ Java_app_agora_inference_llamacpp_LlamaNative_nativeGenerate(
     // 4) 생성
     common_params_sampling sp;
     sp.temp = temperature;
+    sp.top_k = top_k;
+    sp.top_p = top_p;
+    sp.min_p = min_p;
+    sp.penalty_repeat = repeat_penalty;
     if (seed >= 0) sp.seed = (uint32_t) seed;
     common_sampler * smpl = common_sampler_init(s->model, sp);
 

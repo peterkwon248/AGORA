@@ -58,26 +58,34 @@ class RoomViewModel(app: Application) : AndroidViewModel(app) {
 
     private val prefs = app.getSharedPreferences("agora_local_llm", android.content.Context.MODE_PRIVATE)
 
-    var provider: InferenceProvider = createProvider(prefs.getString(KEY_MODEL, null), prefs.getInt(KEY_THREADS, 0))
+    var provider: InferenceProvider = createProvider(prefs.getString(KEY_MODEL, null), prefs.getInt(KEY_THREADS, 0), prefs.getFloat(KEY_TEMP, 0f))
         private set
 
     /** 개발 PC 연결 띠를 보여야 하는가 — 기기 안 AI로 답할 때는 false */
     val devBridge: Boolean get() = provider !is LlamaCppProvider && DevProviders.IS_DEV_BRIDGE
 
-    private fun createProvider(model: String?, threads: Int): InferenceProvider {
+    private fun createProvider(model: String?, threads: Int, temperature: Float): InferenceProvider {
         val file = LocalModels.pick(getApplication(), model) ?: return DevProviders.create()
-        val p = if (threads > 0) LlamaCppProvider(file, nThreads = threads) else LlamaCppProvider(file)
-        android.util.Log.i("AGORA", "provider=${p.id} threads=${p.nThreads} (models: ${LocalModels.list(getApplication()).map { it.name }})")
+        val base = LlamaCppProvider.Sampling.forModel(file.name)
+        val sampling = if (temperature > 0f) base.copy(temperature = temperature) else base
+        val p = LlamaCppProvider(file, nThreads = if (threads > 0) threads else LlamaCppProvider.defaultThreads(), sampling = sampling)
+        android.util.Log.i("AGORA", "provider=${p.id} threads=${p.nThreads} ${p.sampling} (models: ${LocalModels.list(getApplication()).map { it.name }})")
         return p
     }
 
     /** 디버그 측정용: 모델·스레드 수를 바꾼다(adb로 호출, MainActivity 참고). 진행 중 생성은 멈춘다. */
-    fun selectModel(model: String?, threads: Int) {
+    fun selectModel(model: String?, threads: Int, temperature: Float) {
         job?.cancel()
-        prefs.edit().putString(KEY_MODEL, model).putInt(KEY_THREADS, threads).apply()
+        prefs.edit().putString(KEY_MODEL, model).putInt(KEY_THREADS, threads).putFloat(KEY_TEMP, temperature).apply()
         (provider as? LlamaCppProvider)?.close()
-        provider = createProvider(model, threads)
+        provider = createProvider(model, threads, temperature)
         _state.update { RoomState(members.map { m -> m.philosopherId }) }
+    }
+
+    /** 디버그 측정용: 평가 문장을 지금 모델로 차례로 돌려 files/eval/에 기록한다. 릴리스에서는 아무 일도 안 한다. */
+    fun runEval(): Job {
+        job?.cancel()
+        return viewModelScope.launch { DevProviders.runEval(getApplication(), registry, provider) }.also { job = it }
     }
 
     override fun onCleared() {
@@ -150,5 +158,6 @@ class RoomViewModel(app: Application) : AndroidViewModel(app) {
     private companion object {
         const val KEY_MODEL = "model"
         const val KEY_THREADS = "threads"
+        const val KEY_TEMP = "temperature"
     }
 }

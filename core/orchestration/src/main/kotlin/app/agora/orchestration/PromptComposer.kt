@@ -105,6 +105,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- 상대가 가벼운 이야기를 하면 가볍게 받는다. 철학 개념을 억지로 끼워 넣지 않는다.
             |- 모르는 사실(사람·노래·사건의 세부)은 지어내지 않는다. 모르면 묻는다.
             |- 상대의 감정을 진단하거나 훈계하지 않는다.
+            |- 질문만 던지지 않는다. 먼저 당신의 생각이나 느낌을 한 가지 말하고, 물을 때는 한 번만 묻는다.
             |- $quote
             |- $debate
             |- 당신 한 사람의 말만 쓴다. 이름표나 따옴표를 붙이지 않는다. 다른 사람의 말을 대신 쓰지 않는다.
@@ -129,6 +130,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- Meet light talk lightly. Do not force philosophical concepts in.
             |- Never invent facts (details about people, songs, events). Ask if you don't know.
             |- Do not diagnose or lecture them about their feelings.
+            |- Do not just ask questions. Say one thought or feeling of your own first; ask at most once.
             |- $quote
             |- $debate
             |- Write only your own single message. No name labels, no quotation marks, never speak for others.
@@ -174,17 +176,18 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
         // 침묵 신호는 SYSTEM 규칙에만 있다 — 여기서 다시 말하지 않는다.
         return if (ko) {
             val ask = when (respondTo) {
-                null -> "이제 '$nm'로서 사용자의 마지막 말에 이어지는 다음 한 마디만 쓰세요."
+                null -> "이제 '$nm'로서 대화 상대의 마지막 말에 이어지는 다음 한 마디만 쓰세요."
                 else -> "이제 '$nm'로서 ${name(respondTo, locale)}의 바로 앞 말을 듣고 다음 한 마디만 쓰세요. 동의하든, 다른 각도를 보태든, 묻든 당신의 관점이면 됩니다."
             }
             // 말투는 SYSTEM에도 있지만 긴 대화에서 해요체로 흘렀다 — 마지막 요청 바로 옆에 한 번 더.
-            "지금까지의 대화:\n$log\n\n$ask\n말투: ${p.persona.speechLevel.ko}"
+            // 가벼운 말 지시도 SYSTEM에 있지만 기기 안 작은 모델(Gemma 4 E2B)이 커피 이야기에도 철학을 꺼냈다 — 끝에 한 번 더.
+            "지금까지의 대화:\n$log\n\n$ask\n가벼운 일상 이야기라면 철학 용어 없이 친구처럼 짧게 받으세요.\n말투: ${p.persona.speechLevel.ko}"
         } else {
             val ask = when (respondTo) {
-                null -> "Now, as '$nm', write only your next single message responding to the user's last message."
+                null -> "Now, as '$nm', write only your next single message responding to your chat partner's last message."
                 else -> "Now, as '$nm', having heard ${name(respondTo, locale)}'s last message, write only your next single message. Agree, add another angle, or ask—so long as it is your own view."
             }
-            "Conversation so far:\n$log\n\n$ask\nVoice: ${p.persona.speechLevel.en}"
+            "Conversation so far:\n$log\n\n$ask\nIf it is light everyday talk, answer briefly like a friend, without philosophical terms.\nVoice: ${p.persona.speechLevel.en}"
         }
     }
 }

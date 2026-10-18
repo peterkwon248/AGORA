@@ -33,7 +33,7 @@ class LlamaCppProvider(
     val modelFile: File,
     private val nCtx: Int = 4096,
     val nThreads: Int = defaultThreads(),
-    private val temperature: Float = 0.8f,
+    val sampling: Sampling = Sampling.forModel(modelFile.name),
 ) : InferenceProvider {
     override val id = "llamacpp:${modelFile.name}"
 
@@ -74,7 +74,7 @@ class LlamaCppProvider(
             if (handle == 0L) {
                 return GenerateEvent.Failed(FailureCode.MODEL_UNSUPPORTED, retryable = false, detail = "모델을 읽지 못함: ${modelFile.name}")
             }
-            Log.i(TAG, "model loaded ${modelFile.name} in ${SystemClock.elapsedRealtime() - t0}ms (${LlamaNative.nativeDescribe(handle)}, threads=$nThreads)")
+            Log.i(TAG, "model loaded ${modelFile.name} in ${SystemClock.elapsedRealtime() - t0}ms (${LlamaNative.nativeDescribe(handle)}, threads=$nThreads, $sampling)")
         }
 
         val job = currentCoroutineContext()[Job]
@@ -87,7 +87,11 @@ class LlamaCppProvider(
             IntArray(request.messages.size) { roleOf(request.messages[it].role) },
             Array(request.messages.size) { request.messages[it].content },
             request.maxOutputTokens,
-            temperature,
+            sampling.temperature,
+            sampling.topK,
+            sampling.topP,
+            sampling.minP,
+            sampling.repeatPenalty,
             -1,
             { bytes ->
                 val piece = String(bytes, Charsets.UTF_8)
@@ -106,6 +110,25 @@ class LlamaCppProvider(
                 if (deadlineHit) GenerateEvent.Failed(FailureCode.DEADLINE_EXCEEDED, retryable = true) else GenerateEvent.Cancelled
             LlamaNative.STATUS_PROMPT_TOO_LONG -> GenerateEvent.Failed(FailureCode.INTERNAL, retryable = false, detail = "대화가 문맥 한도($nCtx 토큰)를 넘음")
             else -> GenerateEvent.Failed(FailureCode.INTERNAL, retryable = true, detail = "llama.cpp status=$status")
+        }
+    }
+
+    /** 다음 글자를 고르는 방식. 온도가 낮을수록 안전한 글자만 고른다(맞춤법·엉뚱한 낱말이 줄고 말이 단조로워진다). */
+    data class Sampling(
+        val temperature: Float = 0.8f,
+        val topK: Int = 40,
+        val topP: Float = 0.95f,
+        val minP: Float = 0.05f,
+        val repeatPenalty: Float = 1.0f,
+    ) {
+        companion object {
+            /** 모델 파일 이름으로 기본값을 고른다. 근거는 qa/device-logs 평가 기록. */
+            fun forModel(fileName: String): Sampling = when {
+                fileName.startsWith("gemma-4") -> GEMMA
+                else -> Sampling()
+            }
+
+            val GEMMA = Sampling()
         }
     }
 

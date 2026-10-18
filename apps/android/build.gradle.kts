@@ -36,6 +36,8 @@ dependencies {
     // 주의: :adapters:demo-inference 는 여기에 넣지 않는다 (지시서 9.3)
     // 개발용 PC 연결은 디버그 빌드에만
     debugImplementation(project(":adapters:ollama-dev"))
+    // 평가 문장을 휴대폰에서 돌리는 디버그 도구(adb로 실행)
+    debugImplementation(project(":tools:eval-script"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
