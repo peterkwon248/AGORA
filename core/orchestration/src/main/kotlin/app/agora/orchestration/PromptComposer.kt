@@ -21,6 +21,15 @@ internal const val MAX_EXAMPLES = 4
 private const val RECENT_LINES = 3
 
 /**
+ * 가벼운 말의 결을 지키라는 지시. 대화 상대의 마지막 말이 가벼운 일상([LightTalk])일 때만 마지막 요청 바로 옆에 넣는다.
+ * - 기준을 '대화 상대가 꺼낸 이야기'로 잡는다 — '가벼운 이야기라면'만 쓰면, 앞 철학자가 이미 무겁게 받은 뒤에는
+ *   모델이 「덧없음→고통의 순환」으로 더 무거워졌다(노트북 Gemma 4 E2B, 가벼운 말 15개 중 9~10개).
+ * - 늘 넣고 '커피·날씨…' 같은 예를 들었더니 멘션 질문에 「오늘 날씨가 꽤 쌀쌀하오」라고 화제를 지어냈다 → 조건부, 예 없음.
+ */
+internal const val LIGHT_KO = "대화 상대는 가벼운 일상 이야기를 꺼냈습니다. 앞사람이 무겁게 받았더라도 그 가벼운 결로 돌아가세요. 고통·덧없음·의지·욕망·영원 같은 말을 쓰지 말고 친구처럼 짧게 맞장구치거나 하나만 물으세요."
+internal const val LIGHT_EN = "Your chat partner brought up something light and everyday. Keep it light even if the previous speaker got heavy. Avoid words like suffering, futility, will, desire, eternity; respond briefly like a friend or ask one simple question."
+
+/**
  * 팩 + 대화 기록 → 프롬프트. 철학자별 분기 없이 팩 내용만으로 만든다.
  * 사용자가 쓴 글은 SYSTEM이 아니라 USER 역할에만 들어간다(설계서 23.4 프롬프트 삽입 대응).
  */
@@ -174,6 +183,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             "[$tag] ${it.text}"
         }
         // 침묵 신호는 SYSTEM 규칙에만 있다 — 여기서 다시 말하지 않는다.
+        val light = LightTalk.isLight(transcript.lastOrNull { it.authorId == null }?.text.orEmpty())
         return if (ko) {
             val ask = when (respondTo) {
                 null -> "이제 '$nm'로서 대화 상대의 마지막 말에 이어지는 다음 한 마디만 쓰세요."
@@ -181,13 +191,13 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             }
             // 말투는 SYSTEM에도 있지만 긴 대화에서 해요체로 흘렀다 — 마지막 요청 바로 옆에 한 번 더.
             // 가벼운 말 지시도 SYSTEM에 있지만 기기 안 작은 모델(Gemma 4 E2B)이 커피 이야기에도 철학을 꺼냈다 — 끝에 한 번 더.
-            "지금까지의 대화:\n$log\n\n$ask\n가벼운 일상 이야기라면 철학 용어 없이 친구처럼 짧게 받으세요.\n말투: ${p.persona.speechLevel.ko}"
+            "지금까지의 대화:\n$log\n\n$ask\n${if (light) "$LIGHT_KO\n" else ""}말투: ${p.persona.speechLevel.ko}"
         } else {
             val ask = when (respondTo) {
                 null -> "Now, as '$nm', write only your next single message responding to your chat partner's last message."
                 else -> "Now, as '$nm', having heard ${name(respondTo, locale)}'s last message, write only your next single message. Agree, add another angle, or ask—so long as it is your own view."
             }
-            "Conversation so far:\n$log\n\n$ask\nIf it is light everyday talk, answer briefly like a friend, without philosophical terms.\nVoice: ${p.persona.speechLevel.en}"
+            "Conversation so far:\n$log\n\n$ask\n${if (light) "$LIGHT_EN\n" else ""}Voice: ${p.persona.speechLevel.en}"
         }
     }
 }

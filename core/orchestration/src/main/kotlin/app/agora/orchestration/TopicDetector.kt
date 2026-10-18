@@ -46,3 +46,20 @@ fun relevanceFor(topic: Topic, memberIds: List<String>, registry: PhilosopherReg
         val affinity = registry.get(id)?.persona?.topicAffinity.orEmpty()
         affinity[topic.key] ?: affinity[Topic.OPEN.key] ?: 0.0
     }
+
+/**
+ * 가벼운 일상 말인가 — **말투(결)를 맞추는 데만** 쓴다([PromptComposer]의 가벼운 말 지시). 발언 순서·완화·비공개 같은
+ * 동작은 바꾸지 않는다. 틀려도 답이 조금 가벼워지거나 그대로일 뿐이다.
+ * [TopicDetector]의 시안 정규식과 따로 둔다 — 시안 화제 분류(순위용)를 건드리지 않으려고.
+ * - 노래·비는 넣지 않는다: '빗속에서 들은 노래'는 깊게 받아야 하는 평가 문장(설계서 22.3-1·10)이다.
+ * - 의미·노력·허무 같은 말이 같이 있으면 가볍지 않다고 본다.
+ */
+object LightTalk {
+    private val LIGHT = Regex("(커피|카페|날씨|맑|점심|저녁|아침|밥|먹었|맛있|맛집|산책|하늘|영화|드라마|주말|낮잠|운동|쇼핑|coffee|cafe|weather|sunny|lunch|dinner|breakfast|ate\b|tasty|delicious|a walk|movie|film|weekend|nap|workout|shopping)")
+    private val HEAVY = Regex("(의미|노력|허무|무의미|가치|행복|죽음|외로|슬프|우울|불안|meaning|effort|pointless|purpose|worth|death|lonely|sad|depress|anxious)")
+
+    fun isLight(text: String): Boolean {
+        val s = text.lowercase()
+        return LIGHT.containsMatchIn(s) && !HEAVY.containsMatchIn(s)
+    }
+}

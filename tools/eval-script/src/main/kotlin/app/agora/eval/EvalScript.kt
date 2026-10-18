@@ -38,6 +38,21 @@ val EVAL_CASES = listOf(
 )
 
 /**
+ * 가벼운 일상 말 묶음 — '가벼운 말에도 철학을 꺼내는' 문제(EVAL-CHAT-01) 손질용. 설계서 22.3 2번의 변형.
+ * 철학 낱말 세기는 [PHILOSOPHY_WORDS]로 대략 잰다 — 판정은 사람이 읽고 한다.
+ */
+val LIGHT_CASES = listOf(
+    EvalCase("L1-coffee", "ko", "오늘 커피가 유난히 맛있어."),
+    EvalCase("L2-weather", "ko", "오늘 날씨 진짜 좋다."),
+    EvalCase("L3-lunch", "ko", "점심에 김치찌개 먹었는데 완전 맛있었어."),
+    EvalCase("L4-walk", "ko", "퇴근하고 동네 한 바퀴 산책했어."),
+    EvalCase("L5-movie", "ko", "주말에 친구랑 영화 봤는데 재밌더라."),
+)
+
+/** 가벼운 말에 나오면 '철학화' 신호로 보는 낱말(대략적인 자동 표시 — 최종 판정은 사람) */
+val PHILOSOPHY_WORDS = listOf("의지", "고통", "쾌락", "욕망", "본질", "허무", "덧없", "존재", "환상", "현상", "충동", "초월", "체념", "실존", "영원")
+
+/**
  * 평가 문장을 차례로 돌려 마크다운 기록을 만든다. 각 문장은 빈 방에서 시작한다.
  * [clock]은 밀리초(기기마다 다른 시계를 쓰게). 첫 글자까지 시간은 차례 시작('쓰는 중') → 첫 조각.
  */
@@ -57,6 +72,8 @@ suspend fun runEval(
     out.appendLine("> $note")
     out.appendLine()
     val firstTokenMs = mutableListOf<Long>()
+    var replies = 0
+    var heavy = 0
     for (c in cases) {
         val name = { id: String? -> if (id == null) (if (c.locale == "en") "User" else "나") else registry.require(id).display.name.get(c.locale) }
         out.appendLine("## ${c.id}")
@@ -75,7 +92,12 @@ suspend fun runEval(
             when (e) {
                 is FlowEvent.Typing -> { turnStart = clock(); gotToken = false }
                 is FlowEvent.Token -> if (!gotToken) { gotToken = true; firstTokenMs += clock() - turnStart }
-                is FlowEvent.Committed -> out.appendLine("**[${name(e.speakerId)}]**${if (e.autonomous) " ↪" else ""} ${e.text}\n")
+                is FlowEvent.Committed -> {
+                    val hits = PHILOSOPHY_WORDS.filter { it in e.text }
+                    replies++
+                    if (hits.isNotEmpty()) heavy++
+                    out.appendLine("**[${name(e.speakerId)}]**${if (e.autonomous) " ↪" else ""} ${e.text}${if (hits.isNotEmpty()) " `철학 낱말: ${hits.joinToString()}`" else ""}\n")
+                }
                 is FlowEvent.Silent -> out.appendLine("_(${name(e.speakerId)} 침묵)_\n")
                 is FlowEvent.Failed -> out.appendLine("❌ ${name(e.speakerId)} 생성 실패: ${e.event}\n")
                 is FlowEvent.Finished -> out.appendLine("_자율 차례 ${e.autonomousTurnsUsed}개 사용 · ${"%.1f".format((clock() - started) / 1e3)}초_\n")
@@ -84,10 +106,12 @@ suspend fun runEval(
         }
         onCaseDone(c.id)
     }
+    out.appendLine("---")
+    out.appendLine()
+    out.appendLine("철학 낱말이 든 답: ${replies}개 중 ${heavy}개")
+    out.appendLine()
     if (firstTokenMs.isNotEmpty()) {
         val sorted = firstTokenMs.sorted()
-        out.appendLine("---")
-        out.appendLine()
         out.appendLine("첫 글자까지(차례 ${sorted.size}번): 가운데값 ${"%.1f".format(sorted[sorted.size / 2] / 1e3)}초 · 가장 느림 ${"%.1f".format(sorted.last() / 1e3)}초")
     }
     return out.toString()
