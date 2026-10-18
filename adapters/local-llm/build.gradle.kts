@@ -35,6 +35,11 @@ android {
         }
     }
 
+    // 디버그는 가상 휴대폰(x86_64)용도 — 휴대폰 없이 노트북 에뮬레이터에서 맞는지 확인한다
+    buildTypes {
+        getByName("debug") { ndk { abiFilters += listOf("x86_64") } }
+    }
+
     externalNativeBuild {
         cmake {
             path("src/main/cpp/CMakeLists.txt")

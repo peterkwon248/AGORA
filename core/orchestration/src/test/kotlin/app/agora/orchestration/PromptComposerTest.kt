@@ -27,7 +27,7 @@ class PromptComposerTest {
         // PC 시험: SYSTEM과 USER에서 두 번 말하자 두 번째 화자가 6번 중 6번 침묵했다
         val m = compose("schopenhauer", respondTo = "nietzsche", mayPass = true)
         assertEquals(1, Regex(Regex.escape(PASS_TOKEN)).findAll(all(m)).count())
-        assertFalse(PASS_TOKEN in m.first { it.role == PromptRole.USER }.content)
+        assertFalse(PASS_TOKEN in m.first { it.role == PromptRole.SYSTEM }.content, "차례마다 바뀌는 규칙은 SYSTEM에 두지 않는다")
     }
 
     @Test
@@ -45,8 +45,8 @@ class PromptComposerTest {
     @Test
     fun `팩의 말투 예시가 그 언어로만 들어간다`() {
         val ni = registry.require("nietzsche")
-        val ko = compose("nietzsche").first { it.role == PromptRole.SYSTEM }.content
-        val en = compose("nietzsche", locale = "en").first { it.role == PromptRole.SYSTEM }.content
+        val ko = all(compose("nietzsche"))
+        val en = all(compose("nietzsche", locale = "en"))
         assertTrue(ni.persona.examples.ko.size > MAX_EXAMPLES && ni.persona.examples.en.size > MAX_EXAMPLES)
         assertEquals(MAX_EXAMPLES, ni.persona.examples.ko.count { it in ko })
         assertTrue(ni.persona.examples.en.none { it in ko })
@@ -60,7 +60,7 @@ class PromptComposerTest {
         assertFalse(coffee in all(compose("schopenhauer")), "대화에 '커피'가 있으면 커피 예시는 빠져야 한다")
         val song = listOf(TranscriptLine(null, "잠깐, 그 얘기 말고 오늘 들은 노래 이야기하자."))
         val sys = composer.compose(registry.require("schopenhauer"), "ko", song, RoomKind.GROUP, listOf("nietzsche"), null, true, DebateIntensity.BALANCED, false)
-            .first { it.role == PromptRole.SYSTEM }.content
+            .let(::all)
         assertTrue(registry.require("schopenhauer").persona.examples.ko.filter { "노래" in it }.none { it in sys })
     }
 
@@ -68,10 +68,10 @@ class PromptComposerTest {
     fun `다시 생성할 때 빼라고 한 예시는 넣지 않는다`() {
         val ex = registry.require("nietzsche").persona.examples.ko
         val first = composer.compose(registry.require("nietzsche"), "ko", transcript, RoomKind.GROUP, listOf("schopenhauer"), null, true, DebateIntensity.BALANCED, false)
-            .first { it.role == PromptRole.SYSTEM }.content
+            .let(::all)
         val used = ex.filter { it in first }
         val again = composer.compose(registry.require("nietzsche"), "ko", transcript, RoomKind.GROUP, listOf("schopenhauer"), null, true, DebateIntensity.BALANCED, false, avoidExamples = used.toSet())
-            .first { it.role == PromptRole.SYSTEM }.content
+            .let(::all)
         assertTrue(used.none { it in again })
         assertEquals(MAX_EXAMPLES, ex.count { it in again })
     }
@@ -79,10 +79,9 @@ class PromptComposerTest {
     @Test
     fun `예시가 없는 팩은 예시 칸 없이 그대로 동작한다`() {
         val bare = registry.require("nietzsche").let { it.copy(persona = it.persona.copy(examples = LocalizedList())) }
-        val sys = composer.compose(bare, "ko", transcript, RoomKind.DM, emptyList(), null, true, DebateIntensity.BALANCED, false)
-            .first { it.role == PromptRole.SYSTEM }.content
-        assertFalse("말투 예시" in sys)
-        assertTrue("규칙:" in sys)
+        val m = composer.compose(bare, "ko", transcript, RoomKind.DM, emptyList(), null, true, DebateIntensity.BALANCED, false)
+        assertFalse("말투 예시" in all(m))
+        assertTrue("규칙:" in m.first { it.role == PromptRole.SYSTEM }.content)
     }
 
     @Test
@@ -118,5 +117,28 @@ class PromptComposerTest {
         val deep = composer.compose(registry.require("nietzsche"), "ko", listOf(TranscriptLine(null, "노력해도 결과가 없다면 노력은 무의미할까?")),
             RoomKind.GROUP, listOf("schopenhauer"), null, debateAllowed = true, intensity = DebateIntensity.BALANCED, mayPass = false)
         assertFalse(LIGHT_KO in all(deep))
+    }
+
+    private val longer = transcript + TranscriptLine("schopenhauer", "그 맛도 곧 사라지겠지요.")
+
+    @Test
+    fun `같은 방·같은 사용자 말이면 SYSTEM은 차례가 바뀌어도 같다 — 기기 안 AI가 앞부분을 다시 읽지 않는다`() {
+        val a = compose("nietzsche").first { it.role == PromptRole.SYSTEM }.content
+        val b = composer.compose(registry.require("nietzsche"), "ko", longer, RoomKind.GROUP, listOf("schopenhauer"),
+            "schopenhauer", debateAllowed = false, intensity = DebateIntensity.BALANCED, mayPass = true).first { it.role == PromptRole.SYSTEM }.content
+        assertEquals(a, b)
+        // 논쟁 강도는 방 설정이라 SYSTEM에 있다 — 바뀌면 SYSTEM도 바뀐다(가벼운 말에서 따지지 않게, 노트북 E2B 비교)
+        val gentle = composer.compose(registry.require("nietzsche"), "ko", longer, RoomKind.GROUP, listOf("schopenhauer"),
+            "schopenhauer", debateAllowed = true, intensity = DebateIntensity.GENTLE, mayPass = true).first { it.role == PromptRole.SYSTEM }.content
+        assertTrue(a != gentle)
+    }
+
+    @Test
+    fun `지난 대화는 앞에 그대로 있고 새 줄은 그 뒤에 붙는다`() {
+        val before = compose("nietzsche").first { it.role == PromptRole.USER }.content
+        val after = composer.compose(registry.require("nietzsche"), "ko", longer, RoomKind.GROUP, listOf("schopenhauer"),
+            "schopenhauer", debateAllowed = true, intensity = DebateIntensity.BALANCED, mayPass = true).first { it.role == PromptRole.USER }.content
+        val log = before.substringBefore("\n\n")
+        assertTrue("맛있었다면" in log && after.startsWith(log), "지난 대화 부분이 그대로 앞에 있어야 한다")
     }
 }

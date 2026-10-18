@@ -31,9 +31,11 @@ import java.util.concurrent.Executors
  */
 class LlamaCppProvider(
     val modelFile: File,
-    private val nCtx: Int = 4096,
+    private val nCtx: Int = 8192,
     val nThreads: Int = defaultThreads(),
     val sampling: Sampling = Sampling.forModel(modelFile.name),
+    /** 화자별 앞부분 재사용. 끄면 매번 처음부터 읽는다(같은 답이 나오는지 비교할 때) */
+    val promptCache: Boolean = true,
 ) : InferenceProvider {
     override val id = "llamacpp:${modelFile.name}"
 
@@ -81,9 +83,10 @@ class LlamaCppProvider(
         val started = SystemClock.elapsedRealtime()
         var deadlineHit = false
         val text = StringBuilder()
-        val stats = LongArray(4)
+        val stats = LongArray(5)
         val status = LlamaNative.nativeGenerate(
             handle,
+            if (promptCache) request.speakerId.orEmpty() else "",
             IntArray(request.messages.size) { roleOf(request.messages[it].role) },
             Array(request.messages.size) { request.messages[it].content },
             request.maxOutputTokens,

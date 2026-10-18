@@ -47,10 +47,16 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
         mayPass: Boolean,
         avoidExamples: Set<String> = emptySet(),
     ): List<PromptMessage> {
-        val examples = pickExamples(speaker.persona.examples.get(locale) - avoidExamples, transcript)
+        // 기기 안 AI가 같은 철학자의 앞부분(SYSTEM + 지난 대화)을 다시 읽지 않고 재사용하려면 앞부분이 차례마다 같아야 한다.
+        // - 말투 예시는 SYSTEM 맨 끝. 대화 상대의 **마지막 말만** 보고 고른다 → 한 흐름(이어 말하기 차례들) 안에서는 바뀌지 않는다.
+        //   (예시를 대화 기록 바로 뒤에 두었더니 모델이 대화 줄로 여겨 앞사람 문장을 그대로 되풀이했다 — 노트북 E2B, 가벼운 말 30개 중 1 → 5)
+        // - 논쟁 강도 규칙은 방 설정이라 SYSTEM에 둔다. 마지막 요청 근처로 옮겼더니 가벼운 말에도 따지며 무거워졌다
+        //   (노트북 E2B, 가벼운 말 75개 중 철학 낱말 6 → 15).
+        // - 차례마다 바뀌는 좁은 규칙(지금은 반박 말기·침묵 신호)만 대화 기록 뒤, 마지막 요청 앞에 둔다.
+        val examples = pickExamples(speaker.persona.examples.get(locale) - avoidExamples, transcript.filter { it.authorId == null }.takeLast(1))
         return listOf(
-            PromptMessage(PromptRole.SYSTEM, system(speaker, locale, roomKind, otherMembers, debateAllowed, intensity, mayPass, examples)),
-            PromptMessage(PromptRole.USER, conversation(speaker, locale, transcript, respondTo)),
+            PromptMessage(PromptRole.SYSTEM, system(speaker, locale, roomKind, otherMembers, intensity, examples)),
+            PromptMessage(PromptRole.USER, conversation(speaker, locale, transcript, respondTo, turnRules(locale, debateAllowed, mayPass))),
         )
     }
 
@@ -68,36 +74,45 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             "- ${name(r.philosopherId, locale)}: $note"
         }
 
-    private fun system(
-        p: PhilosopherPack, locale: String, roomKind: RoomKind, others: List<String>,
-        debateAllowed: Boolean, intensity: DebateIntensity, mayPass: Boolean, examples: List<String>,
-    ): String {
+    /** 방 설정(논쟁 강도)에 따른 규칙 — SYSTEM에 둔다. */
+    private fun debateRule(ko: Boolean, intensity: DebateIntensity): String = when (intensity) {
+        DebateIntensity.GENTLE -> if (ko) "생각이 다르면 부드럽게 다른 관점을 말한다." else "If you disagree, offer another view gently."
+        DebateIntensity.BALANCED -> if (ko) "당신의 사상과 실제로 다르면 다르다고 분명히 말하고 근거를 든다. 억지로 반대하지는 않는다." else "If it truly differs from your thought, say so plainly and give a reason. Never disagree for its own sake."
+        else -> if (ko) "생각이 실제로 다르면 논증을 끝까지 밀고 간다. 인신공격·모욕은 하지 않는다." else "If you truly disagree, press the argument rigorously. No insults or personal attacks."
+    }
+
+    /** 이번 차례에만 해당하는 좁은 지시 — 대화 기록 뒤, 마지막 요청 앞. 없으면 빈 문자열. */
+    private fun turnRules(locale: String, debateAllowed: Boolean, mayPass: Boolean): String {
+        val ko = locale != "en"
+        val rules = buildList {
+            if (!debateAllowed) add(if (ko) "지금은 반박하지 말고 받아 주거나 덧붙인다." else "Do not argue right now; acknowledge or add.")
+            // 침묵 신호는 한 번만, 좁은 조건으로 말한다. PC 시험(qwen2.5:7b)에서 두 번 말하면 두 번째 화자가 거의 늘 침묵했다.
+            if (mayPass) add(
+                if (ko) "앞사람과 다른 관점·경험·질문이 있으면 짧게 덧붙인다. 앞의 말을 되풀이하는 것밖에 할 말이 없을 때만 정확히 $PASS_TOKEN 만 출력한다."
+                else "If you have a different angle, experience or question, add it briefly. Only if all you could do is repeat what was said, output exactly $PASS_TOKEN.",
+            )
+        }
+        return if (rules.isEmpty()) "" else (if (ko) "이번 차례:\n" else "This turn:\n") + rules.joinToString("\n") { "- $it" }
+    }
+
+    /** 철학자·방·대화 상대의 마지막 말에 따라서만 정해지는 앞부분. 한 흐름 안에서 같아야 기기 안 AI가 다시 읽지 않고 재사용한다. */
+    private fun system(p: PhilosopherPack, locale: String, roomKind: RoomKind, others: List<String>, intensity: DebateIntensity, examples: List<String>): String =
+        base(p, locale, roomKind, others, debateRule(locale != "en", intensity)) + (if (examples.isEmpty()) "" else "\n\n" + (
+            (if (locale != "en") "말투 예시(상황이 달라도 이런 결로 말한다. 그대로 베끼지 않는다):\n" else "Voice examples (speak in this grain even when the situation differs; never copy them verbatim):\n") +
+                examples.joinToString("\n") { "- $it" }))
+
+    private fun base(p: PhilosopherPack, locale: String, roomKind: RoomKind, others: List<String>, debate: String): String {
         val ko = locale != "en"
         val nm = p.display.name.get(locale)
         val full = (p.display.fullName ?: p.display.name).get(locale)
         val traits = p.persona.conversationTraits.get(locale).joinToString("\n") { "- $it" }
         val avoid = p.persona.avoid.get(locale).joinToString("\n") { "- $it" }
-        val examplesBlock = if (examples.isEmpty()) "" else (
-            (if (ko) "말투 예시(상황이 달라도 이런 결로 말한다. 그대로 베끼지 않는다):\n" else "Voice examples (speak in this grain even when the situation differs; never copy them verbatim):\n") +
-                examples.joinToString("\n") { "- $it" }
-            )
         val othersText = others.joinToString(", ") { name(it, locale) }
         val relations = relationLines(p, others, locale)
         val quote = when (p.knowledge.quotePolicy) {
             QuotePolicy.PARAPHRASE_ONLY -> if (ko) "저작을 직접 인용하지 말고, 생각을 당신의 말로 풀어 말한다." else "Never quote your works; put ideas in your own words."
             QuotePolicy.VERIFIED_PUBLIC_DOMAIN_ONLY -> if (ko) "확실하지 않은 문장을 당신의 저작에서 인용한 것처럼 말하지 않는다." else "Never present an uncertain sentence as a quotation from your works."
         }
-        val debate = when {
-            !debateAllowed -> if (ko) "지금은 반박하지 말고 받아 주거나 덧붙인다." else "Do not argue right now; acknowledge or add."
-            intensity == DebateIntensity.GENTLE -> if (ko) "생각이 다르면 부드럽게 다른 관점을 말한다." else "If you disagree, offer another view gently."
-            intensity == DebateIntensity.BALANCED -> if (ko) "당신의 사상과 실제로 다르면 다르다고 분명히 말하고 근거를 든다. 억지로 반대하지는 않는다." else "If it truly differs from your thought, say so plainly and give a reason. Never disagree for its own sake."
-            else -> if (ko) "생각이 실제로 다르면 논증을 끝까지 밀고 간다. 인신공격·모욕은 하지 않는다." else "If you truly disagree, press the argument rigorously. No insults or personal attacks."
-        }
-        // 침묵 신호는 한 번만, 좁은 조건으로 말한다. PC 시험(qwen2.5:7b)에서 두 번 말하면 두 번째 화자가 거의 늘 침묵했다.
-        val pass = if (mayPass) (
-            if (ko) "앞사람과 다른 관점·경험·질문이 있으면 짧게 덧붙인다. 앞의 말을 되풀이하는 것밖에 할 말이 없을 때만 정확히 $PASS_TOKEN 만 출력한다."
-            else "If you have a different angle, experience or question, add it briefly. Only if all you could do is repeat what was said, output exactly $PASS_TOKEN."
-        ) else ""
         return if (ko) """
             |당신은 메신저 앱 AGORA의 ${if (roomKind == RoomKind.DM) "1:1 대화" else "단톡방"} 속 '$nm'입니다. $full 의 사상을 바탕으로 한 AI 시뮬레이션이며, 실제 인물이 아닙니다.
             |${if (others.isNotEmpty()) "함께 있는 철학자: $othersText." else ""}
@@ -108,7 +123,6 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |$traits
             |피할 것:
             |$avoid
-            |${if (examplesBlock.isNotEmpty()) "\n$examplesBlock\n" else ""}
             |규칙:
             |- 메신저 대화처럼 말한다. 강의하지 않는다. 보통 1~3문장.
             |- 상대가 가벼운 이야기를 하면 가볍게 받는다. 철학 개념을 억지로 끼워 넣지 않는다.
@@ -122,7 +136,6 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- 대화 상대는 '당신'이라고 부른다. '사용자'라고 부르지 않고 '@이름' 표시를 쓰지 않는다.
             |- 앞사람 말을 「~말씀대로」로 받아 되풀이하지 않는다. 동의하면 새 이유나 경험을 보탠다.
             |- 반드시 한국어로 답한다.
-            |${if (pass.isNotEmpty()) "- $pass" else ""}
         """.trimMargin().trim() else """
             |You are '$nm' in the ${if (roomKind == RoomKind.DM) "one-on-one chat" else "group chat"} of the messenger app AGORA — an AI simulation based on the ideas of $full, not the real person.
             |${if (others.isNotEmpty()) "Other philosophers here: $othersText." else ""}
@@ -133,7 +146,6 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |$traits
             |Avoid:
             |$avoid
-            |${if (examplesBlock.isNotEmpty()) "\n$examplesBlock\n" else ""}
             |Rules:
             |- Talk like a messenger chat, not a lecture. Usually 1–3 sentences.
             |- Meet light talk lightly. Do not force philosophical concepts in.
@@ -147,7 +159,6 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- Address your chat partner as "you". Never call them "the user" and never write '@name' tags.
             |- Do not echo the previous speaker ("As X said…"). If you agree, add a new reason or experience.
             |- Always answer in English.
-            |${if (pass.isNotEmpty()) "- $pass" else ""}
         """.trimMargin().trim()
     }
 
@@ -174,7 +185,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
         }
     }
 
-    private fun conversation(p: PhilosopherPack, locale: String, transcript: List<TranscriptLine>, respondTo: String?): String {
+    private fun conversation(p: PhilosopherPack, locale: String, transcript: List<TranscriptLine>, respondTo: String?, rules: String): String {
         val ko = locale != "en"
         val nm = p.display.name.get(locale)
         // 자기 발언에 '(당신)'을 붙인다 — 이름표만 있으면 모델이 자기 말을 남의 말처럼 받아 「니체의 말이 인상적이네요」라고 했다.
@@ -182,7 +193,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             val tag = name(it.authorId, locale) + if (it.authorId == p.id) (if (ko) "(당신)" else " (you)") else ""
             "[$tag] ${it.text}"
         }
-        // 침묵 신호는 SYSTEM 규칙에만 있다 — 여기서 다시 말하지 않는다.
+        // 침묵 신호는 [rules]에 한 번만 있다 — 여기서 다시 말하지 않는다.
         val light = LightTalk.isLight(transcript.lastOrNull { it.authorId == null }?.text.orEmpty())
         return if (ko) {
             val ask = when (respondTo) {
@@ -191,13 +202,13 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             }
             // 말투는 SYSTEM에도 있지만 긴 대화에서 해요체로 흘렀다 — 마지막 요청 바로 옆에 한 번 더.
             // 가벼운 말 지시도 SYSTEM에 있지만 기기 안 작은 모델(Gemma 4 E2B)이 커피 이야기에도 철학을 꺼냈다 — 끝에 한 번 더.
-            "지금까지의 대화:\n$log\n\n$ask\n${if (light) "$LIGHT_KO\n" else ""}말투: ${p.persona.speechLevel.ko}"
+            "지금까지의 대화:\n$log\n\n${if (rules.isEmpty()) "" else "$rules\n\n"}$ask\n${if (light) "$LIGHT_KO\n" else ""}말투: ${p.persona.speechLevel.ko}"
         } else {
             val ask = when (respondTo) {
                 null -> "Now, as '$nm', write only your next single message responding to your chat partner's last message."
                 else -> "Now, as '$nm', having heard ${name(respondTo, locale)}'s last message, write only your next single message. Agree, add another angle, or ask—so long as it is your own view."
             }
-            "Conversation so far:\n$log\n\n$ask\n${if (light) "$LIGHT_EN\n" else ""}Voice: ${p.persona.speechLevel.en}"
+            "Conversation so far:\n$log\n\n${if (rules.isEmpty()) "" else "$rules\n\n"}$ask\n${if (light) "$LIGHT_EN\n" else ""}Voice: ${p.persona.speechLevel.en}"
         }
     }
 }

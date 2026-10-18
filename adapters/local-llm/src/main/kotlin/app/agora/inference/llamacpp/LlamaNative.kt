@@ -30,9 +30,10 @@ internal object LlamaNative {
 
     external fun nativeDescribe(handle: Long): String
 
-    /** stats(4칸): 입력 토큰, 출력 토큰, 입력 처리 µs, 첫 토큰까지 µs */
+    /** cacheKey: 기억 칸 주인(화자 ID, 빈 문자열 = 재사용 안 함). stats(5칸): 입력 토큰, 출력 토큰, 입력 처리 µs, 첫 토큰까지 µs, 다시 읽지 않은 입력 토큰 */
     external fun nativeGenerate(
         handle: Long,
+        cacheKey: String,
         roles: IntArray,
         contents: Array<String>,
         maxTokens: Int,

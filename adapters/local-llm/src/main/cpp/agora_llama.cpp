@@ -33,12 +33,52 @@ constexpr int STATUS_PROMPT_TOO_LONG = -1;
 constexpr int STATUS_DECODE_FAILED = -2;
 constexpr int STATUS_TEMPLATE_FAILED = -3;
 
+// 화자(철학자)마다 기억 칸 하나. 같은 화자가 다시 말할 때 앞부분(지시문 + 지난 대화)을 다시 읽지 않는다.
+// 칸 수는 단톡방 최대 인원 + 여유. 모자라면 가장 오래 안 쓴 칸을 비운다.
+constexpr int N_SLOTS = 4;
+
+struct Slot {
+    std::string owner;                // 화자 ID. 빈 문자열 = 비어 있음
+    std::vector<llama_token> tokens;  // 이 칸의 KV에 실제로 들어 있는 토큰 (위치 0부터)
+    int64_t last_used = 0;
+};
+
 struct Session {
     llama_model * model = nullptr;
     llama_context * ctx = nullptr;
     common_chat_templates_ptr templates;
     int n_ctx = 0;
+    Slot slots[N_SLOTS];
+    int64_t clock = 0;
 };
+
+// key 화자의 칸. 없으면 가장 오래 안 쓴 칸을 비워 준다. key가 비면 재사용하지 않는다(칸을 비우고 씀).
+int take_slot(Session * s, const std::string & key) {
+    llama_memory_t mem = llama_get_memory(s->ctx);
+    int pick = -1;
+    if (!key.empty()) {
+        for (int i = 0; i < N_SLOTS; i++) if (s->slots[i].owner == key) { pick = i; break; }
+    }
+    if (pick < 0) {
+        pick = 0;
+        for (int i = 1; i < N_SLOTS; i++) if (s->slots[i].last_used < s->slots[pick].last_used) pick = i;
+        llama_memory_seq_rm(mem, pick, -1, -1);
+        s->slots[pick].tokens.clear();
+        s->slots[pick].owner = key;
+    }
+    s->slots[pick].last_used = ++s->clock;
+    return pick;
+}
+
+void clear_other_slots(Session * s, int keep) {
+    llama_memory_t mem = llama_get_memory(s->ctx);
+    for (int i = 0; i < N_SLOTS; i++) {
+        if (i == keep) continue;
+        llama_memory_seq_rm(mem, i, -1, -1);
+        s->slots[i].tokens.clear();
+        s->slots[i].owner.clear();
+    }
+}
 
 void log_to_android(ggml_log_level level, const char * text, void *) {
     int prio = level == GGML_LOG_LEVEL_ERROR ? ANDROID_LOG_ERROR
@@ -99,6 +139,10 @@ Java_app_agora_inference_llamacpp_LlamaNative_nativeLoad(JNIEnv * env, jobject, 
     cp.n_ubatch = 512;
     cp.n_threads = n_threads;
     cp.n_threads_batch = n_threads;
+    // 화자별 기억 칸 — 칸들이 n_ctx를 나눠 쓴다(unified). swa_full: 슬라이딩 창 모델(Gemma)도 뒷부분만 지울 수 있게.
+    cp.n_seq_max = N_SLOTS;
+    cp.kv_unified = true;
+    cp.swa_full = true;
     s->ctx = llama_init_from_model(s->model, cp);
     if (!s->ctx) {
         LOGE("context init failed (n_ctx=%d)", n_ctx);
@@ -124,16 +168,18 @@ Java_app_agora_inference_llamacpp_LlamaNative_nativeDescribe(JNIEnv * env, jobje
 }
 
 /**
- * roles: 0=system 1=user 2=assistant. stats(LongArray 4칸)에 [입력 토큰, 출력 토큰, 입력 처리 µs, 첫 토큰까지 µs]를 채운다.
+ * roles: 0=system 1=user 2=assistant. cache_key: 기억 칸 주인(화자 ID). 빈 문자열이면 재사용하지 않는다.
+ * stats(LongArray 5칸)에 [입력 토큰, 출력 토큰, 입력 처리 µs, 첫 토큰까지 µs, 다시 읽지 않은 입력 토큰]을 채운다.
  * sink.onToken(byte[]) 이 false면 멈춘다.
  */
 extern "C" JNIEXPORT jint JNICALL
 Java_app_agora_inference_llamacpp_LlamaNative_nativeGenerate(
-        JNIEnv * env, jobject, jlong handle,
+        JNIEnv * env, jobject, jlong handle, jstring jcache_key,
         jintArray jroles, jobjectArray jcontents,
         jint max_tokens, jfloat temperature, jint top_k, jfloat top_p, jfloat min_p, jfloat repeat_penalty, jint seed,
         jobject sink, jlongArray jstats) {
     auto * s = reinterpret_cast<Session *>(handle);
+    const std::string cache_key = to_std(env, jcache_key);
     const llama_vocab * vocab = llama_model_get_vocab(s->model);
 
     jclass sink_cls = env->GetObjectClass(sink);
@@ -176,19 +222,47 @@ Java_app_agora_inference_llamacpp_LlamaNative_nativeGenerate(
         return STATUS_PROMPT_TOO_LONG;
     }
 
-    // 3) 입력 처리 — 매번 새로 시작한다(화자가 바뀌면 앞부분이 달라서 캐시 재사용 이득이 작다. 측정 후 다시 본다)
-    llama_memory_clear(llama_get_memory(s->ctx), true);
+    // 3) 입력 처리 — 이 화자의 기억 칸에 이미 있는 앞부분은 다시 읽지 않는다.
+    //    마지막 토큰은 늘 다시 읽는다(다음 글자를 고를 값이 필요하다).
+    llama_memory_t mem = llama_get_memory(s->ctx);
+    const int slot = take_slot(s, cache_key);
+    Slot & sl = s->slots[slot];
+    size_t keep = 0;
+    while (keep < sl.tokens.size() && keep < prompt.size() && sl.tokens[keep] == prompt[keep]) keep++;
+    keep = std::min(keep, prompt.size() - 1);
+    if (!llama_memory_seq_rm(mem, slot, (llama_pos) keep, -1)) {
+        // 이 모델의 기억은 뒷부분만 지울 수 없다 — 칸을 통째로 비우고 처음부터
+        llama_memory_seq_rm(mem, slot, -1, -1);
+        keep = 0;
+    }
+    sl.tokens.resize(keep);
+
     const int64_t t0 = ggml_time_us();
     common_batch batch(s->ctx);
-    for (size_t i = 0; i < prompt.size(); i += 512) {
-        batch.clear();
-        const size_t end = std::min(prompt.size(), i + 512);
-        for (size_t j = i; j < end; j++) batch.add(prompt[j], (llama_pos) j, 0, j == prompt.size() - 1);
-        if (llama_process(s->ctx, LLAMA_PROCESS_TYPE_DECODE, batch.get()) != 0) {
-            LOGE("prompt decode failed at %zu", i);
+    auto decode_prompt = [&](size_t from) -> bool {
+        for (size_t i = from; i < prompt.size(); i += 512) {
+            batch.clear();
+            const size_t end = std::min(prompt.size(), i + 512);
+            for (size_t j = i; j < end; j++) batch.add(prompt[j], (llama_pos) j, slot, j == prompt.size() - 1);
+            if (llama_process(s->ctx, LLAMA_PROCESS_TYPE_DECODE, batch.get()) != 0) return false;
+        }
+        return true;
+    };
+    if (!decode_prompt(keep)) {
+        // 칸들이 나눠 쓰는 문맥이 꽉 찼을 수 있다 — 다른 화자의 칸을 비우고 이 화자도 처음부터 한 번 더
+        LOGW("prompt decode failed (slot=%d keep=%zu) — clearing other slots and retrying", slot, keep);
+        clear_other_slots(s, slot);
+        llama_memory_seq_rm(mem, slot, -1, -1);
+        keep = 0;
+        sl.tokens.clear();
+        if (!decode_prompt(0)) {
+            LOGE("prompt decode failed again");
+            llama_memory_seq_rm(mem, slot, -1, -1);
+            sl.owner.clear();
             return STATUS_DECODE_FAILED;
         }
     }
+    sl.tokens = prompt;
     const int64_t t_prompt = ggml_time_us() - t0;
 
     // 4) 생성
@@ -224,19 +298,25 @@ Java_app_agora_inference_llamacpp_LlamaNative_nativeGenerate(
         }
 
         batch.clear();
-        batch.add(tok, pos++, 0, true);
+        batch.add(tok, pos++, slot, true);
         if (llama_process(s->ctx, LLAMA_PROCESS_TYPE_DECODE, batch.get()) != 0) {
             LOGE("decode failed at token %d", n_out);
             status = STATUS_DECODE_FAILED;
             break;
         }
+        sl.tokens.push_back(tok);  // 칸의 기록은 KV에 실제로 들어간 것과 늘 같아야 한다
     }
     common_sampler_free(smpl);
+    if (status == STATUS_DECODE_FAILED) {
+        llama_memory_seq_rm(mem, slot, -1, -1);
+        sl.tokens.clear();
+        sl.owner.clear();
+    }
 
-    jlong stats[4] = { (jlong) prompt.size(), (jlong) n_out, (jlong) t_prompt, (jlong) t_first };
-    env->SetLongArrayRegion(jstats, 0, 4, stats);
-    LOGI("generate status=%d in=%d out=%d prompt=%.0fms first=%.0fms total=%.0fms",
-         status, (int) prompt.size(), n_out, t_prompt / 1000.0, t_first / 1000.0, (ggml_time_us() - t0) / 1000.0);
+    jlong stats[5] = { (jlong) prompt.size(), (jlong) n_out, (jlong) t_prompt, (jlong) t_first, (jlong) keep };
+    env->SetLongArrayRegion(jstats, 0, 5, stats);
+    LOGI("generate status=%d in=%d reused=%zu out=%d prompt=%.0fms first=%.0fms total=%.0fms slot=%d",
+         status, (int) prompt.size(), keep, n_out, t_prompt / 1000.0, t_first / 1000.0, (ggml_time_us() - t0) / 1000.0, slot);
     return status;
 }
 
