@@ -138,4 +138,11 @@ class PhilosopherRegistryTest {
             for (bg in ThemeBackgrounds.dark) assertTrue(contrastRatio(lightDark.second, bg) >= MIN_TEXT_CONTRAST, "$id dark on $bg")
         }
     }
+
+    @Test
+    fun `한국어 끝맺음 규칙은 팩에서 읽고 없으면 free`() {
+        val reg = PhilosopherRegistry.load(realSources())
+        assertEquals(KoRegister.HAO, reg.require("nietzsche").persona.koRegister)
+        assertEquals(KoRegister.FREE, reg.require("schopenhauer").persona.koRegister)
+    }
 }

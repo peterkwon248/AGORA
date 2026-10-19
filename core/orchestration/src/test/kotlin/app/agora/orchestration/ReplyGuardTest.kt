@@ -1,5 +1,7 @@
 package app.agora.orchestration
 
+import app.agora.philosophers.KoRegister
+
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -119,5 +121,72 @@ class ReplyGuardTest {
         assertEquals("오늘의 노래가 당신에게 어떤 의미를 가지는지 궁금합니다. 당신이 고른 노래인가요?",
             guardReply("오늘의 노래가 사용자에게 어떤 의미를 가지는지 궁금합니다. 사용자가 고른 노래인가요?", "ko", emptyList()).text)
         assertEquals("What did you hear in your song?", guardReply("What did the user hear in the user's song?", "en", emptyList()).text)
+    }
+
+    // 아래는 노트북 Gemma 4 E2B(기기 안 모델) 기록 qa/pc-runs/20261020-0616~0621에서 나온 답이다.
+
+    @Test
+    fun `앞사람 문장을 거의 그대로 되풀이한 답은 남기지 않고 다시 생성한다`() {
+        val before = "날씨가 좋으니 잠시라도 그 기분을 음미하는 것도 나쁘지 않은 일이지요."
+        val g = guardReply("날씨가 좋으니 잠시라도 그 기분을 음미하는 것도 나쁘지 않지.", "ko", emptyList(), recent = listOf("오늘 날씨 진짜 좋다.", before))
+        assertEquals("", g.text)
+        assertEquals(GuardIssue.ECHOED_PREVIOUS, g.issue)
+    }
+
+    @Test
+    fun `앞말을 짧게 받아 짚는 것은 되풀이가 아니다`() {
+        val reply = "그 고통을 잠시 잊는 도피처라... 나는 그 도피를 통해 오히려 삶의 강한 의지를 확인하는 것이라 보오."
+        val g = guardReply(reply, "ko", emptyList(), recent = listOf("음악이란 결국 영혼의 고통을 잠시 잊게 하는 도피처와 같습니다."))
+        assertEquals(reply, g.text)
+        assertNull(g.issue)
+    }
+
+    @Test
+    fun `앞말의 구절을 받아 반박한 답은 되풀이가 아니다`() {
+        val ko = "그저 맛있는 것을 먹는 것에서 오는 만족감은 일시적인 것뿐이지요."
+        assertEquals(ko, guardReply(ko, "ko", emptyList(), recent = listOf("그저 맛있는 것을 먹는 것에서 오는 만족감이라면 그것으로 족하지 않소.")).text)
+        val en = "It confirms the cage because the desire remains, regardless of the momentary illusion."
+        assertEquals(en, guardReply(en, "en", emptyList(), recent = listOf("It is a momentary reprieve from the will to live. But what use is a glimpse if it only confirms the cage?")).text)
+    }
+
+    @Test
+    fun `되풀이 문장만 빼고 새 말은 남긴다`() {
+        val g = guardReply("날씨가 좋으니 잠시라도 그 기분을 음미하는 것도 나쁘지 않지요. 오늘은 어디를 걸으셨습니까?", "ko", emptyList(),
+            recent = listOf("날씨가 좋으니 잠시라도 그 기분을 음미하는 것도 나쁘지 않지."))
+        assertEquals("오늘은 어디를 걸으셨습니까?", g.text)
+    }
+
+    @Test
+    fun `맞장구 한 마디로 시작하면 떼고 뒤의 생각만 남긴다`() {
+        assertEquals("고통을 직시하는 것만으로는 부족하오.", guardReply("그렇소. 고통을 직시하는 것만으로는 부족하오.", "ko", emptyList()).text)
+        assertEquals("그 순간의 맛을 즐기는 것만으로도 충분합니다.", guardReply("그렇지요. 그 순간의 맛을 즐기는 것만으로도 충분합니다.", "ko", emptyList()).text)
+        assertEquals("그렇소.", guardReply("그렇소.", "ko", emptyList()).text, "그 한 마디뿐이면 그대로 둔다")
+        assertEquals("그렇소, 다만 이유는 다르오.", guardReply("그렇소, 다만 이유는 다르오.", "ko", emptyList()).text, "한 문장 안의 맞장구는 건드리지 않는다")
+        assertEquals("But the song is not the world.", guardReply("Yes. But the song is not the world.", "en", emptyList()).text)
+    }
+
+    @Test
+    fun `지나지하지요 같은 엉터리 어미를 바로잡는다`() {
+        assertEquals("음악이란 결국 감각을 자극하는 것에 지나지 않지요.", guardReply("음악이란 결국 감각을 자극하는 것에 지나지하지요.", "ko", emptyList()).text)
+        assertEquals("욕망이 표현되는 것에 지나지 않습니다.", guardReply("욕망이 표현되는 것에 지나지합니다.", "ko", emptyList()).text)
+    }
+
+    @Test
+    fun `하오체 철학자의 반말 끝맺음을 하오체로 바꾼다`() {
+        fun hao(t: String) = guardReply(t, "ko", emptyList(), register = KoRegister.HAO).text
+        assertEquals("그런 작은 만족감이 하루를 버티게 하는 힘이 되는 것이겠소.", hao("그런 작은 만족감이 하루를 버티게 하는 힘이 되는 것이겠지."))
+        assertEquals("그건 덧없는 저항일 뿐이오.", hao("그건 덧없는 저항일 뿐이지."))
+        assertEquals("가끔은 그저 걷는 것도 나쁘지 않소.", hao("가끔은 그저 걷는 것도 나쁘지 않지."))
+        assertEquals("커피 한 잔으로도 만족하는구려.", hao("커피 한 잔으로도 만족하는군."))
+        assertEquals("그렇게 생각하오?", hao("그렇게 생각하지?"))
+        assertEquals("지금 무엇을 원하오? 그게 제일이오.", hao("지금 무엇을 원하오? 그게 제일이지."))
+    }
+
+    @Test
+    fun `끝맺음 규칙이 없거나 영어면 끝맺음을 건드리지 않는다`() {
+        assertEquals("그 노래는 오래 남지요.", guardReply("그 노래는 오래 남지요.", "ko", emptyList(), register = KoRegister.HAO).text, "해요체 「~지요」는 반말이 아니다")
+        assertEquals("그건 덧없는 저항일 뿐이지.", guardReply("그건 덧없는 저항일 뿐이지.", "ko", emptyList()).text)
+        assertEquals("Then rest, and climb again.", guardReply("Then rest, and climb again.", "en", emptyList(), register = KoRegister.HAO).text)
+        assertEquals("가지가 많은 나무는 바람 잘 날이 없다는 말을 아오.", guardReply("가지가 많은 나무는 바람 잘 날이 없다는 말을 아오.", "ko", emptyList(), register = KoRegister.HAO).text, "문장 중간의 「지」는 그대로")
     }
 }

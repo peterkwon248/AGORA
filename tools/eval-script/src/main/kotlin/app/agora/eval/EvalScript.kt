@@ -5,6 +5,7 @@ import app.agora.orchestration.ConversationEngine
 import app.agora.orchestration.DebateFrequency
 import app.agora.orchestration.DebateIntensity
 import app.agora.orchestration.FlowEvent
+import app.agora.orchestration.GuardNote
 import app.agora.orchestration.IntentSignal
 import app.agora.orchestration.Member
 import app.agora.orchestration.RoomKind
@@ -55,6 +56,7 @@ val PHILOSOPHY_WORDS = listOf("의지", "고통", "쾌락", "욕망", "본질", 
 /**
  * 평가 문장을 차례로 돌려 마크다운 기록을 만든다. 각 문장은 빈 방에서 시작한다.
  * [clock]은 밀리초(기기마다 다른 시계를 쓰게). 첫 글자까지 시간은 차례 시작('쓰는 중') → 첫 조각.
+ * [takeGuardNotes]는 엔진의 `onGuard`가 모은 기록을 꺼내고 비운다 — 문장마다 '검사가 손댄 답'을 함께 적는다.
  */
 suspend fun runEval(
     engine: ConversationEngine,
@@ -64,6 +66,7 @@ suspend fun runEval(
     clock: () -> Long,
     cases: List<EvalCase> = EVAL_CASES,
     onCaseDone: (String) -> Unit = {},
+    takeGuardNotes: () -> List<GuardNote> = { emptyList() },
 ): String {
     val members = listOf(Member("nietzsche"), Member("schopenhauer"))
     val out = StringBuilder()
@@ -74,6 +77,8 @@ suspend fun runEval(
     val firstTokenMs = mutableListOf<Long>()
     var replies = 0
     var heavy = 0
+    val guardTotals = mutableMapOf<String, Int>()
+    var regenerated = 0
     for (c in cases) {
         val name = { id: String? -> if (id == null) (if (c.locale == "en") "User" else "나") else registry.require(id).display.name.get(c.locale) }
         out.appendLine("## ${c.id}")
@@ -104,11 +109,30 @@ suspend fun runEval(
                 else -> Unit
             }
         }
+        val notes = takeGuardNotes()
+        if (notes.isNotEmpty()) {
+            out.appendLine("<details><summary>생성 후 검사가 손댄 답 ${notes.size}개</summary>")
+            out.appendLine()
+            for (n in notes) {
+                val kind = n.issue ?: "고침"
+                guardTotals[kind] = (guardTotals[kind] ?: 0) + 1
+                if (n.regenerated) regenerated++
+                out.appendLine("- ${name(n.speakerId)} · ${if (n.attempt == 0) "첫 생성" else "다시 생성"} · $kind${if (n.regenerated) " → 다시 생성" else ""}")
+                out.appendLine("  - 전: ${n.before.replace("\n", " ")}")
+                out.appendLine("  - 뒤: ${n.after.ifEmpty { "(남은 것 없음)" }.replace("\n", " ")}")
+            }
+            out.appendLine()
+            out.appendLine("</details>")
+            out.appendLine()
+        }
         onCaseDone(c.id)
     }
     out.appendLine("---")
     out.appendLine()
     out.appendLine("철학 낱말이 든 답: ${replies}개 중 ${heavy}개")
+    out.appendLine()
+    val guardTotal = guardTotals.values.sum()
+    out.appendLine("생성 후 검사가 손댄 답: ${guardTotal}개${if (guardTotal > 0) " (" + guardTotals.entries.joinToString { "${it.key} ${it.value}" } + ")" else ""} · 그 때문에 다시 생성: ${regenerated}번")
     out.appendLine()
     if (firstTokenMs.isNotEmpty()) {
         val sorted = firstTokenMs.sorted()

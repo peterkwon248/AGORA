@@ -7,6 +7,7 @@ import app.agora.eval.runEval
 import app.agora.inference.InferenceProvider
 import app.agora.inference.ollama.OllamaProvider
 import app.agora.orchestration.ConversationEngine
+import app.agora.orchestration.GuardNote
 import app.agora.philosophers.PhilosopherRegistry
 import java.io.File
 import java.text.SimpleDateFormat
@@ -26,12 +27,14 @@ object DevProviders {
         val stamp = SimpleDateFormat("yyyyMMdd-HHmm", Locale.ROOT).format(Date())
         val model = provider.id.substringAfter(':').removeSuffix(".gguf")
         Log.i("AGORA-eval", "start $model")
+        val guardNotes = mutableListOf<GuardNote>()
         val text = runEval(
-            ConversationEngine(registry, provider), registry,
+            ConversationEngine(registry, provider, onGuard = { guardNotes += it }), registry,
             title = "실기기 평가 대화 — $model (${android.os.Build.MODEL}, $stamp)",
             note = "**이 기기(${android.os.Build.MODEL})의 기기 안 AI로 돌린 결과다.** provider=${provider.id}",
             clock = { SystemClock.elapsedRealtime() },
             onCaseDone = { Log.i("AGORA-eval", "case done $it") },
+            takeGuardNotes = { guardNotes.toList().also { guardNotes.clear() } },
         )
         val file = File(File(context.filesDir, "eval").apply { mkdirs() }, "$stamp-$model.md")
         file.writeText(text)

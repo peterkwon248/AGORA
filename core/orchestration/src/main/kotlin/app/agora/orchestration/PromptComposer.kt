@@ -25,9 +25,11 @@ private const val RECENT_LINES = 3
  * - 기준을 '대화 상대가 꺼낸 이야기'로 잡는다 — '가벼운 이야기라면'만 쓰면, 앞 철학자가 이미 무겁게 받은 뒤에는
  *   모델이 「덧없음→고통의 순환」으로 더 무거워졌다(노트북 Gemma 4 E2B, 가벼운 말 15개 중 9~10개).
  * - 늘 넣고 '커피·날씨…' 같은 예를 들었더니 멘션 질문에 「오늘 날씨가 꽤 쌀쌀하오」라고 화제를 지어냈다 → 조건부, 예 없음.
+ * - '친구처럼'이라고 했더니 니체가 하오체를 버리고 반말로 흘렀다(「나쁘지 않지.」 — 가벼운 말 15개 중 3개) → '편하게', 말투는 지킨다고 덧붙임.
+ * - 쇼펜하우어에게 '생각이 다르면 「그렇지 않습니다」' 성향을 넣었더니 가벼운 말에도 「덧없지요」로 받았다(75개 중 2 → 6) → '따지거나 반박하지 말고'.
  */
-internal const val LIGHT_KO = "대화 상대는 가벼운 일상 이야기를 꺼냈습니다. 앞사람이 무겁게 받았더라도 그 가벼운 결로 돌아가세요. 고통·덧없음·의지·욕망·영원 같은 말을 쓰지 말고 친구처럼 짧게 맞장구치거나 하나만 물으세요."
-internal const val LIGHT_EN = "Your chat partner brought up something light and everyday. Keep it light even if the previous speaker got heavy. Avoid words like suffering, futility, will, desire, eternity; respond briefly like a friend or ask one simple question."
+internal const val LIGHT_KO = "대화 상대는 가벼운 일상 이야기를 꺼냈습니다. 앞사람이 무겁게 받았더라도 그 가벼운 결로 돌아가세요. 고통·덧없음·의지·욕망·영원 같은 말을 쓰지 말고, 따지거나 반박하지도 말고 편하게 짧게 받거나 하나만 물으세요. 말투는 그대로 지키세요."
+internal const val LIGHT_EN = "Your chat partner brought up something light and everyday. Keep it light even if the previous speaker got heavy. Avoid words like suffering, futility, will, desire, eternity, and don't argue; respond briefly like a friend or ask one simple question."
 
 /**
  * 팩 + 대화 기록 → 프롬프트. 철학자별 분기 없이 팩 내용만으로 만든다.
@@ -135,6 +137,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- 당신 자신을 '$nm' 이름으로 부르지 않는다(「${nm}는 …」 금지). 당신은 '나'다. 대화 기록의 [$nm(당신)] 줄이 당신이 한 말이다.
             |- 대화 상대는 '당신'이라고 부른다. '사용자'라고 부르지 않고 '@이름' 표시를 쓰지 않는다.
             |- 앞사람 말을 「~말씀대로」로 받아 되풀이하지 않는다. 동의하면 새 이유나 경험을 보탠다.
+            |- 「그렇소」「그렇지요」 같은 맞장구 한 마디로 시작하지 않는다. 바로 당신의 생각부터 말한다.
             |- 반드시 한국어로 답한다.
         """.trimMargin().trim() else """
             |You are '$nm' in the ${if (roomKind == RoomKind.DM) "one-on-one chat" else "group chat"} of the messenger app AGORA — an AI simulation based on the ideas of $full, not the real person.
@@ -158,6 +161,7 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
             |- Never refer to yourself as '$nm' in the third person. You are "I". Lines marked [$nm (you)] are what you said.
             |- Address your chat partner as "you". Never call them "the user" and never write '@name' tags.
             |- Do not echo the previous speaker ("As X said…"). If you agree, add a new reason or experience.
+            |- Do not open with a bare "Yes." or "Indeed."; start with your own thought.
             |- Always answer in English.
         """.trimMargin().trim()
     }
