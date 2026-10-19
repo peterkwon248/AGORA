@@ -18,6 +18,11 @@ android {
         ndk { abiFilters += listOf("arm64-v8a") }
     }
 
+    // 디버그는 가상 휴대폰(x86_64)에서도 기기 안 AI를 돌린다 — 휴대폰 없이 확인용
+    buildTypes {
+        getByName("debug") { ndk { abiFilters += listOf("x86_64") } }
+    }
+
     buildFeatures { compose = true }
 
     compileOptions {
