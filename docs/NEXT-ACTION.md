@@ -1,6 +1,6 @@
 # NEXT-ACTION — 다음 세션이 바로 할 일
 
-> 마지막 갱신: 2026-10-18 · KWONKYUNGHUN Claude Code(세션 5, 기기 안 AI 첫 실행) · Claude — 다른 기기에서는 먼저 `git pull`
+> 마지막 갱신: 2026-10-20 · KWONKYUNGHUN Claude Code(세션 6, 말투 두 번째 손질·칩별 CPU 판) · Claude — 다른 기기에서는 먼저 `git pull`
 
 ## 지금 위치
 Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝. **0-6·0-7: 사장님 Z Fold7에서 철학자가 기기 안 AI(llama.cpp)로 직접 답한다** — 첫 비교만 했고 정식 측정은 남음([기록](../qa/device-logs/20261018-zfold7-first-run.md)). 0-8(시안 비교)은 대기.
@@ -9,9 +9,9 @@ Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝. **0-6·0-7: 사장�
 
 ## 다음 행동 (순서대로)
 
-0. **(선택) 말투 다듬기 이어서** — 세션 4에서 PC 시험 재실행·예시 베끼기 방지·생성 후 검사·말투 수정까지 끝냄(PR #4·#5, 기록 `qa/pc-runs/20261015-compare-pc-vs-cloud.md`). 남은 것은 TODO '말투 남은 것'.
-   - 첫 단계: `./gradlew :tools:pc-harness:run` 두 번 → `python -I tools/pc-harness/analyze_runs.py . qa/pc-runs/<새 파일>.md` 로 '말씀대로' 떼기 검사가 실제로 일하는지 확인.
-   - 이 PC 모델(qwen2.5:7b)은 기기에 올릴 모델보다 크다. 말투 다듬기는 기기 안 모델(1번 이후)로 다시 재야 의미가 크다 — 깊이 파기 전에 1번을 먼저 권한다.
+0. ✅ **말투 두 번째 손질** (2026-10-20, 노트북 E2B — [기록](../qa/pc-runs/20261020-voice-pass2.md)): 맞장구 한 마디로 시작 60개 중 12 → 1, 니체 반말 → 0(팩 `ko_register: hao`), 앞사람 말 되풀이 → 0, 엉터리 어미 → 0, 쇼펜하우어 반박 18번 중 0 → 5. 시험 기록에 '검사가 손댄 답'도 남는다.
+   - 남은 것: 쇼펜하우어가 가벼운 말에 「덧없는 즐거움」으로 받음(75개 중 2 → 5로 늘었다). TODO '말투 남은 것'.
+   - **답 언어 = 휴대폰 화면 언어**다(한국어로 써도 화면이 영어면 영어로 답함 — 가상 휴대폰에서 확인, 예전부터 그랬다). 사용자가 쓴 언어를 따라야 할지 사장님께 여쭐 것.
 1. ✅ **다운로드 끝 (2026-10-17, 사장님 승인, KWONKYUNGHUN 기기)** — 저장소 밖 `C:\Users\kkh94\AgoraAssets\`에 있다(OneDrive 동기화·공개 저장소를 피함). 다른 기기에서는 아래 출처에서 다시 받는다.
    | 무엇 | 위치(AgoraAssets 아래) | 출처 · 확인 |
    |---|---|---|
@@ -23,10 +23,16 @@ Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝. **0-6·0-7: 사장�
    - **정정:** 문서에 'Qwen3 1.7B Q4_K_M 공식 약 1.1GB'라고 적혀 있었으나, Qwen 공식 저장소의 1.7B는 **Q8_0 하나뿐**이다. 휴대폰에서 Q8_0이 무거우면 llama.cpp `llama-quantize`로 Q4_K_M을 만들거나(원본 BF16에서 만드는 편이 낫다) 다른 배포처를 쓴다 — 고를 때 사장님께 묻는다.
    - **Gemma 4:** E2B는 받았다(2026-10-17, D6b). E4B(`google/gemma-4-E4B-it-qat-q4_0-gguf`, 5.15GB)는 휴대폰 램(D2)을 본 뒤 받을지 정한다. 다른 배포처(ggml-org·unsloth 등)에도 있다.
 2. ✅ **`adapters/local-llm`** (2026-10-18) — llama.cpp(`third_party/llama.cpp` submodule, `f74e2fa6`)를 NDK·CMake로 빌드, JNI로 `LlamaCppProvider`(스트리밍·취소·마감 시간). 모델은 앱 내부 저장소 `files/models/`. 휴대폰에 모델이 있으면 디버그 앱도 기기 안 AI로 답하고 '개발용' 띠가 사라진다. arm64만 빌드(에뮬레이터용 x86_64는 아직).
-   - 남은 것: 어댑터에 계약 검사(`collectOutcome`) 기기 시험, 첫 글자까지 시간 줄이기(같은 화자 앞부분 캐시, 실행 중 명령어 고르기 i8mm, 스레드 비교).
+   - ✅ **칩에 맞는 CPU 판 고르기** (2026-10-20): arm64는 llama.cpp CPU 판 7가지(`libggml-cpu-android_armv8.0_1`~`armv9.2_2`)를 APK에 넣고 시작할 때 칩에 맞는 가장 빠른 판을 읽는다(llama.cpp 공식 방식). SM8750이면 i8mm 판이 골라질 것 — **휴대폰에서 확인 전**. 릴리스 APK 61MB → 30MB(디버그 정보 떼기 고침). 가상 휴대폰(x86_64)은 그대로 한 판이고 바뀐 빌드로 답함을 확인.
+   - 남은 것: 어댑터에 계약 검사(`collectOutcome`) 기기 시험.
 3. **실기기 정식 측정** — 첫 비교는 끝(Gemma 4 E2B: 첫 글자 8~11초·초당 19토큰·한국어 자연스러움 / Qwen3 4B: 23~30초·영어 섞임 / Qwen3 1.7B: 문장 무너짐 — 한 문장 한 번씩이라 확정 아님). 이제 ADR-002 3장 절차(평가 문장 13개 × 한/영, 10분 연속, 취소 시간)로 재고 `qa/device-logs/`에 기록.
    - **E2B·E4B 평가 문장 비교 끝**([기록](../qa/device-logs/20261018-gemma-e2b-e4b-eval.md)): E4B가 말은 낫지만 첫 글자 2배 느림(23.6초)·메모리 6GB → 기본값 E2B 유지. 프롬프트 손질로 '캐묻기'는 해소, '가벼운 말에도 철학'은 노트북에서 손질함 — 가벼운 말 15개 중 9~10개 → 0~2개, 깊은 대화 유지([기록](../qa/pc-runs/20261018-light-talk-tuning.md)). **휴대폰 확인은 다음 실기기 측정 때.**
-   - **첫 글자까지 시간 줄이기 — 화자별 앞부분 재사용(KV 캐시)** (2026-10-18, [가상 휴대폰 기록](../qa/device-logs/20261018-prompt-cache-emulator.md)): 가상 휴대폰에서 다시 읽는 입력 60% 줄고 첫 글자 가운데값 39.3→13.2초. **Z Fold7에서 확인·메모리 재기가 남음.** 다음 후보: 실행 중 명령어 고르기(i8mm), 스레드 수 비교.
+   - **첫 글자까지 시간 줄이기 — 화자별 앞부분 재사용(KV 캐시)** (2026-10-18, [가상 휴대폰 기록](../qa/device-logs/20261018-prompt-cache-emulator.md)): 가상 휴대폰에서 다시 읽는 입력 60% 줄고 첫 글자 가운데값 39.3→13.2초. **Z Fold7에서 확인·메모리 재기가 남음.**
+   - **다음 휴대폰 측정 때 할 일(순서대로, 사장님은 잠금 해제·충전기만):**
+     1. 새 APK 설치 → `adb logcat -s AGORA-llama:I`의 `backend ready` 줄에 `MATMUL_INT8 = 1`(i8mm 판)이 보이는지. 안 보이면 `loading CPU backends from` 줄의 폴더를 본다.
+     2. 첫 글자까지 시간을 10-18 기록과 비교([첫 실행](../qa/device-logs/20261018-zfold7-first-run.md)) — i8mm 판 효과.
+     3. 스레드 수 비교: `--ei dev_threads 4`, `6`, `8`로 같은 문장(다시 빌드 필요 없음).
+     4. `--ez dev_eval true`로 평가 문장 — 말투 손질이 휴대폰에서도 같은지, 화자별 재사용 메모리.
    - **가상 휴대폰**(노트북 에뮬레이터 `agora_x86`, WHPX 가속)에서 디버그 앱이 기기 안 AI로 돈다 — 맞는지 확인은 휴대폰 없이 여기서. 켜기: `emulator -avd agora_x86 -no-window -no-audio -gpu swiftshader_indirect`, 모델은 `adb -s emulator-5554`로 같은 방법으로 넣는다.
    - **품질 손질은 노트북에서**: llama.cpp b11706 Windows 판(`C:/Users/kkh94/AgoraAssets/llama-bin-b11706`, 공식 SHA-256 확인)으로 `llama-server` → `./gradlew :tools:pc-harness:run --args="llama-server <이름>"`. 휴대폰은 속도 확인 때만, 사장님이 안 쓰실 때(예: 밤 충전 중).
    - 휴대폰: 사장님 Galaxy Z Fold7(SM8750·12GB). USB 디버깅 켜짐, 이 노트북을 '항상 허용'. 화면 잠금 상태에서는 앱이 안 뜬다 → 측정 때 잠금 해제 부탁.
@@ -56,7 +62,7 @@ Sprint 0 (게이트 G0 전). 계획 8단계 중 0-1~0-5 끝. **0-6·0-7: 사장�
 ```bash
 export JAVA_HOME="/c/Program Files/Eclipse Adoptium/jdk-17.0.20.101-hotspot"
 export ANDROID_HOME="/c/Users/kwonkyunghun/AppData/Local/Android/Sdk"
-./gradlew test                         # 검사 74가지
+./gradlew test                         # 검사 91가지
 ./gradlew :apps:android:assembleDebug  # 디버그 APK
 ./gradlew :tools:pc-harness:run        # PC Ollama로 니체·쇼펜하우어 시험 → qa/pc-runs/
 git submodule update --init --depth 1 third_party/llama.cpp   # 새로 clone했으면 먼저 (기기 안 AI 소스)

@@ -30,6 +30,7 @@
 | `display.portrait_asset_id` | | 없으면 이니셜 아바타(기존 `ag-me-av` 문법 재사용) |
 | `aliases.ko/en` | ✔ | 멘션 검색. **1글자 별칭은 자동완성 목록 검색에만 쓰고, 직접 입력 자동 바인딩은 2글자 이상만** |
 | `persona.speech_level.ko/en` | ✔ | 한국어 말투 수준(하오체·해요체 등) |
+| `persona.ko_register` | | `free`(기본) / `hao`. `hao`면 생성 후 검사가 한국어 답의 반말 끝맺음(「~겠지.」「~이지.」「~군.」)을 하오체로 바꾼다 — 프롬프트만으로는 작은 모델이 지키지 못해서(2026-10-20) |
 | `persona.dm_greeting.ko/en` | | 개인톡 첫 인사(시안 `dmHello`). 이건 **고정 문구로 써도 되는 유일한 대사** — 'AI 생성'이 아님을 내부에 표시 |
 | `persona.conversation_traits[]` · `avoid[]` | ✔ | 프롬프트 지침. `avoid`는 설계서 10.1의 '고정관념 금지' |
 | `persona.ask_question_tendency` · `default_length_profile` · `debate_affinity` | | 조율기가 참고하는 성향값(low/medium/high) |

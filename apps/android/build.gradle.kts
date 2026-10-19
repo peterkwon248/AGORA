@@ -6,6 +6,8 @@ plugins {
 android {
     namespace = "app.agora"
     compileSdk = 37
+    // 기기 안 AI 라이브러리(.so)의 디버그 정보를 APK에 넣기 전에 떼어 내려면 같은 NDK를 알아야 한다
+    ndkVersion = "29.0.14206865"
 
     defaultConfig {
         applicationId = "app.agora"
@@ -24,6 +26,9 @@ android {
     }
 
     buildFeatures { compose = true }
+
+    // 기기 안 AI가 칩에 맞는 CPU 판(.so)을 실행 중에 파일 경로로 읽는다 — APK 안에 묶인 채로는 못 읽으므로 설치 때 풀어 둔다
+    packaging { jniLibs { useLegacyPackaging = true } }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17

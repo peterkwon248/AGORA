@@ -7,6 +7,7 @@
 // - 콜백이 false를 돌려주면 즉시 멈춘다(취소).
 
 #include <android/log.h>
+#include <dlfcn.h>
 #include <jni.h>
 
 #include <algorithm>
@@ -15,6 +16,7 @@
 
 #include "chat.h"
 #include "common.h"
+#include "ggml-backend.h"
 #include "llama.h"
 #include "sampling.h"
 
@@ -113,6 +115,18 @@ size_t complete_utf8_prefix(const std::string & buf) {
 extern "C" JNIEXPORT void JNICALL
 Java_app_agora_inference_llamacpp_LlamaNative_nativeInit(JNIEnv *, jobject) {
     llama_log_set(log_to_android, nullptr);
+#ifdef AGORA_BACKEND_DL
+    // CPU 판(libggml-cpu-android_*.so)은 이 라이브러리와 같은 폴더에 있다. 그중 이 칩에서 가장 빠른 판을 읽는다.
+    Dl_info info{};
+    std::string dir;
+    if (dladdr(reinterpret_cast<void *>(&log_to_android), &info) && info.dli_fname) {
+        dir = info.dli_fname;
+        dir = dir.substr(0, dir.find_last_of('/'));
+    }
+    LOGI("loading CPU backends from %s", dir.c_str());
+    ggml_backend_load_all_from_path(dir.empty() ? nullptr : dir.c_str());
+    if (ggml_backend_reg_count() == 0) LOGE("no CPU backend loaded from %s", dir.c_str());
+#endif
     llama_backend_init();
     LOGI("backend ready: %s", llama_print_system_info());
 }

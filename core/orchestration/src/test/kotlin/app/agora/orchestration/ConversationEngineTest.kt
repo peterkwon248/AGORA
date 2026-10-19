@@ -225,4 +225,21 @@ class ConversationEngineTest {
         assertEquals("결과로만 재면 노력은 늘 빚지는 셈이오.", c.text)
         assertEquals(2, p.requests.size)
     }
+
+    @Test
+    fun `검사가 손댄 답은 onGuard로 기록되고 손대지 않은 답은 기록되지 않는다`() = runTest {
+        val notes = mutableListOf<GuardNote>()
+        val p = DemoInferenceProvider(mapOf("schopenhauer" to listOf("좋은 커피는 드물지요. 오늘은 운이 좋으셨습니다.", "맛이 기억에 남는 날은 드물지요.")))
+        ConversationEngine(registry, p, onGuard = { notes += it }).run("r", RoomKind.DM, "ko",
+            TurnInput(RoomKind.DM, listOf(Member("schopenhauer"))), coffee, 1, { 1 }).toList()
+        val n = notes.single()
+        assertEquals("COPIED_EXAMPLE", n.issue)
+        assertEquals("", n.after)
+        assertTrue(n.regenerated)
+
+        notes.clear()
+        ConversationEngine(registry, DemoInferenceProvider(mapOf(null to listOf("커피 맛이 좋은 날은 걸음도 가볍소."))), onGuard = { notes += it })
+            .run("r", RoomKind.DM, "ko", TurnInput(RoomKind.DM, listOf(Member("nietzsche"))), coffee, 1, { 1 }).toList()
+        assertTrue(notes.isEmpty())
+    }
 }

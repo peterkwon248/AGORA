@@ -17,7 +17,8 @@ android {
             cmake {
                 arguments += listOf(
                     "-DCMAKE_BUILD_TYPE=Release",
-                    "-DBUILD_SHARED_LIBS=OFF",
+                    // arm64는 llama.cpp를 여러 .so로 나눠 만든다(CMakeLists.txt) — C++ 표준 라이브러리는 하나를 같이 쓴다
+                    "-DANDROID_STL=c++_shared",
                     "-DLLAMA_BUILD_COMMON=ON",
                     "-DLLAMA_BUILD_TESTS=OFF",
                     "-DLLAMA_BUILD_TOOLS=OFF",
@@ -28,8 +29,7 @@ android {
                     "-DGGML_NATIVE=OFF",
                     "-DGGML_OPENMP=OFF",
                     "-DGGML_LLAMAFILE=OFF",
-                    // 2019년 이후 거의 모든 안드로이드 칩이 가진 명령어까지만 쓴다
-                    "-DGGML_CPU_ARM_ARCH=armv8.2-a+dotprod+fp16",
+                    // CPU 명령어는 고정하지 않는다 — 칩에 맞는 판을 실행 중에 고른다(CMakeLists.txt)
                 )
             }
         }

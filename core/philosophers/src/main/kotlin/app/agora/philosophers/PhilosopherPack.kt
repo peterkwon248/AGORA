@@ -79,7 +79,20 @@ data class Persona(
      * 화면에 보이지 않고 프롬프트에만 들어간다. 실제 저작 인용이 아니라 이 앱이 만든 문장이어야 한다.
      */
     val examples: LocalizedList = LocalizedList(),
+    /**
+     * 한국어 끝맺음 규칙. `hao`이면 생성 후 검사가 반말 끝맺음(「~겠지.」「~이지.」「~군.」)을 하오체로 바꾼다.
+     * 프롬프트만으로는 작은 모델(Gemma 4 E2B)이 하오체를 지키지 못했다 — 니체 답 문장 약 330개 중 24개가 반말.
+     */
+    @SerialName("ko_register") val koRegister: KoRegister = KoRegister.FREE,
 )
+
+@Serializable
+enum class KoRegister {
+    /** 끝맺음을 고치지 않는다(존댓말이 섞이는 말투 등) */
+    @SerialName("free") FREE,
+    /** 하오체(~하오, ~이오, ~겠소) */
+    @SerialName("hao") HAO,
+}
 
 @Serializable
 enum class Level {

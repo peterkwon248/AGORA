@@ -7,6 +7,7 @@ import app.agora.inference.InferenceProvider
 import app.agora.inference.ollama.LlamaServerProvider
 import app.agora.inference.ollama.OllamaProvider
 import app.agora.orchestration.ConversationEngine
+import app.agora.orchestration.GuardNote
 import app.agora.philosophers.PhilosopherRegistry
 import kotlinx.coroutines.runBlocking
 import java.io.File
@@ -33,13 +34,15 @@ fun main(args: Array<String>) = runBlocking {
     val registry = PhilosopherRegistry.load(packs)
     check(registry.rejected.isEmpty()) { "팩 오류: ${registry.rejected}" }
     val stamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+    val guardNotes = mutableListOf<GuardNote>()
     val text = runEval(
-        ConversationEngine(registry, provider), registry,
+        ConversationEngine(registry, provider, onGuard = { guardNotes += it }), registry,
         title = "PC 시험 대화 — $label ($stamp)",
         note = note,
         clock = { System.nanoTime() / 1_000_000 },
         cases = if (args.lastOrNull() == "light") LIGHT_CASES else EVAL_CASES,
         onCaseDone = { print(".") },
+        takeGuardNotes = { guardNotes.toList().also { guardNotes.clear() } },
     )
     val dir = File("qa/pc-runs").apply { mkdirs() }
     val file = File(dir, "${LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmm"))}-${label.replace(Regex("[^A-Za-z0-9.]"), "_")}.md")

@@ -1,5 +1,7 @@
 package app.agora.orchestration
 
+import app.agora.philosophers.KoRegister
+
 /**
  * 생성 후 검사. 모델이 낸 답에서 저장하면 안 되는 부분을 찾는다.
  * PC 시험(qwen2.5:7b, 2026-10-14~15)에서 실제로 나온 것만 다룬다:
@@ -8,9 +10,13 @@ package app.agora.orchestration
  * - 깨진 글자(U+FFFD, 「showc�포하우어」)
  * - 팩의 말투 예시를 그대로 베낌(「좋은 커피는 드물지요. 오늘은 운이 좋으셨습니다.」)
  * - 자기를 3인칭으로 부름(니체가 「니체는 이런 질문에 … 답변했을지도」), 앱 내부 말(「@니체」, 「사용자에게」)
+ * 노트북 Gemma 4 E2B(기기 안 모델, 2026-10-20)에서 더 나온 것:
+ * - 앞사람 문장을 거의 그대로 되풀이(「날씨가 좋으니 잠시라도 그 기분을 음미하는 것도 나쁘지 않지요」 세 사람 연속)
+ * - 「그렇소.」「그렇지요.」 같은 맞장구 한 마디로 시작(깊은 대화 답 60개 중 12개)
+ * - 엉터리 어미(「~에 지나지하지요」 — 답 60개 중 2개)
  */
 
-internal enum class GuardIssue { CONTAMINATED, BROKEN_TEXT, SELF_THIRD_PERSON, COPIED_EXAMPLE }
+internal enum class GuardIssue { CONTAMINATED, BROKEN_TEXT, SELF_THIRD_PERSON, COPIED_EXAMPLE, ECHOED_PREVIOUS }
 
 /**
  * @property text 저장해도 되는 부분(잘라 내고 남은 것). 비어 있을 수 있다.
@@ -109,6 +115,78 @@ internal fun stripEchoOpeners(text: String, locale: String): String {
     }
 }
 
+/**
+ * 앞 대화 줄을 되풀이했다고 보는 기준: 겹친 연속 조각이 [ECHO_MIN_CHARS]글자 이상이면서 그 문장의 [ECHO_MIN_SHARE] 이상.
+ * 노트북 E2B 기록(2026-10-20)으로 정했다 — 되풀이 답은 문장의 70~96%가 앞 줄과 같았고,
+ * 앞말의 한 구절을 받아 반박한 답(「그저 맛있는 것을 먹는 것에서 오는 만족감은 일시적인 것뿐이지요」 63%,
+ * 「It confirms the cage because…」 21%)은 길이만 보면 15글자를 넘겨 잘못 빠졌다.
+ */
+private const val ECHO_MIN_CHARS = 12
+private const val ECHO_MIN_SHARE = 0.7
+
+/** 두 글이 공유하는 가장 긴 연속 조각의 길이(공백·부호 뺀 글자). */
+internal fun longestCommonRun(a: String, b: String): Int {
+    val x = norm(a); val y = norm(b)
+    if (x.isEmpty() || y.isEmpty()) return 0
+    var prev = IntArray(y.length + 1)
+    var best = 0
+    for (i in 1..x.length) {
+        val cur = IntArray(y.length + 1)
+        for (j in 1..y.length) if (x[i - 1] == y[j - 1]) { cur[j] = prev[j - 1] + 1; if (cur[j] > best) best = cur[j] }
+        prev = cur
+    }
+    return best
+}
+
+/** 바로 앞 대화 줄들을 거의 그대로 옮긴 문장들. */
+internal fun echoedSentences(text: String, recent: List<String>): List<String> =
+    if (recent.isEmpty()) emptyList()
+    else splitSentences(text).filter { s ->
+        val len = norm(s).length
+        recent.any { val run = longestCommonRun(s, it); run >= ECHO_MIN_CHARS && run >= len * ECHO_MIN_SHARE }
+    }
+
+/** 답 첫머리의 맞장구 한 마디(「그렇소.」「그렇지요.」「Indeed.」). 뒤에 할 말이 있을 때만 뗀다. */
+private val BARE_AGREE = Regex("^(?:그렇소|그렇지요|그렇군요|그렇습니다|그렇지|맞소|맞습니다|맞아|옳소|Indeed|Yes|True)[.!,…]*$", RegexOption.IGNORE_CASE)
+
+internal fun stripBareAgreement(text: String): String {
+    val s = splitSentences(text)
+    return if (s.size >= 2 && BARE_AGREE.matches(s.first())) s.drop(1).joinToString(" ") else text
+}
+
+/**
+ * 작은 모델이 자주 틀리는 어미를 바로잡는다. 뜻이 분명한 것만 — 「~에 지나지 않다」를 「지나지하다」로 쓴 것.
+ * 말투 판단(하오체·존댓말)은 하지 않는다. 그건 팩의 몫이다.
+ */
+private val BROKEN_ENDINGS_KO = listOf(
+    Regex("지나지\\s?하지요") to "지나지 않지요",
+    Regex("지나지\\s?합니다") to "지나지 않습니다",
+    Regex("지나지\\s?하오") to "지나지 않소",
+    Regex("지나지\\s?한다") to "지나지 않는다",
+)
+
+internal fun fixBrokenEndings(text: String, locale: String): String =
+    if (locale == "en") text else BROKEN_ENDINGS_KO.fold(text) { t, (r, w) -> t.replace(r, w) }
+
+/** 문장 끝의 반말 「~지」「~군」(뒤에 문장부호). 「~지요」는 해요체라 건드리지 않는다. */
+private val BANMAL_END = Regex("([\uAC00-\uD7A3])(지|군)(?=[.?!…]|$)")
+
+/**
+ * 하오체 철학자([KoRegister.HAO])의 반말 끝맺음을 하오체로 바꾼다. 문장 끝만 본다.
+ * - 「~지」: 앞 글자에 받침이 있으면 「~소」(겠지→겠소, 않지→않소), 없으면 「~오」(이지→이오, 하지→하오)
+ * - 「~군」: 「~구려」(하는군→하는구려, 오더군→오더구려)
+ */
+internal fun fixRegister(text: String, locale: String, register: KoRegister): String {
+    if (locale == "en" || register != KoRegister.HAO) return text
+    return splitSentences(text).joinToString(" ") { s ->
+        // 뒤에 문장부호나 끝이 와야 맞는다 — 문장 중간의 「가지가」「군대」는 건드리지 않는다.
+        val m = BANMAL_END.findAll(s).lastOrNull() ?: return@joinToString s
+        val prev = m.groupValues[1][0]
+        val ending = if (m.groupValues[2] == "군") "구려" else if ((prev.code - 0xAC00) % 28 != 0) "소" else "오"
+        s.substring(0, m.range.first) + prev + ending + s.substring(m.range.last + 1)
+    }
+}
+
 /** 자기 이름을 3인칭으로 쓴 문장(「니체는 …라고 답했을지도」, 니체가 쓴 「니체의 말이 인상적이네요」). */
 internal fun selfThirdPersonSentences(text: String, selfNames: List<String>): List<String> {
     val names = selfNames.filter { it.isNotBlank() }
@@ -117,12 +195,17 @@ internal fun selfThirdPersonSentences(text: String, selfNames: List<String>): Li
 }
 
 /**
- * 답 하나를 검사한다. 순서: 앱 내부 말 고치기 → 오염 지점에서 자르기 → 깨진 글자 → 자기 3인칭 → 예시 베끼기.
+ * 답 하나를 검사한다. 순서: 앱 내부 말·어미 고치기 → 오염 지점에서 자르기 → 깨진 글자 → 자기 3인칭 → 앞말 되풀이 → 맞장구 떼기 → 예시 베끼기.
  * 잘라 낸 뒤 남는 것은 마지막 완결 문장까지만 둔다(문장이 중간에 끊긴 채 저장되지 않게).
  * @param selfNames 말하는 철학자 자신의 이름들 — 답에 나오면 자기를 남처럼 부른 것이다.
+ * @param recent 바로 앞 대화 줄들 — 이것을 거의 그대로 옮긴 문장은 뺀다.
+ * @param register 팩의 한국어 끝맺음 규칙([fixRegister])
  */
-internal fun guardReply(text: String, locale: String, examples: List<String>, selfNames: List<String> = emptyList()): Guarded {
-    var t = replaceAppWords(text, locale).trim()
+internal fun guardReply(
+    text: String, locale: String, examples: List<String>, selfNames: List<String> = emptyList(),
+    recent: List<String> = emptyList(), register: KoRegister = KoRegister.FREE,
+): Guarded {
+    var t = fixRegister(fixBrokenEndings(replaceAppWords(text, locale), locale), locale, register).trim()
     var issue: GuardIssue? = null
     contaminationIndex(t, locale)?.let { idx ->
         val head = t.substring(0, idx)
@@ -140,7 +223,12 @@ internal fun guardReply(text: String, locale: String, examples: List<String>, se
         t = splitSentences(t).filter { it !in third }.joinToString(" ")
         issue = issue ?: GuardIssue.SELF_THIRD_PERSON
     }
-    t = stripEchoOpeners(t, locale)
+    val echoed = echoedSentences(t, recent).toSet()
+    if (echoed.isNotEmpty()) {
+        t = splitSentences(t).filter { it !in echoed }.joinToString(" ")
+        issue = issue ?: GuardIssue.ECHOED_PREVIOUS
+    }
+    t = stripBareAgreement(stripEchoOpeners(t, locale))
     val withCopies = t
     val copied = copiedSentences(t, examples)
     if (copied.isNotEmpty()) {

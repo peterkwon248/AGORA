@@ -32,6 +32,15 @@ sealed interface FlowEvent {
 }
 
 /**
+ * 생성 후 검사가 답을 손댄 기록(시험 도구용). 화면·저장에는 쓰지 않는다.
+ * @property attempt 0 = 첫 생성, 1 = 다시 생성
+ * @property issue 다시 생성할 이유([GuardIssue] 이름). null이면 고치거나 잘라 낸 뒤 그대로 썼다.
+ * @property before 검사 전 답, [after] 검사 뒤 남은 답(빈 문자열이면 남은 게 없음)
+ * @property regenerated 이 기록 뒤에 다시 생성했는지
+ */
+data class GuardNote(val speakerId: String, val attempt: Int, val issue: String?, val before: String, val after: String, val regenerated: Boolean)
+
+/**
  * Sprint 0 최소 대화 엔진: 사용자 메시지 하나에 대한 한 흐름(직접 답 → 자율 이어 말하기).
  * - 각 차례 전에 [currentRevision]이 시작 때와 같은지 확인한다(설계서 20.5: 최신 사용자 메시지 우선).
  * - 완성된 생성만 [FlowEvent.Committed]로 내보낸다. 취소·실패한 부분 문장은 저장하지 않는다.
@@ -43,6 +52,8 @@ class ConversationEngine(
     private val composer: PromptComposer = PromptComposer(registry),
     private val maxOutputTokens: Int = 200,
     private val deadlineMs: Long = 60_000,
+    /** 검사가 답을 손댈 때마다 불린다 — 시험 기록이 '검사가 실제로 일했는지' 보이게. */
+    private val onGuard: (GuardNote) -> Unit = {},
 ) {
     fun run(
         roomId: String,
@@ -121,9 +132,13 @@ class ConversationEngine(
                 val raw = outcome.text
                 if (raw == null) { attempted += speakerId; emit(FlowEvent.Failed(speakerId, outcome.terminal)); return false }
                 if (isPassReply(raw)) { text = ""; break }
-                val g = guardReply(cleanReply(raw), locale, examples, selfNames)
+                val cleaned = cleanReply(raw)
+                // 바로 앞 두 줄과 견준다 — 작은 모델이 앞사람 문장을 거의 그대로 되풀이했다.
+                val g = guardReply(cleaned, locale, examples, selfNames, recent = log.takeLast(2).map { it.text }, register = pack.persona.koRegister)
                 // 걸린 부분을 빼고도 할 말이 남으면 그것으로 충분하다 — 다시 생성은 기기에서 몇십 초가 든다.
-                if (g.issue == null || g.text.isNotEmpty()) { text = g.text; break }
+                val done = g.issue == null || g.text.isNotEmpty()
+                if (g.issue != null || g.text != cleaned.trim()) onGuard(GuardNote(speakerId, attempt, g.issue?.name, cleaned.trim(), g.text, regenerated = !done && attempt == 0))
+                if (done) { text = g.text; break }
                 if (attempt++ == 0) { avoid = avoid + g.copied; continue }
                 // 다시 생성해도 걸렸다: 저장해도 되는 부분만 남긴다. 베끼기만 남았으면 침묵보다 베낀 답이 낫다.
                 text = g.text.ifEmpty { if (g.copied.isNotEmpty()) g.withCopies else "" }
