@@ -48,11 +48,11 @@ fun validatePack(p: PhilosopherPack): List<String> = buildList {
         if (topic !in TOPIC_KEYS) add("persona.topic_affinity '$topic' — 모르는 화제(${TOPIC_KEYS.sorted().joinToString("/")})")
         if (w.isNaN() || w < 0.0 || w > 1.0) add("persona.topic_affinity.$topic $w — 0~1 범위 밖")
     }
-    for ((loc, list) in listOf("ko" to p.persona.examples.ko, "en" to p.persona.examples.en)) {
-        if (list.size > MAX_EXAMPLES_PER_LOCALE) add("persona.examples.$loc ${list.size}개 — 최대 $MAX_EXAMPLES_PER_LOCALE")
+    for ((key, ex) in listOf("examples" to p.persona.examples, "light_examples" to p.persona.lightExamples)) for ((loc, list) in listOf("ko" to ex.ko, "en" to ex.en)) {
+        if (list.size > MAX_EXAMPLES_PER_LOCALE) add("persona.$key.$loc ${list.size}개 — 최대 $MAX_EXAMPLES_PER_LOCALE")
         list.forEachIndexed { i, s ->
-            if (s.isBlank()) add("persona.examples.$loc[$i] 비어 있음")
-            if (s.length > MAX_EXAMPLE_CHARS) add("persona.examples.$loc[$i] ${s.length}자 — 최대 $MAX_EXAMPLE_CHARS")
+            if (s.isBlank()) add("persona.$key.$loc[$i] 비어 있음")
+            if (s.length > MAX_EXAMPLE_CHARS) add("persona.$key.$loc[$i] ${s.length}자 — 최대 $MAX_EXAMPLE_CHARS")
         }
     }
 

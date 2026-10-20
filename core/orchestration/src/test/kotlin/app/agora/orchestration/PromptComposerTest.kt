@@ -65,6 +65,20 @@ class PromptComposerTest {
     }
 
     @Test
+    fun `가벼운 말에는 가벼운 말 예시에서만 고르고 깊은 말에는 보통 예시를 쓴다`() {
+        // 노트북 E2B: 가벼운 말에도 보통 예시에서 고르니 「기쁨은 생각보다 짧습니다」만 남아 「덧없는 만족」으로 받았다
+        val sh = registry.require("schopenhauer").persona
+        val heavyOnly = sh.examples.ko - sh.lightExamples.ko.toSet()
+        val light = all(compose("schopenhauer"))
+        assertTrue(heavyOnly.none { it in light }, "가벼운 말에 보통 예시가 들어갔다")
+        assertEquals(MAX_EXAMPLES, sh.lightExamples.ko.count { it in light })
+        val deep = listOf(TranscriptLine(null, "열심히 해도 다 의미 없는 것 같아."))
+        val sys = composer.compose(registry.require("schopenhauer"), "ko", deep, RoomKind.GROUP, listOf("nietzsche"), null, true, DebateIntensity.BALANCED, false).let(::all)
+        assertEquals(MAX_EXAMPLES, sh.examples.ko.count { it in sys })
+        assertTrue((sh.lightExamples.ko - sh.examples.ko.toSet()).none { it in sys }, "깊은 말에 가벼운 말 예시가 들어갔다")
+    }
+
+    @Test
     fun `다시 생성할 때 빼라고 한 예시는 넣지 않는다`() {
         val ex = registry.require("nietzsche").persona.examples.ko
         val first = composer.compose(registry.require("nietzsche"), "ko", transcript, RoomKind.GROUP, listOf("schopenhauer"), null, true, DebateIntensity.BALANCED, false)

@@ -27,8 +27,10 @@ private const val RECENT_LINES = 3
  * - 늘 넣고 '커피·날씨…' 같은 예를 들었더니 멘션 질문에 「오늘 날씨가 꽤 쌀쌀하오」라고 화제를 지어냈다 → 조건부, 예 없음.
  * - '친구처럼'이라고 했더니 니체가 하오체를 버리고 반말로 흘렀다(「나쁘지 않지.」 — 가벼운 말 15개 중 3개) → '편하게', 말투는 지킨다고 덧붙임.
  * - 쇼펜하우어에게 '생각이 다르면 「그렇지 않습니다」' 성향을 넣었더니 가벼운 말에도 「덧없지요」로 받았다(75개 중 2 → 6) → '따지거나 반박하지 말고'.
+ * - 「고통·덧없음·의지… 같은 말을 쓰지 말고」라고 낱말을 늘어놓으면 오히려 그 결로 받았다 → 낱말 목록을 빼고 '그 일 자체에 대해서만'
+ *   (팩 `light_examples`와 함께, 쇼펜하우어 답 40개 중 덧없음 결 24 → 12 — 노트북 E2B). 영어 판은 아직 재지 않아 그대로 둔다.
  */
-internal const val LIGHT_KO = "대화 상대는 가벼운 일상 이야기를 꺼냈습니다. 앞사람이 무겁게 받았더라도 그 가벼운 결로 돌아가세요. 고통·덧없음·의지·욕망·영원 같은 말을 쓰지 말고, 따지거나 반박하지도 말고 편하게 짧게 받거나 하나만 물으세요. 말투는 그대로 지키세요."
+internal const val LIGHT_KO = "대화 상대는 가벼운 일상 이야기를 꺼냈습니다. 앞사람이 무겁게 받았더라도 그 가벼운 결로 돌아가세요. 오늘 있었던 그 일 자체에 대해서만, 따지거나 반박하지 말고 편하게 짧게 받거나 하나만 물으세요. 말투는 그대로 지키세요."
 internal const val LIGHT_EN = "Your chat partner brought up something light and everyday. Keep it light even if the previous speaker got heavy. Avoid words like suffering, futility, will, desire, eternity, and don't argue; respond briefly like a friend or ask one simple question."
 
 /**
@@ -55,7 +57,11 @@ class PromptComposer(private val registry: PhilosopherRegistry) {
         // - 논쟁 강도 규칙은 방 설정이라 SYSTEM에 둔다. 마지막 요청 근처로 옮겼더니 가벼운 말에도 따지며 무거워졌다
         //   (노트북 E2B, 가벼운 말 75개 중 철학 낱말 6 → 15).
         // - 차례마다 바뀌는 좁은 규칙(지금은 반박 말기·침묵 신호)만 대화 기록 뒤, 마지막 요청 앞에 둔다.
-        val examples = pickExamples(speaker.persona.examples.get(locale) - avoidExamples, transcript.filter { it.authorId == null }.takeLast(1))
+        // 가벼운 말이면 팩의 가벼운 말 예시(있을 때)에서 고른다 — 판단 기준이 대화 상대의 마지막 말이라 한 흐름 안에서 같다.
+        val lastUser = transcript.filter { it.authorId == null }.takeLast(1)
+        val light = speaker.persona.lightExamples.get(locale)
+        val pool = if (light.isNotEmpty() && LightTalk.isLight(lastUser.firstOrNull()?.text.orEmpty())) light else speaker.persona.examples.get(locale)
+        val examples = pickExamples(pool - avoidExamples, lastUser)
         return listOf(
             PromptMessage(PromptRole.SYSTEM, system(speaker, locale, roomKind, otherMembers, intensity, examples)),
             PromptMessage(PromptRole.USER, conversation(speaker, locale, transcript, respondTo, turnRules(locale, debateAllowed, mayPass))),

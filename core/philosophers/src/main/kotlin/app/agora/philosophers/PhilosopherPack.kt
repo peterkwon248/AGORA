@@ -80,6 +80,12 @@ data class Persona(
      */
     val examples: LocalizedList = LocalizedList(),
     /**
+     * 가벼운 일상 말([examples]와 같은 규칙)에만 쓰는 말투 예시. 비어 있으면 [examples]에서 고른다.
+     * 가벼운 말에서도 [examples]에서 고르니, 커피 이야기에는 커피 예시가 빠지고 「기쁨은 생각보다 짧습니다」 같은
+     * 무거운 예시만 남아 쇼펜하우어가 「덧없는 만족」으로 받았다(노트북 Gemma 4 E2B, 가벼운 말 75개 중 5).
+     */
+    @SerialName("light_examples") val lightExamples: LocalizedList = LocalizedList(),
+    /**
      * 한국어 끝맺음 규칙. `hao`이면 생성 후 검사가 반말 끝맺음(「~겠지.」「~이지.」「~군.」)을 하오체로 바꾼다.
      * 프롬프트만으로는 작은 모델(Gemma 4 E2B)이 하오체를 지키지 못했다 — 니체 답 문장 약 330개 중 24개가 반말.
      */
