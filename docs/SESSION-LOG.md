@@ -141,7 +141,7 @@ PR #4(`claude/reply-guards`) → `c7ef499`, PR #5(`claude/voice-fixes`) → `137
 ### 커밋
 브랜치 `claude/voice-pass2` → PR.
 
-## 2026-10-21 · 세션 7 — 가벼운 말 예시 (KWONKYUNGHUN, Claude Code)
+## 2026-10-21 · 세션 7 — 가벼운 말 예시 · 흘러나오는 화면 손질 (KWONKYUNGHUN, Claude Code)
 
 ### 한 일
 1. `/before-work`(이 세션엔 명령이 없어 손으로): main 최신(#11), 모델 4개·llama.cpp 있음, 휴대폰 미연결, 열린 PR 없음. 원격 제어는 자동 권한 판정이 막아 못 켰다.
