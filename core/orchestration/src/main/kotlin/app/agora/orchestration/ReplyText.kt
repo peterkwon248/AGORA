@@ -1,5 +1,7 @@
 package app.agora.orchestration
 
+import app.agora.philosophers.KoRegister
+
 /**
  * 모델 답 문자열을 다루는 규칙 모음. 완성된 답([isPassReply]·[cleanReply])과
  * 스트리밍 중인 부분 답([displayablePartial])이 **같은 규칙**을 쓰게 해서, 커밋될 때 화면이 튀지 않게 한다.
@@ -29,15 +31,16 @@ internal fun cleanReply(raw: String): String {
  * - `[니체] `·`니체: ` 같은 이름표가 될 수 있는 첫 어절은 끝날 때까지 보류한다.
  * - 끝에 붙기 시작한 `[PASS]` 조각은 잘라 낸다.
  * - 다른 언어·남의 이름표가 시작되면 그 앞까지만 보여 준다([visibleBeforeContamination]).
+ * - 저장 때 고칠 끝맺음·맞장구는 화면에서도 미리 고친다([polishPartial]).
  */
-internal fun displayablePartial(raw: String, locale: String): String? {
+internal fun displayablePartial(raw: String, locale: String, register: KoRegister = KoRegister.FREE): String? {
     val t = raw.trimStart()
     if (t.contains(PASS_TOKEN) || mayBecomePass(t)) return null
     if (t.startsWith("[") && !t.contains(']') && t.length <= 21) return null
     val firstRun = t.takeWhile { !it.isWhitespace() && it != ':' && it != '：' }
     if (firstRun.length == t.length && t.length <= 12) return null
     val cut = (PASS_TOKEN.length - 1 downTo 1).firstOrNull { k -> t.endsWith(PASS_TOKEN.substring(0, k)) } ?: 0
-    return visibleBeforeContamination(cleanReply(t.dropLast(cut)), locale).ifEmpty { null }
+    return visibleBeforeContamination(cleanReply(t.dropLast(cut)), locale).ifEmpty { null }?.let { polishPartial(it, locale, register) }
 }
 
 private fun mayBecomePass(s: String): Boolean {
