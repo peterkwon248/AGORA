@@ -159,4 +159,4 @@ PR #4(`claude/reply-guards`) → `c7ef499`, PR #5(`claude/voice-fixes`) → `137
    - 노트북 E2B 답 70개: 저장 순간에 바뀐 답 8 → 0 ([기록](../qa/pc-runs/20261021-stream-polish.md)). 문장 통째로 빼기는 손대지 않음.
 
 ### 커밋
-브랜치 `claude/light-examples` → PR #12, `claude/stream-polish`(#12 위에) → PR #13.
+브랜치 `claude/light-examples` → PR #12, `claude/stream-polish` → PR #13. 사장님 승인으로 둘 다 squash 병합(2026-10-21).
