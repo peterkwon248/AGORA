@@ -79,6 +79,10 @@ suspend fun runEval(
     var heavy = 0
     val guardTotals = mutableMapOf<String, Int>()
     var regenerated = 0
+    // 흘러나오던 글이 저장 순간에 바뀐 답 — 화면에 보인 모습 중 저장된 답의 앞부분이 아니었던 것이 있으면 센다(글자·숫자만 비교).
+    var flickered = 0
+    val flickerLines = mutableListOf<String>()
+    fun norm(t: String) = t.filter { it.isLetterOrDigit() }
     for (c in cases) {
         val name = { id: String? -> if (id == null) (if (c.locale == "en") "User" else "나") else registry.require(id).display.name.get(c.locale) }
         out.appendLine("## ${c.id}")
@@ -90,20 +94,28 @@ suspend fun runEval(
         val started = clock()
         var turnStart = started
         var gotToken = false
+        val views = mutableListOf<String>()
         engine.run("eval-room", RoomKind.GROUP, c.locale,
             TurnInput(RoomKind.GROUP, members, mentions = c.mentions, signals = c.signals, policy = c.policy),
             listOf(TranscriptLine(null, c.text)), 1, { 1 },
         ).collect { e ->
             when (e) {
-                is FlowEvent.Typing -> { turnStart = clock(); gotToken = false }
-                is FlowEvent.Token -> if (!gotToken) { gotToken = true; firstTokenMs += clock() - turnStart }
+                is FlowEvent.Typing -> { turnStart = clock(); gotToken = false; views.clear() }
+                is FlowEvent.Token -> { views += e.text; if (!gotToken) { gotToken = true; firstTokenMs += clock() - turnStart } }
                 is FlowEvent.Committed -> {
+                    views.firstOrNull { !norm(e.text).startsWith(norm(it)) }?.let {
+                        flickered++
+                        flickerLines += "${c.id} · ${name(e.speakerId)}: 「$it」 → 「${e.text}」".replace('\n', ' ')
+                    }
                     val hits = PHILOSOPHY_WORDS.filter { it in e.text }
                     replies++
                     if (hits.isNotEmpty()) heavy++
                     out.appendLine("**[${name(e.speakerId)}]**${if (e.autonomous) " ↪" else ""} ${e.text}${if (hits.isNotEmpty()) " `철학 낱말: ${hits.joinToString()}`" else ""}\n")
                 }
-                is FlowEvent.Silent -> out.appendLine("_(${name(e.speakerId)} 침묵)_\n")
+                is FlowEvent.Silent -> {
+                    if (views.isNotEmpty()) { flickered++; flickerLines += "${c.id} · ${name(e.speakerId)}: 「${views.last()}」 → (침묵)" }
+                    out.appendLine("_(${name(e.speakerId)} 침묵)_\n")
+                }
                 is FlowEvent.Failed -> out.appendLine("❌ ${name(e.speakerId)} 생성 실패: ${e.event}\n")
                 is FlowEvent.Finished -> out.appendLine("_자율 차례 ${e.autonomousTurnsUsed}개 사용 · ${"%.1f".format((clock() - started) / 1e3)}초_\n")
                 else -> Unit
@@ -132,6 +144,9 @@ suspend fun runEval(
     out.appendLine("철학 낱말이 든 답: ${replies}개 중 ${heavy}개")
     out.appendLine()
     val guardTotal = guardTotals.values.sum()
+    out.appendLine("흘러나오던 글이 저장 순간에 바뀐 답: ${replies}개(+침묵) 중 ${flickered}개")
+    for (l in flickerLines) out.appendLine("- $l")
+    out.appendLine()
     out.appendLine("생성 후 검사가 손댄 답: ${guardTotal}개${if (guardTotal > 0) " (" + guardTotals.entries.joinToString { "${it.key} ${it.value}" } + ")" else ""} · 그 때문에 다시 생성: ${regenerated}번")
     out.appendLine()
     if (firstTokenMs.isNotEmpty()) {

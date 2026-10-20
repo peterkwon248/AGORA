@@ -242,3 +242,28 @@ internal fun guardReply(
 /** 스트리밍 화면용: 오염이 시작되면 그 앞까지만 보여 준다(중국어가 깜빡 보였다 사라지지 않게). */
 internal fun visibleBeforeContamination(text: String, locale: String): String =
     contaminationIndex(text, locale)?.let { text.substring(0, it).trimEnd() } ?: text
+
+/** 다음 조각에 따라 고칠지가 갈리는 끝 — 다음 조각이 올 때까지 화면에 내지 않는다(「사용」→「사용자」, 「지나지하」→「지나지하지요」). */
+private val PENDING_TAIL_KO = Regex("(?:사용|지나지 ?하?)$")
+/** 하오체 팩에서 끝에 막 붙은 「지」「군」 — 「겠지」로 끝날지 「겠지만」으로 이어질지 아직 모른다. */
+private val PENDING_BANMAL = Regex("(?<=[가-힣])[지군]$")
+
+/**
+ * 스트리밍 화면용: 저장할 때 [guardReply]가 고칠 것 중 **글자 단위로 고치는 것**을 화면에서도 미리 고친다.
+ * 전에는 「~겠지」가 흘러나오다 저장 때 「~겠소」로, 「그렇소.」가 보였다가 사라졌다(세션 6 기록).
+ * - 앱 내부 말·엉터리 어미·하오체 끝맺음: 같은 함수로 고친다. 갈림길에 선 끝 글자는 다음 조각까지 보류.
+ * - 첫머리 맞장구 한 마디: 그 한 문장뿐이면 보류, 다음 문장이 시작되면 떼고 보여 준다.
+ * 문장을 통째로 빼는 검사(베끼기·되풀이·자기 3인칭)는 답이 끝나야 판단할 수 있어 여기서 하지 않는다.
+ * @return 보여 줄 글. 지금은 아무것도 보여 주면 안 되면 null.
+ */
+internal fun polishPartial(text: String, locale: String, register: KoRegister): String? {
+    var t = text
+    if (locale != "en") {
+        t = t.replace(PENDING_TAIL_KO, "")
+        if (register == KoRegister.HAO) t = t.replace(PENDING_BANMAL, "")
+    }
+    t = fixRegister(fixBrokenEndings(replaceAppWords(t, locale), locale), locale, register).trimEnd()
+    val s = splitSentences(t)
+    if (s.size == 1 && BARE_AGREE.matches(s[0])) return null
+    return stripBareAgreement(t).ifEmpty { null }
+}

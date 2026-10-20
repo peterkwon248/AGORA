@@ -122,7 +122,7 @@ class ConversationEngine(
                 var shown: String? = null
                 val outcome = provider.generate(req).collectOutcome { piece ->
                     partial.append(piece)
-                    val view = displayablePartial(partial.toString(), locale)
+                    val view = displayablePartial(partial.toString(), locale, pack.persona.koRegister)
                     if (view != null && view != shown) {
                         shown = view
                         emit(FlowEvent.Token(speakerId, view))
