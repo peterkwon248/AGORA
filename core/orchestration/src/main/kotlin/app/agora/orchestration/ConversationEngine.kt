@@ -91,7 +91,7 @@ class ConversationEngine(
             val pack = registry.get(speakerId) ?: return true
             val debateAllowed = debateTurnsLeft > 0
             val others = members.map { it.philosopherId }.filter { it != speakerId }
-            val examples = pack.persona.examples.get(locale)
+            val examples = pack.persona.examples.get(locale) + pack.persona.lightExamples.get(locale)
             val selfNames = listOf(pack.display.name.ko, pack.display.name.en).distinct()
             emit(FlowEvent.Typing(speakerId))
 
